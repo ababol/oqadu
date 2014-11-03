@@ -3,27 +3,23 @@ bricodata
 
 Leroy Merlin \o/
 
-Ionic
-=========
-Your Ionic project is ready to go! Some quick tips:
+#API
 
- * cd into your project: $ cd BricoData
+## Install
+- installer mongodb
+- lancer mongodb
+- cloner le repo
+- `cd bricodata`
+- `npm install`
+- `node app.js` (lances l'api -> il manquera p-e des dependances mais en principe cest assez clair quand cest le cas et suffit de npm install -g ladependance)
 
- * Setup this project to use Sass: ionic setup sass
+## Utiliser l'API
 
- * Develop in the browser with live reload: ionic serve
+On utilise un framework pour l'API, je vous invite à voir la doc officielle [https://github.com/florianholzapfel/express-restify-mongoose](https://github.com/florianholzapfel/express-restify-mongoose)
 
- * Add a platform (ios or Android): ionic platform add ios [android]
-   Note: iOS development requires OS X currently
-   See the Android Platform Guide for full Android installation instructions:
-   https://cordova.apache.org/docs/en/edge/guide_platforms_android_index.md.html
+Pour la création de table via mongoose, pareillement: http://mongoosejs.com/docs/guide.html
 
- * Build your app: ionic build <PLATFORM>
+Autrement il suffit d'ajouter vos fichiers dans https://github.com/ababol/bricodata/tree/master/app/models et en principe vous n'avez rien à modifier pour que votre nouvelle table soit accessible via l'url /api/v1/Manouvelletable
 
- * Simulate your app: ionic emulate <PLATFORM>
-
- * Run your app on a device: ionic run <PLATFORM>
-
- * Package an app using Ionic package service: ionic package <MODE> <PLATFORM>
-
-For more help use ionic --help or visit the Ionic docs: http://ionicframework.com/docs
+Exemple de requête CURL:
+`curl -i -X POST -H 'Content-Type: application/json' -d '{"name": "Arnaud"}' http://localhost:3000/api/v1/Users`
