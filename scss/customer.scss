@@ -20,3 +20,14 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
+
+// Include customer
+@import "scss/customer/button";
+
+.scroll {
+  height: 100%;
+}
+
+ion-nav-view {
+  background-color: white !important;
+}

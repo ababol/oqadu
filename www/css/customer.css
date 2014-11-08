@@ -7814,3 +7814,26 @@ $ios-transition-box-shadow-end: -200px 0px 200px rgba(0,0,0,0.15), -5px 0px 5px 
 .platform-c:not(.enable-transitions) * {
   -webkit-transition: none !important;
   transition: none !important; }
+
+.scroll > .button-large {
+  margin-top: 0 !important;
+  margin-bottom: 1%; }
+
+.invert {
+  color: #66cc33 !important;
+  background-color: white !important;
+  margin-bottom: 0 !important; }
+
+.button-large {
+  font-size: 2em;
+  height: 49%;
+  width: 100%;
+  align-items: center;
+  display: flex !important;
+  justify-content: center; }
+
+.scroll {
+  height: 100%; }
+
+ion-nav-view {
+  background-color: white !important; }

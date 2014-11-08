@@ -1,0 +1,21 @@
+.scroll {
+  > .button-large {
+    margin-top: 0 !important;
+    margin-bottom: 1%;
+  }
+}
+
+.invert {
+  color: $balanced !important;
+  background-color: white !important;
+  margin-bottom: 0 !important;
+}
+
+.button-large {
+  font-size: 2em;
+  height: 49%;
+  width: 100%;
+  align-items: center;
+  display: flex !important;
+  justify-content: center;
+}
