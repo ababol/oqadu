@@ -1,26 +1,50 @@
 angular.module('starter.services', [])
-
-/**
- * A simple example service that returns some data.
- */
-.factory('Friends', function() {
-  // Might use a resource here that returns a JSON array
-
-  // Some fake testing data
-  var friends = [
-    { id: 0, name: 'Scruff McGruff' },
-    { id: 1, name: 'G.I. Joe' },
-    { id: 2, name: 'Miss Frizzle' },
-    { id: 3, name: 'Ash Ketchum' }
-  ];
-
+.factory('Questions', function($http) {
   return {
     all: function() {
-      return friends;
+      return $http({
+        url: 'http://localhost:3000/api/v1/Questions',
+        method: 'GET'
+      });
     },
-    get: function(friendId) {
-      // Simple index lookup
-      return friends[friendId];
+    get: function(questionId) {
+      return $http({
+        url: 'http://localhost:3000/api/v1/Questions/'+questionId,
+        method: 'GET'
+      });
     }
-  }
+  };
+})
+
+.factory('Answers', function($http) {
+  return {
+    get: function(questionId) {
+      return $http({
+        url: 'http://localhost:3000/api/v1/Answers/?questionId='+questionId,
+        method: 'GET'
+      });
+    }
+  };
+})
+
+.factory('Recommendations', function($http) {
+  return {
+    get: function(answerId) {
+      return $http({
+        url: 'http://localhost:3000/api/v1/Recommendations/?answerId='+answerId,
+        method: 'GET'
+      });
+    }
+  };
+})
+
+.factory('Products', function($http) {
+  return {
+    get: function(productId) {
+      return $http({
+        url: 'http://localhost:3000/api/v1/Products/'+productId,
+        method: 'GET'
+      });
+    }
+  };
 });

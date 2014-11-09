@@ -1,0 +1,12 @@
+<ion-view title="Question: Étape lol">
+  <ion-content class="padding">
+    <div class="card">
+      <div class="item item-text-wrap">
+        {{question.text}}
+      </div>
+    </div>
+    <a ng-repeat="answer in answers" class="button button-outline button-balanced" href="#/{{answer.nextUrl}}">
+      {{answer.text}}
+    </a>
+  </ion-content>
+</ion-view>

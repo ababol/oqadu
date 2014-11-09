@@ -29,57 +29,43 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   // Each state's controller can be found in controllers.js
   $stateProvider
 
-    // setup an abstract state for the tabs directive
-    .state('tab', {
-      url: "/tab",
-      abstract: true,
-      templateUrl: "templates/customer/tabs.html"
-    })
-
-    // Each tab has its own nav history stack:
+    // Each tab has its own nav history stack
 
     .state('queue', {
       url: '/queue',
       templateUrl: 'templates/customer/queue.html'
     })
 
-    .state('tab.home', {
+    .state('queue-pos', {
+      url: '/queue-pos',
+      views: {
+        'queue-pos': {
+          templateUrl: 'templates/customer/queue-pos.html'
+        }
+      }
+    })
+
+    .state('question', {
+      url: '/question/:questionId',
+      templateUrl: 'templates/customer/question.html',
+      controller: 'QuestionCtrl'
+    })
+
+    .state('home', {
       url: '/home',
-      views: {
-        'tab-home': {
-          templateUrl: 'templates/customer/tab-home.html',
-          controller: 'HomeCtrl'
-        }
-      }
+      templateUrl: 'templates/customer/home.html'
     })
 
-    .state('tab.friends', {
-      url: '/friends',
-      views: {
-        'tab-friends': {
-          templateUrl: 'templates/customer/tab-friends.html',
-          controller: 'FriendsCtrl'
-        }
-      }
-    })
-    .state('tab.friend-detail', {
-      url: '/friend/:friendId',
-      views: {
-        'tab-friends': {
-          templateUrl: 'templates/customer/friend-detail.html',
-          controller: 'FriendDetailCtrl'
-        }
-      }
+    .state('recommendation', {
+      url: '/recommendation/:answerId',
+      templateUrl: 'templates/customer/recommendation.html',
+      controller: 'RecommendationCtrl'
     })
 
-    .state('tab.account', {
-      url: '/account',
-      views: {
-        'tab-account': {
-          templateUrl: 'templates/customer/tab-account.html',
-          controller: 'AccountCtrl'
-        }
-      }
+    .state('product', {
+      url: '/product/:productId',
+      templateUrl: 'templates/customer/product.html',
+      controller: 'ProductCtrl'
     });
 
   // if none of the above states are matched, use this as the fallback

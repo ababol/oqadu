@@ -27,11 +27,22 @@
         Back
       </ion-nav-back-button>
     </ion-nav-bar>
-    <!--
-      The views will be rendered in the <ion-nav-view> directive below
-      Templates are in the /templates folder (but you could also
-      have templates inline in this html file if you'd like).
-    -->
-    <ion-nav-view></ion-nav-view>
+    <ion-tabs class="tabs-icon-top">
+
+
+      <ion-tab title="Home" icon="icon ion-home" href="#/home">
+        <!--
+          The views will be rendered in the <ion-nav-view> directive below
+          Templates are in the /templates folder (but you could also
+          have templates inline in this html file if you'd like).
+        -->
+        <ion-nav-view></ion-nav-view>
+      </ion-tab>
+
+      <ion-tab title="File d'attente (4ème - 2min)" icon="ion-ios7-clock-outline" href="#/queue-pos">
+        <ion-nav-view name='queue-pos'></ion-nav-view>
+      </ion-tab>
+
+    </ion-tabs>
   </body>
 </html>

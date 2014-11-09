@@ -1,0 +1,51 @@
+db.questions.insert(
+   [
+     { _id: ObjectId("545f70d9946ea453ece17e7e"), text: "Sélectionnez une gamme de produit" },
+     { _id: ObjectId("545f70d9946ea453ece17e7f"), text: "Sélectionnez un type de peinture" }
+   ]
+)
+db.answers.insert(
+   [
+     { questionId: ObjectId("545f70d9946ea453ece17e7e"), text: "Peinture", nextUrl: "question/545f70d9946ea453ece17e7f" },
+     { questionId: ObjectId("545f70d9946ea453ece17e7e"), text: "Grillage", nextUrl: "question/545f70d9946ea453ece17e7e" },
+     {
+        _id: ObjectId("545f70d9946ea453ece17e80"),
+        questionId: ObjectId("545f70d9946ea453ece17e7f"),
+        text: "Façade",
+        nextUrl: "recommendation/545f70d9946ea453ece17e80"
+     }
+   ]
+)
+db.products.insert(
+   [
+     {
+        _id: ObjectId("545fc3da946ea453ece17e82"),
+        name: "Peinture murs et plafonds séjour/chambre, LUXENS, blanc satin, 10L",
+        img: "img/products/peinture-murs-et-plafonds-sejour-chambre-luxens-blanc-satin-10l.jpg",
+        info1: "Couleur",
+        info1_text: "Blanc",
+        info2: "Aspect",
+        info2_text: "Satin",
+        info3: "Nombre de couches",
+        info3_text: "Application en 2 couches"
+     }
+   ]
+)
+db.productreviews.insert(
+   [
+     {
+        productId: ObjectId("545fc3da946ea453ece17e82"),
+        score: 5,
+        title: "très satisfait",
+        text: "bjr un petit avis , je refait une cabine de peinture (carrosserie) inutile de préciser qu avec les années les murs étaient de toutes les couleurs après un léger poncage , j ai passé 2 couches de cette peinture dans la journée elle est maintenant comme neuve , très bon rapport qualité prix je recommande vivement ;) christ auto"
+     }
+   ]
+)
+db.recommendations.insert(
+   [
+     {
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+     }
+   ]
+)

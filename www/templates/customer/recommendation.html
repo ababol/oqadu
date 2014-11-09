@@ -1,0 +1,7 @@
+<ion-view title="Recommendation">
+  <ion-content class="padding">
+    <a ng-repeat="product in products" class="button button-outline button-balanced" href="#/product/{{product._id}}">
+      {{product.name}}
+    </a>
+  </ion-content>
+</ion-view>
