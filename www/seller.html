@@ -20,7 +20,7 @@
   </head>
   <body ng-app="starter" animation="slide-left-right-ios7">
     
-   <ion-side-menus>
+   <ion-side-menus ng-controller="MainCtrl">
       <!-- Center content -->
       <ion-side-menu-content>
         <ion-nav-view></ion-nav-view>
@@ -32,14 +32,10 @@
           <!-- if you need scroll and click in menu: has-header="true" scroll="true" overflow-scroll="true" -->
           <ion-content has-header="true">
             <ul class="list">
-              <a href="#/map/home" data-click-menulink class="item item-icon-left"><i class="icon ion-ios7-ionic-outline"></i>Map</a>
-              <a href="#/map/help" data-click-menulink class="item item-icon-left"><i class="icon ion-ios7-help"></i>Dummy Page</a>
-              <a href="#/map/home" data-click-menulink class="item item-icon-left"><i class="icon ion-ios7-ionic-outline"></i>Map</a>
-              <a href="#/map/help" data-click-menulink class="item item-icon-left"><i class="icon ion-ios7-help"></i>Dummy Page</a>
-              <a href="#/map/home" data-click-menulink class="item item-icon-left"><i class="icon ion-ios7-ionic-outline"></i>Map</a>
-              <a href="#/map/help" data-click-menulink class="item item-icon-left"><i class="icon ion-ios7-help"></i>Dummy Page</a>
-              <a href="#/map/home" data-click-menulink class="item item-icon-left"><i class="icon ion-ios7-ionic-outline"></i>Map</a>
-              <a href="#/map/help" data-click-menulink class="item item-icon-left"><i class="icon ion-ios7-help"></i>Dummy Page</a>
+              <a href="#/map/home" data-click-menulink class="item logout">{{seller.name}}</a>
+              <a href="#/tab/dash" data-click-menulink class="item">Fiche client</a>
+              <a href="#/waitlist" data-click-menulink class="item">File d'attente</a>
+              <a href="#/map/home" data-click-menulink class="item">Produits</a>
             </ul>
           </ion-content>
       </ion-side-menu>

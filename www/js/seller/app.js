@@ -38,46 +38,51 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
     // Each tab has its own nav history stack:
 
-    .state('tab.dash', {
-      url: '/dash',
+    .state('tab.user', {
+      url: '/user',
       views: {
-        'tab-dash': {
-          templateUrl: 'templates/seller/tab-dash.html',
-          controller: 'DashCtrl'
+        'tab-user': {
+          templateUrl: 'templates/seller/tab-user.html',
+          controller: 'UserCtrl'
         }
       }
     })
 
-    .state('tab.friends', {
-      url: '/friends',
+    .state('tab.product', {
+      url: '/product',
       views: {
-        'tab-friends': {
-          templateUrl: 'templates/seller/tab-friends.html',
-          controller: 'FriendsCtrl'
+        'tab-product': {
+          templateUrl: 'templates/seller/tab-product.html',
+          controller: 'ProductCtrl'
         }
       }
     })
-    .state('tab.friend-detail', {
-      url: '/friend/:friendId',
+    .state('tab.product-detail', {
+      url: '/product-detail/:productId',
       views: {
-        'tab-friends': {
-          templateUrl: 'templates/seller/friend-detail.html',
-          controller: 'FriendDetailCtrl'
+        'tab-product': {
+          templateUrl: 'templates/seller/product-detail.html',
+          controller: 'ProductDetailCtrl'
         }
       }
     })
 
-    .state('tab.account', {
-      url: '/account',
+    .state('tab.tag', {
+      url: '/tag',
       views: {
-        'tab-account': {
-          templateUrl: 'templates/seller/tab-account.html',
-          controller: 'AccountCtrl'
+        'tab-tag': {
+          templateUrl: 'templates/seller/tab-tag.html',
+          controller: 'TagCtrl'
         }
       }
+    })
+
+    .state('waitlist', {
+      url: '/waitlist',
+      templateUrl: 'templates/seller/waitlist.html'
     });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/dash');
+  $urlRouterProvider.otherwise('/tab/user');
 
 });

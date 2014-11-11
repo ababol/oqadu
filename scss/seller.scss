@@ -29,7 +29,36 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
   top: 49px;
 }
 
-.menu .item.item-icon-left{
+ion-side-menu > ion-content > div.scroll > ul > a.item.logout{
   padding-top: 14px;
   padding-bottom: 14px;
+}
+
+.products-list{
+  text-align: center;
+  .item-complex.custom{
+    padding: 0;
+    max-width: 200px;
+    display: inline-block;
+    vertical-align: middle;
+    border-width: 0px;
+    .item-content{
+      padding: 0px;
+    }
+  }
+}
+
+.tag-pannel{
+  text-align: center;
+  padding-top: 3em;
+}
+.tag-item{
+  background-color: #eee;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 7px 10px;
+  margin: 10px;
+  display: inline-block;
+  color: #434343;
+  font-size: 1.3em;
 }

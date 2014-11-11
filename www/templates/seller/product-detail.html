@@ -1,0 +1,43 @@
+<!--
+  This template loads for the 'tab.product-detail' state (app.js)
+  'product' is a $scope variable created in the productsCtrl controller (controllers.js)
+  The productsCtrl pulls data from the products service (service.js)
+  The products service returns an array of product data
+-->
+<ion-view title="{{product.name}}">
+  <ion-content has-header="true" padding="true">
+  <div class="row row-center">
+    <div class="col col-33"><img src="img/products/tondeuse.jpg" width="100%"></div>
+    <div class="col col-offset-10">
+      <ul class="list">
+        <li class="item">{{product.name}}</li>
+        <li class="item">34€</li>
+        <li class="item">ref: 123455233</li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+      proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="tag-item">tag tag</div>
+      <div class="tag-item">tag tag tag tag</div>
+      <div class="tag-item">tag tag</div>
+      <div class="tag-item">tag tag tag tag</div>
+      <div class="tag-item">tag tag tag</div>
+      <div class="tag-item">tag tag</div>
+      <div class="tag-item">tag tag tag tag</div>
+      <div class="tag-item">tag tag</div>
+      <div class="tag-item"><i class="ion-ios7-plus-outline"></i> Add a tag</div>
+    </div>
+  </div>
+  </ion-content>
+</ion-view>
