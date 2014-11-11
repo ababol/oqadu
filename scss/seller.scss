@@ -20,3 +20,16 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
+
+.tabs-top > .tabs, .tabs.tabs-top{
+  top:0px;
+}
+
+.has-tabs-top {
+  top: 49px;
+}
+
+.menu .item.item-icon-left{
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
