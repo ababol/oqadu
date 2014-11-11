@@ -41,6 +41,21 @@ angular.module('starter.controllers', [])
 .controller('WaitListCtrl', function($scope) {
 })
 
+.controller('AllProductsCtrl', function($scope) {
+  $scope.products = [
+    {name:"Product", description:"bla bla bla bla bla bla bla bla bla"},
+    {name:"Product", description:"bla bla bla bla bla bla bla bla bla"},
+    {name:"Product", description:"bla bla bla bla bla bla bla bla bla"},
+    {name:"Product cyril", description:"bla bla bla bla bla bla bla bla bla"},
+    {name:"Product eric2", description:"bla bla bla bla bla bla bla bla bla"},
+    {name:"Product eric", description:"bla bla bla bla bla bla bla bla bla"},
+    {name:"Product eric23", description:"bla bla bla bla bla bla bla bla bla"},
+    {name:"Product", description:"bla bla bla bla bla bla bla bla bla"},
+    {name:"Product", description:"bla bla bla bla bla bla bla bla bla"}
+  ];
+
+})
+
 .controller('ContentController', function($scope, $ionicSideMenuDelegate) {
   $scope.toggleLeft = function() {
     $ionicSideMenuDelegate.toggleLeft();

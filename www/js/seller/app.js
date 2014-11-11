@@ -80,6 +80,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     .state('waitlist', {
       url: '/waitlist',
       templateUrl: 'templates/seller/waitlist.html'
+    })
+    
+    .state('products', {
+      url: '/products',
+      templateUrl: 'templates/seller/products.html',
+      controller: 'AllProductsCtrl'
     });
 
   // if none of the above states are matched, use this as the fallback

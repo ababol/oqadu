@@ -1,0 +1,27 @@
+<ion-view title="product">
+  <ion-content>
+
+    <div class="list list-inset">
+      <label class="item item-input">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input type="text" placeholder="Search" ng-model="query">
+      </label>
+    </div>
+
+    <ion-list class="products-list">
+      <ion-item class="custom" ng-repeat="product in products | filter:query" type="item-text-wrap" href="#/tab/product-detail/{{product.id}}">
+
+        <div class="list card">
+          <div class="item item-image">
+            <img src="img/products/tondeuse.jpg">
+          </div>
+          <div class="item item-divider">
+            <h3>{{product.name}}</h3>
+            <p>{{product.description}}</p>
+          </div>
+        </div>
+
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
