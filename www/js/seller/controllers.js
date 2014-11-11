@@ -53,7 +53,6 @@ angular.module('starter.controllers', [])
     {name:"Product", description:"bla bla bla bla bla bla bla bla bla"},
     {name:"Product", description:"bla bla bla bla bla bla bla bla bla"}
   ];
-
 })
 
 .controller('ContentController', function($scope, $ionicSideMenuDelegate) {

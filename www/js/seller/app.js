@@ -86,7 +86,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       url: '/products',
       templateUrl: 'templates/seller/products.html',
       controller: 'AllProductsCtrl'
+    })
+
+    .state('product-detail', {
+      url: '/product-detail/:productId',
+      templateUrl: 'templates/seller/product-detail.html',
+      controller: 'ProductDetailCtrl'
     });
+
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/user');
