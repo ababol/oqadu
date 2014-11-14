@@ -29,22 +29,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   // Each state's controller can be found in controllers.js
   $stateProvider
 
-    // Each tab has its own nav history stack
-
-    .state('queue', {
-      url: '/queue',
-      templateUrl: 'templates/customer/queue.html'
-    })
-
-    .state('queue-pos', {
-      url: '/queue-pos',
-      views: {
-        'queue-pos': {
-          templateUrl: 'templates/customer/queue-pos.html'
-        }
-      }
-    })
-
     .state('question', {
       url: '/question/:questionId',
       templateUrl: 'templates/customer/question.html',
@@ -53,7 +37,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
     .state('home', {
       url: '/home',
-      templateUrl: 'templates/customer/home.html'
+      templateUrl: 'templates/customer/home.html',
+      controller: 'HomeCtrl'
     })
 
     .state('recommendation', {
@@ -69,6 +54,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/queue');
+  $urlRouterProvider.otherwise('/home');
 
 });

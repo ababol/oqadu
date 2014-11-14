@@ -31,3 +31,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 ion-nav-view {
   background-color: white !important;
 }
+
+span.tab-item {
+  cursor: initial !important;
+}
