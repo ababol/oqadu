@@ -1,7 +1,13 @@
 <ion-view title="Recommendation">
   <ion-content class="padding">
-    <a ng-repeat="product in products" class="button button-outline button-balanced" href="#/product/{{product._id}}">
-      {{product.name}}
-    </a>
+    <div class="list">
+
+        <a ng-repeat="product in products" class="item item-thumbnail-left" href="#/product/{{product._id}}">
+          <img src="{{product.img}}">
+          <h2>{{product.name}} - {{product.price}}€</h2>
+          <p><i ng-repeat="review in product.reviewAvgHtml track by $index" class='{{review}}'></i></p>
+        </a>
+
+    </div>
   </ion-content>
 </ion-view>

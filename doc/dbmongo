@@ -21,17 +21,24 @@ db.products.insert(
      {
         _id: ObjectId("545fc3da946ea453ece17e82"),
         name: "Peinture murs et plafonds séjour/chambre, LUXENS, blanc satin, 10L",
-        img: "img/products/peinture-murs-et-plafonds-sejour-chambre-luxens-blanc-satin-10l.jpg",
-        info1: "Couleur",
-        info1_text: "Blanc",
-        info2: "Aspect",
-        info2_text: "Satin",
-        info3: "Nombre de couches",
-        info3_text: "Application en 2 couches"
+        img: "img/products/peinture.jpg",
+        info_label: ["Couleur", "Aspect"],
+        info_text: ["Blanc","Satin"],
+        description: "Meilleure Peinture du monde",
+        price: 20
+     },
+     {
+        _id: ObjectId("545fc3da946ea453ece17e83"),
+        name: "Tondeuse Essence",
+        img: "img/products/tondeuse.jpg",
+        info_label: ["Moteur"],
+        info_text: ["Essence"],
+        description: "Meilleure tondeuse du monde",
+        price: 150
      }
    ]
 )
-db.productreviews.insert(
+db.reviews.insert(
    [
      {
         productId: ObjectId("545fc3da946ea453ece17e82"),
@@ -46,6 +53,10 @@ db.recommendations.insert(
      {
         answerId: ObjectId("545f70d9946ea453ece17e80"),
         productId: ObjectId("545fc3da946ea453ece17e82")
+     },
+     {
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e83")
      }
    ]
 )
