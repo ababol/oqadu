@@ -7823,7 +7823,10 @@ $ios-transition-box-shadow-end: -200px 0px 200px rgba(0,0,0,0.15), -5px 0px 5px 
 
 ion-side-menu > ion-content > div.scroll > ul > a.item.logout {
   padding-top: 14px;
-  padding-bottom: 14px; }
+  padding-bottom: 14px;
+  background-color: #4A87EE;
+  color: white;
+  border-top-color: #4A87EE; }
 
 .products-list {
   text-align: center; }
@@ -7849,3 +7852,21 @@ ion-side-menu > ion-content > div.scroll > ul > a.item.logout {
   display: inline-block;
   color: #434343;
   font-size: 1.3em; }
+
+.waitlist {
+  text-align: center; }
+  .waitlist div.list.card {
+    width: 230px;
+    display: inline-block;
+    vertical-align: top; }
+    .waitlist div.list.card.chart {
+      width: 330px; }
+  .waitlist div.item-body h1 {
+    text-align: center;
+    font-size: 7em;
+    margin: 0;
+    color: #4A87EE;
+    line-height: 200px; }
+  .waitlist .item {
+    text-align: center;
+    color: #434343; }

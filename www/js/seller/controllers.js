@@ -38,7 +38,47 @@ angular.module('starter.controllers', [])
   ];
 })
 
-.controller('WaitListCtrl', function($scope) {
+.controller('WaitlistCtrl', function($scope) {
+  $scope.waitingNumber  = 3;
+  $scope.peopleToday  = 18;
+  $scope.chartConfig = {
+      options: {
+        chart: {
+          type: 'areaspline',
+          zoomType: 'y',
+          height: 200
+        }
+      },
+      series: [{
+          data: [10, 15, 12, 8, 7, 1, 1, 19, 15, 10]
+      },
+      {
+        data: [5,2,2,3,5,9,7,14,11],
+        type: "column"
+      },
+      {
+          data: [7, 1, 1, 10, 19, 15, 12, 8, 15, 14],
+          type: "line"
+      }],
+      
+      title: {
+          text: '',
+          style: {
+              display: 'none'
+          }
+      },
+      subtitle: {
+          text: '',
+          style: {
+              display: 'none'
+          }
+      },
+      legend:{
+        enabled: false
+      },
+
+      loading: false
+  };
 })
 
 .controller('AllProductsCtrl', function($scope) {
