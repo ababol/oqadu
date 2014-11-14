@@ -4,7 +4,7 @@
 
         <a ng-repeat="product in products" class="item item-thumbnail-left" href="#/product/{{product._id}}">
           <img src="{{product.img}}">
-          <h2>{{product.name}}</h2>
+          <h2>{{product.name}} - {{product.price}}€</h2>
           <p><i ng-repeat="review in product.reviewAvgHtml track by $index" class='{{review}}'></i></p>
         </a>
 

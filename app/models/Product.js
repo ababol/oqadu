@@ -5,6 +5,7 @@ module.exports = function(mongoose, Schema) {
     info_label: {type:[String], required:false, default: []},
     info_text: {type:String, required:false, default: []},
     description: {type: String},
+    price: {type: Number},
     answer: [Schema.Types.ObjectId]
   });
   return mongoose.model('Product', Product);

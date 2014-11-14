@@ -24,7 +24,8 @@ db.products.insert(
         img: "img/products/peinture.jpg",
         info_label: ["Couleur", "Aspect"],
         info_text: ["Blanc","Satin"],
-        description: "Meilleure Peinture du monde"
+        description: "Meilleure Peinture du monde",
+        price: 20
      },
      {
         _id: ObjectId("545fc3da946ea453ece17e83"),
@@ -32,7 +33,8 @@ db.products.insert(
         img: "img/products/tondeuse.jpg",
         info_label: ["Moteur"],
         info_text: ["Essence"],
-        description: "Meilleure tondeuse du monde"
+        description: "Meilleure tondeuse du monde",
+        price: 150
      }
    ]
 )
