@@ -28,11 +28,20 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   // Set up the various states which the app can be in.
   // Each state's controller can be found in controllers.js
   $stateProvider
-
     .state('question', {
       url: '/question/:questionId',
       templateUrl: 'templates/customer/question.html',
       controller: 'QuestionCtrl'
+    })
+
+    .state('loading', {
+      url: '/loading',
+      views: {
+        'loading': {
+          templateUrl: 'templates/customer/loading.html',
+          controller: 'LoadingCtrl'
+        }
+      }
     })
 
     .state('home', {
@@ -54,6 +63,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/home');
+  $urlRouterProvider.otherwise('/loading');
 
 });

@@ -47,6 +47,43 @@ angular.module('starter.controllers', [])
   $ionicViewService.clearHistory();
 })
 
+.controller('LoadingCtrl', function($state) {
+  angular.element(document.querySelector('#loading')).removeClass('hide');
+  var logo = Snap.select("#logo");
+
+  var leroy = logo.select("#leroy"),
+    	merlin = logo.select("#merlin"),
+      triangle = logo.select("#triangle"),
+    	TIME_ANIM = 500;
+
+  leroy.animate({
+  	// transform: "t0,1,r0"
+     transform: "t0,0s1,1,0,0"
+  }, TIME_ANIM);
+
+  merlin.animate({
+  	// transform: "t0,1,r0"
+    // transform: "t0,-200,r180"
+     transform: "t0,0S1,1,0,0"
+  }, TIME_ANIM);
+
+  setTimeout(function(){
+    angular.element(document.querySelector('#loading')).addClass('fadeNone');
+  }, 2000);
+
+
+  setTimeout(function(){
+    angular.element(document.querySelector('#loading')).addClass('hide');
+  }, 2500);
+
+  setTimeout(function(){
+    $state.transitionTo("home");
+    // window.location.href = "customer.html#/home";
+  }, 200);
+
+  triangle.animate({opacity:1,transform:"s1,1"}, 2000, mina.elastic);
+})
+
 .controller('BarCtrl', function($scope) {
   $scope.registerQueue = function () {
     angular.element(document.querySelector('#barReg')).removeClass('invisible');

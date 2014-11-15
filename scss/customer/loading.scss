@@ -1,4 +1,4 @@
-#loadingScreen {
+#loading {
   margin: 0 !important;
   padding: 0 !important;
   width: 100% !important;
@@ -32,5 +32,19 @@
     h1 {
       color: white !important;
     }
+  }
+
+  &.hide {
+    display: none;
+  }
+
+  &.fade {
+    transition: opacity .5s ease-in-out !important;
+    -moz-transition: opacity .5s ease-in-out !important;
+    -webkit-transition: opacity .5s ease-in-out !important;
+   }
+
+  &.fadeNone {
+    opacity: 0 !important;
   }
 }
