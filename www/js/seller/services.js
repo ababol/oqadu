@@ -23,4 +23,54 @@ angular.module('starter.services', [])
       return friends[friendId];
     }
   }
+})
+
+.factory('Products', function() {
+  // Might use a resource here that returns a JSON array
+  // Some fake testing data
+  var products = [
+      {id:0,name:"Product", description:"bla bla bla bla bla bla bla bla bla"},
+      {id:1,name:"Product", description:"bla bla bla bla bla bla bla bla bla"},
+      {id:2,name:"Product", description:"bla bla bla bla bla bla bla bla bla"},
+      {id:3,name:"Product cyril", description:"bla bla bla bla bla bla bla bla bla"},
+      {id:4,name:"Product eric2", description:"bla bla bla bla bla bla bla bla bla"},
+      {id:5,name:"Product eric", description:"bla bla bla bla bla bla bla bla bla"},
+      {id:6,name:"Product eric23", description:"bla bla bla bla bla bla bla bla bla"},
+      {id:7,name:"Product", description:"bla bla bla bla bla bla bla bla bla"},
+      {id:8,name:"Product", description:"bla bla bla bla bla bla bla bla bla"}
+    ];
+
+  return {
+    all: function() {
+      return products;
+    },
+    get: function(productId) {
+      // Simple index lookup
+      return products[productId];
+    }
+  }
+})
+
+.factory('Tags', function() {
+  // Might use a resource here that returns a JSON array
+  // Some fake testing data
+  var tags = [
+    {name:"Tag tag"},
+    {name:"Tag tag tag"},
+    {name:"Tag tag"},
+    {name:"Tag tag"},
+    {name:"Tag tag tag tag"},
+    {name:"Tag tag"},
+    {name:"Tag tag tag"},
+    {name:"Tag tag tag"},
+    {name:"Tag tag tag tag"},
+    {name:"Tag tag tag"},
+    {name:"Tag tag"}
+  ];
+
+  return {
+    all: function() {
+      return tags;
+    }
+  }
 });

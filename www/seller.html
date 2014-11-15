@@ -34,11 +34,13 @@
           <!-- if you need scroll and click in menu: has-header="true" scroll="true" overflow-scroll="true" -->
           <ion-content has-header="true">
             <ul class="list">
-              <a href="#/map/home" data-click-menulink class="item logout">{{seller.name}}</a>
-              <a href="#/tab/dash" data-click-menulink class="item">Fiche client</a>
-              <a href="#/waitlist" data-click-menulink class="item">File d'attente</a>
-              <a href="#/products" data-click-menulink class="item">Produits</a>
+              <a href="#" data-click-menulink  class="item logout">{{seller.name}}</a>
+              <a href="#/tab/dash" data-click-menulink class="item"  ng-class="{'active': state.current.name.substring(0,3)=='tab'}">Fiche client</a>
+              <a href="#/waitlist" data-click-menulink class="item"  ng-class="{'active': state.current.name=='waitlist'}">Statistiques</a>
+              <a href="#/products" data-click-menulink class="item"  ng-class="{'active': state.current.name.substring(0,7)=='product'}">Produits</a>
             </ul>
+            <button class="button button-block button-balanced">Personne suivante</button>
+            <button class="button button-block button-assertive">Personne précédente</button>
           </ion-content>
       </ion-side-menu>
     </ion-side-menus>
