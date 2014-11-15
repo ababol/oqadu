@@ -7892,9 +7892,10 @@ $ios-transition-box-shadow-end: -200px 0px 200px rgba(0,0,0,0.15), -5px 0px 5px 
     display: flex;
     justify-content: center; }
     #loadingScreen .logo #logo, #loadingScreen .logo .container {
-      max-width: 90%;
+      max-width: 80%;
       display: block;
-      height: auto; }
+      height: auto;
+      margin: 0 auto; }
   #loadingScreen .hellotxt {
     background: #45B82E;
     width: 100%;
