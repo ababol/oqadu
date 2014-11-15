@@ -42,8 +42,9 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('HomeCtrl', function() {
+.controller('HomeCtrl', function($ionicViewService) {
   angular.element(document.querySelector('#barUnreg')).addClass('invisible');
+  $ionicViewService.clearHistory();
 })
 
 .controller('BarCtrl', function($scope) {

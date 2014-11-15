@@ -18,11 +18,15 @@ $dark:                            #444 !default;
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 
+$balanced: #45B82E !default;
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
 
+@import "scss/both/pace";
+
 // Include customer
 @import "scss/customer/button";
+@import "scss/customer/loading";
 .scroll {
   height: 100%;
 }
