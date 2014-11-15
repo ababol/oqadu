@@ -28,3 +28,31 @@
 .card.top {
   margin: 0 0 0.5% 0 !important;
 }
+.fakebutton {
+  border-color: $balanced;
+  background: none repeat scroll 0% 0% transparent;
+  color: $balanced;
+  padding: 0px 16px;
+  min-width: 68px;
+  min-height: 59px;
+  font-size: 20px;
+  line-height: 53px;
+
+  display: inline-block;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 2px;
+}
+
+.left {
+text-align: left;
+}
+
+.right {
+  text-align: right;
+}
+
+.no-padding-side {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
