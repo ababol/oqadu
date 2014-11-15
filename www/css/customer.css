@@ -7815,7 +7815,7 @@ $ios-transition-box-shadow-end: -200px 0px 200px rgba(0,0,0,0.15), -5px 0px 5px 
   -webkit-transition: none !important;
   transition: none !important; }
 
-.scroll > .button-large {
+.scroll > .button-half {
   margin-top: 0 !important;
   margin-bottom: 1%; }
 
@@ -7824,13 +7824,20 @@ $ios-transition-box-shadow-end: -200px 0px 200px rgba(0,0,0,0.15), -5px 0px 5px 
   background-color: white !important;
   margin-bottom: 0 !important; }
 
-.button-large {
+.button-half {
   font-size: 2em;
   height: 49%;
   width: 100%;
   align-items: center;
   display: flex !important;
   justify-content: center; }
+
+.button-question {
+  width: 99.5%;
+  margin: 0.25%; }
+
+.card.top {
+  margin: 0 0 0.5% 0 !important; }
 
 .scroll {
   height: 100%; }
@@ -7840,3 +7847,7 @@ ion-nav-view {
 
 span.tab-item {
   cursor: initial !important; }
+
+.item.product {
+  text-align: center;
+  margin: 0 auto; }

@@ -27,13 +27,17 @@ angular.module('starter.controllers', [])
   });
 })
 
-.controller('ProductCtrl', function($scope, $stateParams, Products) {
+.controller('ProductCtrl', function($scope, $stateParams, $ionicSlideBoxDelegate, Products) {
   Products.get($stateParams.productId).success(function(product){
     Products.getReviews($stateParams.productId).success(function(reviews){
       product.reviewAvgHtml = getReviewHtml(reviews);
       $scope.product = product;
     });
   });
+
+  $scope.updateSlider = function () {
+    return $ionicSlideBoxDelegate.update();
+  };
 })
 
 .controller('HomeCtrl', function() {
@@ -52,6 +56,10 @@ angular.module('starter.controllers', [])
 });
 
 function getReviewHtml (reviews) {
+  if (reviews.length === 0) {
+    return [];
+  }
+
   var reviewSum = 0,
       reviewAvg = 0,
       reviewHtml = [];

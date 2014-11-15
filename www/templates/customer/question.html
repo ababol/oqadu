@@ -1,11 +1,11 @@
 <ion-view title="Question">
   <ion-content class="padding">
-    <div class="card">
+    <div class="card top">
       <div class="item item-text-wrap">
         {{question.text}}
       </div>
     </div>
-    <a ng-repeat="answer in answers" class="button button-outline button-balanced" href="#/{{answer.nextUrl}}">
+    <a ng-repeat="answer in answers" class="button button-question button-outline button-balanced" href="#/{{answer.nextUrl}}">
       {{answer.text}}
     </a>
   </ion-content>

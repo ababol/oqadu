@@ -1,38 +1,34 @@
+ <ion-nav-bar class="bar bar-header bar-light nav-title-slide-ios7">
+  <ion-nav-back-button class="button-icon icon ion-ios7-arrow-back">
+  Back
+  </ion-nav-back-button>
+</ion-nav-bar>
 <ion-view title="{{product.name}}">
   <ion-content class="padding">
-    <div class="list card">
-
-      <div class="item item-avatar">
-        <h2>{{product.name}} - {{product.price}}€</h2>
-        <p><i ng-repeat="review in product.reviewAvgHtml track by $index" class='{{review}}'></i></p>
+    <div class="row">
+      <div class="col col-50">
+        <div class="list list-inset">
+          <div class="item item-divider" ng-repeat-start="label in product.info_label">
+            {{label}}
+          </div>
+          <div class="item" ng-repeat-end>
+            {{product.info_text[$index]}}
+          </div>
+        </div>
       </div>
-
-      <div class="item item-body">
-        <img class="full-image" src="{{product.img}}">
-        <p>
-          {{product.description}}
-        </p>
-        <p>
-          <a href="#" class="subdued">1 Like</a>
-          <a href="#" class="subdued">5 Comments</a>
-        </p>
+      <div class="col col-50">
+        <div class="item item-image product">
+          <ion-slide-box on-slide-changed="slideHasChanged($index)">
+            <!-- ng init update slider to fix a display bug !-->
+            <ion-slide ng-repeat="image in product.img track by $index" ng-init="updateSlider()">
+              <img src="img/products/peinture.jpg">
+            </ion-slide>
+          </ion-slide-box>
+        </div>
       </div>
-
-      <div class="item tabs tabs-secondary tabs-icon-left">
-        <a class="tab-item" href="#">
-          <i class="icon ion-thumbsup"></i>
-          Like
-        </a>
-        <a class="tab-item" href="#">
-          <i class="icon ion-chatbox"></i>
-          Comment
-        </a>
-        <a class="tab-item" href="#">
-          <i class="icon ion-share"></i>
-          Share
-        </a>
-      </div>
-
+    </div>
+    <div class="item item-text-wrap">
+      {{ product.description }}
     </div>
   </ion-content>
 </ion-view>

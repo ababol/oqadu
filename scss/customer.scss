@@ -23,7 +23,6 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 // Include customer
 @import "scss/customer/button";
-
 .scroll {
   height: 100%;
 }
@@ -34,4 +33,8 @@ ion-nav-view {
 
 span.tab-item {
   cursor: initial !important;
+}
+.item.product {
+  text-align: center;
+  margin: 0 auto;
 }
