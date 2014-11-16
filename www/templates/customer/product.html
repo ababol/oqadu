@@ -52,11 +52,12 @@
         </ion-toggle>
       </div>
       <div class="item item-text-wrap noShow">
-        <div class="item item-divider">
-          Quantité de pots
+        <div class="item item-divider" ng-repeat-start="faq in product.faq">
+          {{faq.question}}
         </div>
-        <div class="item item-text-wrap">
-          <div class="list">
+        <div class="item item-text-wrap" ng-repeat-end>
+          <span ng-if="faq.answer != 1337">{{faq.answer}}</span>
+          <div class="list" ng-if="faq.answer == 1337">
             <div class="item range range-positive">
               Nombre de couche(s)
               <input type="range" min="1" max="5" value="1" ng-model="data.couche">
@@ -82,11 +83,11 @@
         </ion-toggle>
       </div>
       <div class="item item-text-wrap noShow">
-        <div class="item item-divider">
-          <i ng-repeat="review in product.reviewAvgHtml track by $index" class='icon icon-left {{review}}'></i> par Michel
+        <div ng-repeat-start="review in product.reviews track by $index" class="item item-divider">
+          <i class='icon icon-left'>{{review.score}}/5</i> par {{review.nickname}}
         </div>
-        <div class="item item-text-wrap">
-          Ce produit est une merveille
+        <div class="item item-text-wrap" ng-repeat-end>
+          {{review.text}}
         </div>
       </div>
     </div>

@@ -35,8 +35,11 @@ angular.module('starter.controllers', [])
     Products.getReviews($stateParams.productId).success(function(reviews) {
       product.reviewAvg = getReviewAvg(reviews);
       product.reviewAvgHtml = getReviewHtml(product.reviewAvg);
-      // product.reviewHtml = getReviewHtml(reviews);
-      $scope.product = product;
+      product.reviews = reviews;
+      Products.getFaq($stateParams.productId).success(function(faq) {
+        product.faq = faq;
+        $scope.product = product;
+      });
     });
   });
 

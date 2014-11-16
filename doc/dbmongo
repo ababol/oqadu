@@ -49,6 +49,20 @@ db.reviews.insert(
      }
    ]
 )
+db.faqs.insert(
+   [
+     {
+        productId: ObjectId("545fc3da946ea453ece17e82"),
+        question: "Quantité de pots",
+        answer: "1337"
+     },
+     {
+        productId: ObjectId("545fc3da946ea453ece17e82"),
+        question: "Sur quelle surface?",
+        answer: "Éviter les surfaces humides."
+     }
+   ]
+)
 db.recommendations.insert(
    [
      {
