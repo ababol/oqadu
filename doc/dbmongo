@@ -52,11 +52,7 @@ db.recommendations.insert(
    [
      {
         answerId: ObjectId("545f70d9946ea453ece17e80"),
-        productId: ObjectId("545fc3da946ea453ece17e82")
-     },
-     {
-        answerId: ObjectId("545f70d9946ea453ece17e80"),
-        productId: ObjectId("545fc3da946ea453ece17e83")
+        products: [ObjectId("545fc3da946ea453ece17e82"), ObjectId("545fc3da946ea453ece17e83")]
      }
    ]
 )

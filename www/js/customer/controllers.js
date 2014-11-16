@@ -15,11 +15,11 @@ angular.module('starter.controllers', [])
 .controller('RecommendationCtrl', function($scope, $stateParams, Recommendations, Products) {
   $scope.products = [];
   window.lastAnswer = $stateParams.answerId;
-  Recommendations.get($stateParams.answerId).success(function(recos){
+  Recommendations.get($stateParams.answerId).success(function(reco){
     // Not really proud of that, callback hell :(, maybe implement with promise in the future
-    recos.forEach(function (reco){
-      Products.get(reco.productId).success(function(product){
-        Products.getReviews(reco.productId).success(function(reviews){
+    reco[0].products.forEach(function (productId){
+      Products.get(productId).success(function(product){
+        Products.getReviews(productId).success(function(reviews){
           product.reviewAvg = getReviewAvg(reviews);
           product.reviewAvgHtml = getReviewHtml(product.reviewAvg);
           $scope.products.push(product);
