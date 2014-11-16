@@ -21,12 +21,25 @@ angular.module('starter.controllers', [])
     Products.getReviews($stateParams.productId).success(function(reviews) {
       product.reviewAvg = getReviewAvg(reviews);
       product.reviewAvgHtml = getReviewHtml(product.reviewAvg);
-      $scope.product = product;
+      Products.getFaq($stateParams.productId).success(function(faq) {
+        product.faq = faq;
+        $scope.product = product;
+      });
     });
   });
   $scope.updateSlider = function () {
     angular.element(document.querySelector('#backButton')).removeClass('ng-hide');
     return $ionicSlideBoxDelegate.update();
+  };
+})
+.directive('slideToggle', function () {
+  return {
+    restrict: 'C',
+    link: function (scope, element, attr) {
+      element.bind('click', function () {
+        element.parent().next().toggleClass('noShow');
+      });
+    }
   };
 })
 

@@ -58,6 +58,12 @@ angular.module('starter.services', [])
         url: 'http://localhost:3000/api/v1/Reviews/?productId='+productId,
         method: 'GET'
       });
+    },
+    getFaq: function(productId) {
+      return $http({
+        url: 'http://localhost:3000/api/v1/Faqs/?productId='+productId,
+        method: 'GET'
+      });
     }
   }
 })

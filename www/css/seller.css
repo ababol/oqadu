@@ -7839,6 +7839,13 @@ ion-side-menu > ion-content > div.scroll > ul > a.item.logout {
     .products-list .item-complex.custom .item-content {
       padding: 0px; }
 
+.noShow {
+  display: none; }
+
+.show {
+  /* Css Transitions to make the unfold effect or simply a display: block */
+  display: block; }
+
 .waitlist {
   text-align: center; }
   .waitlist div.list.card {
