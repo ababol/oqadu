@@ -209,7 +209,7 @@ db.answers.insert(
 db.products.insert(
    [
      {
-        _id: ObjectId("545fc3da946ea453ece17e82"),
+        _id: ObjectId("545fc3da946ea453ece17f22"),
         name: "Tondeuse à essence STERWINS 460HSP140-3, 160 cm3",
         img: "img/products/tondeuse-a-essence-sterwins-460hsp140-3-160-cm3.jpg",
         info1: "Surface conseillé(m²)",
@@ -220,7 +220,7 @@ db.products.insert(
         info3_text: "2 en 1 : arrière et mulching"
      },
      {
-        _id: ObjectId("545fc3da946ea453ece17e82"),
+        _id: ObjectId("545fc3da946ea453ece17f23"),
         name: "10kg de gazon 4477417 350 m²",
         img: "img/products/10kg-de-gazon-4477417-350-m2.jpg",
         info1: "Surface couverte(m²)",
@@ -231,7 +231,7 @@ db.products.insert(
         info3_text: "Tondre dès que le gazon atteint 5 à 6 cm."
      },
      {
-        _id: ObjectId("545fc3da946ea453ece17e82"),
+        _id: ObjectId("545fc3da946ea453ece17f24"),
         name: "Taille-haies électrique GT 5055, BLACK & DECKER",
         img: "img/products/taille-haies-electrique-gt-5055-black-decker.jpg",
         info1: "Usage",
@@ -242,7 +242,7 @@ db.products.insert(
         info3_text: "18"
      }, 
      {
-        _id: ObjectId("545fc3da946ea453ece17e82"),
+        _id: ObjectId("545fc3da946ea453ece17f25"),
         name: "Tronçonneuse élagueuse à essence STERWINS PCS26-2 25.4cm3, 27cm de coupe",
         img: "img/products/tronconneuse-elagueuse-a-essence-sterwins-pcs26-2-25-4cm3-27cm-de-coupe.jpg",
         info1: "Longueur de coupe(cm)",
@@ -253,7 +253,7 @@ db.products.insert(
         info3_text: "25.4"
      }, 
      {
-        _id: ObjectId("545fc3da946ea453ece17e82"),
+        _id: ObjectId("545fc3da946ea453ece17f26"),
         name: "Motoculteur à essence JARDIMECA GX 200BH kit labour",
         img: "img/products/motoculteur-a-essence-jardimeca-gx-200bh-kit-labour.jpg",
         info1: "Profondeur de travail(cm)",
@@ -264,7 +264,7 @@ db.products.insert(
         info3_text: "2"
      }, 
      {
-        _id: ObjectId("545fc3da946ea453ece17e82"),
+        _id: ObjectId("545fc3da946ea453ece17f27"),
         name: "Serre Venus 5000 en verre horticole 4.96 m²",
         img: "img/products/serre-venus-5000-en-verre-horticole-4-96-m2.jpg",
         info1: "Type de porte",
@@ -275,7 +275,7 @@ db.products.insert(
         info3_text: "Aluminium"
      }, 
      {
-        _id: ObjectId("545fc3da946ea453ece17e82"),
+        _id: ObjectId("545fc3da946ea453ece17f28"),
         name: "Spot à enterrer extérieur Boston INSPIRE, aluminium, 40 watts",
         img: "img/productsspot-a-enterrer-exterieur-boston-inspire-aluminium-40-watts.jpg",
         info1: "Matière",
@@ -286,7 +286,7 @@ db.products.insert(
         info3_text: "Dépoli"
      }, 
      {
-        _id: ObjectId("545fc3da946ea453ece17e82"),
+        _id: ObjectId("545fc3da946ea453ece17f29"),
         name: "Kit clips de fixation pour lames de terrasses SPAX",
         img: "img/products/kit-clips-de-fixation-pour-lames-de-terrasses-spax.jpg",
         info1: "Nbr de clips au m²",
@@ -297,7 +297,7 @@ db.products.insert(
         info3_text: ""
      }, 
      {
-        _id: ObjectId("545fc3da946ea453ece17e82"),
+        _id: ObjectId("545fc3da946ea453ece17f30"),
         name: "Tonnelle autoportante Azay, 10 m²",
         img: "img/products/tonnelle-autoportante-azay-10-m2.jpg",
         info1: "Forme",
@@ -308,7 +308,7 @@ db.products.insert(
         info3_text: "10"
      }, 
      {
-        _id: ObjectId("545fc3da946ea453ece17e82"),
+        _id: ObjectId("545fc3da946ea453ece17f31"),
         name: "Salon de jardin en résine Balcony KETER, gris/argent",
         img: "img/products/salon-de-jardin-en-resine-balcony-keter-gris-argent.jpg",
         info1: "Composition du salon de jardin",
@@ -319,7 +319,7 @@ db.products.insert(
         info3_text: "Gris anthracite"
      }, 
      {
-        _id: ObjectId("545fc3da946ea453ece17e82"),
+        _id: ObjectId("545fc3da946ea453ece17f32"),
         name: "Crépis façade LUXENS, ton pierre, 15 KG",
         img: "img/products/crepis-facade-luxens-ton-pierre-15-kg.jpg",
         info1: "Type de peinture",
@@ -330,7 +330,7 @@ db.products.insert(
         info3_text: "Mat"
      }, 
      {
-        _id: ObjectId("545fc3da946ea453ece17e82"),
+        _id: ObjectId("545fc3da946ea453ece17f33"),
         name: "Vernis BSC mat SYNTILOR, incolore, aspect mat, 0.75 L",
         img: "img/products/taille-haies-electrique-gt-5055-black-decker.jpg",
         info1: "Usage",
@@ -341,7 +341,7 @@ db.products.insert(
         info3_text: "18"
      }, 
      {
-        _id: ObjectId("545fc3da946ea453ece17e82"),
+        _id: ObjectId("545fc3da946ea453ece17f34"),
         name: "Peinture cuisine et bains LUXENS Couleurs intérieures, blanc ivoire n°5, 2.5 L",
         img: "img/products/peinture-cuisine-et-bains-luxens-couleurs-interieures-blanc-ivoire-n-5-2-5-l.jpg",
         info1: "Type de peinture",
@@ -352,7 +352,7 @@ db.products.insert(
         info3_text: "Oui"
      }, 
      {
-        _id: ObjectId("545fc3da946ea453ece17e82"),
+        _id: ObjectId("545fc3da946ea453ece17f35"),
         name: "Peinture cuisine et bains LUXENS Couleurs intérieures, rouge rouge n°3, 2.5 L",
         img: "img/products/peinture-cuisine-et-bains-luxens-couleurs-interieures-rouge-rouge-n-3-2-5-l.jpg.jpg",
         info1: "Type de peinture",
@@ -363,7 +363,7 @@ db.products.insert(
         info3_text: "Oui"
      }, 
      {
-        _id: ObjectId("545fc3da946ea453ece17e82"),
+        _id: ObjectId("545fc3da946ea453ece17f36"),
         name: "Peinture Plafonds séjour/chambre, DULUX VALENTINE, blanc mat, 6L",
         img: "img/products/peinture-plafonds-sejour-chambre-dulux-valentine-blanc-mat-6l.jpg",
         info1: "Couleur",
@@ -374,7 +374,7 @@ db.products.insert(
         info3_text: "98.1"
      }, 
      {
-        _id: ObjectId("545fc3da946ea453ece17e82"),
+        _id: ObjectId("545fc3da946ea453ece17f37"),
         name: "Lot de 3 pinceaux plats DEXTER : 20, 40, 60 mm",
         img: "img/products/lot-de-3-pinceaux-plats-dexter-20-40-60-mm.jpg",
         info1: "Type de peinture",
@@ -385,7 +385,7 @@ db.products.insert(
         info3_text: "Plat"
      }, 
      {
-        _id: ObjectId("545fc3da946ea453ece17e82"),
+        _id: ObjectId("545fc3da946ea453ece17f38"),
         name: "Rouleau mur et plafond DEXTER largeur 180mm, diam 48mm",
         img: "img/products/rouleau-mur-et-plafond-dexter-largeur-180mm-diam-48mm.jpg",
         info1: "Usage",
@@ -396,7 +396,7 @@ db.products.insert(
         info3_text: "18"
      }, 
      {
-        _id: ObjectId("545fc3da946ea453ece17e82"),
+        _id: ObjectId("545fc3da946ea453ece17f39"),
         name: "Taille-haies électrique GT 5055, BLACK & DECKER",
         img: "img/products/taille-haies-electrique-gt-5055-black-decker.jpg",
         info1: "Type de peinture",
@@ -407,7 +407,7 @@ db.products.insert(
         info3_text: "48"
      }, 
      {
-        _id: ObjectId("545fc3da946ea453ece17e82"),
+        _id: ObjectId("545fc3da946ea453ece17f40"),
         name: "Lot de rouleau 180mm, diam 48mm, 2 pinceaux et un bac DEXTER",
         img: "img/products/lot-de-rouleau-180mm-diam-48mm-2-pinceaux-et-un-bac-dexter.jpg",
         i info1: "Type de peinture",
