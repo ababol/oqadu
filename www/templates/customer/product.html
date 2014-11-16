@@ -34,8 +34,8 @@
         <div class="item item-image product">
           <ion-slide-box on-slide-changed="slideHasChanged($index)"  show-pager="true">
             <!-- ng init update slider to fix a display bug !-->
-            <ion-slide ng-repeat="image in product.img track by $index" ng-init="updateSlider()">
-              <img src="img/products/peinture.jpg">
+            <ion-slide ng-repeat="img in product.img track by $index" ng-init="updateSlider()">
+              <img src="{{img}}">
             </ion-slide>
           </ion-slide-box>
         </div>
