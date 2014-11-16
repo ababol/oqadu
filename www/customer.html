@@ -24,13 +24,13 @@
     <ion-nav-view></ion-nav-view>
     <ion-nav-view name="loading" id="loading" class="fade hide"></ion-nav-view>
     <footer ng-controller="BarCtrl">
-      <div id="barUnreg" class="tabs tabs-icon-left invisible">
+      <div id="barUnreg" ng-hide="registred" class="tabs tabs-icon-left">
         <a ng-click="registerQueue()" class="tab-item">
           <i class="icon ion-ios7-plus"></i>
           Joindre la file d'attente
         </a>
       </div>
-      <div id="barReg" class="tabs tabs-icon-left invisible">
+      <div id="barReg" ng-show="registred" class="tabs tabs-icon-left">
         <span class="tab-item">
           <i class="icon ion-person-stalker"></i>
           4th

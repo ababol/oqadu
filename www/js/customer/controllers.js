@@ -14,6 +14,7 @@ angular.module('starter.controllers', [])
 
 .controller('RecommendationCtrl', function($scope, $stateParams, Recommendations, Products) {
   $scope.products = [];
+  window.lastAnswer = $stateParams.answerId;
   Recommendations.get($stateParams.answerId).success(function(recos){
     // Not really proud of that, callback hell :(, maybe implement with promise in the future
     recos.forEach(function (reco){
@@ -29,6 +30,7 @@ angular.module('starter.controllers', [])
 })
 
 .controller('ProductCtrl', function($scope, $stateParams, $ionicSlideBoxDelegate, Products) {
+  $scope.lastAnswer = window.lastAnswer || 0;
   Products.get($stateParams.productId).success(function(product){
     Products.getReviews($stateParams.productId).success(function(reviews) {
       product.reviewAvg = getReviewAvg(reviews);
@@ -38,6 +40,7 @@ angular.module('starter.controllers', [])
   });
 
   $scope.updateSlider = function () {
+    angular.element(document.querySelector('#backButton')).removeClass('ng-hide');
     return $ionicSlideBoxDelegate.update();
   };
 })
@@ -85,13 +88,12 @@ angular.module('starter.controllers', [])
 })
 
 .controller('BarCtrl', function($scope) {
+  $scope.registred = false;
   $scope.registerQueue = function () {
-    angular.element(document.querySelector('#barReg')).removeClass('invisible');
-    angular.element(document.querySelector('#barUnreg')).addClass('invisible');
+    $scope.registred = true;
   };
   $scope.unregisterQueue = function () {
-    angular.element(document.querySelector('#barUnreg')).removeClass('invisible');
-    angular.element(document.querySelector('#barReg')).addClass('invisible');
+    $scope.registred = false;
   };
 });
 
