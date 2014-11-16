@@ -9,24 +9,26 @@
   <ion-content class="padding">
     <div class="row">
       <div class="col col-50">
-        <div class="row no-padding-side">
-          <div class="col left no-padding-side">
-            <span class="fakebutton ion-bag">
-              {{product.price}}€
-            </span>
+        <div id="leftCol">
+          <div class="row no-padding-side">
+            <div class="col left no-padding-side">
+              <span class="fakebutton ion-bag">
+                {{product.price}}€
+              </span>
+            </div>
+            <div class="col right no-padding-side">
+              <span class="fakebutton ion-ios7-star">
+                {{product.reviewAvg}}
+              </span>
+            </div>
           </div>
-          <div class="col right no-padding-side">
-            <span class="fakebutton ion-ios7-star">
-              {{product.reviewAvg}}
-            </span>
-          </div>
-        </div>
-        <div class="list">
-          <div class="item item-divider" ng-repeat-start="label in product.info_label">
-            {{label}}
-          </div>
-          <div class="item" ng-repeat-end>
-            {{product.info_text[$index]}}
+          <div class="list">
+            <div class="item item-divider" ng-repeat-start="label in product.info_label">
+              {{label}}
+            </div>
+            <div class="item" ng-repeat-end>
+              {{product.info_text[$index]}}
+            </div>
           </div>
         </div>
       </div>
@@ -35,14 +37,21 @@
           <ion-slide-box on-slide-changed="slideHasChanged($index)"  show-pager="true">
             <!-- ng init update slider to fix a display bug !-->
             <ion-slide ng-repeat="img in product.img track by $index" ng-init="updateSlider()">
-              <img src="{{img}}">
+              <img src="{{img}}" style="max-height: {{height}}px">
             </ion-slide>
           </ion-slide-box>
         </div>
       </div>
     </div>
-    <div class="item item-text-wrap">
-      {{ product.description }}
+
+    <div class="card" ng-if="product.reviews">
+      <div class="item item-divider">
+        <ion-toggle class="slideToggle" ng-checked="true">
+          Description
+        </ion-toggle>
+      </div>
+      <div class="item item-text-wrap">
+        {{ product.description }}
     </div>
 
     <div class="card" ng-if="product.faq">
@@ -84,7 +93,7 @@
       </div>
       <div class="item item-text-wrap noShow">
         <div ng-repeat-start="review in product.reviews track by $index" class="item item-divider">
-          <i class='icon icon-left'>{{review.score}}/5</i> par {{review.nickname}}
+          {{review.score}}/5</i> par {{review.nickname}}
         </div>
         <div class="item item-text-wrap" ng-repeat-end>
           {{review.text}}
