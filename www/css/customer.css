@@ -7858,10 +7858,10 @@ $ios-transition-box-shadow-end: -200px 0px 200px rgba(0,0,0,0.15), -5px 0px 5px 
   border-color: #45B82E;
   background: none repeat scroll 0% 0% transparent;
   color: #45B82E;
-  padding: 0px 16px;
-  min-width: 68px;
-  min-height: 59px;
-  font-size: 20px;
+  padding: 0px 1em;
+  min-width: 59px;
+  min-height: 50px;
+  font-size: 1em;
   line-height: 53px;
   display: inline-block;
   border-width: 1px;
@@ -7935,6 +7935,6 @@ span.tab-item {
 .noShow {
   display: none; }
 
-.show {
-  /* Css Transitions to make the unfold effect or simply a display: block */
-  display: block; }
+.slideToggle {
+  background: transparent !important;
+  border-width: 0px !important; }

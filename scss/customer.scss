@@ -42,5 +42,8 @@ span.tab-item {
   text-align: center;
   margin: 0 auto;
 }
-.noShow { display: none }
-.show { /* Css Transitions to make the unfold effect or simply a display: block */ display:block;}
+.noShow { display: none; }
+.slideToggle {
+  background: transparent !important;
+  border-width: 0px !important;
+}
