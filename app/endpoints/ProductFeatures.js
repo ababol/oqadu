@@ -1,0 +1,1 @@
+// get Récupère la fiche technique d'un produit

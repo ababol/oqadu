@@ -1,0 +1,1 @@
+// get : retourne les statistiques de force de vente du conseiller
