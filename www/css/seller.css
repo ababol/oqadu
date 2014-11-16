@@ -7862,14 +7862,7 @@ ion-side-menu > ion-content > div.scroll > ul > a.item.logout {
   padding-top: 3em; }
 
 .tag-item {
-  background-color: #eee;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 7px 10px;
-  margin: 10px;
-  display: inline-block;
-  color: #434343;
-  font-size: 1.3em; }
+  margin: 3px 6px 3px 0; }
 
 .scroll > .button-half {
   margin-top: 0 !important;
@@ -7915,6 +7908,11 @@ ion-side-menu > ion-content > div.scroll > ul > a.item.logout {
 .right {
   text-align: right; }
 
+.center {
+  text-align: center;
+  margin: 0 auto; }
+
 .no-padding-side {
   padding-left: 0px !important;
-  padding-right: 0px !important; }
+  padding-right: 0px !important;
+  padding-top: 0px !important; }
