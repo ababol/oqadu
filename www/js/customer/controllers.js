@@ -35,6 +35,7 @@ angular.module('starter.controllers', [])
     Products.getReviews($stateParams.productId).success(function(reviews) {
       product.reviewAvg = getReviewAvg(reviews);
       product.reviewAvgHtml = getReviewHtml(product.reviewAvg);
+      // product.reviewHtml = getReviewHtml(reviews);
       $scope.product = product;
     });
   });
@@ -42,6 +43,17 @@ angular.module('starter.controllers', [])
   $scope.updateSlider = function () {
     angular.element(document.querySelector('#backButton')).removeClass('ng-hide');
     return $ionicSlideBoxDelegate.update();
+  };
+})
+
+.directive('slideToggle', function () {
+  return {
+    restrict: 'C',
+    link: function (scope, element, attr) {
+      element.bind('click', function () {
+        element.parent().next().toggleClass('noShow');
+      });
+    }
   };
 })
 
