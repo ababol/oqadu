@@ -59,6 +59,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     })
     .state('tab.product-detail', {
       url: '/product-detail/:productId',
+      backUrl: '/tab/product',
       views: {
         'tab-product': {
           templateUrl: 'templates/seller/product-detail.html',
@@ -91,6 +92,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
     .state('product-detail', {
       url: '/product-detail/:productId',
+      backUrl: '/products',
       templateUrl: 'templates/seller/product-detail.html',
       controller: 'ProductDetailCtrl'
     });

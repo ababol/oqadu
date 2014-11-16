@@ -9,11 +9,11 @@
     </div>
 
     <ion-list class="products-list">
-      <ion-item class="custom" ng-repeat="product in products | filter:query" type="item-text-wrap" href="#/product-detail/{{product.id}}">
+      <ion-item class="custom" ng-repeat="product in products | filter:query" type="item-text-wrap" href="#/product-detail/{{product._id}}">
 
         <div class="list card">
           <div class="item item-image">
-            <img src="img/products/tondeuse.jpg">
+            <img src="{{product.img[0]}}">
           </div>
           <div class="item item-divider">
             <h3>{{product.name}}</h3>

@@ -9,11 +9,22 @@ angular.module('starter.controllers', [])
 })
 
 .controller('ProductCtrl', function($scope, Products) {
-  $scope.products = Products.all();
+  Products.all().success(function(data){
+    $scope.products = data;
+    window.products = $scope.products;
+  });
 })
 
-.controller('ProductDetailCtrl', function($scope, $stateParams, Products) {
-  $scope.product = Products.get($stateParams.productId);
+.controller('ProductDetailCtrl', function($scope, $stateParams, $state, $ionicSlideBoxDelegate, Products) {
+  $scope.backUrl=$state.current.backUrl;
+  Products.get($stateParams.productId).success(function(data){
+    $scope.product = data;
+    window.product = $scope.product;
+  });
+  $scope.updateSlider = function () {
+    angular.element(document.querySelector('#backButton')).removeClass('ng-hide');
+    return $ionicSlideBoxDelegate.update();
+  };
 })
 
 .controller('TagCtrl', function($scope, Tags) {
@@ -64,7 +75,10 @@ angular.module('starter.controllers', [])
 })
 
 .controller('AllProductsCtrl', function($scope, Products) {
-  $scope.products = Products.all();
+
+  Products.all().success(function(data){
+    $scope.products = data;
+  });
 })
 
 .controller('ContentController', function($scope, $ionicSideMenuDelegate) {
