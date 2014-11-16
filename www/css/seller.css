@@ -7839,20 +7839,6 @@ ion-side-menu > ion-content > div.scroll > ul > a.item.logout {
     .products-list .item-complex.custom .item-content {
       padding: 0px; }
 
-.tag-pannel {
-  text-align: center;
-  padding-top: 3em; }
-
-.tag-item {
-  background-color: #eee;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 7px 10px;
-  margin: 10px;
-  display: inline-block;
-  color: #434343;
-  font-size: 1.3em; }
-
 .waitlist {
   text-align: center; }
   .waitlist div.list.card {
@@ -7870,3 +7856,65 @@ ion-side-menu > ion-content > div.scroll > ul > a.item.logout {
   .waitlist .item {
     text-align: center;
     color: #434343; }
+
+.tag-pannel {
+  text-align: center;
+  padding-top: 3em; }
+
+.tag-item {
+  background-color: #eee;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 7px 10px;
+  margin: 10px;
+  display: inline-block;
+  color: #434343;
+  font-size: 1.3em; }
+
+.scroll > .button-half {
+  margin-top: 0 !important;
+  margin-bottom: 1%; }
+
+.invert {
+  color: #66cc33 !important;
+  background-color: white !important;
+  margin-bottom: 0 !important; }
+
+.button-half {
+  font-size: 2em;
+  height: 49%;
+  width: 100%;
+  align-items: center;
+  display: flex !important;
+  justify-content: center; }
+
+.button-question {
+  width: 99.5%;
+  margin: 0.25%; }
+
+.card.top {
+  margin: 0 0 0.5% 0 !important; }
+
+.fakebutton {
+  border-color: #66cc33;
+  background: none repeat scroll 0% 0% transparent;
+  color: #66cc33;
+  padding: 0px 16px;
+  min-width: 68px;
+  min-height: 59px;
+  font-size: 20px;
+  line-height: 53px;
+  display: inline-block;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 2px; }
+
+.left {
+  text-align: left; }
+
+.right {
+  text-align: right; }
+
+.no-padding-side {
+  padding-left: 0px !important;
+  padding-right: 0px !important; }

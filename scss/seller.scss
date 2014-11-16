@@ -40,57 +40,7 @@ ion-side-menu > ion-content > div.scroll > ul > a.item.logout{
   border-top-color: $blue;
 }
 
-.products-list{
-  text-align: center;
-  .item-complex.custom{
-    padding: 0;
-    max-width: 200px;
-    display: inline-block;
-    vertical-align: middle;
-    border-width: 0px;
-    .item-content{
-      padding: 0px;
-    }
-  }
-}
-
-.tag-pannel{
-  text-align: center;
-  padding-top: 3em;
-}
-.tag-item{
-  background-color: #eee;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 7px 10px;
-  margin: 10px;
-  display: inline-block;
-  color: $gray-black;
-  font-size: 1.3em;
-}
-
-.waitlist{
-  text-align: center;
-  div.list.card{
-    width: 230px;
-    display: inline-block;
-    vertical-align: top;
-    &.chart{
-      width: 330px;
-    }
-  }
-
-  div.item-body{
-    h1{
-      text-align: center;
-      font-size: 7em;
-      margin: 0;
-      color: $blue;
-      line-height: 200px;
-    }
-  }
-  .item{
-    text-align: center;
-    color: $gray-black;
-  }
-}
+@import "scss/seller/productsList";
+@import "scss/seller/statistiques";
+@import "scss/seller/tag";
+@import "scss/customer/button";

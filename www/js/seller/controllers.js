@@ -17,9 +17,12 @@ angular.module('starter.controllers', [])
 
 .controller('ProductDetailCtrl', function($scope, $stateParams, $state, $ionicSlideBoxDelegate, Products) {
   $scope.backUrl=$state.current.backUrl;
-  Products.get($stateParams.productId).success(function(data){
-    $scope.product = data;
-    window.product = $scope.product;
+  Products.get($stateParams.productId).success(function(product){
+    Products.getReviews($stateParams.productId).success(function(reviews) {
+      product.reviewAvg = getReviewAvg(reviews);
+      product.reviewAvgHtml = getReviewHtml(product.reviewAvg);
+      $scope.product = product;
+    });
   });
   $scope.updateSlider = function () {
     angular.element(document.querySelector('#backButton')).removeClass('ng-hide');
@@ -87,3 +90,31 @@ angular.module('starter.controllers', [])
   };
 });
 
+
+
+function getReviewAvg(reviews) {
+  if (reviews.length === 0)
+    return "N/A";
+
+  var reviewSum = 0;
+
+  reviews.forEach(function(review) {
+    reviewSum += review.score;
+  });
+  return Math.round(reviewSum);
+}
+
+function getReviewHtml (reviewAvg) {
+  if (reviewAvg === "N/A")
+    return [];
+
+  var reviewHtml = [];
+  for (var i = 1; i <= 5; i++) {
+    if (i <= reviewAvg)
+      reviewHtml.push("ion-ios7-star");
+    else
+      reviewHtml.push("ion-ios7-star-outline");
+  }
+
+  return reviewHtml;
+}

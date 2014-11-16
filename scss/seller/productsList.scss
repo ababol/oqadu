@@ -1,0 +1,13 @@
+.products-list{
+  text-align: center;
+  .item-complex.custom{
+    padding: 0;
+    max-width: 200px;
+    display: inline-block;
+    vertical-align: middle;
+    border-width: 0px;
+    .item-content{
+      padding: 0px;
+    }
+  }
+}

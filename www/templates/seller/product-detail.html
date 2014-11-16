@@ -21,21 +21,33 @@
           </ion-slide-box>
     </div>
     <div class="col col-offset-10">
-      <ul class="list">
-        <li class="item">{{product.name}}</li>
-        <li class="item">34€</li>
-        <li class="item">ref: 123455233</li>
-      </ul>
+        <div class="row no-padding-side">
+          <div class="col left no-padding-side">
+            <span class="fakebutton ion-bag">
+              {{product.price}}€
+            </span>
+          </div>
+          <div class="col right no-padding-side">
+            <span class="fakebutton ion-ios7-star">
+              {{product.reviewAvg}}
+            </span>
+          </div>
+        </div>
+        <div class="list">
+          <div class="item item-divider" ng-repeat-start="label in product.info_label">
+            {{label}}
+          </div>
+          <div class="item" ng-repeat-end>
+            {{product.info_text[$index]}}
+          </div>
+        </div>
     </div>
   </div>
   <div class="row">
     <div class="col">
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-      proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      <div class="card">
+        <div class="item item-text-wrap">{{ product.description }}</div>
+      </div>
     </div>
   </div>
   <div class="row">
