@@ -44,6 +44,7 @@ db.reviews.insert(
         productId: ObjectId("545fc3da946ea453ece17e82"),
         score: 5,
         title: "très satisfait",
+        nickname: "Alain",
         text: "bjr un petit avis , je refait une cabine de peinture (carrosserie) inutile de préciser qu avec les années les murs étaient de toutes les couleurs après un léger poncage , j ai passé 2 couches de cette peinture dans la journée elle est maintenant comme neuve , très bon rapport qualité prix je recommande vivement ;) christ auto"
      }
    ]
