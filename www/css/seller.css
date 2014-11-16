@@ -7899,10 +7899,10 @@ ion-side-menu > ion-content > div.scroll > ul > a.item.logout {
   border-color: #66cc33;
   background: none repeat scroll 0% 0% transparent;
   color: #66cc33;
-  padding: 0px 16px;
-  min-width: 68px;
-  min-height: 59px;
-  font-size: 20px;
+  padding: 0px 1em;
+  min-width: 59px;
+  min-height: 50px;
+  font-size: 1em;
   line-height: 53px;
   display: inline-block;
   border-width: 1px;
