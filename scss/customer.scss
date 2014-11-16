@@ -23,9 +23,9 @@ $balanced: #45B82E !default;
 @import "www/lib/ionic/scss/ionic";
 
 @import "scss/both/pace";
+@import "scss/both/button";
 
 // Include customer
-@import "scss/customer/button";
 @import "scss/customer/loading";
 .scroll {
   height: 100%;
