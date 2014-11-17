@@ -481,7 +481,7 @@ db.products.insert(
       {
         productId: ObjectId("545fc3da946ea453ece17f39"),
         score: 5,
-        title: "Rouleaux à peinture"
+        title: "Rouleaux à peinture",
         text: "Un bon rouleau de peinture de qualité prix parfait ..."
       }
    ]
@@ -559,7 +559,30 @@ db.recommandations.insert(
       {
         answerId: ObjectId("545f70d9946ea453ece17e80"),
         productId: ObjectId("545fc3da946ea453ece17e82")
-      },
-      
+      },      
    ]
+)
+
+db.ProductFaq.insert(
+  [
+    {
+      productId: ObjectId("545fc3da946ea453ece17f22"),
+      question: 
+      answer:
+    },
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {}
+  ]
 )
