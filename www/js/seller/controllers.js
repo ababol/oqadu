@@ -5,7 +5,15 @@ angular.module('starter.controllers', [])
  $scope.state = $state;
 })
 
+
 .controller('UserCtrl', function($scope) {
+})
+
+.controller('CustomerCtrl', function($scope, Waitlist) {
+  Waitlist.current().success(function(user){
+    $scope.customer = user;
+    console.log($scope.customer);
+  });
 })
 
 .controller('ProductCtrl', function($scope, Products) {
