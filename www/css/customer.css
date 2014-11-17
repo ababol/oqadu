@@ -7930,7 +7930,10 @@ span.tab-item {
 
 .item.product {
   text-align: center;
-  margin: 0 auto; }
+  margin: 0 auto;
+  border-width: 0px; }
+  .item.product img {
+    width: auto !important; }
 
 .noShow {
   display: none; }
