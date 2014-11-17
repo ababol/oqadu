@@ -1,7 +1,10 @@
 <ion-view title="tag">
   <ion-content class="padding">
     <div class="tag-pannel">
-      <div ng-repeat="tag in tags" class="button button-light tag-item">{{tag.name}}</div>
+
+      <span ng-repeat="product in customer.products">
+        <div ng-repeat="tag in product.tags" class="button button-light tag-item">{{tag}}</div>
+      </span>
       <div class="button button-light tag-item"><i class="ion-ios7-plus-outline"></i> Add a tag</div>
     </div>
   </ion-content>

@@ -26,10 +26,6 @@ angular.module('starter.controllers', [])
 })
 
 .controller('ProductCtrl', function($scope, Products) {
-  Products.all().success(function(data){
-    $scope.products = data;
-    window.products = $scope.products;
-  });
 })
 
 .controller('ProductDetailCtrl', function($scope, $stateParams, $state, $ionicSlideBoxDelegate, Products) {
