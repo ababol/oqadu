@@ -532,7 +532,7 @@ db.recommendations.insert(
       {
         _id: ObjectId("545fc3da946ea453ece17f59"),
         answerId: ObjectId("545f70d9946ea453ece17f06"),
-        products: [ObjectId("545fc3da946ea453ece17f39")]
+        products: [ObjectId("545fc3da946ea453ece17f37")]
       },
       {
         _id: ObjectId("545fc3da946ea453ece17f60"),
@@ -542,7 +542,7 @@ db.recommendations.insert(
       {
         _id: ObjectId("545fc3da946ea453ece17f61"),
         answerId: ObjectId("545f70d9946ea453ece17f08"),
-        products: [ObjectId("545fc3da946ea453ece17f34")]
+        products: [ObjectId("545fc3da946ea453ece17f39")]
       },
       {
         _id: ObjectId("545fc3da946ea453ece17f62"),
@@ -562,7 +562,7 @@ db.recommendations.insert(
       {
         _id: ObjectId("545fc3da946ea453ece17f65"),
         answerId: ObjectId("545f70d9946ea453ece17f12"),
-        products: [ObjectId("545fc3da946ea453ece17f24")]
+        products: [ObjectId("545fc3da946ea453ece17f25")]
       },
       {
         _id: ObjectId("545fc3da946ea453ece17f66"),
