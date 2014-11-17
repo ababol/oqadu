@@ -598,31 +598,8 @@ db.recommendations.insert(
       },      
    ]
 )
-<<<<<<< HEAD
 
 db.ProductFaq.insert(
-  [
-    {
-      productId: ObjectId("545fc3da946ea453ece17f22"),
-      question: 
-      answer:
-    },
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {}
-=======
-db.ProductPad.insert(
   [
     {
      _id:ObjectId(""),
@@ -648,6 +625,5 @@ db.ProductPad.insert(
      question:"Qunatité de pots",
      answer:"1337"
     }
->>>>>>> 32197cf7929f49d59d188fc559358f69a7cd0f22
   ]
 )
