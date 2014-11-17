@@ -486,11 +486,80 @@ db.products.insert(
       }
    ]
 )
-db.recommendations.insert(
+db.recommandations.insert(
    [
-     {
+      {
         answerId: ObjectId("545f70d9946ea453ece17e80"),
         productId: ObjectId("545fc3da946ea453ece17e82")
-     }
+      },
+      {
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+      },
+      {
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+      },
+      {
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+      },
+      {
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+      },
+      {
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+      },
+      {
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+      },
+      {
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+      },
+      {
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+      },
+      {
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+      },
+      {
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+      },
+      {
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+      },
+      {
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+      },
+      {
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+      },
+      {
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+      },
+      {
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+      },
+       {
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+      },
+      {
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+      },
+      
    ]
 )
