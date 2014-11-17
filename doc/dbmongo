@@ -374,12 +374,13 @@ db.products.insert(
 
    ]
 )
-  db.productreviews.insert(
+  db.reviews.insert(
      [
       {
         _id: ObjectId("545fc3da946ea453ece17f40"),
         productId: ObjectId("545fc3da946ea453ece17f22"),
         score: 4,
+        nickname: "Aanor",
         title: "bonne machine",
         text: "tondeuse achetée début du printemps - utilisation tous les 8-10 jours - fait ce que je lui demande, à savoir couper et ramasser l'herbe - grande surface à tondre (env 600m²), consomme peu d'essence (moins d'1 plein) - aucun problème à noter"
       },
@@ -387,6 +388,7 @@ db.products.insert(
         _id: ObjectId("545fc3da946ea453ece17f41"),
         productId: ObjectId("545fc3da946ea453ece17f23"),
         score: 5,
+        nickname: "Aaricia",
         title: "gazon",
         text: "un gazon de super qualité, semé il y a une semaine et la pelouse est déjà bien poussée! nous sommes ravis, en plus un bon rapport qualité prix! je recommande se produit les yeux fermés!"
       },
@@ -394,6 +396,7 @@ db.products.insert(
         _id: ObjectId("545fc3da946ea453ece17f42"),
         productId: ObjectId("545fc3da946ea453ece17f24"),
         score: 3,
+        nickname: "Aaron",
         title: "très pratique",
         text: "Prise en main rapide. Matériel efficace. Petit bémol pour le buit..."
       },
@@ -401,6 +404,7 @@ db.products.insert(
         _id: ObjectId("545fc3da946ea453ece17f43"),
         productId: ObjectId("545fc3da946ea453ece17f25"),
         score: 4,
+        nickname: "Abbon",
         title: "Performance et maniabilité",
         text: "Petite machine performante avec beaucoup de maniabilité. Très agréable à utiliser. Reste à voir ce qu'elle donne sur la durée. Achat 26 fév 2014"
       },
@@ -408,6 +412,7 @@ db.products.insert(
         _id: ObjectId("545fc3da946ea453ece17f44"),
         productId: ObjectId("545fc3da946ea453ece17f26"),
         score: 5,
+        nickname: "Abby",
         title: "très bonne machine",
         text: "je pensse q'avec un plus gros poid sur l'avant cette machine serais irréprochable sinon elle ne manque pas de puissance!!!"
       },
@@ -415,6 +420,7 @@ db.products.insert(
         _id: ObjectId("545fc3da946ea453ece17f45"),
         productId: ObjectId("545fc3da946ea453ece17f27"),
         score: 5,
+        nickname: "Abdel",
         title: "Je recommande",
         text: "Montage rapide et facile. Pour ce qui est de la qualité, il s'agit d'un bon rapport qualité prix !!"
       },
@@ -422,6 +428,7 @@ db.products.insert(
         _id: ObjectId("545fc3da946ea453ece17f46"),
         productId: ObjectId("545fc3da946ea453ece17f28"),
         score: 4,
+        nickname: "Abdon",
         title: "Jolies finitions",
         text: "Je ne regrette pas du tout mon achat, ces spots tiennent bien le coup malgré les conditions difficiles auxquelles ils sont exposés !"
       },
@@ -429,6 +436,7 @@ db.products.insert(
         _id: ObjectId("545fc3da946ea453ece17f47"),
         productId: ObjectId("545fc3da946ea453ece17f29"),
         score: 5,
+        nickname: "Abel",
         title: "Pratique",
         text: "Parfait pour une installation rapide !"
       },
@@ -436,6 +444,7 @@ db.products.insert(
         _id: ObjectId("545fc3da946ea453ece17f48"),
         productId: ObjectId("545fc3da946ea453ece17f30"),
         score: 4,
+        nickname: "Abélard",
         title: "rapport qualité/prix moyen",
         text: "bonjour, nous avons fait l'acquisition il y a plus de trois ans, et avons changé deux fois les rideaux... (1 fois dès la première année) exposée plein sud, ils n'ont pas résistés au soleil ! et les moustiquaires se déchirent. Là cette année il faut changer le toit et les crochets car tous les élastique n'ont pas tenu. produit très agréable à l'œil mais qui ne dure pas dans le temps, aussi nous avons décidé de ne l'exposer que l'été et de retirer les toiles l'hiver, pour la préserver un peu."
       },
@@ -443,6 +452,7 @@ db.products.insert(
         _id: ObjectId("545fc3da946ea453ece17f49"),
         productId: ObjectId("545fc3da946ea453ece17f31"),
         score: 4,
+        nickname: "Abélia",
         title: "Difficile de trouver moins cher",
         text: "bonjour, après avoir comparé dans différentes enseignes, ce salon est le moins cher ! Je l'ai depuis quelques mois et il résiste très bien aux intempéries !"
       },
@@ -450,6 +460,7 @@ db.products.insert(
         _id: ObjectId("545fc3da946ea453ece17f50"),
         productId: ObjectId("545fc3da946ea453ece17f32"),
         score: 4,
+        nickname: "Abella",
         title: "totalement surpris",
         text: "Bonjour, Je suis totalement surpris de la qualité du produit la facilité de la prise en main. Je pensais que c’était juste une peinture mais non un réel crépi et masque bien les fissures. J'ai mis sur le muret extérieur facile d utilisation, j'ai mis au début au rouleau car pas je ne connaissais pas le couteau; une fois le couteau découvert, j'ai divise par le temps de travail mais il est vrai qu'avec le rouleau c'est plus joli. reste a voir dans le temps la tenue du produit"
       },
@@ -457,6 +468,7 @@ db.products.insert(
         _id: ObjectId("545fc3da946ea453ece17f51"),
         productId: ObjectId("545fc3da946ea453ece17f33"),
         score: 4,
+        nickname: "Abigaël",
         title: "Bien",
         text: "Je ne sais pas encore ce que ça donnera dans le temps, mais s'étale très bien et donne un joli rendu au bois."
       },
@@ -464,6 +476,7 @@ db.products.insert(
         _id: ObjectId("545fc3da946ea453ece17f52"),
         productId: ObjectId("545fc3da946ea453ece17f34"),
         score: 3,
+        nickname: "Abondance",
         title: "Facile d'utilisation.",
         text: "J'ai rénové une cuisine avec du papier intissé et j'ai affiné les jointures entre rouleaux avec de l'enduit puis une couche de peinture blanche. Malheureusement lors du séchage de la première couche de peinture apparaissent toutes les jointures blanches."
       },
@@ -471,6 +484,7 @@ db.products.insert(
         _id: ObjectId("545fc3da946ea453ece17f53"),
         productId: ObjectId("545fc3da946ea453ece17f35"),
         score: 4,
+        nickname: "Abraham",
         title: "Jolie couleur !",
         text: "Jolie couleur rouge assez foncé. En revanche, il faut au minimum appliquer trois couches car on voit des traces de rouleau au début. Mais le résultat est joli. Peinture un peu plastifiée, attention donc au papier cache : la peinture fait élastique."
       },
@@ -478,6 +492,7 @@ db.products.insert(
         _id: ObjectId("545fc3da946ea453ece17f54"),
         productId: ObjectId("545fc3da946ea453ece17f36"),
         score: 5,
+        nickname: "Acace",
         title: "très bon !",
         text: "Très bonne facilité d'application de cette peinture Adhère très bien Une seule couche suffit Aucune trace Finition parfaite (Peinture appliquée au plafond au rouleau) Je reprendrai celle là sans hésiter"
       },
@@ -485,6 +500,7 @@ db.products.insert(
         _id: ObjectId("545fc3da946ea453ece17f55"),
         productId: ObjectId("545fc3da946ea453ece17f37"),
         score: 4,
+        nickname: "Achille",
         title: "Aucune perte de poils",
         text: "Ces pinceaux ne perdent aucun poil, et ce malgré une utilisation fréquente !!"
       },
@@ -492,6 +508,7 @@ db.products.insert(
         _id: ObjectId("545fc3da946ea453ece17f56"),
         productId: ObjectId("545fc3da946ea453ece17f38"),
         score: 4,
+        nickname: "Acmé",
         title: "Facile d'utilisation",
         text: "Je viens de finir 4 jours de peinture, et très satisfait du rouleau. Par contre, j'ai changé chaque jour le rouleau avec la recharge par 3. Je pense que j'aurais pu réutiliser le rouleau. Aucune peluche sur le mur"
       },
@@ -499,6 +516,7 @@ db.products.insert(
         _id: ObjectId("545fc3da946ea453ece17f57"),
         productId: ObjectId("545fc3da946ea453ece17f39"),
         score: 5,
+        nickname: "Ada",
         title: "Rouleaux à peinture",
         text: "Un bon rouleau de peinture de qualité prix parfait ..."
       }
@@ -599,7 +617,7 @@ db.recommendations.insert(
    ]
 )
 
-db.ProductFaq.insert(
+db.faqs.insert(
   [
     {
      _id:ObjectId("545fc3da946ea453ece17f76"),

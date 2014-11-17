@@ -33,6 +33,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     .state('tab', {
       url: "/tab",
       abstract: true,
+      controller: 'CustomerCtrl',
       templateUrl: "templates/seller/tabs.html"
     })
 

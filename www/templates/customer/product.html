@@ -44,7 +44,7 @@
       </div>
     </div>
 
-    <div class="card" ng-if="product.reviews">
+    <div class="card" ng-if="product.description">
       <div class="item item-divider">
         <ion-toggle class="slideToggle" ng-checked="true">
           Description
@@ -52,6 +52,7 @@
       </div>
       <div class="item item-text-wrap">
         {{ product.description }}
+      </div>
     </div>
 
     <div class="card" ng-if="product.faq">

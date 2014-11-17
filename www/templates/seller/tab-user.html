@@ -2,42 +2,15 @@
   <ion-content class="padding">
     <div class="dialog">
 
-      <div class="card">
+      <div class="card" ng-repeat="qa in customer.qa">
         <div class="item item-divider">
-          question question question ?
+          {{qa.question.text}}
         </div>
         <div class="item item-text-wrap">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          {{qa.answer.text}}
         </div>
       </div>
-
-      <div class="card">
-        <div class="item item-divider">
-          question question question ?
-        </div>
-        <div class="item item-text-wrap">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="item item-divider">
-          question question question ?
-        </div>
-        <div class="item item-text-wrap">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="item item-divider">
-          question question question ?
-        </div>
-        <div class="item item-text-wrap">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-        </div>
-      </div>
-
+      
     </div>
   </ion-content>
 </ion-view>
