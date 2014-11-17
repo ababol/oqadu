@@ -329,13 +329,6 @@ db.products.insert(
      }, 
      {
         _id: ObjectId("545fc3da946ea453ece17f39"),
-        name: "Taille-haies électrique GT 5055, BLACK & DECKER",
-        img: ["img/products/taille-haies-electrique-gt-5055-black-decker.jpg"],
-        info_label: ["Type de peinture", "Matière de la fibre","Diamètre du manchon"],
-        info_text: ["Glycéro et acrylique","Polyester","48"]
-     }, 
-     {
-        _id: ObjectId("545fc3da946ea453ece17f40"),
         name: "Lot de rouleau 180mm, diam 48mm, 2 pinceaux et un bac DEXTER",
         img: ["img/products/lot-de-rouleau-180mm-diam-48mm-2-pinceaux-et-un-bac-dexter.jpg"],
         info_label: ["Type de peinture", "Matière de la fibre", "Diamètre du manchon"],
@@ -345,6 +338,103 @@ db.products.insert(
 
    ]
 )
+
+db.recommendations.insert(
+   [
+     {
+        _id: ObjectId(""),
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+     }
+     {
+        _id: ObjectId(""),
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+     }
+     {
+        _id: ObjectId(""),
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+     }
+     {
+        _id: ObjectId(""),
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+     }
+     {
+        _id: ObjectId(""),
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+     }
+     {
+        _id: ObjectId(""),
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+     }
+     {
+        _id: ObjectId(""),
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+     }
+     {
+        _id: ObjectId(""),
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+     }
+     {
+        _id: ObjectId(""),
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+     }
+     {
+        _id: ObjectId(""),
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+     }
+     {
+        _id: ObjectId(""),
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+     }
+     {
+        _id: ObjectId(""),
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+     }
+     {
+        _id: ObjectId(""),
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+     }
+     {
+        _id: ObjectId(""),
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+     }
+     {
+        _id: ObjectId(""),
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+     }
+     {
+        _id: ObjectId(""),
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+     }
+     {
+        _id: ObjectId(""),
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+     }
+     {
+        _id: ObjectId(""),
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+     }
+   ]
+)
+
+
 db.productreviews.insert(
    [
      {
@@ -352,14 +442,6 @@ db.productreviews.insert(
         score: 5,
         title: "très satisfait",
         text: "bjr un petit avis , je refait une cabine de peinture (carrosserie) inutile de préciser qu avec les années les murs étaient de toutes les couleurs après un léger poncage , j ai passé 2 couches de cette peinture dans la journée elle est maintenant comme neuve , très bon rapport qualité prix je recommande vivement ;) christ auto"
-     }
-   ]
-)
-db.recommendations.insert(
-   [
-     {
-        answerId: ObjectId("545f70d9946ea453ece17e80"),
-        productId: ObjectId("545fc3da946ea453ece17e82")
      }
    ]
 )
