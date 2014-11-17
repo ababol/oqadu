@@ -4,9 +4,10 @@ module.exports = function(mongoose, Schema) {
   	img: {type:[String], required:true},
     info_label: {type:[String], required:false, default: []},
     info_text: {type:[String], required:false, default: []},
-    description: {type: String},
+    description: {type: String, default:""},
     price: {type: Number},
-    answer: [Schema.Types.ObjectId]
+    answer: [Schema.Types.ObjectId],
+    tags:{type:[String], required:false, default:[]}
   });
   return mongoose.model('Product', Product);
 };

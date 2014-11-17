@@ -4,9 +4,9 @@ db.questions.insert(
      { _id: ObjectId("545f70d9946ea453ece17e7f"), text: "De quoi avez-vous besoin?" },
      { _id: ObjectId("545f70d9946ea453ece17e80"), text: "De quoi avez-vous besoin?" },
      { _id: ObjectId("545f70d9946ea453ece17e81"), text: "Que voulez-vous entretenir" },
-     { _id: ObjectId("545f70d9946ea453ece17e82"), text: "Ques souhaitez-vous décorer?" },
-     { _id: ObjectId("545f70d9946ea453ece17e83"), text: "Que souhaitez-vous repeindre?" },
-     { _id: ObjectId("545f70d9946ea453ece17e84"), text: "Quel type de materiel?" },
+     { _id: ObjectId("545f70d9946ea453ece17e82"), text: "Que souhaitez-vous décorer?" },
+     { _id: ObjectId("545f70d9946ea453ece17e83"), text: "Que souhaitez-vous peindre?" },
+     { _id: ObjectId("545f70d9946ea453ece17e84"), text: "Quel type de matériel?" },
      { _id: ObjectId("545f70d9946ea453ece17e85"), text: "Quel type d'entretien?" },
      { _id: ObjectId("545f70d9946ea453ece17e86"), text: "Quel type d'entretien?" },
      { _id: ObjectId("545f70d9946ea453ece17e87"), text: "Quel type d'entretien?" },
@@ -75,7 +75,7 @@ db.answers.insert(
       {
         _id: ObjectId("545f70d9946ea453ece17f01"),
         questionId: ObjectId("545f70d9946ea453ece17e82"),
-        text: "Terasse",
+        text: "Terrasse",
         nextUrl: "question/545f70d9946ea453ece17e88"
       },
       {
@@ -211,231 +211,355 @@ db.products.insert(
      {
         _id: ObjectId("545fc3da946ea453ece17f22"),
         name: "Tondeuse à essence STERWINS 460HSP140-3, 160 cm3",
-        img: "img/products/tondeuse-a-essence-sterwins-460hsp140-3-160-cm3.jpg",
-        info1: "Surface conseillé(m²)",
-        info1_text: "1500",
-        info2: "Type de propulsion",
-        info2_text: "Tractée",
-        info3: "Type d'éjection",
-        info3_text: "2 en 1 : arrière et mulching"
+        img: ["img/products/tondeuse-a-essence-sterwins-460hsp140-3-160-cm3.jpg"],
+        info_label: ["Surface conseillé(m²)","Type de propulsion","Type d'éjection"],
+        info_text: ["1500","Tractée","2 en 1 : arrière et mulching"],
+        price:289.00,
+        tags: ["outillage", "gazon", "tonte"]
      },
      {
         _id: ObjectId("545fc3da946ea453ece17f23"),
         name: "10kg de gazon 4477417 350 m²",
-        img: "img/products/10kg-de-gazon-4477417-350-m2.jpg",
-        info1: "Surface couverte(m²)",
-        info1_text: "350",
-        info2: "Enrichi en engrais?",
-        info2_text: "non",
-        info3: "Conseil d'utilisation",
-        info3_text: "Tondre dès que le gazon atteint 5 à 6 cm."
+        img: ["img/products/10kg-de-gazon-4477417-350-m2.jpg"],
+        info_label: ["Surface couverte(m²)","Enrichi en engrais?","Conseil d'utilisation"],
+        info_text: ["350","non","Tondre dès que le gazon atteint 5 à 6 cm."],
+        price: 27.90,
+        tags: ["outillage", "gazon","semer"]
      },
      {
         _id: ObjectId("545fc3da946ea453ece17f24"),
         name: "Taille-haies électrique GT 5055, BLACK & DECKER",
-        img: "img/products/taille-haies-electrique-gt-5055-black-decker.jpg",
-        info1: "Usage",
-        info1_text: "Tailler une haie aux branches moyennes",
-        info2: "Longueur de la lame(cm)",
-        info2_text: "55",
-        info3: "Capacité de coupe(mm)",
-        info3_text: "18"
+        img: ["img/products/taille-haies-electrique-gt-5055-black-decker.jpg"],
+        info_label: ["Usage", "Longueur de la lame(cm)", "Capacité de coupe(mm)"],
+        info_text: ["Tailler une haie aux branches moyennes","55", "18"],
+        price:79.90,
+        tags: ["outillage", "arbre", "taille"]
      }, 
      {
         _id: ObjectId("545fc3da946ea453ece17f25"),
         name: "Tronçonneuse élagueuse à essence STERWINS PCS26-2 25.4cm3, 27cm de coupe",
-        img: "img/products/tronconneuse-elagueuse-a-essence-sterwins-pcs26-2-25-4cm3-27cm-de-coupe.jpg",
-        info1: "Longueur de coupe(cm)",
-        info1_text: "27",
-        info2: "Puissance(cv)",
-        info2_text: "1.2",
-        info3: "Cylindrée(cm3)",
-        info3_text: "25.4"
+        img: ["img/products/tronconneuse-elagueuse-a-essence-sterwins-pcs26-2-25-4cm3-27cm-de-coupe.jpg"],
+        info_label: ["Longueur de coupe(cm)","Puissance(cv)","Cylindrée(cm3)"],
+        info_text: ["27","1.2","25.4"],
+        price:129.00,
+        tags: ["outillage", "arbre", "coupe"]
      }, 
      {
         _id: ObjectId("545fc3da946ea453ece17f26"),
         name: "Motoculteur à essence JARDIMECA GX 200BH kit labour",
-        img: "img/products/motoculteur-a-essence-jardimeca-gx-200bh-kit-labour.jpg",
-        info1: "Profondeur de travail(cm)",
-        info1_text: "28",
-        info2: "Largeur de travail(cm)",
-        info2_text: "55",
-        info3: "Nombre de vitesses avant",
-        info3_text: "2"
+        img: ["img/products/motoculteur-a-essence-jardimeca-gx-200bh-kit-labour.jpg"],
+        info_label: ["Profondeur de travail(cm)","Largeur de travail(cm)","Nombre de vitesses avant"],
+        info_text: ["28", "55","2"],
+        price:1690.00,
+        tags: ["outillage", "potager", "terre"]
      }, 
      {
         _id: ObjectId("545fc3da946ea453ece17f27"),
         name: "Serre Venus 5000 en verre horticole 4.96 m²",
-        img: "img/products/serre-venus-5000-en-verre-horticole-4-96-m2.jpg",
-        info1: "Type de porte",
-        info1_text: "Simple porte coulissante",
-        info2: "Surface(m²)",
-        info2_text: "4.96",
-        info3: "Matière de la structure",
-        info3_text: "Aluminium"
+        img: ["img/products/serre-venus-5000-en-verre-horticole-4-96-m2.jpg"],
+        info_label: ["Type de porte","Surface(m²)","Matière de la structure"],
+        info_text: ["Simple porte coulissante","4.96","Aluminium"],
+        price:399.00,
+        tags: ["outillage", "potager", "serre"]
      }, 
      {
         _id: ObjectId("545fc3da946ea453ece17f28"),
         name: "Spot à enterrer extérieur Boston INSPIRE, aluminium, 40 watts",
-        img: "img/productsspot-a-enterrer-exterieur-boston-inspire-aluminium-40-watts.jpg",
-        info1: "Matière",
-        info1_text: "Aluminium",
-        info2: "Matière secondaire",
-        info2_text: "Fonte d'alluminnium",
-        info3: "Type de vitrage",
-        info3_text: "Dépoli"
+        img: ["img/productsspot-a-enterrer-exterieur-boston-inspire-aluminium-40-watts.jpg"],
+        info_label: ["Matière","Matière secondaire","Type de vitrage"],
+        info1_text: ["Aluminium","Fonte d'alluminnium","Dépoli"],
+        price:44.90,
+        tags: ["décoration", "terrasse", "luminaires"]
      }, 
      {
         _id: ObjectId("545fc3da946ea453ece17f29"),
         name: "Kit clips de fixation pour lames de terrasses SPAX",
-        img: "img/products/kit-clips-de-fixation-pour-lames-de-terrasses-spax.jpg",
-        info1: "Nbr de clips au m²",
-        info1_text: "20",
-        info2: "hauteur du produit(cm)",
-        info2_text: "12.5",
-        info3: "",
-        info3_text: ""
+        img: ["img/products/kit-clips-de-fixation-pour-lames-de-terrasses-spax.jpg"],
+        info_label: ["Nbr de clips au m²","hauteur du produit(cm)"],
+        info_text: ["20","12.5"],
+        price:34.50,
+        tags: ["décoration", "terrasse", "pose"]
      }, 
      {
         _id: ObjectId("545fc3da946ea453ece17f30"),
         name: "Tonnelle autoportante Azay, 10 m²",
-        img: "img/products/tonnelle-autoportante-azay-10-m2.jpg",
-        info1: "Forme",
-        info1_text: "Rectangulaire",
-        info2: "Surface(m²)",
-        info2_text: "12",
-        info3: "Surface couverte(m²)",
-        info3_text: "10"
+        img: ["img/products/tonnelle-autoportante-azay-10-m2.jpg"],
+        info_label: ["Forme","Surface(m²)","Surface couverte(m²)"],
+        info_text: ["Rectangulaire","12","10"],
+        price:539.00,
+        tags: ["décoration", "salon de jardin", "tonnelle"]
      }, 
      {
         _id: ObjectId("545fc3da946ea453ece17f31"),
         name: "Salon de jardin en résine Balcony KETER, gris/argent",
-        img: "img/products/salon-de-jardin-en-resine-balcony-keter-gris-argent.jpg",
-        info1: "Composition du salon de jardin",
-        info1_text: "2 fauteuils + 1 table basse",
-        info2: "Matière",
-        info2_text: "Résine injéctée",
-        info3: "Couleur",
-        info3_text: "Gris anthracite"
+        img: ["img/products/salon-de-jardin-en-resine-balcony-keter-gris-argent.jpg"],
+        info_label: ["Composition du salon de jardin", "Matière","Couleur"],
+        info_text: ["2 fauteuils + 1 table basse", "Résine injéctée", "Gris anthracite"],
+        price:229.00,
+        tags: ["décoration", "salon de jardin", "table", "chaise"]
      }, 
      {
         _id: ObjectId("545fc3da946ea453ece17f32"),
         name: "Crépis façade LUXENS, ton pierre, 15 KG",
-        img: "img/products/crepis-facade-luxens-ton-pierre-15-kg.jpg",
-        info1: "Type de peinture",
-        info1_text: "Peinture crépi",
-        info2: "Usage",
-        info2_text: "Décoration et protection des murs",
-        info3: "Aspect",
-        info3_text: "Mat"
+        img: ["img/products/crepis-facade-luxens-ton-pierre-15-kg.jpg"],
+        info_label: ["Type de peinture","Usage","Aspect"],
+        info_text: ["Peinture crépi","Décoration et protection des murs","Mat"],
+        price:34.90,
+        tags: ["peinture", "pot", "extérieur", "crépis"]
      }, 
      {
         _id: ObjectId("545fc3da946ea453ece17f33"),
         name: "Vernis BSC mat SYNTILOR, incolore, aspect mat, 0.75 L",
-        img: "img/products/taille-haies-electrique-gt-5055-black-decker.jpg",
-        info1: "Usage",
-        info1_text: "Tailler une haie aux branches moyennes",
-        info2: "Longueur de la lame(cm)",
-        info2_text: "55",
-        info3: "Capacité de coupe(mm)",
-        info3_text: "18"
+        img: ["img/products/vernis-bsc-mat-syntilor-incolore-aspect-mat-0-75-l.jpg"],
+        info_label: ["Usage","Support de destination","Pièces de destination"],
+        info_text: ["Protéger et décorer le bois","Volets, portes, fenêtres, abris de jardin, portail, bardage...","Toutes pièces"],
+        price:24.95,
+        tags: ["peinture", "pot", "extérieur", "boiseries"]
      }, 
      {
         _id: ObjectId("545fc3da946ea453ece17f34"),
         name: "Peinture cuisine et bains LUXENS Couleurs intérieures, blanc ivoire n°5, 2.5 L",
-        img: "img/products/peinture-cuisine-et-bains-luxens-couleurs-interieures-blanc-ivoire-n-5-2-5-l.jpg",
-        info1: "Type de peinture",
-        info1_text: "Peinture acrylique",
-        info2: "Aspect",
-        info2_text: "Satin",
-        info3: "Pret à l'emploi",
-        info3_text: "Oui"
+        img: ["img/products/peinture-cuisine-et-bains-luxens-couleurs-interieures-blanc-ivoire-n-5-2-5-l.jpg"],
+        info_label: ["Type de peinture","Aspect","Pret à l'emploi"],
+        info_text: ["Peinture acrylique", "Satin", "Oui"],
+        price:36.95,
+        tags: ["peinture", "pot", "cuisine", "blanc"]
      }, 
      {
         _id: ObjectId("545fc3da946ea453ece17f35"),
         name: "Peinture cuisine et bains LUXENS Couleurs intérieures, rouge rouge n°3, 2.5 L",
-        img: "img/products/peinture-cuisine-et-bains-luxens-couleurs-interieures-rouge-rouge-n-3-2-5-l.jpg.jpg",
-        info1: "Type de peinture",
-        info1_text: "Peinture acrylique",
-        info2: "Aspect",
-        info2_text: "Satin",
-        info3: "Pret à l'emploi",
-        info3_text: "Oui"
+        img: ["img/products/peinture-cuisine-et-bains-luxens-couleurs-interieures-rouge-rouge-n-3-2-5-l.jpg.jpg"],
+        info_label: ["Type de peinture","Aspect","Pret à l'emploi"],
+        info_text: ["Peinture acrylique","Satin","Oui"],
+        price:36.95,
+        tags: ["peinture", "pot", "cuisine", "rouge"]
      }, 
      {
         _id: ObjectId("545fc3da946ea453ece17f36"),
         name: "Peinture Plafonds séjour/chambre, DULUX VALENTINE, blanc mat, 6L",
-        img: "img/products/peinture-plafonds-sejour-chambre-dulux-valentine-blanc-mat-6l.jpg",
-        info1: "Couleur",
-        info1_text: "Blanc",
-        info2: "Aspect",
-        info2_text: "Mat",
-        info3: "Opacité en %",
-        info3_text: "98.1"
+        img: ["img/products/peinture-plafonds-sejour-chambre-dulux-valentine-blanc-mat-6l.jpg"],
+        info_label: ["Couleur","Aspect","Opacité en %"],
+        info_text: ["Blanc","Mat","98.1"],
+        price:69.90,
+        tags: ["peinture", "pot", "plafond", "séjour"]
      }, 
      {
         _id: ObjectId("545fc3da946ea453ece17f37"),
         name: "Lot de 3 pinceaux plats DEXTER : 20, 40, 60 mm",
-        img: "img/products/lot-de-3-pinceaux-plats-dexter-20-40-60-mm.jpg",
-        info1: "Type de peinture",
-        info1_text: "Acrylique",
-        info2: "Matière de la fibre",
-        info2_text: "Mélange de soie naturelle et synthétique",
-        info3: "Forme du pinceau",
-        info3_text: "Plat"
+        img: ["img/products/lot-de-3-pinceaux-plats-dexter-20-40-60-mm.jpg"],
+        info_label: ["Type de peinture", "Matière de la fibre", "Forme du pinceau"],
+        info_text: ["Acrylique","Mélange de soie naturelle et synthétique","Plat"],
+        price:5.90,
+        tags: ["peinture", "matériel", "pinceau"]
      }, 
      {
         _id: ObjectId("545fc3da946ea453ece17f38"),
         name: "Rouleau mur et plafond DEXTER largeur 180mm, diam 48mm",
-        img: "img/products/rouleau-mur-et-plafond-dexter-largeur-180mm-diam-48mm.jpg",
-        info1: "Usage",
-        info1_text: "Tailler une haie aux branches moyennes",
-        info2: "Longueur de la lame(cm)",
-        info2_text: "55",
-        info3: "Capacité de coupe(mm)",
-        info3_text: "18"
+        img: ["img/products/rouleau-mur-et-plafond-dexter-largeur-180mm-diam-48mm.jpg"],
+        info_label: ["Usage","Longueur de la lame(cm)", "Capacité de coupe(mm)"],
+        info1_text: ["Tailler une haie aux branches moyennes","55","18"],
+        price:8.80,
+        tags: ["peinture", "matériel", "rouleau"]
      }, 
      {
         _id: ObjectId("545fc3da946ea453ece17f39"),
-        name: "Taille-haies électrique GT 5055, BLACK & DECKER",
-        img: "img/products/taille-haies-electrique-gt-5055-black-decker.jpg",
-        info1: "Type de peinture",
-        info1_text: "Glycéro et acrylique",
-        info2: "Matière de la fibre",
-        info2_text: "Polyester",
-        info3: "Diamètre du manchon",
-        info3_text: "48"
-     }, 
-     {
-        _id: ObjectId("545fc3da946ea453ece17f40"),
         name: "Lot de rouleau 180mm, diam 48mm, 2 pinceaux et un bac DEXTER",
-        img: "img/products/lot-de-rouleau-180mm-diam-48mm-2-pinceaux-et-un-bac-dexter.jpg",
-        i info1: "Type de peinture",
-        info1_text: "Glycéro et acrylique",
-        info2: "Matière de la fibre",
-        info2_text: "Polyamide",
-        info3: "Diamètre du manchon",
-        info3_text: "48"
+        img: ["img/products/lot-de-rouleau-180mm-diam-48mm-2-pinceaux-et-un-bac-dexter.jpg"],
+        info_label: ["Type de peinture", "Matière de la fibre", "Diamètre du manchon"],
+        info_text: ["Glycéro et acrylique", "Polyamide","48"],
+        price:9.95,
+        tags: ["peinture", "matériel", "kit"]
      }
      
 
    ]
 )
-db.productreviews.insert(
-   [
-     {
-        productId: ObjectId("545fc3da946ea453ece17e82"),
+  db.productreviews.insert(
+     [
+      {
+        productId: ObjectId("545fc3da946ea453ece17f22"),
+        score: 4,
+        title: "bonne machine",
+        text: "tondeuse achetée début du printemps - utilisation tous les 8-10 jours - fait ce que je lui demande, à savoir couper et ramasser l'herbe - grande surface à tondre (env 600m²), consomme peu d'essence (moins d'1 plein) - aucun problème à noter"
+      },
+      {
+        productId: ObjectId("545fc3da946ea453ece17f23"),
         score: 5,
-        title: "très satisfait",
-        text: "bjr un petit avis , je refait une cabine de peinture (carrosserie) inutile de préciser qu avec les années les murs étaient de toutes les couleurs après un léger poncage , j ai passé 2 couches de cette peinture dans la journée elle est maintenant comme neuve , très bon rapport qualité prix je recommande vivement ;) christ auto"
-     }
+        title: "gazon",
+        text: "un gazon de super qualité, semé il y a une semaine et la pelouse est déjà bien poussée! nous sommes ravis, en plus un bon rapport qualité prix! je recommande se produit les yeux fermés!"
+      },
+      {
+        productId: ObjectId("545fc3da946ea453ece17f24"),
+        score: 3,
+        title: "très pratique",
+        text: "Prise en main rapide. Matériel efficace. Petit bémol pour le buit..."
+      },
+      {
+        productId: ObjectId("545fc3da946ea453ece17f25"),
+        score: 4,
+        title: "Performance et maniabilité",
+        text: "Petite machine performante avec beaucoup de maniabilité. Très agréable à utiliser. Reste à voir ce qu'elle donne sur la durée. Achat 26 fév 2014"
+      },
+      {
+        productId: ObjectId("545fc3da946ea453ece17f26"),
+        score: 5,
+        title: "très bonne machine",
+        text: "je pensse q'avec un plus gros poid sur l'avant cette machine serais irréprochable sinon elle ne manque pas de puissance!!!"
+      },
+      {
+        productId: ObjectId("545fc3da946ea453ece17f27"),
+        score: 5,
+        title: "Je recommande",
+        text: "Montage rapide et facile. Pour ce qui est de la qualité, il s'agit d'un bon rapport qualité prix !!"
+      },
+      {
+        productId: ObjectId("545fc3da946ea453ece17f28"),
+        score: 4,
+        title: "Jolies finitions",
+        text: "Je ne regrette pas du tout mon achat, ces spots tiennent bien le coup malgré les conditions difficiles auxquelles ils sont exposés !"
+      },
+      {
+        productId: ObjectId("545fc3da946ea453ece17f29"),
+        score: 5,
+        title: "Pratique",
+        text: "Parfait pour une installation rapide !"
+      },
+      {
+        productId: ObjectId("545fc3da946ea453ece17f30"),
+        score: 4,
+        title: "rapport qualité/prix moyen",
+        text: "bonjour, nous avons fait l'acquisition il y a plus de trois ans, et avons changé deux fois les rideaux... (1 fois dès la première année) exposée plein sud, ils n'ont pas résistés au soleil ! et les moustiquaires se déchirent. Là cette année il faut changer le toit et les crochets car tous les élastique n'ont pas tenu. produit très agréable à l'œil mais qui ne dure pas dans le temps, aussi nous avons décidé de ne l'exposer que l'été et de retirer les toiles l'hiver, pour la préserver un peu."
+      },
+      {
+        productId: ObjectId("545fc3da946ea453ece17f31"),
+        score: 4,
+        title: "Difficile de trouver moins cher",
+        text: "bonjour, après avoir comparé dans différentes enseignes, ce salon est le moins cher ! Je l'ai depuis quelques mois et il résiste très bien aux intempéries !"
+      },
+      {
+        productId: ObjectId("545fc3da946ea453ece17f32"),
+        score: 4,
+        title: "totalement surpris",
+        text: "Bonjour, Je suis totalement surpris de la qualité du produit la facilité de la prise en main. Je pensais que c’était juste une peinture mais non un réel crépi et masque bien les fissures. J'ai mis sur le muret extérieur facile d utilisation, j'ai mis au début au rouleau car pas je ne connaissais pas le couteau; une fois le couteau découvert, j'ai divise par le temps de travail mais il est vrai qu'avec le rouleau c'est plus joli. reste a voir dans le temps la tenue du produit"
+      },
+      {
+        productId: ObjectId("545fc3da946ea453ece17f33"),
+        score: 4,
+        title: "Bien",
+        text: "Je ne sais pas encore ce que ça donnera dans le temps, mais s'étale très bien et donne un joli rendu au bois."
+      },
+      {
+        productId: ObjectId("545fc3da946ea453ece17f34"),
+        score: 3,
+        title: "Facile d'utilisation.",
+        text: "J'ai rénové une cuisine avec du papier intissé et j'ai affiné les jointures entre rouleaux avec de l'enduit puis une couche de peinture blanche. Malheureusement lors du séchage de la première couche de peinture apparaissent toutes les jointures blanches."
+      },
+      {
+        productId: ObjectId("545fc3da946ea453ece17f35"),
+        score: 4,
+        title: "Jolie couleur !",
+        text: "Jolie couleur rouge assez foncé. En revanche, il faut au minimum appliquer trois couches car on voit des traces de rouleau au début. Mais le résultat est joli. Peinture un peu plastifiée, attention donc au papier cache : la peinture fait élastique."
+      },
+      {
+        productId: ObjectId("545fc3da946ea453ece17f36"),
+        score: 5,
+        title: "très bon !",
+        text: "Très bonne facilité d'application de cette peinture Adhère très bien Une seule couche suffit Aucune trace Finition parfaite (Peinture appliquée au plafond au rouleau) Je reprendrai celle là sans hésiter"
+      },
+      {
+        productId: ObjectId("545fc3da946ea453ece17f37"),
+        score: 4,
+        title: "Aucune perte de poils",
+        text: "Ces pinceaux ne perdent aucun poil, et ce malgré une utilisation fréquente !!"
+      },
+      {
+        productId: ObjectId("545fc3da946ea453ece17f38"),
+        score: 4,
+        title: "Facile d'utilisation",
+        text: "Je viens de finir 4 jours de peinture, et très satisfait du rouleau. Par contre, j'ai changé chaque jour le rouleau avec la recharge par 3. Je pense que j'aurais pu réutiliser le rouleau. Aucune peluche sur le mur"
+      },
+      {
+        productId: ObjectId("545fc3da946ea453ece17f39"),
+        score: 5,
+        title: "Rouleaux à peinture"
+        text: "Un bon rouleau de peinture de qualité prix parfait ..."
+      }
    ]
 )
-db.recommendations.insert(
+db.recommandations.insert(
    [
-     {
+      {
         answerId: ObjectId("545f70d9946ea453ece17e80"),
         productId: ObjectId("545fc3da946ea453ece17e82")
-     }
+      },
+      {
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+      },
+      {
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+      },
+      {
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+      },
+      {
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+      },
+      {
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+      },
+      {
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+      },
+      {
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+      },
+      {
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+      },
+      {
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+      },
+      {
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+      },
+      {
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+      },
+      {
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+      },
+      {
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+      },
+      {
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+      },
+      {
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+      },
+       {
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+      },
+      {
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+      },
+      
    ]
 )
