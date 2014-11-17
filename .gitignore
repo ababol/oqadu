@@ -1,2 +1,4 @@
 .DS_Store
 css/theme/*.map
+node_modules
+.sass-cache
