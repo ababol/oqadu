@@ -47,8 +47,11 @@ angular.module('starter.controllers', [])
     $scope.tags = Tags.all();
 })
 
-.controller('WaitlistCtrl', function($scope) {
-  $scope.waitingNumber  = 3;
+.controller('WaitlistCtrl', function($scope, Waitlist) {
+  $scope.waitingNumber  = "";
+  Waitlist.getSize().success(function(data){
+    $scope.waitingNumber  = data.size;
+  });
   $scope.peopleToday  = 18;
   $scope.chartConfig = {
       options: {

@@ -94,11 +94,16 @@ angular.module('starter.services', [])
 
 .factory('Waitlist', function($http){
   return{
-    addUser: function(user){
+    getSize: function(){
       return $http({
-        url: 'http://localhost:3000/queue/addUser',
-        method: 'POST',
-        data: {'user': user}
+        url: 'http://localhost:3000/queue/size',
+        method: 'GET'
+      });
+    },
+    next: function(){
+      return $http({
+        url: 'http://localhost:3000/queue/next',
+        method: 'GET'
       });
     },
     updateUser: function(user){
