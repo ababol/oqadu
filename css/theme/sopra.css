@@ -135,4 +135,10 @@ body {
 .reveal .slide-number {
   color: #eb5252; }
 
+ul{
+  margin-top: 400px;
+}
+ul li.fragment{
+  padding-top: 20px;
+}
 /*# sourceMappingURL=sopra.css.map */
