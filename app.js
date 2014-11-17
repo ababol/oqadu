@@ -35,6 +35,9 @@ var queue = {
 app.get('/queue', function(req, res){
   res.send(JSON.stringify(queue));
 });
+app.get('/queue/size', function(req, res){
+  res.send(queue.order.length);
+});
 app.get('/queue/clear', function(req, res){
   queue = {
     order : []
