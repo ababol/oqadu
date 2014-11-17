@@ -598,6 +598,7 @@ db.recommendations.insert(
       },      
    ]
 )
+<<<<<<< HEAD
 
 db.ProductFaq.insert(
   [
@@ -620,5 +621,33 @@ db.ProductFaq.insert(
     {},
     {},
     {}
+=======
+db.ProductPad.insert(
+  [
+    {
+     _id:ObjectId(""),
+     productId:ObjectId("545fc3da946ea453ece17f32"),
+     question:"Qunatité de pots",
+     answer:"1337"
+    },
+    {
+     _id:ObjectId(""),
+     productId:ObjectId("545fc3da946ea453ece17f34"),
+     question:"Qunatité de pots",
+     answer:"1337"
+    },
+    {
+     _id:ObjectId(""),
+     productId:ObjectId("545fc3da946ea453ece17f35"),
+     question:"Qunatité de pots",
+     answer:"1337"
+    },
+    {
+     _id:ObjectId(""),
+     productId:ObjectId("545fc3da946ea453ece17f36"),
+     question:"Qunatité de pots",
+     answer:"1337"
+    }
+>>>>>>> 32197cf7929f49d59d188fc559358f69a7cd0f22
   ]
 )
