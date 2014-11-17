@@ -51,7 +51,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     })
 
     .state('recommendation', {
-      url: '/recommendation/:answerId',
+      url: '/recommendation/:recoId',
       templateUrl: 'templates/customer/recommendation.html',
       controller: 'RecommendationCtrl'
     })

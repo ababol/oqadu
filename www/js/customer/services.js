@@ -29,9 +29,9 @@ angular.module('starter.services', [])
 
 .factory('Recommendations', function($http) {
   return {
-    get: function(answerId) {
+    get: function(recoId) {
       return $http({
-        url: 'http://localhost:3000/api/v1/Recommendations/?answerId='+answerId,
+        url: 'http://localhost:3000/api/v1/Recommendations/'+recoId,
         method: 'GET'
       });
     }
