@@ -29,6 +29,38 @@ models.forEach(function (model) {
   }
 });
 
+var queue = {
+  order : []
+};
+app.get('/queue', function(req, res){
+  res.send(JSON.stringify(queue));
+});
+app.get('/queue/clear', function(req, res){
+  queue = {
+    order : []
+  };
+  res.send(JSON.stringify(queue));
+});
+app.post('/queue/updateUser', function(req, res){
+  var user = req.param('user');
+  queue[user.id] = user;
+  res.send("ok");
+});
+app.post('/queue/addUser', function(req, res){
+  var user = req.param('user');
+  if(queue[user.id] === undefined){
+    queue[user.id] = user;
+    queue.order.push(user.id);
+  } 
+  res.send("ok");
+});
+
+app.get('/queue/next', function(req, res){
+  var id = queue.order.shift();
+  var user = queue[id];
+  res.send(JSON.stringify(user));
+});
+
 http.createServer(app).listen(3000, function() {
   console.log("Express server listening on port 3000");
 });

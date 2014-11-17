@@ -59,4 +59,23 @@ angular.module('starter.services', [])
       });
     }
   };
+})
+
+.factory('Waitlist', function($http){
+  return{
+    addUser: function(user){
+      return $http({
+        url: 'http://localhost:3000/queue/addUser',
+        method: 'POST',
+        data: {'user': user}
+      });
+    },
+    updateUser: function(user){
+      return $http({
+        url: 'http://localhost:3000/queue/updateUser',
+        method: 'POST',
+        data: {'user': user}
+      });
+    }
+  };
 });
