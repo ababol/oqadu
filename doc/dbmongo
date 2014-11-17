@@ -18,17 +18,17 @@ db.questions.insert(
 )
 db.answers.insert(
    [
-      { 
+      {
         _id: ObjectId("545f70d9946ea453ece17e92"),
-        questionId: ObjectId("545f70d9946ea453ece17e7e"), 
-        text: "Jardin", 
-        nextUrl: "question/545f70d9946ea453ece17e7f" 
+        questionId: ObjectId("545f70d9946ea453ece17e7e"),
+        text: "Jardin",
+        nextUrl: "question/545f70d9946ea453ece17e7f"
       },
       {
         _id: ObjectId("545f70d9946ea453ece17e93"),
-        questionId: ObjectId("545f70d9946ea453ece17e7e"), 
-        text: "Peinture", 
-        nextUrl: "question/545f70d9946ea453ece17e80" 
+        questionId: ObjectId("545f70d9946ea453ece17e7e"),
+        text: "Peinture",
+        nextUrl: "question/545f70d9946ea453ece17e80"
       },
       {
         _id: ObjectId("545f70d9946ea453ece17e94"),
@@ -234,7 +234,7 @@ db.products.insert(
         info_text: ["Tailler une haie aux branches moyennes","55", "18"],
         price:79.90,
         tags: ["outillage", "arbre", "taille"]
-     }, 
+     },
      {
         _id: ObjectId("545fc3da946ea453ece17f25"),
         name: "Tronçonneuse élagueuse à essence STERWINS PCS26-2 25.4cm3, 27cm de coupe",
@@ -243,7 +243,7 @@ db.products.insert(
         info_text: ["27","1.2","25.4"],
         price:129.00,
         tags: ["outillage", "arbre", "coupe"]
-     }, 
+     },
      {
         _id: ObjectId("545fc3da946ea453ece17f26"),
         name: "Motoculteur à essence JARDIMECA GX 200BH kit labour",
@@ -252,7 +252,7 @@ db.products.insert(
         info_text: ["28", "55","2"],
         price:1690.00,
         tags: ["outillage", "potager", "terre"]
-     }, 
+     },
      {
         _id: ObjectId("545fc3da946ea453ece17f27"),
         name: "Serre Venus 5000 en verre horticole 4.96 m²",
@@ -261,7 +261,7 @@ db.products.insert(
         info_text: ["Simple porte coulissante","4.96","Aluminium"],
         price:399.00,
         tags: ["outillage", "potager", "serre"]
-     }, 
+     },
      {
         _id: ObjectId("545fc3da946ea453ece17f28"),
         name: "Spot à enterrer extérieur Boston INSPIRE, aluminium, 40 watts",
@@ -270,7 +270,7 @@ db.products.insert(
         info1_text: ["Aluminium","Fonte d'alluminnium","Dépoli"],
         price:44.90,
         tags: ["décoration", "terrasse", "luminaires"]
-     }, 
+     },
      {
         _id: ObjectId("545fc3da946ea453ece17f29"),
         name: "Kit clips de fixation pour lames de terrasses SPAX",
@@ -279,7 +279,7 @@ db.products.insert(
         info_text: ["20","12.5"],
         price:34.50,
         tags: ["décoration", "terrasse", "pose"]
-     }, 
+     },
      {
         _id: ObjectId("545fc3da946ea453ece17f30"),
         name: "Tonnelle autoportante Azay, 10 m²",
@@ -288,7 +288,7 @@ db.products.insert(
         info_text: ["Rectangulaire","12","10"],
         price:539.00,
         tags: ["décoration", "salon de jardin", "tonnelle"]
-     }, 
+     },
      {
         _id: ObjectId("545fc3da946ea453ece17f31"),
         name: "Salon de jardin en résine Balcony KETER, gris/argent",
@@ -297,7 +297,7 @@ db.products.insert(
         info_text: ["2 fauteuils + 1 table basse", "Résine injéctée", "Gris anthracite"],
         price:229.00,
         tags: ["décoration", "salon de jardin", "table", "chaise"]
-     }, 
+     },
      {
         _id: ObjectId("545fc3da946ea453ece17f32"),
         name: "Crépis façade LUXENS, ton pierre, 15 KG",
@@ -306,7 +306,7 @@ db.products.insert(
         info_text: ["Peinture crépi","Décoration et protection des murs","Mat"],
         price:34.90,
         tags: ["peinture", "pot", "extérieur", "crépis"]
-     }, 
+     },
      {
         _id: ObjectId("545fc3da946ea453ece17f33"),
         name: "Vernis BSC mat SYNTILOR, incolore, aspect mat, 0.75 L",
@@ -315,7 +315,7 @@ db.products.insert(
         info_text: ["Protéger et décorer le bois","Volets, portes, fenêtres, abris de jardin, portail, bardage...","Toutes pièces"],
         price:24.95,
         tags: ["peinture", "pot", "extérieur", "boiseries"]
-     }, 
+     },
      {
         _id: ObjectId("545fc3da946ea453ece17f34"),
         name: "Peinture cuisine et bains LUXENS Couleurs intérieures, blanc ivoire n°5, 2.5 L",
@@ -324,7 +324,7 @@ db.products.insert(
         info_text: ["Peinture acrylique", "Satin", "Oui"],
         price:36.95,
         tags: ["peinture", "pot", "cuisine", "blanc"]
-     }, 
+     },
      {
         _id: ObjectId("545fc3da946ea453ece17f35"),
         name: "Peinture cuisine et bains LUXENS Couleurs intérieures, rouge rouge n°3, 2.5 L",
@@ -333,7 +333,7 @@ db.products.insert(
         info_text: ["Peinture acrylique","Satin","Oui"],
         price:36.95,
         tags: ["peinture", "pot", "cuisine", "rouge"]
-     }, 
+     },
      {
         _id: ObjectId("545fc3da946ea453ece17f36"),
         name: "Peinture Plafonds séjour/chambre, DULUX VALENTINE, blanc mat, 6L",
@@ -342,7 +342,7 @@ db.products.insert(
         info_text: ["Blanc","Mat","98.1"],
         price:69.90,
         tags: ["peinture", "pot", "plafond", "séjour"]
-     }, 
+     },
      {
         _id: ObjectId("545fc3da946ea453ece17f37"),
         name: "Lot de 3 pinceaux plats DEXTER : 20, 40, 60 mm",
@@ -351,7 +351,7 @@ db.products.insert(
         info_text: ["Acrylique","Mélange de soie naturelle et synthétique","Plat"],
         price:5.90,
         tags: ["peinture", "matériel", "pinceau"]
-     }, 
+     },
      {
         _id: ObjectId("545fc3da946ea453ece17f38"),
         name: "Rouleau mur et plafond DEXTER largeur 180mm, diam 48mm",
@@ -360,7 +360,7 @@ db.products.insert(
         info1_text: ["Tailler une haie aux branches moyennes","55","18"],
         price:8.80,
         tags: ["peinture", "matériel", "rouleau"]
-     }, 
+     },
      {
         _id: ObjectId("545fc3da946ea453ece17f39"),
         name: "Lot de rouleau 180mm, diam 48mm, 2 pinceaux et un bac DEXTER",
@@ -370,7 +370,7 @@ db.products.insert(
         price:9.95,
         tags: ["peinture", "matériel", "kit"]
      }
-     
+
 
    ]
 )
@@ -527,93 +527,93 @@ db.recommendations.insert(
       {
         _id: ObjectId("545fc3da946ea453ece17f58"),
         answerId: ObjectId("545f70d9946ea453ece17f05"),
-        productId: [ObjectId("545fc3da946ea453ece17f38")]
+        products: [ObjectId("545fc3da946ea453ece17f38")]
       },
       {
         _id: ObjectId("545fc3da946ea453ece17f59"),
         answerId: ObjectId("545f70d9946ea453ece17f06"),
-        productId: [ObjectId("545fc3da946ea453ece17f39")]
+        products: [ObjectId("545fc3da946ea453ece17f39")]
       },
       {
         _id: ObjectId("545fc3da946ea453ece17f60"),
         answerId: ObjectId("545f70d9946ea453ece17f07"),
-        productId: [ObjectId("545fc3da946ea453ece17f39")]
+        products: [ObjectId("545fc3da946ea453ece17f39")]
       },
       {
         _id: ObjectId("545fc3da946ea453ece17f61"),
         answerId: ObjectId("545f70d9946ea453ece17f08"),
-        productId: [ObjectId("545fc3da946ea453ece17f34")]
+        products: [ObjectId("545fc3da946ea453ece17f34")]
       },
       {
         _id: ObjectId("545fc3da946ea453ece17f62"),
         answerId: ObjectId("545f70d9946ea453ece17f09"),
-        productId: [ObjectId("545fc3da946ea453ece17f23")]
+        products: [ObjectId("545fc3da946ea453ece17f23")]
       },
       {
         _id: ObjectId("545fc3da946ea453ece17f63"),
         answerId: ObjectId("545f70d9946ea453ece17f10"),
-        productId: [ObjectId("545fc3da946ea453ece17f22")]
+        products: [ObjectId("545fc3da946ea453ece17f22")]
       },
       {
         _id: ObjectId("545fc3da946ea453ece17f64"),
         answerId: ObjectId("545f70d9946ea453ece17f11"),
-        productId: [ObjectId("545fc3da946ea453ece17f25")]
+        products: [ObjectId("545fc3da946ea453ece17f25")]
       },
       {
         _id: ObjectId("545fc3da946ea453ece17f65"),
         answerId: ObjectId("545f70d9946ea453ece17f12"),
-        productId: [ObjectId("545fc3da946ea453ece17f24")]
+        products: [ObjectId("545fc3da946ea453ece17f24")]
       },
       {
         _id: ObjectId("545fc3da946ea453ece17f66"),
         answerId: ObjectId("545f70d9946ea453ece17f13"),
-        productId: [ObjectId("545fc3da946ea453ece17f24")]
+        products: [ObjectId("545fc3da946ea453ece17f24")]
       },
       {
         _id: ObjectId("545fc3da946ea453ece17f67"),
         answerId: ObjectId("545f70d9946ea453ece17f14"),
-        productId: [ObjectId("545fc3da946ea453ece17f23")]
+        products: [ObjectId("545fc3da946ea453ece17f23")]
       },
       {
         _id: ObjectId("545fc3da946ea453ece17f68"),
         answerId: ObjectId("545f70d9946ea453ece17f15"),
-        productId: [ObjectId("545fc3da946ea453ece17f29")]
+        products: [ObjectId("545fc3da946ea453ece17f29")]
       },
       {
         _id: ObjectId("545fc3da946ea453ece17f69"),
         answerId: ObjectId("545f70d9946ea453ece17f16"),
-        productId: [ObjectId("545fc3da946ea453ece17f28")]
+        products: [ObjectId("545fc3da946ea453ece17f28")]
       },
       {
         _id: ObjectId("545fc3da946ea453ece17f70"),
         answerId: ObjectId("545f70d9946ea453ece17f17"),
-        productId: [ObjectId("545fc3da946ea453ece17f31")]
+        products: [ObjectId("545fc3da946ea453ece17f31")]
       },
       {
         _id: ObjectId("545fc3da946ea453ece17f71"),
         answerId: ObjectId("545f70d9946ea453ece17f18"),
-        productId: [ObjectId("545fc3da946ea453ece17f30")]
+        products: [ObjectId("545fc3da946ea453ece17f30")]
       },
       {
         _id: ObjectId("545fc3da946ea453ece17f72"),
         answerId: ObjectId("545f70d9946ea453ece17f19"),
-        productId: [ObjectId("545fc3da946ea453ece17f39")]
+        products: [ObjectId("545fc3da946ea453ece17f39")]
       },
       {
         _id: ObjectId("545fc3da946ea453ece17f73"),
         answerId: ObjectId("545f70d9946ea453ece17f20"),
-        productId: [ObjectId("545fc3da946ea453ece17f39")]
+        products: [ObjectId("545fc3da946ea453ece17f39")]
       },
        {
         _id: ObjectId("545fc3da946ea453ece17f74"),
         answerId: ObjectId("545f70d9946ea453ece17f21"),
-        productId: [ObjectId("545fc3da946ea453ece17f39")]
+        products: [ObjectId("545fc3da946ea453ece17f39")]
       },
       {
         _id: ObjectId("545fc3da946ea453ece17f75"),
         answerId: ObjectId("545f70d9946ea453ece17f22"),
-        productId: [ObjectId("545fc3da946ea453ece17f39")]
-      },      
+        products: [ObjectId("545fc3da946ea453ece17f39")]
+      }
    ]
 )
 

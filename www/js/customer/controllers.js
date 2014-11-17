@@ -25,10 +25,11 @@ angular.module('starter.controllers', [])
 
 .controller('RecommendationCtrl', function($scope, $stateParams, Recommendations, Products, Waitlist) {
   $scope.products = [];
-  window.lastAnswer = $stateParams.answerId;
-  Recommendations.get($stateParams.answerId).success(function(reco){
+  window.lastAnswer = $stateParams.recoId;
+console.log($stateParams);
+  Recommendations.get($stateParams.recoId).success(function(reco){
     // Not really proud of that, callback hell :(, maybe implement with promise in the future
-    reco[0].products.forEach(function (productId){
+    [].concat(reco.products).forEach(function (productId){
       Products.get(productId).success(function(product){
         Products.getReviews(productId).success(function(reviews){
           product.reviewAvg = getReviewAvg(reviews);
@@ -124,7 +125,7 @@ angular.module('starter.controllers', [])
   $scope.registred = false;
   $scope.registerQueue = function () {
     Waitlist.addUser(window.user).success(function(){
-      window.user.addedToWaitlist = true;      
+      window.user.addedToWaitlist = true;
       console.log("added to waitlist");
       $scope.registred = true;
     });

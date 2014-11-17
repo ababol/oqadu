@@ -30,20 +30,46 @@ models.forEach(function (model) {
 });
 
 var queue = {
-  order : []
+  next: [],
+  past: []
 };
+
+
 app.get('/queue', function(req, res){
   res.send(JSON.stringify(queue));
 });
 app.get('/queue/size', function(req, res){
-  res.send({size : queue.order.length});
+  res.send({size : queue.next.length});
+});
+app.get('/queue/current', function(req, res){
+  if(queue.next.length > 0){
+    var id = queue.next[0];
+    var user = queue[id];
+    res.send(JSON.stringify(user));
+  }else{
+    var user = '{"default":true,"addedToWaitlist":false,"id":4295,"qa":{"545f70d9946ea453ece17e7e":{"question":{"_id":"545f70d9946ea453ece17e7e","text":"Sélectionnez une gamme de produit"},"answer":{"_id":"5468aefc6564b204f8cde019","questionId":"545f70d9946ea453ece17e7e","text":"Peinture","nextUrl":"question/545f70d9946ea453ece17e7f"}}},"products":{}}';
+    res.send(user);
+  }
 });
 app.get('/queue/clear', function(req, res){
   queue = {
-    order : []
+    next: [],
+    past: []
   };
   res.send(JSON.stringify(queue));
 });
+app.get('/queue/next', function(req, res){
+  queue.past.push(queue.next.shift());
+  if(queue.next.length > 0){
+    var id = queue.next[0];
+    var user = queue[id];
+    res.send(JSON.stringify(user));
+  }else{
+    var user = '{"default":true,"addedToWaitlist":false,"id":4295,"qa":{"545f70d9946ea453ece17e7e":{"question":{"_id":"545f70d9946ea453ece17e7e","text":"Sélectionnez une gamme de produit"},"answer":{"_id":"5468aefc6564b204f8cde019","questionId":"545f70d9946ea453ece17e7e","text":"Peinture","nextUrl":"question/545f70d9946ea453ece17e7f"}}},"products":{}}';
+    res.send(user);
+  }
+});
+
 app.post('/queue/updateUser', function(req, res){
   var user = req.param('user');
   queue[user.id] = user;
@@ -53,16 +79,11 @@ app.post('/queue/addUser', function(req, res){
   var user = req.param('user');
   if(queue[user.id] === undefined){
     queue[user.id] = user;
-    queue.order.push(user.id);
+    queue.next.push(user.id);
   } 
   res.send("ok");
 });
 
-app.get('/queue/next', function(req, res){
-  var id = queue.order.shift();
-  var user = queue[id];
-  res.send(JSON.stringify(user));
-});
 
 http.createServer(app).listen(3000, function() {
   console.log("Express server listening on port 3000");
