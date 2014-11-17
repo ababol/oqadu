@@ -338,6 +338,101 @@ db.products.insert(
 
    ]
 )
+<<<<<<< HEAD
+
+db.recommendations.insert(
+   [
+     {
+        _id: ObjectId(""),
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+     }
+     {
+        _id: ObjectId(""),
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+     }
+     {
+        _id: ObjectId(""),
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+     }
+     {
+        _id: ObjectId(""),
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+     }
+     {
+        _id: ObjectId(""),
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+     }
+     {
+        _id: ObjectId(""),
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+     }
+     {
+        _id: ObjectId(""),
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+     }
+     {
+        _id: ObjectId(""),
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+     }
+     {
+        _id: ObjectId(""),
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+     }
+     {
+        _id: ObjectId(""),
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+     }
+     {
+        _id: ObjectId(""),
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+     }
+     {
+        _id: ObjectId(""),
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+     }
+     {
+        _id: ObjectId(""),
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+     }
+     {
+        _id: ObjectId(""),
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+     }
+     {
+        _id: ObjectId(""),
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+     }
+     {
+        _id: ObjectId(""),
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+     }
+     {
+        _id: ObjectId(""),
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+     }
+     {
+        _id: ObjectId(""),
+        answerId: ObjectId("545f70d9946ea453ece17e80"),
+        productId: ObjectId("545fc3da946ea453ece17e82")
+     }
+=======
   db.productreviews.insert(
      [
       {
@@ -448,13 +543,18 @@ db.products.insert(
         title: "Rouleaux à peinture"
         text: "Un bon rouleau de peinture de qualité prix parfait ..."
       }
+>>>>>>> f17bbd0385b73a485d880e2612db42f783345efa
    ]
 )
-db.recommendations.insert(
+
+
+db.productreviews.insert(
    [
      {
-        answerId: ObjectId("545f70d9946ea453ece17e80"),
-        productId: ObjectId("545fc3da946ea453ece17e82")
+        productId: ObjectId("545fc3da946ea453ece17e82"),
+        score: 5,
+        title: "très satisfait",
+        text: "bjr un petit avis , je refait une cabine de peinture (carrosserie) inutile de préciser qu avec les années les murs étaient de toutes les couleurs après un léger poncage , j ai passé 2 couches de cette peinture dans la journée elle est maintenant comme neuve , très bon rapport qualité prix je recommande vivement ;) christ auto"
      }
    ]
 )
