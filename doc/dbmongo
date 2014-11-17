@@ -214,7 +214,7 @@ db.products.insert(
         img: ["img/products/tondeuse-a-essence-sterwins-460hsp140-3-160-cm3.jpg"],
         info_label: ["Surface conseillé(m²)","Type de propulsion","Type d'éjection"],
         info_text: ["1500","Tractée","2 en 1 : arrière et mulching"],
-        price:289;00
+        price:289.00
      },
      {
         _id: ObjectId("545fc3da946ea453ece17f23"),
