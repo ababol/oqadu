@@ -1,19 +1,28 @@
 angular.module('starter.controllers', [])
 
-.controller('MainCtrl', function ($scope, $state) {
- $scope.seller = {name: "John Doe"};
- $scope.state = $state;
+.controller('MainCtrl', function ($scope, $state, Waitlist) {
+  $scope.seller = {name: "John Doe"};
+  $scope.state = $state;
+  $scope.refresh = function(){
+    Waitlist.current().success(function(user){
+      $scope.customer = user;
+      console.log($scope.customer);
+    });
+  }
+  $scope.refresh();
+  $scope.nextCustomer = function(){
+    Waitlist.next().success(function(user){
+      $scope.customer = user;
+      console.log($scope.customer);
+    });
+  }
 })
 
 
 .controller('UserCtrl', function($scope) {
 })
 
-.controller('CustomerCtrl', function($scope, Waitlist) {
-  Waitlist.current().success(function(user){
-    $scope.customer = user;
-    console.log($scope.customer);
-  });
+.controller('CustomerCtrl', function($scope) {
 })
 
 .controller('ProductCtrl', function($scope, Products) {

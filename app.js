@@ -59,7 +59,10 @@ app.get('/queue/clear', function(req, res){
   res.send(JSON.stringify(queue));
 });
 app.get('/queue/next', function(req, res){
-  queue.past.push(queue.next.shift());
+  if(queue.next.length > 0){
+    queue.past.push(queue.next.shift());
+    console.log("next");
+  }
   if(queue.next.length > 0){
     var id = queue.next[0];
     var user = queue[id];
