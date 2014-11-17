@@ -7881,12 +7881,15 @@ ion-side-menu > ion-content > div.scroll > ul > a.item.logout {
   margin-bottom: 0 !important; }
 
 .button-half {
-  font-size: 2em;
+  font-size: 3em;
   height: 49%;
   width: 100%;
   align-items: center;
   display: flex !important;
   justify-content: center; }
+  .button-half i {
+    display: block !important;
+    clear: both !important; }
 
 .button-question {
   width: 99.5%;

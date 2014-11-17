@@ -7840,12 +7840,15 @@ $ios-transition-box-shadow-end: -200px 0px 200px rgba(0,0,0,0.15), -5px 0px 5px 
   margin-bottom: 0 !important; }
 
 .button-half {
-  font-size: 2em;
+  font-size: 3em;
   height: 49%;
   width: 100%;
   align-items: center;
   display: flex !important;
   justify-content: center; }
+  .button-half i {
+    display: block !important;
+    clear: both !important; }
 
 .button-question {
   width: 99.5%;

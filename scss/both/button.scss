@@ -12,12 +12,17 @@
 }
 
 .button-half {
-  font-size: 2em;
+  font-size: 3em;
   height: 49%;
   width: 100%;
   align-items: center;
   display: flex !important;
   justify-content: center;
+
+  i {
+    display: block !important;
+clear: both !important;
+  }
 }
 
 .button-question {
