@@ -90,4 +90,28 @@ angular.module('starter.services', [])
       return tags;
     }
   }
+})
+
+.factory('Waitlist', function($http){
+  return{
+    getSize: function(){
+      return $http({
+        url: 'http://localhost:3000/queue/size',
+        method: 'GET'
+      });
+    },
+    next: function(){
+      return $http({
+        url: 'http://localhost:3000/queue/next',
+        method: 'GET'
+      });
+    },
+    updateUser: function(user){
+      return $http({
+        url: 'http://localhost:3000/queue/updateUser',
+        method: 'POST',
+        data: {'user': user}
+      });
+    }
+  };
 });
