@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('QuestionCtrl', function($scope, $stateParams, Questions, Answers) {
+.controller('QuestionCtrl', function($scope, $stateParams, Questions, Answers, Waitlist) {
   angular.element(document.querySelector('#barUnreg')).removeClass('invisible');
   $scope.question = [];
   $scope.answers = [];
@@ -10,9 +10,20 @@ angular.module('starter.controllers', [])
   Answers.get($stateParams.questionId).success(function(data){
     $scope.answers = data;
   });
+  $scope.selectAnswer = function(data){
+    window.user.qa[$scope.question._id] = {
+      question: $scope.question,
+      answer: data
+    };
+    if(window.user.addedToWaitlist){
+      Waitlist.updateUser(window.user).success(function(){
+        console.log("user updated");
+      });
+    }
+  };
 })
 
-.controller('RecommendationCtrl', function($scope, $stateParams, Recommendations, Products) {
+.controller('RecommendationCtrl', function($scope, $stateParams, Recommendations, Products, Waitlist) {
   $scope.products = [];
   window.lastAnswer = $stateParams.answerId;
   Recommendations.get($stateParams.answerId).success(function(reco){
@@ -23,9 +34,15 @@ angular.module('starter.controllers', [])
           product.reviewAvg = getReviewAvg(reviews);
           product.reviewAvgHtml = getReviewHtml(product.reviewAvg);
           $scope.products.push(product);
+          window.user.products[product._id] = product;
         });
       });
     });
+    if(window.user.addedToWaitlist){
+      Waitlist.updateUser(window.user).success(function(){
+        console.log("user updated");
+      });
+    }
   });
 })
 
@@ -103,15 +120,26 @@ angular.module('starter.controllers', [])
   triangle.animate({opacity:1,transform:"s1,1"}, 2000, mina.elastic);
 })
 
-.controller('BarCtrl', function($scope) {
+.controller('BarCtrl', function($scope, Waitlist) {
   $scope.registred = false;
   $scope.registerQueue = function () {
-    $scope.registred = true;
+    Waitlist.addUser(window.user).success(function(){
+      window.user.addedToWaitlist = true;      
+      console.log("added to waitlist");
+      $scope.registred = true;
+    });
   };
   $scope.unregisterQueue = function () {
     $scope.registred = false;
   };
 });
+
+window.user = {
+  addedToWaitlist : false,
+  id: parseInt(Math.random() * 99999),
+  qa : {},
+  products: {}
+}
 
 function getReviewAvg(reviews) {
   if (reviews.length === 0)
