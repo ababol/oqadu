@@ -4,9 +4,9 @@ db.questions.insert(
      { _id: ObjectId("545f70d9946ea453ece17e7f"), text: "De quoi avez-vous besoin?" },
      { _id: ObjectId("545f70d9946ea453ece17e80"), text: "De quoi avez-vous besoin?" },
      { _id: ObjectId("545f70d9946ea453ece17e81"), text: "Que voulez-vous entretenir" },
-     { _id: ObjectId("545f70d9946ea453ece17e82"), text: "Ques souhaitez-vous décorer?" },
-     { _id: ObjectId("545f70d9946ea453ece17e83"), text: "Que souhaitez-vous repeindre?" },
-     { _id: ObjectId("545f70d9946ea453ece17e84"), text: "Quel type de materiel?" },
+     { _id: ObjectId("545f70d9946ea453ece17e82"), text: "Que souhaitez-vous décorer?" },
+     { _id: ObjectId("545f70d9946ea453ece17e83"), text: "Que souhaitez-vous peindre?" },
+     { _id: ObjectId("545f70d9946ea453ece17e84"), text: "Quel type de matériel?" },
      { _id: ObjectId("545f70d9946ea453ece17e85"), text: "Quel type d'entretien?" },
      { _id: ObjectId("545f70d9946ea453ece17e86"), text: "Quel type d'entretien?" },
      { _id: ObjectId("545f70d9946ea453ece17e87"), text: "Quel type d'entretien?" },
@@ -75,7 +75,7 @@ db.answers.insert(
       {
         _id: ObjectId("545f70d9946ea453ece17f01"),
         questionId: ObjectId("545f70d9946ea453ece17e82"),
-        text: "Terasse",
+        text: "Terrasse",
         nextUrl: "question/545f70d9946ea453ece17e88"
       },
       {
@@ -214,7 +214,8 @@ db.products.insert(
         img: ["img/products/tondeuse-a-essence-sterwins-460hsp140-3-160-cm3.jpg"],
         info_label: ["Surface conseillé(m²)","Type de propulsion","Type d'éjection"],
         info_text: ["1500","Tractée","2 en 1 : arrière et mulching"],
-        price:289.00
+        price:289.00,
+        tags: ["outillage", "gazon", "tonte"]
      },
      {
         _id: ObjectId("545fc3da946ea453ece17f23"),
@@ -222,7 +223,8 @@ db.products.insert(
         img: ["img/products/10kg-de-gazon-4477417-350-m2.jpg"],
         info_label: ["Surface couverte(m²)","Enrichi en engrais?","Conseil d'utilisation"],
         info_text: ["350","non","Tondre dès que le gazon atteint 5 à 6 cm."],
-        price: 27.90
+        price: 27.90,
+        tags: ["outillage", "gazon","semer"]
      },
      {
         _id: ObjectId("545fc3da946ea453ece17f24"),
@@ -230,7 +232,8 @@ db.products.insert(
         img: ["img/products/taille-haies-electrique-gt-5055-black-decker.jpg"],
         info_label: ["Usage", "Longueur de la lame(cm)", "Capacité de coupe(mm)"],
         info_text: ["Tailler une haie aux branches moyennes","55", "18"],
-        price:79.90
+        price:79.90,
+        tags: ["outillage", "arbre", "taille"]
      }, 
      {
         _id: ObjectId("545fc3da946ea453ece17f25"),
@@ -238,7 +241,8 @@ db.products.insert(
         img: ["img/products/tronconneuse-elagueuse-a-essence-sterwins-pcs26-2-25-4cm3-27cm-de-coupe.jpg"],
         info_label: ["Longueur de coupe(cm)","Puissance(cv)","Cylindrée(cm3)"],
         info_text: ["27","1.2","25.4"],
-        price:129.00
+        price:129.00,
+        tags: ["outillage", "arbre", "coupe"]
      }, 
      {
         _id: ObjectId("545fc3da946ea453ece17f26"),
@@ -246,7 +250,8 @@ db.products.insert(
         img: ["img/products/motoculteur-a-essence-jardimeca-gx-200bh-kit-labour.jpg"],
         info_label: ["Profondeur de travail(cm)","Largeur de travail(cm)","Nombre de vitesses avant"],
         info_text: ["28", "55","2"],
-        price:1690.00
+        price:1690.00,
+        tags: ["outillage", "potager", "terre"]
      }, 
      {
         _id: ObjectId("545fc3da946ea453ece17f27"),
@@ -254,7 +259,8 @@ db.products.insert(
         img: ["img/products/serre-venus-5000-en-verre-horticole-4-96-m2.jpg"],
         info_label: ["Type de porte","Surface(m²)","Matière de la structure"],
         info_text: ["Simple porte coulissante","4.96","Aluminium"],
-        price:399.00
+        price:399.00,
+        tags: ["outillage", "potager", "serre"]
      }, 
      {
         _id: ObjectId("545fc3da946ea453ece17f28"),
@@ -262,7 +268,8 @@ db.products.insert(
         img: ["img/productsspot-a-enterrer-exterieur-boston-inspire-aluminium-40-watts.jpg"],
         info_label: ["Matière","Matière secondaire","Type de vitrage"],
         info1_text: ["Aluminium","Fonte d'alluminnium","Dépoli"],
-        price:44.90
+        price:44.90,
+        tags: ["décoration", "terrasse", "luminaires"]
      }, 
      {
         _id: ObjectId("545fc3da946ea453ece17f29"),
@@ -270,7 +277,8 @@ db.products.insert(
         img: ["img/products/kit-clips-de-fixation-pour-lames-de-terrasses-spax.jpg"],
         info_label: ["Nbr de clips au m²","hauteur du produit(cm)"],
         info_text: ["20","12.5"],
-        price:34.50
+        price:34.50,
+        tags: ["décoration", "terrasse", "pose"]
      }, 
      {
         _id: ObjectId("545fc3da946ea453ece17f30"),
@@ -278,7 +286,8 @@ db.products.insert(
         img: ["img/products/tonnelle-autoportante-azay-10-m2.jpg"],
         info_label: ["Forme","Surface(m²)","Surface couverte(m²)"],
         info_text: ["Rectangulaire","12","10"],
-        price:539.00
+        price:539.00,
+        tags: ["décoration", "salon de jardin", "tonnelle"]
      }, 
      {
         _id: ObjectId("545fc3da946ea453ece17f31"),
@@ -286,7 +295,8 @@ db.products.insert(
         img: ["img/products/salon-de-jardin-en-resine-balcony-keter-gris-argent.jpg"],
         info_label: ["Composition du salon de jardin", "Matière","Couleur"],
         info_text: ["2 fauteuils + 1 table basse", "Résine injéctée", "Gris anthracite"],
-        price:229.00
+        price:229.00,
+        tags: ["décoration", "salon de jardin", "table", "chaise"]
      }, 
      {
         _id: ObjectId("545fc3da946ea453ece17f32"),
@@ -294,15 +304,17 @@ db.products.insert(
         img: ["img/products/crepis-facade-luxens-ton-pierre-15-kg.jpg"],
         info_label: ["Type de peinture","Usage","Aspect"],
         info_text: ["Peinture crépi","Décoration et protection des murs","Mat"],
-        price:34.90
+        price:34.90,
+        tags: ["peinture", "pot", "extérieur", "crépis"]
      }, 
      {
         _id: ObjectId("545fc3da946ea453ece17f33"),
         name: "Vernis BSC mat SYNTILOR, incolore, aspect mat, 0.75 L",
-        img: ["img/products/taille-haies-electrique-gt-5055-black-decker.jpg"],
-        info_label: ["Usage","Longueur de la lame(cm)","Capacité de coupe(mm)"],
-        info_text: ["Tailler une haie aux branches moyennes","55","18"],
-        price:24.95
+        img: ["img/products/vernis-bsc-mat-syntilor-incolore-aspect-mat-0-75-l.jpg"],
+        info_label: ["Usage","Support de destination","Pièces de destination"],
+        info_text: ["Protéger et décorer le bois","Volets, portes, fenêtres, abris de jardin, portail, bardage...","Toutes pièces"],
+        price:24.95,
+        tags: ["peinture", "pot", "extérieur", "boiseries"]
      }, 
      {
         _id: ObjectId("545fc3da946ea453ece17f34"),
@@ -310,7 +322,8 @@ db.products.insert(
         img: ["img/products/peinture-cuisine-et-bains-luxens-couleurs-interieures-blanc-ivoire-n-5-2-5-l.jpg"],
         info_label: ["Type de peinture","Aspect","Pret à l'emploi"],
         info_text: ["Peinture acrylique", "Satin", "Oui"],
-        price:36.95
+        price:36.95,
+        tags: ["peinture", "pot", "cuisine", "blanc"]
      }, 
      {
         _id: ObjectId("545fc3da946ea453ece17f35"),
@@ -318,7 +331,8 @@ db.products.insert(
         img: ["img/products/peinture-cuisine-et-bains-luxens-couleurs-interieures-rouge-rouge-n-3-2-5-l.jpg.jpg"],
         info_label: ["Type de peinture","Aspect","Pret à l'emploi"],
         info_text: ["Peinture acrylique","Satin","Oui"],
-        price:36.95
+        price:36.95,
+        tags: ["peinture", "pot", "cuisine", "rouge"]
      }, 
      {
         _id: ObjectId("545fc3da946ea453ece17f36"),
@@ -326,7 +340,8 @@ db.products.insert(
         img: ["img/products/peinture-plafonds-sejour-chambre-dulux-valentine-blanc-mat-6l.jpg"],
         info_label: ["Couleur","Aspect","Opacité en %"],
         info_text: ["Blanc","Mat","98.1"],
-        price:69.90
+        price:69.90,
+        tags: ["peinture", "pot", "plafond", "séjour"]
      }, 
      {
         _id: ObjectId("545fc3da946ea453ece17f37"),
@@ -334,7 +349,8 @@ db.products.insert(
         img: ["img/products/lot-de-3-pinceaux-plats-dexter-20-40-60-mm.jpg"],
         info_label: ["Type de peinture", "Matière de la fibre", "Forme du pinceau"],
         info_text: ["Acrylique","Mélange de soie naturelle et synthétique","Plat"],
-        price:5.90
+        price:5.90,
+        tags: ["peinture", "matériel", "pinceau"]
      }, 
      {
         _id: ObjectId("545fc3da946ea453ece17f38"),
@@ -342,7 +358,8 @@ db.products.insert(
         img: ["img/products/rouleau-mur-et-plafond-dexter-largeur-180mm-diam-48mm.jpg"],
         info_label: ["Usage","Longueur de la lame(cm)", "Capacité de coupe(mm)"],
         info1_text: ["Tailler une haie aux branches moyennes","55","18"],
-        price:8.80
+        price:8.80,
+        tags: ["peinture", "matériel", "rouleau"]
      }, 
      {
         _id: ObjectId("545fc3da946ea453ece17f39"),
@@ -350,7 +367,8 @@ db.products.insert(
         img: ["img/products/lot-de-rouleau-180mm-diam-48mm-2-pinceaux-et-un-bac-dexter.jpg"],
         info_label: ["Type de peinture", "Matière de la fibre", "Diamètre du manchon"],
         info_text: ["Glycéro et acrylique", "Polyamide","48"],
-        price:9.95
+        price:9.95,
+        tags: ["peinture", "matériel", "kit"]
      }
      
 
