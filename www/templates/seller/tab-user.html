@@ -5,6 +5,10 @@
         <div class="item item-text-wrap">
           <h2>Il n'y a aucun client dans votre file d'attente !</h2>
         </div>
+        <div class="item item-icon-left assertive" ng-click="refresh()">
+          <i class="icon ion-loop"></i>
+          Rafraîchir
+        </div>
       </div>
       <div class="card" ng-repeat="qa in customer.qa">
         <div class="item item-divider">
