@@ -7851,9 +7851,9 @@ $ios-transition-box-shadow-end: -200px 0px 200px rgba(0,0,0,0.15), -5px 0px 5px 
     clear: both !important; }
 
 .home .button-half {
-  font-size: 2em; }
+  font-size: 1.6em; }
   .home .button-half i {
-    font-size: 3em;
+    font-size: 2em;
     margin-right: 0.3em; }
 
 .button-question {
@@ -7929,7 +7929,8 @@ $ios-transition-box-shadow-end: -200px 0px 200px rgba(0,0,0,0.15), -5px 0px 5px 
     height: 40%;
     align-items: center !important;
     display: flex;
-    justify-content: center; }
+    justify-content: center;
+    text-align: center; }
     #loading .hellotxt h1 {
       color: white !important; }
   #loading.hide {
@@ -7963,3 +7964,6 @@ span.tab-item {
 .slideToggle {
   background: transparent !important;
   border-width: 0px !important; }
+
+.product .card {
+  margin: 5px 5px !important; }

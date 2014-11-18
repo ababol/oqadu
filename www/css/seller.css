@@ -7892,9 +7892,9 @@ ion-side-menu > ion-content > div.scroll > ul > a.item.logout {
     clear: both !important; }
 
 .home .button-half {
-  font-size: 2em; }
+  font-size: 1.6em; }
   .home .button-half i {
-    font-size: 3em;
+    font-size: 2em;
     margin-right: 0.3em; }
 
 .button-question {

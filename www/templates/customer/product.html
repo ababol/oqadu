@@ -5,23 +5,35 @@
     </ion-nav-back-button>
   </a>
 </ion-nav-bar>
-<ion-view title="Produit">
+<ion-view title="Produit" class="product">
   <ion-content style="padding: 10px 0 10px 0;">
-    <div class="row">
-      <div class="col col-50">
+    <div class="row no-padding-side">
+      <div class="col left no-padding-side">
+        <span class="fakebutton ion-bag blue">
+          {{product.price}}€
+        </span>
+      </div>
+      <div class="col right no-padding-side">
+        <span class="fakebutton ion-ios7-star energized">
+          {{product.reviewAvg}}/5
+        </span>
+      </div>
+    </div>
+    <div class="row" style="padding: 5px 0 5px 0;top:-10px;position:relative;z-index:-1;">
+      <div class="col col-100">
+        <div class="item item-image product">
+          <ion-slide-box on-slide-changed="slideHasChanged($index)"  show-pager="true">
+            <!-- ng init update slider to fix a display bug !-->
+            <ion-slide ng-repeat="img in product.img track by $index" ng-init="updateSlider()">
+              <img src="{{img}}" style="max-height: {{height}}px">
+            </ion-slide>
+          </ion-slide-box>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="padding: 5px 0 5px 0;">
+      <div class="col col-100">
         <div id="leftCol">
-          <div class="row no-padding-side">
-            <div class="col left no-padding-side">
-              <span class="fakebutton ion-bag blue">
-                {{product.price}}€
-              </span>
-            </div>
-            <div class="col right no-padding-side">
-              <span class="fakebutton ion-ios7-star energized">
-                {{product.reviewAvg}}
-              </span>
-            </div>
-          </div>
           <div class="list">
             <div class="item item-divider" ng-repeat-start="label in product.info_label">
               {{label}}
@@ -30,16 +42,6 @@
               {{product.info_text[$index]}}
             </div>
           </div>
-        </div>
-      </div>
-      <div class="col col-50">
-        <div class="item item-image product">
-          <ion-slide-box on-slide-changed="slideHasChanged($index)"  show-pager="true">
-            <!-- ng init update slider to fix a display bug !-->
-            <ion-slide ng-repeat="img in product.img track by $index" ng-init="updateSlider()">
-              <img src="{{img}}" style="max-height: {{height}}px">
-            </ion-slide>
-          </ion-slide-box>
         </div>
       </div>
     </div>
