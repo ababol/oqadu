@@ -40,9 +40,6 @@
   margin: 0 0 0.5% 0 !important;
 }
 .fakebutton {
-  border-color: $balanced;
-  background: none repeat scroll 0% 0% transparent;
-  color: $balanced;
   padding: 0px 1em;
   min-width: 59px;
   min-height: 50px;
@@ -53,6 +50,27 @@
   border-width: 1px;
   border-style: solid;
   border-radius: 2px;
+
+  &.balanced {
+    border-color: $balanced;
+    background: none repeat scroll 0% 0% transparent;
+    color: $balanced;
+  }
+  &.energized {
+    border-color: #d39211;
+    background-color: #f0b840;
+    color: #fff;
+  }
+  &.blue {
+    background-color: #4A87EE;
+    color: white;
+    border-top-color: #4A87EE;
+  }
+  &.assertive {
+    border-color: #cc2311;
+    background-color: #ef4e3a;
+    color: #fff;
+  }
 }
 
 .left {

@@ -7905,9 +7905,6 @@ ion-side-menu > ion-content > div.scroll > ul > a.item.logout {
   margin: 0 0 0.5% 0 !important; }
 
 .fakebutton {
-  border-color: #66cc33;
-  background: none repeat scroll 0% 0% transparent;
-  color: #66cc33;
   padding: 0px 1em;
   min-width: 59px;
   min-height: 50px;
@@ -7917,6 +7914,22 @@ ion-side-menu > ion-content > div.scroll > ul > a.item.logout {
   border-width: 1px;
   border-style: solid;
   border-radius: 2px; }
+  .fakebutton.balanced {
+    border-color: #66cc33;
+    background: none repeat scroll 0% 0% transparent;
+    color: #66cc33; }
+  .fakebutton.energized {
+    border-color: #d39211;
+    background-color: #f0b840;
+    color: #fff; }
+  .fakebutton.blue {
+    background-color: #4A87EE;
+    color: white;
+    border-top-color: #4A87EE; }
+  .fakebutton.assertive {
+    border-color: #cc2311;
+    background-color: #ef4e3a;
+    color: #fff; }
 
 .left {
   text-align: left; }

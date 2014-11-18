@@ -5,19 +5,19 @@
     </ion-nav-back-button>
   </a>
 </ion-nav-bar>
-<ion-view title="{{product.name}}">
-  <ion-content class="padding">
+<ion-view title="Produit">
+  <ion-content style="padding: 10px 0 10px 0;">
     <div class="row">
       <div class="col col-50">
         <div id="leftCol">
           <div class="row no-padding-side">
             <div class="col left no-padding-side">
-              <span class="fakebutton ion-bag">
+              <span class="fakebutton ion-bag blue">
                 {{product.price}}€
               </span>
             </div>
             <div class="col right no-padding-side">
-              <span class="fakebutton ion-ios7-star">
+              <span class="fakebutton ion-ios7-star energized">
                 {{product.reviewAvg}}
               </span>
             </div>
@@ -44,14 +44,14 @@
       </div>
     </div>
 
-    <div class="card" ng-if="product.description">
+    <div class="card" ng-if="product.name">
       <div class="item item-divider">
         <ion-toggle class="slideToggle" ng-checked="true">
           Description
         </ion-toggle>
       </div>
       <div class="item item-text-wrap">
-        {{ product.description }}
+        {{ product.name }}
       </div>
     </div>
 
@@ -79,7 +79,7 @@
               <i class="icon ion-arrow-resize"></i>{{data.metre || 33}}
             </div>
             <div class="range range-positive">
-              <span class="fakebutton center">Pots: {{(((data.couche || 1) * (data.metre || 33) /100) + 0.49) | number:0}}</span>
+              <span class="fakebutton assertive center">Pots: {{(((data.couche || 1) * (data.metre || 33) /100) + 0.49) | number:0}}</span>
             </div>
           </div>
         </div>

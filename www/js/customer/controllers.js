@@ -63,7 +63,7 @@ console.log($stateParams);
 
   $scope.updateSlider = function () {
     angular.element(document.querySelector('#backButton')).removeClass('ng-hide');
-    $scope.height = angular.element(document.querySelector('#leftCol'))[0].offsetHeight;
+    // $scope.height = angular.element(document.querySelector('#leftCol'))[0].offsetHeight;
     return $ionicSlideBoxDelegate.update();
   };
 })

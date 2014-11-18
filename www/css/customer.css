@@ -7864,9 +7864,6 @@ $ios-transition-box-shadow-end: -200px 0px 200px rgba(0,0,0,0.15), -5px 0px 5px 
   margin: 0 0 0.5% 0 !important; }
 
 .fakebutton {
-  border-color: #45B82E;
-  background: none repeat scroll 0% 0% transparent;
-  color: #45B82E;
   padding: 0px 1em;
   min-width: 59px;
   min-height: 50px;
@@ -7876,6 +7873,22 @@ $ios-transition-box-shadow-end: -200px 0px 200px rgba(0,0,0,0.15), -5px 0px 5px 
   border-width: 1px;
   border-style: solid;
   border-radius: 2px; }
+  .fakebutton.balanced {
+    border-color: #45B82E;
+    background: none repeat scroll 0% 0% transparent;
+    color: #45B82E; }
+  .fakebutton.energized {
+    border-color: #d39211;
+    background-color: #f0b840;
+    color: #fff; }
+  .fakebutton.blue {
+    background-color: #4A87EE;
+    color: white;
+    border-top-color: #4A87EE; }
+  .fakebutton.assertive {
+    border-color: #cc2311;
+    background-color: #ef4e3a;
+    color: #fff; }
 
 .left {
   text-align: left; }
@@ -7942,7 +7955,7 @@ span.tab-item {
   margin: 0 auto;
   border-width: 0px; }
   .item.product img {
-    width: auto !important; }
+    max-width: 100%; }
 
 .noShow {
   display: none; }
