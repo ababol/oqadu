@@ -34,14 +34,7 @@ var queue = {
   past: []
 };
 
-
-app.get('/queue', function(req, res){
-  res.send(JSON.stringify(queue));
-});
-app.get('/queue/size', function(req, res){
-  res.send({size : queue.next.length});
-});
-app.get('/queue/current', function(req, res){
+var sendCurrent = function(res){
   if(queue.next.length > 0){
     var id = queue.next[0];
     var user = queue[id];
@@ -50,6 +43,16 @@ app.get('/queue/current', function(req, res){
     var user = '{"default":true,"addedToWaitlist":false,"id":4295,"qa":{"545f70d9946ea453ece17e7e":{"question":{"_id":"545f70d9946ea453ece17e7e","text":"Sélectionnez une gamme de produit"},"answer":{"_id":"5468aefc6564b204f8cde019","questionId":"545f70d9946ea453ece17e7e","text":"Peinture","nextUrl":"question/545f70d9946ea453ece17e7f"}}},"products":{}}';
     res.send(user);
   }
+}
+
+app.get('/queue', function(req, res){
+  res.send(JSON.stringify(queue));
+});
+app.get('/queue/size', function(req, res){
+  res.send({size : queue.next.length});
+});
+app.get('/queue/current', function(req, res){
+  sendCurrent(res);
 });
 app.get('/queue/clear', function(req, res){
   queue = {
@@ -63,14 +66,15 @@ app.get('/queue/next', function(req, res){
     queue.past.push(queue.next.shift());
     console.log("next");
   }
-  if(queue.next.length > 0){
-    var id = queue.next[0];
-    var user = queue[id];
-    res.send(JSON.stringify(user));
-  }else{
-    var user = '{"default":true,"addedToWaitlist":false,"id":4295,"qa":{"545f70d9946ea453ece17e7e":{"question":{"_id":"545f70d9946ea453ece17e7e","text":"Sélectionnez une gamme de produit"},"answer":{"_id":"5468aefc6564b204f8cde019","questionId":"545f70d9946ea453ece17e7e","text":"Peinture","nextUrl":"question/545f70d9946ea453ece17e7f"}}},"products":{}}';
-    res.send(user);
+  sendCurrent(res);
+});
+
+app.get('/queue/prev', function(req, res){
+  if(queue.past.length > 0){
+    queue.next.unshift(queue.past.pop());
+    console.log("prev");
   }
+  sendCurrent(res);
 });
 
 app.post('/queue/updateUser', function(req, res){

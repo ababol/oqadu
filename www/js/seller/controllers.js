@@ -16,6 +16,12 @@ angular.module('starter.controllers', [])
       console.log($scope.customer);
     });
   }
+  $scope.prevCustomer = function(){
+    Waitlist.prev().success(function(user){
+      $scope.customer = user;
+      console.log($scope.customer);
+    });
+  }
 })
 
 

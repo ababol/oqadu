@@ -106,6 +106,12 @@ angular.module('starter.services', [])
         method: 'GET'
       });
     },
+    prev: function(){
+      return $http({
+        url: 'http://localhost:3000/queue/prev',
+        method: 'GET'
+      });
+    },
     current: function(){
       return $http({
         url: 'http://localhost:3000/queue/current',
