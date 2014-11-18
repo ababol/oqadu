@@ -40,7 +40,7 @@ var sendCurrent = function(res){
     var user = queue[id];
     res.send(JSON.stringify(user));
   }else{
-    var user = '{"default":true,"addedToWaitlist":false,"id":4295,"qa":{"545f70d9946ea453ece17e7e":{"question":{"_id":"545f70d9946ea453ece17e7e","text":"Sélectionnez une gamme de produit"},"answer":{"_id":"5468aefc6564b204f8cde019","questionId":"545f70d9946ea453ece17e7e","text":"Peinture","nextUrl":"question/545f70d9946ea453ece17e7f"}}},"products":{}}';
+    var user = '{"default":true,"qa":{},"products":{}}';
     res.send(user);
   }
 }
@@ -49,7 +49,10 @@ app.get('/queue', function(req, res){
   res.send(JSON.stringify(queue));
 });
 app.get('/queue/size', function(req, res){
-  res.send({size : queue.next.length});
+  var s = queue.next.length -1;
+  if(s<0)
+    s=0;
+  res.send({size : s});
 });
 app.get('/queue/current', function(req, res){
   sendCurrent(res);
