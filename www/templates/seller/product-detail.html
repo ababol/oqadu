@@ -57,7 +57,7 @@
     </div>
   </div>
 
-  <div class="card">
+  <div class="card" ng-if="product.faq">
     <div class="item item-divider">
       <ion-toggle class="slideToggle" style="background: transparent;border-width: 0px;">
         F.A.Q.
@@ -88,7 +88,7 @@
     </div>
   </div>
 
-  <div class="card">
+  <div class="card" ng-if="product.reviews">
     <div class="item item-divider">
       <ion-toggle class="slideToggle" style="background: transparent;border-width: 0px;">
         <i ng-repeat="review in product.reviewAvgHtml track by $index" class='icon {{review}}'></i>
