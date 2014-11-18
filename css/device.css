@@ -1736,7 +1736,7 @@ a {
 #htc-one .screen {
   -webkit-box-shadow: none;
   box-shadow: none;
-  background: slategray;
+  background: white;
 }
 
 #htc-one .inner {
