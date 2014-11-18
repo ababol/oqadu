@@ -265,7 +265,7 @@ db.products.insert(
      {
         _id: ObjectId("545fc3da946ea453ece17f28"),
         name: "Spot à enterrer extérieur Boston INSPIRE, aluminium, 40 watts",
-        img: ["img/productsspot-a-enterrer-exterieur-boston-inspire-aluminium-40-watts.jpg"],
+        img: ["img/products/spot-a-enterrer-exterieur-boston-inspire-aluminium-40-watts.jpg"],
         info_label: ["Matière","Matière secondaire","Type de vitrage"],
         info1_text: ["Aluminium","Fonte d'alluminnium","Dépoli"],
         price:44.90,
@@ -328,7 +328,7 @@ db.products.insert(
      {
         _id: ObjectId("545fc3da946ea453ece17f35"),
         name: "Peinture cuisine et bains LUXENS Couleurs intérieures, rouge rouge n°3, 2.5 L",
-        img: ["img/products/peinture-cuisine-et-bains-luxens-couleurs-interieures-rouge-rouge-n-3-2-5-l.jpg.jpg"],
+        img: ["img/products/peinture-cuisine-et-bains-luxens-couleurs-interieures-rouge-rouge-n-3-2-5-l.jpg"],
         info_label: ["Type de peinture","Aspect","Pret à l'emploi"],
         info_text: ["Peinture acrylique","Satin","Oui"],
         price:36.95,
@@ -622,25 +622,25 @@ db.faqs.insert(
     {
      _id:ObjectId("545fc3da946ea453ece17f76"),
      productId:ObjectId("545fc3da946ea453ece17f32"),
-     question:"Qunatité de pots",
+     question:"Quantité de pots",
      answer:"1337"
     },
     {
      _id:ObjectId("545fc3da946ea453ece17f77"),
      productId:ObjectId("545fc3da946ea453ece17f34"),
-     question:"Qunatité de pots",
+     question:"Quantité de pots",
      answer:"1337"
     },
     {
      _id:ObjectId("545fc3da946ea453ece17f78"),
      productId:ObjectId("545fc3da946ea453ece17f35"),
-     question:"Qunatité de pots",
+     question:"Quantité de pots",
      answer:"1337"
     },
     {
      _id:ObjectId("545fc3da946ea453ece17f79"),
      productId:ObjectId("545fc3da946ea453ece17f36"),
-     question:"Qunatité de pots",
+     question:"Quantité de pots",
      answer:"1337"
     }
   ]
