@@ -1,4 +1,4 @@
-var url = "http://localhost:3000";
+var url = "http://babol.me:3000";
 
 
 angular.module('starter.services', [])
