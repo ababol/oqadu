@@ -1,15 +1,18 @@
+var url = "http://localhost:3000";
+
+
 angular.module('starter.services', [])
 .factory('Questions', function($http) {
   return {
     all: function() {
       return $http({
-        url: 'http://localhost:3000/api/v1/Questions',
+        url: url+'/api/v1/Questions',
         method: 'GET'
       });
     },
     get: function(questionId) {
       return $http({
-        url: 'http://localhost:3000/api/v1/Questions/'+questionId,
+        url: url+'/api/v1/Questions/'+questionId,
         method: 'GET'
       });
     }
@@ -20,7 +23,7 @@ angular.module('starter.services', [])
   return {
     get: function(questionId) {
       return $http({
-        url: 'http://localhost:3000/api/v1/Answers/?questionId='+questionId,
+        url: url+'/api/v1/Answers/?questionId='+questionId,
         method: 'GET'
       });
     }
@@ -31,7 +34,7 @@ angular.module('starter.services', [])
   return {
     get: function(recoId) {
       return $http({
-        url: 'http://localhost:3000/api/v1/Recommendations/'+recoId,
+        url: url+'/api/v1/Recommendations/'+recoId,
         method: 'GET'
       });
     }
@@ -42,19 +45,19 @@ angular.module('starter.services', [])
   return {
     get: function(productId) {
       return $http({
-        url: 'http://localhost:3000/api/v1/Products/'+productId,
+        url: url+'/api/v1/Products/'+productId,
         method: 'GET'
       });
     },
     getReviews: function(productId) {
       return $http({
-        url: 'http://localhost:3000/api/v1/Reviews/?productId='+productId,
+        url: url+'/api/v1/Reviews/?productId='+productId,
         method: 'GET'
       });
     },
     getFaq: function(productId) {
       return $http({
-        url: 'http://localhost:3000/api/v1/Faqs/?productId='+productId,
+        url: url+'/api/v1/Faqs/?productId='+productId,
         method: 'GET'
       });
     }
@@ -65,14 +68,14 @@ angular.module('starter.services', [])
   return{
     addUser: function(user){
       return $http({
-        url: 'http://localhost:3000/queue/addUser',
+        url: url+'/queue/addUser',
         method: 'POST',
         data: {'user': user}
       });
     },
     updateUser: function(user){
       return $http({
-        url: 'http://localhost:3000/queue/updateUser',
+        url: url+'/queue/updateUser',
         method: 'POST',
         data: {'user': user}
       });

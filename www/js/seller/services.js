@@ -1,3 +1,5 @@
+var url = "http://localhost:3000";
+
 angular.module('starter.services', [])
 
 /**
@@ -43,25 +45,25 @@ angular.module('starter.services', [])
   return {
     all: function() {
       return $http({
-        url: 'http://localhost:3000/api/v1/Products/',
+        url: url+'/api/v1/Products/',
         method: 'GET'
       });
     },
     get: function(productId) {
       return $http({
-        url: 'http://localhost:3000/api/v1/Products/'+productId,
+        url: url+'/api/v1/Products/'+productId,
         method: 'GET'
       });
     },
     getReviews: function(productId) {
       return $http({
-        url: 'http://localhost:3000/api/v1/Reviews/?productId='+productId,
+        url: url+'/api/v1/Reviews/?productId='+productId,
         method: 'GET'
       });
     },
     getFaq: function(productId) {
       return $http({
-        url: 'http://localhost:3000/api/v1/Faqs/?productId='+productId,
+        url: url+'/api/v1/Faqs/?productId='+productId,
         method: 'GET'
       });
     }
@@ -96,31 +98,31 @@ angular.module('starter.services', [])
   return{
     getSize: function(){
       return $http({
-        url: 'http://localhost:3000/queue/size',
+        url: url+'/queue/size',
         method: 'GET'
       });
     },
     next: function(){
       return $http({
-        url: 'http://localhost:3000/queue/next',
+        url: url+'/queue/next',
         method: 'GET'
       });
     },
     prev: function(){
       return $http({
-        url: 'http://localhost:3000/queue/prev',
+        url: url+'/queue/prev',
         method: 'GET'
       });
     },
     current: function(){
       return $http({
-        url: 'http://localhost:3000/queue/current',
+        url: url+'/queue/current',
         method: 'GET'
       });
     },
     updateUser: function(user){
       return $http({
-        url: 'http://localhost:3000/queue/updateUser',
+        url: url+'/queue/updateUser',
         method: 'POST',
         data: {'user': user}
       });
