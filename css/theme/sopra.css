@@ -185,3 +185,19 @@ ul li{
   background: url(../../img/10.png);
 }
 /*# sourceMappingURL=sopra.css.map */
+
+
+li.checked{
+  background: url(../../img/checked.svg) no-repeat left top;
+  padding: 12px 0px 7px 60px;
+  background-size: 2em;
+  list-style: none;
+  margin: 0;
+}
+li.no-checked{
+  background: url(../../img/no-checked.svg) no-repeat left top;
+  background-size: 2em;
+  padding: 12px 0px 7px 60px;
+  list-style: none;
+  margin: 0;
+}
