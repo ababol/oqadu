@@ -40,6 +40,7 @@ angular.module('starter.controllers', [])
     Products.getReviews($stateParams.productId).success(function(reviews) {
       product.reviewAvg = getReviewAvg(reviews);
       product.reviewAvgHtml = getReviewHtml(product.reviewAvg);
+      product.reviews = reviews;
       Products.getFaq($stateParams.productId).success(function(faq) {
         product.faq = faq;
         $scope.product = product;
@@ -48,6 +49,7 @@ angular.module('starter.controllers', [])
   });
   $scope.updateSlider = function () {
     angular.element(document.querySelector('#backButton')).removeClass('ng-hide');
+    // $scope.height = angular.element(document.querySelector('#leftCol'))[0].offsetHeight;
     return $ionicSlideBoxDelegate.update();
   };
 })
