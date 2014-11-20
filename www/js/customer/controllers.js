@@ -36,14 +36,14 @@ console.log($stateParams);
           product.reviewAvgHtml = getReviewHtml(product.reviewAvg);
           $scope.products.push(product);
           window.user.products[product._id] = product;
+          if(window.user.addedToWaitlist){
+            Waitlist.updateUser(window.user).success(function(){
+              console.log("user updated");
+            });
+          }
         });
       });
     });
-    if(window.user.addedToWaitlist){
-      Waitlist.updateUser(window.user).success(function(){
-        console.log("user updated");
-      });
-    }
   });
 })
 
