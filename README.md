@@ -1,7 +1,8 @@
 OQADU by Bricodata
 =========
 
-Mobile application (queue manager) made for [Leroy Merlin](http://www.leroymerlin.fr/) for a Hackathon followed by 2 weekend of coding.
+###[Slides](http://ababol.github.io/bricodata)
+> Mobile application (queue manager) made for [Leroy Merlin](http://www.leroymerlin.fr/) for a Hackathon followed by 2 weekend of coding.
 
 # Getting started
 
