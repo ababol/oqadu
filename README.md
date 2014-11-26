@@ -1,25 +1,26 @@
-bricodata
+OQADU by Bricodata
 =========
 
-Leroy Merlin \o/
+Mobile application (queue manager) made for [Leroy Merlin](http://www.leroymerlin.fr/) for a Hackathon followed by 2 weekend of coding.
 
-#API
+# Getting started
 
-## Install
-- installer mongodb
-- lancer mongodb
-- cloner le repo
-- `cd bricodata`
-- `npm install`
-- `node app.js` (lances l'api -> il manquera p-e des dependances mais en principe cest assez clair quand cest le cas et suffit de npm install -g ladependance)
+## API
 
-## Utiliser l'API
+1. Make sure you have [node installed](http://nodejs.org/).
+2. Make sure you have access to a [mongoDB](https://www.mongodb.org/) database.
+3. Import [our dumped mongo db](https://raw.githubusercontent.com/ababol/bricodata/master/doc/dump_bricodata.zip) (just extract the zip and run `mongorestore`).
+4. Install the dependencies by running `npm install`.
+5. Launch the node server by running `node app`.
 
-On utilise un framework pour l'API, je vous invite à voir la doc officielle [https://github.com/florianholzapfel/express-restify-mongoose](https://github.com/florianholzapfel/express-restify-mongoose)
+## [Customer Application](http://oqadu.babol.me/www/)
 
-Pour la création de table via mongoose, pareillement: http://mongoosejs.com/docs/guide.html
+[Demo](http://oqadu.babol.me/www/)
 
-Autrement il suffit d'ajouter vos fichiers dans https://github.com/ababol/bricodata/tree/master/app/models et en principe vous n'avez rien à modifier pour que votre nouvelle table soit accessible via l'url /api/v1/Manouvelletable
+![Demo Customer GIF](https://raw.githubusercontent.com/ababol/bricodata/master/doc/customer.gif)
 
-Exemple de requête CURL:
-`curl -i -X POST -H 'Content-Type: application/json' -d '{"name": "Arnaud"}' http://localhost:3000/api/v1/Users`
+## [Seller Application](http://oqadu.babol.me/www/seller.html)
+
+[Demo](http://oqadu.babol.me/www/seller.html)
+
+![Demo Seller GIF](https://raw.githubusercontent.com/ababol/bricodata/master/doc/seller.gif)
