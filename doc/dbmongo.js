@@ -15,7 +15,7 @@ db.questions.insert(
      { _id: ObjectId("545f70d9946ea453ece17e90"), text: "Quel type de support?" },
      { _id: ObjectId("545f70d9946ea453ece17e91"), text: "De quelle couleur?" }
    ]
-)
+);
 db.answers.insert(
    [
       {
@@ -205,7 +205,7 @@ db.answers.insert(
         nextUrl: "recommendation/545fc3da946ea453ece17f75"
       }
    ]
-)
+);
 db.products.insert(
    [
      {
@@ -373,7 +373,7 @@ db.products.insert(
 
 
    ]
-)
+);
   db.reviews.insert(
      [
       {
@@ -521,7 +521,7 @@ db.products.insert(
         text: "Un bon rouleau de peinture de qualité prix parfait ..."
       }
    ]
-)
+);
 db.recommendations.insert(
    [
       {
@@ -615,7 +615,7 @@ db.recommendations.insert(
         products: [ObjectId("545fc3da946ea453ece17f35")]
       }
    ]
-)
+);
 
 db.faqs.insert(
   [
@@ -644,4 +644,4 @@ db.faqs.insert(
      answer:"1337"
     }
   ]
-)
+);
