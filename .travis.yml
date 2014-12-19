@@ -1,0 +1,7 @@
+deploy:
+  provider: heroku
+  api_key:
+    secure: IA7HDxb5P0+btnj8DBee/cMazXFu9SC9M+28gAELvWbIivDKMQiQwmHj2nat5xhEMxIVIJwjLYcXP0auSmrrGx5hAmToJhLiNIJLd2/ACLSXZMHYLBfY0hrFG8Eq3rgNfqwZjWXD88fCjtcrBsgkdrtd4csN5vE4OuouVPj8FNU=
+  app: oqadu
+  on:
+    repo: ababol/oqadu
