@@ -1,5 +1,6 @@
 OQADU by Bricodata
 =========
+[![Build Status](https://travis-ci.org/ababol/oqadu.svg)](https://travis-ci.org/ababol/oqadu)
 
 ###[Slides](http://ababol.github.io/oqadu)
 > Mobile application (queue manager) made for [Leroy Merlin](http://www.leroymerlin.fr/) for a Hackathon followed by 2 weekend of coding.
