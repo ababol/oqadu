@@ -7,7 +7,7 @@ var Schema = mongoose.Schema;
 var restify = require('express-restify-mongoose');
 var fs = require('fs');
 
-mongoose.connect('mongodb://localhost/bricodata');
+mongoose.connect('mongodb://localhost/oqadu');
 
 
 var app = express();

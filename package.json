@@ -1,7 +1,10 @@
 {
-  "name": "bricodata",
+  "name": "oqadu",
   "version": "1.0.0",
-  "description": "BricoData: An Ionic project",
+  "description": "OQADU - Ou Quand l'Attente Devient Utile",
+  "scripts": {
+    "start": "node app.js"
+  },
   "dependencies": {
     "body-parser": "^1.9.2",
     "express": "^4.10.1",
@@ -19,5 +22,14 @@
     "bower": "^1.3.3",
     "gulp-util": "^2.2.14",
     "shelljs": "^0.3.0"
-  }
+  },
+  "engines": {
+    "node": "0.10.x"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ],
+  "license": "MIT"
 }
