@@ -7,7 +7,7 @@ var Schema = mongoose.Schema;
 var restify = require('express-restify-mongoose');
 var fs = require('fs');
 
-mongoose.connect('mongodb://localhost/oqadu');
+mongoose.connect('mongodb://public:public@ds027698.mongolab.com:27698/oqadu');
 
 
 var app = express();
