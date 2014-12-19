@@ -1,4 +1,4 @@
-var url = "http://babol.me:3002";
+var url = "http://oqadu.herokuapp.com:3000";
 // var url = "http://192.168.43.118:3000";
 
 
