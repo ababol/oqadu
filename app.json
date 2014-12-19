@@ -2,6 +2,6 @@
   "name": "OQADU",
   "description": "OQADU - Ou Quand l'Attente Devient Utile",
   "repository": "https://github.com/ababol/oqadu",
-  "logo": "http://oqadu.babol.me/www/img/leroymerlin.svg",
+  "logo": "https://oqadu.herokuapp.com/www/img/leroymerlin.svg",
   "keywords": ["node", "express", "static"]
 }
