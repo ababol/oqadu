@@ -90,11 +90,11 @@ app.post('/queue/addUser', function(req, res){
   if(queue[user.id] === undefined){
     queue[user.id] = user;
     queue.next.push(user.id);
-  } 
+  }
   res.send("ok");
 });
 
 
-http.createServer(app).listen(3000, function() {
-  console.log("Express server listening on port 3000");
+http.createServer(app).listen(3001, function() {
+  console.log("Express server listening on port 3001");
 });
