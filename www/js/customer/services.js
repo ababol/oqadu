@@ -1,4 +1,4 @@
-var url = "http://oqadu.herokuapp.com";
+var url = "https://oqadu.herokuapp.com";
 // var url = "http://192.168.43.118:3000";
 
 

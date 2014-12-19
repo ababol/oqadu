@@ -1,5 +1,5 @@
 // var url = "http://192.168.43.118:3000";
-var url = "http://oqadu.herokuapp.com";
+var url = "https://oqadu.herokuapp.com";
 
 angular.module('starter.services', [])
 
