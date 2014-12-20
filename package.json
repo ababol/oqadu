@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "OQADU - Ou Quand l'Attente Devient Utile",
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "test": "jasmine-node spec/."
   },
   "dependencies": {
     "body-parser": "^1.9.2",
@@ -20,7 +21,9 @@
   },
   "devDependencies": {
     "bower": "^1.3.3",
+    "frisby": "^0.8.3",
     "gulp-util": "^2.2.14",
+    "jasmine-node": "^1.14.5",
     "shelljs": "^0.3.0"
   },
   "engines": {
