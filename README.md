@@ -15,14 +15,14 @@ OQADU by Bricodata
 4. Install the dependencies by running `npm install`.
 5. Launch the node server by running `node app`.
 
-## [Customer Application](http://oqadu.babol.me/www/)
+## [Customer Application](https://oqadu.herokuapp.com/customer.html)
 
-[Demo](http://oqadu.babol.me/www/)
+[Demo](https://oqadu.herokuapp.com/customer.html)
 
 ![Demo Customer GIF](https://raw.githubusercontent.com/ababol/oqadu/master/doc/customer.gif)
 
-## [Seller Application](http://oqadu.babol.me/www/seller.html)
+## [Seller Application](https://oqadu.herokuapp.com/seller.html)
 
-[Demo](http://oqadu.babol.me/www/seller.html)
+[Demo](https://oqadu.herokuapp.com/seller.html)
 
 ![Demo Seller GIF](https://raw.githubusercontent.com/ababol/oqadu/master/doc/seller.gif)
