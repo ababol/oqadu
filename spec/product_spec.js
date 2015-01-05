@@ -28,7 +28,7 @@ var expectedProduct = {
 };
 
 frisby.create('Check Product Tondeuse')
-  .get(url + '/api/v2/Products/545fc3da946ea453ece17f22')
+  .get(url + '/api/v2/products/545fc3da946ea453ece17f22')
     .expectHeaderContains('Content-Type', 'json')
     .expectStatus(200)
     .expectJSON(expectedProduct)
