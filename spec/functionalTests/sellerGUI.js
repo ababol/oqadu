@@ -1,11 +1,7 @@
-var casper = require('casper').create();
-
-casper.start('http://localhost:3000/seller.html#/products', function() {
-  if (this.exists('input')) {
-    this.echo('the input exists');
-  }else{
-    this.echo("it doesn't");
-  }
+casper.test.begin('assert that an input exists in the products tab', 1, function(test) {
+  casper.start('http://localhost:3000/seller.html#/products').then(function() {
+    test.assertExists('input');
+  }).run(function() {
+    test.done();
+  });
 });
-
-casper.run();
