@@ -7,10 +7,14 @@ var productRoute = {
 		product.methods(['get']);		
 
 		// custom route
-		product.route('recommendations', {
-
-			//TODO
-
+		product.route('recommendations', ['get'], function(request, result, next){
+			var recommendations;
+			var tags = request.body.tags;
+			recommendations = product.find({tags:tags}, function(){});
+			if(recommendations == null){
+				result.error('416: Requested Range Not Satisfiable');
+			}
+			result.send(recommendations);
 		});
 
 	}
