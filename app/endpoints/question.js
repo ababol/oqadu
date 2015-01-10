@@ -1,1 +1,0 @@
-// get : retourne la question correpondante aux tags donnés en argument (Usage Client)

@@ -1,7 +1,14 @@
-module.exports = function(mongoose, Schema) {
-  var Feature = new Schema({
-  	label: {type:String, required:true},
-  	value: {type:String, required:true}
-  });
-  return mongoose.model('Feature', Feature);
-};
+var restful = require('node-restful'),
+    mongoose = restful.mongoose;
+
+
+
+// MONGO SCHEMA
+var feature = restful.model('feature', mongoose.Schema({
+	label: {type:'string', required:true},
+	value: {type:'string', required:true}
+}));
+
+
+exports = module.exports = feature;
+	

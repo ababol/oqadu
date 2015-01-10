@@ -1,8 +1,12 @@
-module.exports = function(mongoose, Schema) {
-  var Answer = new Schema({
-  	text: {type:String, required:true},
-    questionId: {type: Schema.Types.ObjectId, ref: 'Question', required:true},
-    nextUrl: {type: String, required:true}
-  });
-  return mongoose.model('Answer', Answer);
-};
+var restful = require('node-restful'),
+    mongoose = restful.mongoose;
+
+// MONGO SCHEMA
+var answer = restful.model('answer', mongoose.Schema({
+	text: {type:'string', required:true},
+	question : {'ObjectId', ref:'question', required:true},
+	tags : {type:['ObjectId'], ref:'tag', required:true}
+}));
+
+
+exports = module.exports = answer;

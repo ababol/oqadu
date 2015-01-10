@@ -1,13 +1,15 @@
-module.exports = function(mongoose, Schema) {
-  var Product = new Schema({
-  	name: {type:String, required:true},
-  	img: {type:[String], required:true},
-    info_label: {type:[String], required:false, default: []},
-    info_text: {type:[String], required:false, default: []},
-    description: {type: String, default:""},
-    price: {type: Number},
-    answer: [Schema.Types.ObjectId],
-    tags:{type:[String], required:false, default:[]}
-  });
-  return mongoose.model('Product', Product);
-};
+var restful = require('node-restful'),
+    mongoose = restful.mongoose;
+
+
+
+// MONGO SCHEMA
+var product = restful.model('product', mongoose.Schema({
+	name: {type:'string', required:true},
+	dutyFreePrice: {type:'Number', required:true},
+	tags: {type:['ObjectId'], ref:'tag', required:true},
+	pictures: {type:['ObjectId'], ref:'picture', required:false},
+	features: {type:['ObjectId'], ref:'feature', required:false}
+}));
+
+exports = module.exports = product;
