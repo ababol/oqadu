@@ -84,7 +84,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       templateUrl: 'templates/seller/waitlist.html',
       controller: 'WaitlistCtrl'
     })
-    
+
     .state('products', {
       url: '/products',
       templateUrl: 'templates/seller/products.html',

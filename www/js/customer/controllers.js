@@ -133,14 +133,24 @@ console.log($stateParams);
   $scope.unregisterQueue = function () {
     $scope.registred = false;
   };
+})
+
+.controller('ScanCtrl', function($scope, $cordovaBarcodeScanner) {
+  $cordovaBarcodeScanner.scan().then(function(imageData) {
+    alert(imageData.text);
+    console.log("Barcode Format -> " + imageData.format);
+    console.log("Cancelled -> " + imageData.cancelled);
+  }, function(error) {
+    console.log("An error happened -> " + error);
+  });
 });
 
 window.user = {
-  addedToWaitlist : false,
+  addedToWaitlist: false,
   id: parseInt(Math.random() * 99999),
-  qa : {},
+  qa: {},
   products: {}
-}
+};
 
 function getReviewAvg(reviews) {
   if (reviews.length === 0)
