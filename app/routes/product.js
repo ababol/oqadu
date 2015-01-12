@@ -9,8 +9,12 @@ var productRoute = {
 		// custom route
 		product.route('recommendations', ['get'], function(request, result, next){
 			var recommendations;
-			var tags = request.body.tags;
-			recommendations = product.find({tags:tags}, function(){});
+			var input = request.body.tags;
+			recommendations = product.find({
+				
+				tags:{ $in : input}
+
+			}, function(){});
 			if(recommendations == null){
 				result.error('416: Requested Range Not Satisfiable');
 			}

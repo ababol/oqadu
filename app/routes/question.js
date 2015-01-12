@@ -4,13 +4,17 @@ var app = require('../app'),
 var questionRoute = {
 	define: function(){
 		question.registers(app, '/questions');
-		question.methods(['get', 'post', 'put', 'delete']);		
+		question.methods(['get']);		
 
 		// custom route 
 		question.route('nextQuestion',['get'] ,function(request, result, next{
 			var SelectedQuestions;
-			var tags = request.body.tags;
-			Selectedquestions = question.find({tags:tags}, function(){});
+			var input = request.body.tags;
+			Selectedquestions = question.find({
+				
+				tags: {$in : input}
+
+			}, function(){});
 			if(selectedQuestions == null){
 				result.error('416: Requested Range Not Satisfiable');
 			}

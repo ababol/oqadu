@@ -4,7 +4,7 @@ var app = require('../app'),
 var tagRoute = {
 	define: function(){
 		tag.registers(app, '/tags');
-		tag.methods(['get', 'put', 'post', 'delete']);		
+		tag.methods(['get']);		
 	}
 }
 

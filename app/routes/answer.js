@@ -4,7 +4,7 @@ var app = require('../app'),
 var answerRoute = {
 	define: function(){
 		answer.registers(app, '/answers');
-		answer.methods(['get', 'post', 'delete', 'put']);		
+		answer.methods(['get']);		
 	}
 }
 
