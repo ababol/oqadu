@@ -10,11 +10,11 @@ var productRoute = {
 		product.route('recommendations', ['get'], function(request, response, next){
 			var recommendations;
 			var input = request.body.tags;
-			recommendations = product.find({
-				
-				tags:{ $in : input}
 
+			recommendations = product.find({
+				tags:{ $in : input}
 			}, function(){});
+
 			if(response == null){
 				response.status(416);
 				response.send('No product corresponds to the given tags.');

@@ -10,11 +10,11 @@ var questionRoute = {
 		question.route('nextQuestion',['get'] ,function(request, response, next{
 			var SelectedQuestions;
 			var input = request.body.tags;
-			Selectedquestions = question.find({
-				
-				tags: {$in : input}
 
+			Selectedquestions = question.find({
+				tags: {$all : input}
 			}, function(){});
+
 			if(selectedQuestions == null){
 				response.status(416);
 				response.send('Not any remaining questions.');
