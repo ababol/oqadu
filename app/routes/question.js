@@ -7,7 +7,7 @@ var questionRoute = {
 		question.methods(['get']);		
 
 		// custom route 
-		question.route('nextQuestion',['get'] ,function(request, result, next{
+		question.route('nextQuestion',['get'] ,function(request, response, next{
 			var SelectedQuestions;
 			var input = request.body.tags;
 			Selectedquestions = question.find({
@@ -16,9 +16,11 @@ var questionRoute = {
 
 			}, function(){});
 			if(selectedQuestions == null){
-				result.error('416: Requested Range Not Satisfiable');
+				response.status(416);
+				response.send('Not any remaining questions.');
 			}
-			result.send(selectedQuestions[0]);
+			response.status(200);
+			response.send(selectedQuestions[0]);
 		});
 
 	}

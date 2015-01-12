@@ -7,7 +7,7 @@ var productRoute = {
 		product.methods(['get']);		
 
 		// custom route
-		product.route('recommendations', ['get'], function(request, result, next){
+		product.route('recommendations', ['get'], function(request, response, next){
 			var recommendations;
 			var input = request.body.tags;
 			recommendations = product.find({
@@ -15,10 +15,12 @@ var productRoute = {
 				tags:{ $in : input}
 
 			}, function(){});
-			if(recommendations == null){
-				result.error('416: Requested Range Not Satisfiable');
+			if(response == null){
+				response.status(416);
+				response.send('No product corresponds to the given tags.');
 			}
-			result.send(recommendations);
+			response.status(200);
+			response.send(recommendations);
 		});
 
 	}
