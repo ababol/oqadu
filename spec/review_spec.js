@@ -3,7 +3,7 @@ var url = "https://oqadu.herokuapp.com",
 
 
 // test the integrity of the returned JSON by getting the reviews list
-frisby.create('Check Products endpoints')
+frisby.create('Check reviews endpoints')
 .get(url + '/api/v2/reviews')
 .expectHeaderContains('Content-Type', 'json')
 .expectStatus(200)
