@@ -7,7 +7,7 @@ var questionRoute = {
 		question.methods(['get']);		
 
 		// custom route 
-		question.route('nextQuestion',['get'] ,function(request, response, next{
+		question.route('question-next',['get'] ,function(request, response, next{
 			var SelectedQuestions;
 			var input = request.body.tags;
 
@@ -18,9 +18,10 @@ var questionRoute = {
 			if(selectedQuestions == null){
 				response.status(416);
 				response.send('Not any remaining questions.');
+			}else{
+				response.status(200);
+				response.send(selectedQuestions[0]);
 			}
-			response.status(200);
-			response.send(selectedQuestions[0]);
 		});
 
 	}

@@ -5,6 +5,7 @@ var restful = require('node-restful'),
 
 // MONGO SCHEMA
 var product = restful.model('product', mongoose.Schema({
+	barcode: {type:'Number', required:true},
 	name: {type:'string', required:true},
 	dutyFreePrice: {type:'Number', required:true},
 	tags: {type:['ObjectId'], ref:'tag', required:true},
