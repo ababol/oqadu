@@ -1,10 +1,15 @@
 var app = require('../app'),
-	question = require('../models/question');
+	question = require('../models/question'),
+	authentificator = require('../authenticator');
 
 var questionRoute = {
 	define: function(){
 		question.register(app, '/questions');
-		question.methods(['get']);		
+		question.methods(['get', 'post', 'put', 'delete']);	
+
+		question.before('post', authentificator.authenticate);
+		question.before('put', authentificator.authenticate);
+		question.before('delete', authentificator.authenticate);
 
 		// custom route 
 		question.route('question-next',['get'] ,function(request, response, next){

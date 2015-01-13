@@ -1,10 +1,15 @@
 var app = require('../app'),
-	product = require('../models/product');
+	product = require('../models/product'),
+	authentificator = require('../authenticator');
 
 var productRoute = {
 	define: function(){
 		product.register(app, '/products');
-		product.methods(['get']);		
+		product.methods(['get', 'post', 'put', 'delete']);		
+
+		product.before('post', authentificator.authenticate);
+		product.before('put', authentificator.authenticate);
+		product.before('delete', authentificator.authenticate);
 
 		// custom route
 		product.route('product-recommendations', ['get'], function(request, response, next){
