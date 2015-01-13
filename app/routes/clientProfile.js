@@ -4,12 +4,13 @@ var app = require('../app'),
 
 var clientProfileRoute = {
 	define: function(){
-		clientProfile.register(app, '/clientProfiles');
 		clientProfile.methods(['get', 'post', 'put', 'delete']);
 
 		clientProfile.before('post', authentificator.authenticate);
 		clientProfile.before('put', authentificator.authenticate);
 		clientProfile.before('delete', authentificator.authenticate);
+
+		clientProfile.register(app, '/clientProfiles');
 	}
 }
 

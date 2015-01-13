@@ -4,16 +4,14 @@ var app = require('../app'),
 
 var tagRoute = {
 	define: function(){
-		tag.register(app, '/tags');
 		tag.methods(['get', 'post', 'put', 'delete']);
 
 		tag.before('post', authentificator.authenticate);
 		tag.before('put', authentificator.authenticate);
 		tag.before('delete', authentificator.authenticate);
+
+		tag.register(app, '/tags');
 	}
 }
 
 module.exports = tagRoute;
-
-
-

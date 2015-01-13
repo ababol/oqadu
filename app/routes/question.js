@@ -4,14 +4,13 @@ var app = require('../app'),
 
 var questionRoute = {
 	define: function(){
-		question.register(app, '/questions');
-		question.methods(['get', 'post', 'put', 'delete']);	
+		question.methods(['get', 'post', 'put', 'delete']);
 
 		question.before('post', authentificator.authenticate);
 		question.before('put', authentificator.authenticate);
 		question.before('delete', authentificator.authenticate);
 
-		// custom route 
+		// custom route
 		question.route('question-next',['get'] ,function(request, response, next){
 			var SelectedQuestions;
 			var input = request.body.tags;
@@ -29,6 +28,7 @@ var questionRoute = {
 			}
 		});
 
+		question.register(app, '/questions');
 	}
 }
 

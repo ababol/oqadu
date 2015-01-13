@@ -4,8 +4,7 @@ var app = require('../app'),
 
 var productRoute = {
 	define: function(){
-		product.register(app, '/products');
-		product.methods(['get', 'post', 'put', 'delete']);		
+		product.methods(['get', 'post', 'put', 'delete']);
 
 		product.before('post', authentificator.authenticate);
 		product.before('put', authentificator.authenticate);
@@ -32,7 +31,7 @@ var productRoute = {
 		product.route('product-barcode', ['get'], function(request, response, next){
 			var correspondingProduct;
 			var input = request.body.barcode;
-			
+
 			correspondingProduct = product.find({
 				barcode : input
 			}, function(){});
@@ -46,6 +45,7 @@ var productRoute = {
 			}
 		});
 
+		product.register(app, '/products');
 	}
 }
 

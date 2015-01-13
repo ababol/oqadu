@@ -4,12 +4,13 @@ var app = require('../app'),
 
 var reviewRoute = {
 	define: function(){
-		review.register(app, '/reviews');
 		review.methods(['get', 'post', 'put', 'delete']);
 
 		review.before('post', authentificator.authenticate);
 		review.before('put', authentificator.authenticate);
-		review.before('delete', authentificator.authenticate);	
+		review.before('delete', authentificator.authenticate);
+		
+		review.register(app, '/reviews');
 	}
 }
 
