@@ -18,7 +18,7 @@ var authenticator = {
 		return hash;
 	},
 
-	authenticate : function(){
+	authenticate : function(request, response, next){
 		var uname = request.body.username;
 		var pwd = authenticator.hash(request.body.password);
 		
