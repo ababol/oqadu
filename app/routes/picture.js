@@ -1,5 +1,5 @@
 var app = require('../app');
-var picture = require('../models/picture'),
+var picture = require('../models/Picture'),
 authenticator = require('../authenticator');
 
 var pictureRoute = {

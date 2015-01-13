@@ -1,5 +1,5 @@
 var app = require('../app'),
-	clientProfile = require('../models/clientProfile'),
+	clientProfile = require('../models/ClientProfile'),
 	authenticator = require('../authenticator');
 
 var clientProfileRoute = {

@@ -1,5 +1,5 @@
 var app = require('../app'),
-	feature = require('../models/feature'),
+	feature = require('../models/Feature'),
 	authenticator = require('../authenticator');
 
 var featureRoute = {

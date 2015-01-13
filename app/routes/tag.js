@@ -1,5 +1,5 @@
 var app = require('../app'),
-	tag = require('../models/tag'),
+	tag = require('../models/Tag'),
 	authenticator = require('../authenticator');
 
 var tagRoute = {

@@ -1,5 +1,5 @@
 var app = require('../app'),
-	question = require('../models/question'),
+	question = require('../models/Question'),
 	authenticator = require('../authenticator');
 
 var questionRoute = {

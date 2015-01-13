@@ -1,5 +1,5 @@
 var app = require('../app'),
-	review = require('../models/review'),
+	review = require('../models/Review'),
 	authenticator = require('../authenticator');
 
 var reviewRoute = {
@@ -9,7 +9,7 @@ var reviewRoute = {
 		review.before('post', authenticator.authenticate);
 		review.before('put', authenticator.authenticate);
 		review.before('delete', authenticator.authenticate);
-		
+
 		review.register(app, '/reviews');
 	}
 }
