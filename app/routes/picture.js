@@ -1,14 +1,14 @@
 var app = require('../app');
 var picture = require('../models/picture'),
-authentificator = require('../authenticator');
+authenticator = require('../authenticator');
 
 var pictureRoute = {
 	define: function(){
 		picture.methods(['get', 'post', 'put', 'delete']);
 
-		picture.before('post', authentificator.authenticate);
-		picture.before('put', authentificator.authenticate);
-		picture.before('delete', authentificator.authenticate);
+		picture.before('post', authenticator.authenticate);
+		picture.before('put', authenticator.authenticate);
+		picture.before('delete', authenticator.authenticate);
 
 		picture.register(app, '/pictures');
 	}

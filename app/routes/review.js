@@ -1,14 +1,14 @@
 var app = require('../app'),
 	review = require('../models/review'),
-	authentificator = require('../authenticator');
+	authenticator = require('../authenticator');
 
 var reviewRoute = {
 	define: function(){
 		review.methods(['get', 'post', 'put', 'delete']);
 
-		review.before('post', authentificator.authenticate);
-		review.before('put', authentificator.authenticate);
-		review.before('delete', authentificator.authenticate);
+		review.before('post', authenticator.authenticate);
+		review.before('put', authenticator.authenticate);
+		review.before('delete', authenticator.authenticate);
 		
 		review.register(app, '/reviews');
 	}

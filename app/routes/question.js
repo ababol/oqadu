@@ -1,21 +1,21 @@
 var app = require('../app'),
 	question = require('../models/question'),
-	authentificator = require('../authenticator');
+	authenticator = require('../authenticator');
 
 var questionRoute = {
 	define: function(){
 		question.methods(['get', 'post', 'put', 'delete']);
 
-		question.before('post', authentificator.authenticate);
-		question.before('put', authentificator.authenticate);
-		question.before('delete', authentificator.authenticate);
+		question.before('post', authenticator.authenticate);
+		question.before('put', authenticator.authenticate);
+		question.before('delete', authenticator.authenticate);
 
 		// custom route
 		question.route('question-next',['get'] ,function(request, response, next){
-			var SelectedQuestions;
+			var selectedQuestions;
 			var input = request.body.tags;
 
-			Selectedquestions = question.find({
+			selectedquestions = question.find({
 				tags: {$all : input}
 			}, function(){});
 

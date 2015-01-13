@@ -1,14 +1,14 @@
 var app = require('../app'),
 	tag = require('../models/tag'),
-	authentificator = require('../authenticator');
+	authenticator = require('../authenticator');
 
 var tagRoute = {
 	define: function(){
 		tag.methods(['get', 'post', 'put', 'delete']);
 
-		tag.before('post', authentificator.authenticate);
-		tag.before('put', authentificator.authenticate);
-		tag.before('delete', authentificator.authenticate);
+		tag.before('post', authenticator.authenticate);
+		tag.before('put', authenticator.authenticate);
+		tag.before('delete', authenticator.authenticate);
 
 		tag.register(app, '/tags');
 	}
