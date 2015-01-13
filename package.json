@@ -9,7 +9,6 @@
   "dependencies": {
     "body-parser": "^1.9.2",
     "express": "^4.10.1",
-    "express-restify-mongoose": "^0.6.11",
     "gulp": "^3.5.6",
     "gulp-concat": "^2.2.0",
     "gulp-minify-css": "^0.3.0",
