@@ -3,7 +3,7 @@ var app = require('../app'),
 
 var productRoute = {
 	define: function(){
-		product.registers(app, '/products');
+		product.register(app, '/products');
 		product.methods(['get']);		
 
 		// custom route

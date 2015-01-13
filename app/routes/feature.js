@@ -3,7 +3,7 @@ var app = require('../app'),
 
 var featureRoute = {
 	define: function(){
-		feature.registers(app, '/features');
+		feature.register(app, '/features');
 		feature.methods(['get']);		
 	}
 }

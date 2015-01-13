@@ -3,7 +3,7 @@ var app = require('../app'),
 
 var answerRoute = {
 	define: function(){
-		answer.registers(app, '/answers');
+		answer.register(app, '/answers');
 		answer.methods(['get']);		
 	}
 }

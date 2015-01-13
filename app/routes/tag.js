@@ -3,7 +3,7 @@ var app = require('../app'),
 
 var tagRoute = {
 	define: function(){
-		tag.registers(app, '/tags');
+		tag.register(app, '/tags');
 		tag.methods(['get']);		
 	}
 }

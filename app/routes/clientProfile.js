@@ -3,7 +3,7 @@ var app = require('../app'),
 
 var clientProfileRoute = {
 	define: function(){
-		clientProfile.registers(app, '/clientProfiles');
+		clientProfile.register(app, '/clientProfiles');
 		clientProfile.methods(['get']);		
 	}
 }

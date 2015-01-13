@@ -3,11 +3,11 @@ var app = require('../app'),
 
 var questionRoute = {
 	define: function(){
-		question.registers(app, '/questions');
+		question.register(app, '/questions');
 		question.methods(['get']);		
 
 		// custom route 
-		question.route('question-next',['get'] ,function(request, response, next{
+		question.route('question-next',['get'] ,function(request, response, next){
 			var SelectedQuestions;
 			var input = request.body.tags;
 

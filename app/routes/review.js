@@ -3,7 +3,7 @@ var app = require('../app'),
 
 var reviewRoute = {
 	define: function(){
-		review.registers(app, '/reviews');
+		review.register(app, '/reviews');
 		review.methods(['get']);		
 	}
 }
