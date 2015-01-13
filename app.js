@@ -6,7 +6,7 @@ var restful = require('node-restful'),
     express = require('express'),
     http = require('http');
 
-mongoose.connect('mongodb://public:public@ds027698.mongolab.com:27698/oqadu2');
+mongoose.connect('mongodb://public:public@ds045027.mongolab.com:45027/oqadu2');
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
