@@ -1,4 +1,4 @@
-var user = require('./models/user');
+var user = require('./models/User');
 
 var authenticator = {
 
@@ -6,7 +6,7 @@ var authenticator = {
 		var i, chr;
 		var len = pwd.length;
 		var hash = 0;
-		
+
 		if(pwd.length == 0){
 			return hash;
 		}
@@ -21,7 +21,7 @@ var authenticator = {
 	authenticate : function(request, response, next){
 		var uname = request.body.username;
 		var pwd = authenticator.hash(request.body.password);
-		
+
 		user.find({
 			username:uname,
 			password:pwd
