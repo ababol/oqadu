@@ -22,12 +22,12 @@ var authenticator = {
 		var uname = request.body.username;
 		var pwd = authenticator.hash(request.body.password);
 
-		user.find({
+		var authenticUser = user.find({
 			username:uname,
 			password:pwd
 		}, function(){});
 
-		if(user == null){
+		if(authenticUser == null){
 			response.status(401);
 			response.send("Unauthorized.")
 		}else{
