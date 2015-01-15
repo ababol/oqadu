@@ -11,7 +11,7 @@ var questionRoute = {
 		question.before('delete', authenticator.authenticate);
 
 		// custom route
-		question.route('question-next',['get'] ,function(request, response, next){
+		question.route('next',['get'] ,function(request, response, next){
 			var selectedQuestions;
 			var input = request.body.tags;
 

@@ -11,7 +11,7 @@ var productRoute = {
 		product.before('delete', authenticator.authenticate);
 
 		// custom route
-		product.route('product-recommendations', ['get'], function(request, response, next){
+		product.route('recommendations', ['get'], function(request, response, next){
 			var recommendations;
 			var input = request.body.tags;
 
