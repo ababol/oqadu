@@ -121,14 +121,16 @@ console.log($stateParams);
   triangle.animate({opacity:1,transform:"s1,1"}, 2000, mina.elastic);
 })
 
-.controller('BarCtrl', function($scope, Waitlist) {
+.controller('BarCtrl', function($scope, Waitlist, $firebase) {
   $scope.registred = false;
+  var ref = new Firebase("https://oqadu.firebaseio.com/queue");
+  var sync = $firebase(ref);
+  var syncQueue = sync.$asArray();
   $scope.registerQueue = function () {
-    Waitlist.addUser(window.user).success(function(){
-      window.user.addedToWaitlist = true;
-      console.log("added to waitlist");
-      $scope.registred = true;
-    });
+    syncQueue.$add(window.user);
+    window.user.addedToWaitlist = true;
+    console.log("added to waitlist");
+    $scope.registred = true;
   };
   $scope.unregisterQueue = function () {
     $scope.registred = false;
