@@ -1,6 +1,7 @@
 var app = require('../app'),
 	answer = require('../models/Answer'),
 	authenticator = require('../authenticator');
+	
 
 var answerRoute = {
 	define: function(){

@@ -12,19 +12,19 @@ var questionRoute = {
 
 		// custom route
 		question.route('next',['get'] ,function(request, response, next){
-			var selectedQuestions;
+			var selectedQuestion;
 			var input = request.body.tags;
 
-			selectedquestions = question.find({
+			selectedquestion = question.findOne({
 				tags: {$all : input}
 			}, function(){});
 
-			if(selectedQuestions == null){
+			if(selectedQuestion == null){
 				response.status(416);
 				response.send('Not any remaining questions.');
 			}else{
 				response.status(200);
-				response.send(selectedQuestions[0]);
+				response.send(selectedQuestion);
 			}
 		});
 

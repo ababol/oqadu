@@ -8,4 +8,4 @@ var answer = require('./answer'),
 	idGenerator = require('./idGenerator');
 
 
-exports = module.exports = [answer, feature, picture, product, question, review, tag, idGenerator];
+exports = module.exports = [tag, answer, question, feature, picture, product, review, idGenerator];
