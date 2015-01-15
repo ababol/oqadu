@@ -1,5 +1,14 @@
 angular.module('starter.controllers', [])
 
+.controller('MainCtrl', function ($scope) {
+  $scope.user = {
+    addedToWaitlist: false,
+    id: parseInt(Math.random() * 99999),
+    qa: {},
+    products: {}
+  };
+})
+
 .controller('QuestionCtrl', function($scope, $stateParams, Questions, Answers, Waitlist) {
   angular.element(document.querySelector('#barUnreg')).removeClass('invisible');
   $scope.question = [];
@@ -11,12 +20,12 @@ angular.module('starter.controllers', [])
     $scope.answers = data;
   });
   $scope.selectAnswer = function(data){
-    window.user.qa[$scope.question._id] = {
+    $scope.user.qa[$scope.question._id] = {
       question: $scope.question,
       answer: data
     };
-    if(window.user.addedToWaitlist){
-      Waitlist.updateUser(window.user).success(function(){
+    if($scope.user.addedToWaitlist){
+      Waitlist.updateUser($scope.user).success(function(){
         console.log("user updated");
       });
     }
@@ -26,7 +35,7 @@ angular.module('starter.controllers', [])
 .controller('RecommendationCtrl', function($scope, $stateParams, Recommendations, Products, Waitlist) {
   $scope.products = [];
   window.lastAnswer = $stateParams.recoId;
-console.log($stateParams);
+  console.log($stateParams);
   Recommendations.get($stateParams.recoId).success(function(reco){
     // Not really proud of that, callback hell :(, maybe implement with promise in the future
     [].concat(reco.products).forEach(function (productId){
@@ -35,9 +44,9 @@ console.log($stateParams);
           product.reviewAvg = getReviewAvg(reviews);
           product.reviewAvgHtml = getReviewHtml(product.reviewAvg);
           $scope.products.push(product);
-          window.user.products[product._id] = product;
-          if(window.user.addedToWaitlist){
-            Waitlist.updateUser(window.user).success(function(){
+          $scope.user.products[product._id] = product;
+          if($scope.user.addedToWaitlist){
+            Waitlist.updateUser($scope.user).success(function(){
               console.log("user updated");
             });
           }
@@ -127,8 +136,8 @@ console.log($stateParams);
   var sync = $firebase(ref);
   var syncQueue = sync.$asArray();
   $scope.registerQueue = function () {
-    syncQueue.$add(window.user);
-    window.user.addedToWaitlist = true;
+    syncQueue.$add($scope.user);
+    $scope.user.addedToWaitlist = true;
     console.log("added to waitlist");
     $scope.registred = true;
   };
@@ -148,12 +157,7 @@ console.log($stateParams);
   });
 });
 
-window.user = {
-  addedToWaitlist: false,
-  id: parseInt(Math.random() * 99999),
-  qa: {},
-  products: {}
-};
+
 
 function getReviewAvg(reviews) {
   if (reviews.length === 0)

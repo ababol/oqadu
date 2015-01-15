@@ -1,26 +1,28 @@
 angular.module('starter.controllers', [])
 
-.controller('MainCtrl', function ($scope, $state, Waitlist) {
+.controller('MainCtrl', function ($scope, $state, $firebase) {
   $scope.seller = {name: "John Doe"};
   $scope.state = $state;
+  var ref = new Firebase("https://oqadu.firebaseio.com/queue");
+  var sync = $firebase(ref);
+  $scope.syncQueue = sync.$asArray();
+  $scope.currentIndex = 0; 
+
   $scope.refresh = function(){
-    Waitlist.current().success(function(user){
-      $scope.customer = user;
-      console.log($scope.customer);
-    });
+    $scope.customer = $scope.syncQueue[$scope.currentIndex];
   }
   $scope.refresh();
   $scope.nextCustomer = function(){
-    Waitlist.next().success(function(user){
-      $scope.customer = user;
-      console.log($scope.customer);
-    });
+    if($scope.currentIndex < $scope.syncQueue.length -2){
+      $scope.currentIndex++;
+      $scope.customer = $scope.syncQueue[$scope.currentIndex];
+    }
   }
   $scope.prevCustomer = function(){
-    Waitlist.prev().success(function(user){
-      $scope.customer = user;
-      console.log($scope.customer);
-    });
+    if($scope.currentIndex >0){
+      $scope.currentIndex--;
+      $scope.customer = $scope.syncQueue[$scope.currentIndex];
+    }
   }
 })
 
@@ -68,11 +70,8 @@ angular.module('starter.controllers', [])
     $scope.tags = Tags.all();
 })
 
-.controller('WaitlistCtrl', function($scope, Waitlist) {
-  $scope.waitingNumber  = "";
-  Waitlist.getSize().success(function(data){
-    $scope.waitingNumber  = data.size;
-  });
+.controller('WaitlistCtrl', function($scope) {
+  $scope.waitingNumber  = $scope.syncQueue.length - 1 - $scope.currentIndex;
   $scope.sellStat  = "82%";
   $scope.chartConfig1 = {
       options: {
