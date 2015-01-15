@@ -93,40 +93,4 @@ angular.module('starter.services', [])
       return tags;
     }
   }
-})
-
-.factory('Waitlist', function($http){
-  return{
-    getSize: function(){
-      return $http({
-        url: url+'/queue/size',
-        method: 'GET'
-      });
-    },
-    next: function(){
-      return $http({
-        url: url+'/queue/next',
-        method: 'GET'
-      });
-    },
-    prev: function(){
-      return $http({
-        url: url+'/queue/prev',
-        method: 'GET'
-      });
-    },
-    current: function(){
-      return $http({
-        url: url+'/queue/current',
-        method: 'GET'
-      });
-    },
-    updateUser: function(user){
-      return $http({
-        url: url+'/queue/updateUser',
-        method: 'POST',
-        data: {'user': user}
-      });
-    }
-  };
 });

@@ -12,6 +12,8 @@
     <script src="lib/ionic/js/ionic.bundle.js"></script>
     <script src="lib/snap-svg/snap.svg-min.js"></script>
     <script src="lib/pace.min.js"></script>
+    <script src="lib/firebase/firebase.js"></script>
+    <script src="lib/angularfire/dist/angularfire.min.js"></script>
 
     <!-- cordova script (this will be a 404 during development) -->
     <script src="lib/ng-cordova.min.js"></script>
@@ -22,7 +24,7 @@
     <script src="js/customer/controllers.js"></script>
     <script src="js/customer/services.js"></script>
   </head>
-  <body ng-app="starter" animation="slide-left-right-ios7">
+  <body ng-app="starter" animation="slide-left-right-ios7" ng-controller="MainCtrl">
     <ion-nav-view></ion-nav-view>
     <ion-nav-view name="loading" id="loading" class="fade hide"></ion-nav-view>
     <footer ng-controller="BarCtrl">
