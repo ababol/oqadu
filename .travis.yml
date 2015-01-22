@@ -7,3 +7,5 @@ deploy:
   app: oqadu
   on:
     repo: ababol/oqadu
+notifications:
+  slack: bricodata:oVMdJIuCeyzZz3MfwEYg1TGk
