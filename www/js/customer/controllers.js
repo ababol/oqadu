@@ -1,15 +1,23 @@
 angular.module('starter.controllers', [])
 
-.controller('MainCtrl', function ($scope) {
+.controller('MainCtrl', function ($scope, $firebase) {
   $scope.user = {
-    addedToWaitlist: false,
-    id: parseInt(Math.random() * 99999),
     qa: {},
-    products: {}
+    products: {},
+    waiting: false
   };
+  
+  //I don't understand why it doesn't work userKey is store in the $scope...
+  window.userKey = null;
+  console.log($scope.user)
+  //Firebase
+  var ref = new Firebase("https://oqadu.firebaseio.com/queue");
+  var sync = $firebase(ref);
+  $scope.syncQueue = sync.$asArray();
+
 })
 
-.controller('QuestionCtrl', function($scope, $stateParams, Questions, Answers, Waitlist) {
+.controller('QuestionCtrl', function($scope, $stateParams, Questions, Answers) {
   angular.element(document.querySelector('#barUnreg')).removeClass('invisible');
   $scope.question = [];
   $scope.answers = [];
@@ -24,15 +32,20 @@ angular.module('starter.controllers', [])
       question: $scope.question,
       answer: data
     };
-    if($scope.user.addedToWaitlist){
-      Waitlist.updateUser($scope.user).success(function(){
-        console.log("user updated");
-      });
+    if($scope.user.waiting){
+      var index = $scope.syncQueue.$indexFor(window.userKey);
+      if(!$scope.syncQueue[index].qa)
+              $scope.syncQueue[index].qa = {};
+      $scope.syncQueue[index].qa[$scope.question._id] = {
+        question: $scope.question,
+        answer: data
+      };
+      $scope.syncQueue.$save(index).then(function(){console.log("updated");});
     }
   };
 })
 
-.controller('RecommendationCtrl', function($scope, $stateParams, Recommendations, Products, Waitlist) {
+.controller('RecommendationCtrl', function($scope, $stateParams, Recommendations, Products) {
   $scope.products = [];
   window.lastAnswer = $stateParams.recoId;
   console.log($stateParams);
@@ -45,10 +58,12 @@ angular.module('starter.controllers', [])
           product.reviewAvgHtml = getReviewHtml(product.reviewAvg);
           $scope.products.push(product);
           $scope.user.products[product._id] = product;
-          if($scope.user.addedToWaitlist){
-            Waitlist.updateUser($scope.user).success(function(){
-              console.log("user updated");
-            });
+          if($scope.user.waiting){
+            var index = $scope.syncQueue.$indexFor(window.userKey);
+            if(!$scope.syncQueue[index].products)
+              $scope.syncQueue[index].products = {};
+            $scope.syncQueue[index].products[product._id] = product;
+            $scope.syncQueue.$save(index).then(function(){console.log("updated");});
           }
         });
       });
@@ -130,19 +145,26 @@ angular.module('starter.controllers', [])
   triangle.animate({opacity:1,transform:"s1,1"}, 2000, mina.elastic);
 })
 
-.controller('BarCtrl', function($scope, Waitlist, $firebase) {
+.controller('BarCtrl', function($scope) {
   $scope.registred = false;
-  var ref = new Firebase("https://oqadu.firebaseio.com/queue");
-  var sync = $firebase(ref);
-  var syncQueue = sync.$asArray();
   $scope.registerQueue = function () {
-    syncQueue.$add($scope.user);
-    $scope.user.addedToWaitlist = true;
-    console.log("added to waitlist");
-    $scope.registred = true;
+    if(!$scope.user.waiting){
+      $scope.user.waiting = true;
+      $scope.syncQueue.$add($scope.user).then(function(userRef){
+        window.userKey = userRef.key();
+        console.log("added to waitlist");
+        $scope.registred = true;
+      });
+    }
   };
   $scope.unregisterQueue = function () {
-    $scope.registred = false;
+    if($scope.user.waiting){
+      $scope.user.waiting = false;
+      $scope.syncQueue.$remove($scope.syncQueue.$indexFor(window.userKey)).then(function(userRef){
+        $scope.registred = false;
+        console.log("remove from waitlist");
+      });
+    }
   };
 })
 
@@ -162,9 +184,7 @@ angular.module('starter.controllers', [])
 function getReviewAvg(reviews) {
   if (reviews.length === 0)
     return "N/A";
-
   var reviewSum = 0;
-
   reviews.forEach(function(review) {
     reviewSum += review.score;
   });
@@ -174,7 +194,6 @@ function getReviewAvg(reviews) {
 function getReviewHtml (reviewAvg) {
   if (reviewAvg === "N/A")
     return [];
-
   var reviewHtml = [];
   for (var i = 1; i <= 5; i++) {
     if (i <= reviewAvg)
@@ -182,6 +201,5 @@ function getReviewHtml (reviewAvg) {
     else
       reviewHtml.push("ion-ios7-star-outline");
   }
-
   return reviewHtml;
 }
