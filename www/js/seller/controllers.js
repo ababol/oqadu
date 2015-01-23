@@ -7,11 +7,13 @@ angular.module('starter.controllers', [])
   var sync = $firebase(ref);
   $scope.syncQueue = sync.$asArray();
   $scope.currentIndex = 0; 
-
+  $scope.customer = $scope.syncQueue[$scope.currentIndex];
+  
   $scope.refresh = function(){
     $scope.customer = $scope.syncQueue[$scope.currentIndex];
   }
-  $scope.refresh();
+
+
   $scope.nextCustomer = function(){
     if($scope.currentIndex < $scope.syncQueue.length -2){
       $scope.currentIndex++;
@@ -24,6 +26,9 @@ angular.module('starter.controllers', [])
       $scope.customer = $scope.syncQueue[$scope.currentIndex];
     }
   }
+  $scope.syncQueue.$watch(function(ev){
+    $scope.customer = $scope.syncQueue[$scope.currentIndex];
+  });
 })
 
 
@@ -72,6 +77,9 @@ angular.module('starter.controllers', [])
 
 .controller('WaitlistCtrl', function($scope) {
   $scope.waitingNumber  = $scope.syncQueue.length - 1 - $scope.currentIndex;
+  $scope.syncQueue.$watch(function(ev){
+    $scope.waitingNumber  = $scope.syncQueue.length - 1 - $scope.currentIndex;
+  });
   $scope.sellStat  = "82%";
   $scope.chartConfig1 = {
       options: {
