@@ -1,2 +1,2 @@
-#jasmine-node spec/
+#jasmine-node spec/api
 #casperjs test spec/functionalTests/
