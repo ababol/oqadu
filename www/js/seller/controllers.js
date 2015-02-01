@@ -18,7 +18,7 @@ angular.module('starter.controllers', [])
 
   $scope.initSeller(0);
   $scope.nextCustomer = function(){
-    if($scope.currentIndex < $scope.syncQueue.length -2){
+    if($scope.currentIndex < $scope.syncQueue.length -1){
       $scope.currentIndex++;
       $scope.customer = $scope.syncQueue[$scope.currentIndex];
     }
