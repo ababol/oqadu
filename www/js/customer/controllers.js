@@ -46,16 +46,14 @@ angular.module('starter.controllers', [])
       answer: data
     };
     if($scope.user.waiting){
-      $scope.syncQueue.$loaded.then(function(){
-        var index = $scope.syncQueue.$indexFor(window.userKey);
-        if(!$scope.syncQueue[index].qa)
-          $scope.syncQueue[index].qa = {};
-        $scope.syncQueue[index].qa[$scope.question._id] = {
-          question: $scope.question,
-          answer: data
-        };
-        $scope.syncQueue.$save(index).then(function(){console.log("updated");});
-      });
+      var index = $scope.syncQueue.$indexFor(window.userKey);
+      if(!$scope.syncQueue[index].qa)
+        $scope.syncQueue[index].qa = {};
+      $scope.syncQueue[index].qa[$scope.question._id] = {
+        question: $scope.question,
+        answer: data
+      };
+      $scope.syncQueue.$save(index).then(function(){console.log("updated");});
     }
   };
 })

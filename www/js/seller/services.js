@@ -93,4 +93,22 @@ angular.module('starter.services', [])
       return tags;
     }
   }
+})
+
+.factory('Sellers', function() {
+  // Might use a resource here that returns a JSON array
+  // Some fake testing data
+  var sellers = [
+    {id:0, name: "John Doe", shelf: "Peinture"},
+    {id:1, name: "Zlatan", shelf: "Jardin"}
+  ];
+
+  return {
+    all: function() {
+      return tags;
+    },
+    get: function(id){
+      return sellers[id % sellers.length]
+    }
+  }
 });

@@ -37,7 +37,7 @@
           <!-- if you need scroll and click in menu: has-header="true" scroll="true" overflow-scroll="true" -->
           <ion-content has-header="true">
             <ul class="list">
-              <a href="#" data-click-menulink  class="item logout">{{seller.name}}</a>
+              <a href="#" data-click-menulink  ng-click="initSeller(seller.id +1)" class="item logout">{{seller.name}}</a>
               <a href="#/tab/dash" data-click-menulink class="item details"  ng-class="{'active': state.current.name.substring(0,3)=='tab'}">Fiche client</a>
               <a href="#/waitlist" data-click-menulink class="item stats"  ng-class="{'active': state.current.name=='waitlist'}">Statistiques</a>
               <a href="#/products" data-click-menulink class="item products"  ng-class="{'active': state.current.name.substring(0,7)=='product'}">Produits</a>

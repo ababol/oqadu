@@ -1,19 +1,22 @@
 angular.module('starter.controllers', [])
 
-.controller('MainCtrl', function ($scope, $state, $firebase) {
-  $scope.seller = {name: "John Doe"};
+.controller('MainCtrl', function ($scope, $state, $firebase, Sellers) {
+  $scope.seller = {id:0, name: "John Doe", shelf: "Peinture"};
   $scope.state = $state;
-  var ref = new Firebase("https://oqadu.firebaseio.com/queue");
-  var sync = $firebase(ref);
-  $scope.syncQueue = sync.$asArray();
-  $scope.currentIndex = 0; 
-  $scope.customer = $scope.syncQueue[$scope.currentIndex];
   
-  $scope.refresh = function(){
+  $scope.initSeller = function(id){
+    $scope.seller = Sellers.get(id);
+    var ref = new Firebase("https://oqadu.firebaseio.com/"+$scope.seller.shelf+"/queue");
+    var sync = $firebase(ref);
+    $scope.syncQueue = sync.$asArray();
+    $scope.currentIndex = 0; 
     $scope.customer = $scope.syncQueue[$scope.currentIndex];
+    $scope.syncQueue.$watch(function(ev){
+      $scope.customer = $scope.syncQueue[$scope.currentIndex];
+    });
   }
 
-
+  $scope.initSeller(0);
   $scope.nextCustomer = function(){
     if($scope.currentIndex < $scope.syncQueue.length -2){
       $scope.currentIndex++;
@@ -26,9 +29,6 @@ angular.module('starter.controllers', [])
       $scope.customer = $scope.syncQueue[$scope.currentIndex];
     }
   }
-  $scope.syncQueue.$watch(function(ev){
-    $scope.customer = $scope.syncQueue[$scope.currentIndex];
-  });
 })
 
 
