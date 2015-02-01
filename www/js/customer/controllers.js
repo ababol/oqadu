@@ -7,13 +7,23 @@ angular.module('starter.controllers', [])
     waiting: false
   };
   
-  //I don't understand why it doesn't work userKey is store in the $scope...
+  //I don't understand why it doesn't work with the userKey stored in the $scope...
   window.userKey = null;
-  console.log($scope.user)
+
   //Firebase
+  $scope.connectedQueue = null;
+  $scope.connectToFirebaseQueue = function(queue){
+    var ref = new Firebase("https://oqadu.firebaseio.com/"+queue+"/queue");
+    var sync = $firebase(ref);
+    $scope.syncQueue = sync.$asArray();
+    $scope.connectedQueue = queue;
+    console.log("https://oqadu.firebaseio.com/"+queue+"/queue");
+    return $scope.syncQueue;
+  }
   var ref = new Firebase("https://oqadu.firebaseio.com/queue");
   var sync = $firebase(ref);
   $scope.syncQueue = sync.$asArray();
+
 
 })
 
@@ -28,19 +38,24 @@ angular.module('starter.controllers', [])
     $scope.answers = data;
   });
   $scope.selectAnswer = function(data){
+    if($scope.question._id == "545f70d9946ea453ece17e7e"){
+      $scope.connectToFirebaseQueue(data.text)
+    }
     $scope.user.qa[$scope.question._id] = {
       question: $scope.question,
       answer: data
     };
     if($scope.user.waiting){
-      var index = $scope.syncQueue.$indexFor(window.userKey);
-      if(!$scope.syncQueue[index].qa)
-              $scope.syncQueue[index].qa = {};
-      $scope.syncQueue[index].qa[$scope.question._id] = {
-        question: $scope.question,
-        answer: data
-      };
-      $scope.syncQueue.$save(index).then(function(){console.log("updated");});
+      $scope.syncQueue.$loaded.then(function(){
+        var index = $scope.syncQueue.$indexFor(window.userKey);
+        if(!$scope.syncQueue[index].qa)
+          $scope.syncQueue[index].qa = {};
+        $scope.syncQueue[index].qa[$scope.question._id] = {
+          question: $scope.question,
+          answer: data
+        };
+        $scope.syncQueue.$save(index).then(function(){console.log("updated");});
+      });
     }
   };
 })
