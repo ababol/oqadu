@@ -7970,3 +7970,13 @@ span.tab-item {
 
 .loading-container .loading, .backdrop {
   background: transparent !important; }
+
+.ng-hide-add-active {
+  display: block !important;
+  -webkit-transition: 0.5s linear all;
+  transition: 0.5s linear all;
+  -webkit-transition-delay: 0.5s;
+  transition-delay: 0.5s; }
+
+.ng-hide {
+  opacity: 0; }

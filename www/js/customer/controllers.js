@@ -12,6 +12,9 @@ angular.module('starter.controllers', [])
     $scope.loaded = true;
     $ionicLoading.hide();
   };
+  $scope.hideLoading = function() {
+    $ionicLoading.hide();
+  };
   $scope.error = function(msg, status) {
     $scope.errorTxt = "API ERROR " + status + " - " + msg;
   };
@@ -228,9 +231,12 @@ function loader($scope, get, process) {
   .finally(function() {
     if(window.location.hash.indexOf('product') > -1) {
       setTimeout(function(){
-        $scope.hide();
-        $scope.updateSlider();
-      }, 1000);
+        $scope.hideLoading();
+        setTimeout(function(){
+          $scope.hide();
+          $scope.updateSlider();
+        }, 300);
+      }, 400);
     } else {
       $scope.hide();
     }
