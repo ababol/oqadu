@@ -7973,10 +7973,10 @@ span.tab-item {
 
 .ng-hide-add-active {
   display: block !important;
-  -webkit-transition: 0.5s linear all;
-  transition: 0.5s linear all;
-  -webkit-transition-delay: 0.5s;
-  transition-delay: 0.5s; }
+  -webkit-transition: 0.3s linear all;
+  transition: 0.3s linear all;
+  -webkit-transition-delay: 0.3s;
+  transition-delay: 0.3s; }
 
 .ng-hide {
   opacity: 0; }
