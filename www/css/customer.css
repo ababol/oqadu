@@ -7967,3 +7967,6 @@ span.tab-item {
 
 .product .card {
   margin: 5px 5px !important; }
+
+.loading-container .loading, .backdrop {
+  background: transparent !important; }

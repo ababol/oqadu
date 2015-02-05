@@ -25,7 +25,23 @@
     <script src="js/customer/services.js"></script>
   </head>
   <body ng-app="starter" animation="none" ng-controller="MainCtrl">
-    <ion-nav-view></ion-nav-view>
+    <section ng-show="loaded">
+      <section ng-show="errorTxt">
+        <div class="list card">
+          <div class="item">
+            <h2>{{errorTxt}}</h2>
+            <p>Un incident technique est survenu.<br/>
+            Veuillez contacter <a style="color: green;" href="mailto:support@oqadu.com">un admistrateur.</a></p>
+          </div>
+          <div class="item item-body">
+            <img class="full-image" src="img/hipster_dog.jpg">
+          </div>
+        </div>
+      </section>
+      <section ng-hide="errorTxt">
+        <ion-nav-view></ion-nav-view>
+      </section>
+    </section>
     <ion-nav-view name="loading" id="loading" class="fade hide"></ion-nav-view>
     <footer ng-controller="BarCtrl">
       <div id="barUnreg" ng-hide="registred" class="tabs tabs-icon-left">
