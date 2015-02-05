@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 .constant('$ionicLoadingConfig', {
-  template: "<img src='img/loader.gif' width='500'/>"
+  template: "<img src='img/loader.gif' width='80'/>"
 })
 .controller('MainCtrl', function ($scope, $ionicLoading, $firebase) {
   $scope.show = function() {
@@ -230,7 +230,7 @@ function loader($scope, get, process) {
       setTimeout(function(){
         $scope.hide();
         $scope.updateSlider();
-      }, 800);
+      }, 1000);
     } else {
       $scope.hide();
     }
