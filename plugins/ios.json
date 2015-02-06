@@ -13,11 +13,27 @@
                             "count": 1
                         },
                         {
+                            "xml": "<feature name=\"BarcodeScanner\"><param name=\"ios-package\" value=\"CDVBarcodeScanner\" /></feature>",
+                            "count": 1
+                        },
+                        {
                             "xml": "<feature name=\"Console\"><param name=\"ios-package\" value=\"CDVLogger\" /></feature>",
                             "count": 1
                         },
                         {
                             "xml": "<feature name=\"Device\"><param name=\"ios-package\" value=\"CDVDevice\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"StatusBar\"><param name=\"ios-package\" value=\"CDVStatusBar\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<preference name=\"StatusBarOverlaysWebView\" value=\"false\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<preference name=\"StatusBarStyle\" value=\"lightcontent\" />",
                             "count": 1
                         }
                     ]
@@ -63,10 +79,16 @@
         "com.ionic.keyboard": {
             "PACKAGE_NAME": "com.ionicframework.oqadu412243"
         },
+        "com.phonegap.plugins.barcodescanner": {
+            "PACKAGE_NAME": "com.ionicframework.oqadu412243"
+        },
         "org.apache.cordova.console": {
             "PACKAGE_NAME": "com.ionicframework.oqadu412243"
         },
         "org.apache.cordova.device": {
+            "PACKAGE_NAME": "com.ionicframework.oqadu412243"
+        },
+        "org.apache.cordova.statusbar": {
             "PACKAGE_NAME": "com.ionicframework.oqadu412243"
         }
     },
