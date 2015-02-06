@@ -41,5 +41,8 @@
     "heroku",
     "express"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "cordovaPlugins": [
+    "https://github.com/ababol/BarcodeScanner"
+  ]
 }

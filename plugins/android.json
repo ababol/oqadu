@@ -263,7 +263,7 @@
                             "count": 1
                         },
                         {
-                            "xml": "<string name=\"msg_default_status\">Place a barcode inside the viewfinder rectangle to scan it.</string>",
+                            "xml": "<string name=\"msg_default_status\">Veuillez scanner un code-barres.</string>",
                             "count": 1
                         },
                         {
@@ -491,7 +491,7 @@
                             "count": 1
                         },
                         {
-                            "xml": "<string name=\"result_product\">Found product</string>",
+                            "xml": "<string name=\"result_product\">Produit trouvé</string>",
                             "count": 1
                         },
                         {
