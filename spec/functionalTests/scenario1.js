@@ -1,5 +1,5 @@
-//var path = "http://oqadu.herokuapp.com";
-var path = "http://localhost:3000";
+var path = "http://oqadu.herokuapp.com";
+//var path = "http://localhost:3000";
 
 casper.test.begin('Verify the landed page of the Seller App', function(test) {
   casper.start(path+'/seller.html').then(function() {
@@ -9,6 +9,7 @@ casper.test.begin('Verify the landed page of the Seller App', function(test) {
   });
 });
 
+/*
 casper.test.begin('Fiche Client part : left menu', function(test) {
   casper.start(path+'/seller.html').then(function() {
     test.assertSelectorHasText('a.active', 'Fiche client', 'Verify that the selected item on the left menu is the good one');
@@ -26,6 +27,7 @@ casper.test.begin('Fiche Client part : left menu', function(test) {
     test.done();
   });
 });
+*/
 /*
 casper.test.begin('Fiche Client part : top tabs', function(test) {
   casper.start(path+'/seller.html').then(function() {
