@@ -30,6 +30,10 @@ casper.test.begin('Get the number of customers currently in waiting list', funct
 
   casper.then(function(){
     this.echo('There is '+waitingNumber+' customers in waiting list.');
+    casper.click('.products');
+    this.waitForSelector(".products.active", function(){
+      console.log(this.getCurrentUrl());
+    });
   });
 
   casper.run(function() {
