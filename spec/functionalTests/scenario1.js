@@ -39,7 +39,7 @@ casper.test.begin('Get the number of customers currently in waiting list', funct
 
 casper.test.begin('Add a customer to the waiting list', function(test){
   casper.start(path+'/customer.html').then(function(){
-    this.waitForText("Moteur de recommandation", function(){
+    this.waitForSelector("#engine", function(){
       firstUrl = this.getCurrentUrl();
       this.click('#engine');
     });
