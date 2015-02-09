@@ -1,7 +1,10 @@
-var path = "http://oqadu.herokuapp.com";
-//var path = "http://localhost:3000";
+//var path = "http://oqadu.herokuapp.com";
+var path = "http://localhost:3000";
+var waitingNumber;
+var firstUrl;
 
-casper.test.begin('Verify the landed page of the Seller App', function(test) {
+casper.test.begin('Get the number of customers currently in waiting list', function(test) {
+
   casper.start(path+'/seller.html').then(function() {
     test.assertUrlMatch(/#\/tab\/user$/, 'Redirecting to #/tab/user by default');
     this.clickLabel('Statistiques');
@@ -11,7 +14,48 @@ casper.test.begin('Verify the landed page of the Seller App', function(test) {
     test.assertUrlMatch(/#\/waitlist/, 'Redirecting to #/waitlist');
   });
 
+  casper.then(function(){
+    this.waitFor(function check(){
+      return this.evaluate(function(){
+        return document.querySelector('.waitingNumber').innerText != "0";
+      });
+    }, function then(){
+        waitingNumber = this.evaluate(function(){
+        return document.querySelector('.waitingNumber').innerText;
+      });
+    }, function timeout() {
+      this.echo("Temps dépassé.").exit();
+    });
+  });
+
+  casper.then(function(){
+    this.echo('There is '+waitingNumber+' customers in waiting list.');
+  });
+
   casper.run(function() {
+    test.done();
+  });
+});
+
+casper.test.begin('Add a customer to the waiting list', function(test){
+  casper.start(path+'/customer.html').then(function(){
+    this.waitForText("Moteur de recommandation", function(){
+      firstUrl = this.getCurrentUrl();
+      this.click('#engine');
+    });
+  });
+
+  casper.then(function(){
+    this.waitFor(function check() {
+      return this.getCurrentUrl() != firstUrl;
+    }, function then() {
+      console.log(this.getCurrentUrl());
+    }, function timeout() {
+      this.echo("Temps dépassé.").exit();
+    });
+  });
+
+  casper.run(function(){
     test.done();
   });
 });
