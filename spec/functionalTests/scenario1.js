@@ -9,26 +9,22 @@ casper.test.begin('Verify the landed page of the Seller App', function(test) {
   });
 });
 
+casper.then(function() {
+    // Click on 1st result link
+    this.click('.waitlist');
+    test.assertUrlMatch(/#\/waitlist/, 'Good redirecting to #/waitlist');
+});
+
 /*
 casper.test.begin('Fiche Client part : left menu', function(test) {
   casper.start(path+'/seller.html').then(function() {
-    test.assertSelectorHasText('a.active', 'Fiche client', 'Verify that the selected item on the left menu is the good one');
-    test.assertExists('ul.list', 'The left menu exists');
-    test.assertElementCount('.list a', 4, 'The left menu contains 4 items');
-    test.assertExists('ul.list .logout', '1st item menu has class="logout"');
-    test.assertSelectorHasText('ul.list .logout', 'John Doe', '1st item menu text is "John Doe"');
-    test.assertExists('ul.list .details', '2nd item menu has class="details"');
-    test.assertSelectorHasText('ul.list .details', 'Fiche client', '2nd item menu text is "Fiche client"');
-    test.assertExists('ul.list .stats', '3rd item menu has class="stats"');
-    test.assertSelectorHasText('ul.list .stats', 'Statistiques', '3rd item menu text is "Statistiques"');
-    test.assertExists('ul.list .stats', '4th item menu has class="stats"');
-    test.assertSelectorHasText('ul.list .products', 'Produits', '4th item menu text is "Produits"');
+
   }).run(function() {
     test.done();
   });
 });
-*/
-/*
+
+
 casper.test.begin('Fiche Client part : top tabs', function(test) {
   casper.start(path+'/seller.html').then(function() {
     test.assertExists('.tabs', 'The tabs exist');
