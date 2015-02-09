@@ -3,31 +3,23 @@ angular.module('starter.controllers', [])
 .controller('MainCtrl', function ($scope, $state, $firebase, Sellers) {
   $scope.seller = {id:0, name: "John Doe", shelf: "Peinture"};
   $scope.state = $state;
+  $scope.syncQueue = [];
   
   $scope.initSeller = function(id){
     $scope.seller = Sellers.get(id);
     var ref = new Firebase("https://oqadu.firebaseio.com/"+$scope.seller.shelf+"/queue");
     var sync = $firebase(ref);
     $scope.syncQueue = sync.$asArray();
-    $scope.currentIndex = 0; 
-    $scope.customer = $scope.syncQueue[$scope.currentIndex];
-    $scope.syncQueue.$watch(function(ev){
-      $scope.customer = $scope.syncQueue[$scope.currentIndex];
+    $scope.customer = $scope.syncQueue[0];
+    $scope.syncQueue.$loaded(function(){
+      $scope.customer = $scope.syncQueue[0];
     });
   }
 
   $scope.initSeller(0);
-  $scope.nextCustomer = function(){
-    if($scope.currentIndex < $scope.syncQueue.length -1){
-      $scope.currentIndex++;
-      $scope.customer = $scope.syncQueue[$scope.currentIndex];
-    }
-  }
-  $scope.prevCustomer = function(){
-    if($scope.currentIndex >0){
-      $scope.currentIndex--;
-      $scope.customer = $scope.syncQueue[$scope.currentIndex];
-    }
+  $scope.changeCustomer = function(k){
+    if(k>=0 && k<$scope.syncQueue.length)
+      $scope.customer = $scope.syncQueue[k];
   }
 })
 
@@ -42,7 +34,7 @@ angular.module('starter.controllers', [])
 })
 
 .controller('ProductDetailCtrl', function($scope, $stateParams, $state, $ionicSlideBoxDelegate, Products) {
-  $scope.backUrl=$state.current.backUrl;
+  $scope.backUrl = $state.current.backUrl;
   Products.get($stateParams.productId).success(function(product){
     Products.getReviews($stateParams.productId).success(function(reviews) {
       product.reviewAvg = getReviewAvg(reviews);
@@ -76,9 +68,10 @@ angular.module('starter.controllers', [])
 })
 
 .controller('WaitlistCtrl', function($scope) {
-  $scope.waitingNumber  = $scope.syncQueue.length - 1 - $scope.currentIndex;
+  console.log($scope.syncQueue);
+  $scope.waitingNumber  = $scope.syncQueue.length;
   $scope.syncQueue.$watch(function(ev){
-    $scope.waitingNumber  = $scope.syncQueue.length - 1 - $scope.currentIndex;
+    $scope.waitingNumber  = $scope.syncQueue.length;
   });
   $scope.sellStat  = "82%";
   $scope.chartConfig1 = {
