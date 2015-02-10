@@ -7967,3 +7967,16 @@ span.tab-item {
 
 .product .card {
   margin: 5px 5px !important; }
+
+.loading-container .loading, .backdrop {
+  background: transparent !important; }
+
+.ng-hide-add-active {
+  display: block !important;
+  -webkit-transition: 0.3s linear all;
+  transition: 0.3s linear all;
+  -webkit-transition-delay: 0.3s;
+  transition-delay: 0.3s; }
+
+.ng-hide {
+  opacity: 0; }

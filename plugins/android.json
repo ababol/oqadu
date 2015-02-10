@@ -19,6 +19,10 @@
                         {
                             "xml": "<feature name=\"BarcodeScanner\"><param name=\"android-package\" value=\"com.phonegap.plugins.barcodescanner.BarcodeScanner\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"StatusBar\"><param name=\"android-package\" value=\"org.apache.cordova.statusbar.StatusBar\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -263,7 +267,7 @@
                             "count": 1
                         },
                         {
-                            "xml": "<string name=\"msg_default_status\">Place a barcode inside the viewfinder rectangle to scan it.</string>",
+                            "xml": "<string name=\"msg_default_status\">Veuillez scanner un code-barres.</string>",
                             "count": 1
                         },
                         {
@@ -491,7 +495,7 @@
                             "count": 1
                         },
                         {
-                            "xml": "<string name=\"result_product\">Found product</string>",
+                            "xml": "<string name=\"result_product\">Produit trouvé</string>",
                             "count": 1
                         },
                         {
@@ -550,6 +554,9 @@
             "PACKAGE_NAME": "com.ionicframework.oqadu412243"
         },
         "com.phonegap.plugins.barcodescanner": {
+            "PACKAGE_NAME": "com.ionicframework.oqadu412243"
+        },
+        "org.apache.cordova.statusbar": {
             "PACKAGE_NAME": "com.ionicframework.oqadu412243"
         }
     },

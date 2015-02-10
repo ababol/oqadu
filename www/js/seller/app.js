@@ -16,7 +16,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     }
     if(window.StatusBar) {
       // org.apache.cordova.statusbar required
-      StatusBar.styleDefault();
+      StatusBar.backgroundColorByHexString('#4A87EE');
+      ionic.Platform.fullScreen(true, true);
     }
   });
 })

@@ -68,7 +68,7 @@
   <string name="msg_default_format">Format</string>
   <string name="msg_default_meta">Metadata</string>
   <string name="msg_default_mms_subject">Hi</string>
-  <string name="msg_default_status">Place a barcode inside the viewfinder rectangle to scan it.</string>
+  <string name="msg_default_status">Veuillez scanner un code-barres.</string>
   <string name="msg_default_time">Time</string>
   <string name="msg_default_type">Type</string>
   <string name="msg_encode_contents_failed">Could not encode a barcode from the data provided.</string>
@@ -125,7 +125,7 @@
   <string name="result_email_address">Found email address</string>
   <string name="result_geo">Found geographic coordinates</string>
   <string name="result_isbn">Found book</string>
-  <string name="result_product">Found product</string>
+  <string name="result_product">Produit trouvé</string>
   <string name="result_sms">Found SMS address</string>
   <string name="result_tel">Found phone number</string>
   <string name="result_text">Found plain text</string>

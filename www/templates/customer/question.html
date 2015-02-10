@@ -5,7 +5,7 @@
         {{question.text}}
       </div>
     </div>
-    <a ng-repeat="answer in answers" ng-click="selectAnswer(answer)" class="button button-question button-outline button-balanced" href="#/{{answer.nextUrl}}">
+    <a ng-repeat="answer in answers" ng-click="selectAnswer(answer)" class="button button-question button-outline button-balanced answer" href="#/{{answer.nextUrl}}">
       {{answer.text}}
     </a>
   </ion-content>
