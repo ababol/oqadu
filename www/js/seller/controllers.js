@@ -8,12 +8,17 @@ angular.module('starter.controllers', [])
   $scope.currentID = null;
 
   $scope.initSeller = function(id){
+    $scope.currentID = null;
     $scope.seller = Sellers.get(id);
     var ref = new Firebase("https://oqadu.firebaseio.com/"+$scope.seller.shelf+"/queue");
     var sync = $firebase(ref);
     $scope.syncQueue = sync.$asArray();
     $scope.syncQueue.$loaded(function(){
       $scope.changeCustomer(0);
+    });
+    $scope.syncQueue.$watch(function(ev){
+      if($scope.currentID != null)
+        $scope.customer = $scope.syncQueue[$scope.currentID];
     });
   }
 
