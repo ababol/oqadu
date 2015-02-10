@@ -30,6 +30,12 @@ angular.module('starter.controllers', [])
     }
   }
   $scope.initSeller(0);
+
+  $scope.deleteUser = function(index){
+    $scope.syncQueue.$remove(index).then(function(){
+      console.log(index + " deleted");
+    });
+  }
 })
 
 
@@ -73,8 +79,30 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('TagCtrl', function($scope, Tags) {
-    $scope.tags = Tags.all();
+.controller('TagCtrl', function($scope, Tags, $ionicPopup) {
+    $scope.tags = [];
+    $scope.data = {};
+    $scope.addTag = function(){
+
+      var myPopup = $ionicPopup.show({
+        template: '<input type="text" ng-model="data.newTag" autofocus="true">',
+        title: 'Enter tag',
+        scope: $scope,
+        buttons: [
+          { text: 'Cancel' },
+          {
+            text: '<b>Save</b>',
+            type: 'button-positive',
+            onTap: function(e) {
+              if($scope.data.newTag && $scope.data.newTag != ""){
+                $scope.tags.push($scope.data.newTag);
+                console.log('TODO : ajout firebase');
+              }
+            }
+          }
+        ]
+      });
+    }
 })
 
 .controller('WaitlistCtrl', function($scope) {
@@ -95,7 +123,7 @@ angular.module('starter.controllers', [])
       series: [{
           data: [[8, 10], [9, 15], [10, 12], [11, 8], [12, 7], [13, 1], [14, 1], [15, 19], [16, 15], [17, 10]]
       }],
-      
+
       title: {
           text: '',
           style: {
@@ -134,7 +162,7 @@ angular.module('starter.controllers', [])
         },
         xAxis: {
             type: 'datetime',
-            dateTimeLabelFormats: { 
+            dateTimeLabelFormats: {
                 month: '%e. %b',
                 year: '%b'
             },

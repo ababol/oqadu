@@ -75,9 +75,9 @@ angular.module('starter.services', [])
   // Might use a resource here that returns a JSON array
   // Some fake testing data
   var tags = [
-    {name:"Tag tag"},
-    {name:"Tag tag tag"},
-    {name:"Tag tag"},
+    {name:"Tag1"},
+    {name:"Tag2"},
+    {name:"Tag3"},
     {name:"Tag tag"},
     {name:"Tag tag tag tag"},
     {name:"Tag tag"},

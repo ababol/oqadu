@@ -9,4 +9,4 @@ var modelsIndex = {
   user : require('../models/User')
 };
 
-module.exports(modelsIndex);
+module.exports = modelsIndex;
