@@ -97,7 +97,10 @@ angular.module('starter.controllers', [])
 
 .controller('WaitlistCtrl', function($scope) {
   console.log($scope.syncQueue);
-  $scope.waitingNumber  = $scope.syncQueue.length;
+  $scope.waitingNumber  = '-1';
+  $scope.syncQueue.$loaded(function(){
+    $scope.waitingNumber  = $scope.syncQueue.length;
+  });
   $scope.syncQueue.$watch(function(ev){
     $scope.waitingNumber  = $scope.syncQueue.length;
   });
