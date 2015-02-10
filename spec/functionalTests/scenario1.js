@@ -3,6 +3,11 @@ var path = "http://localhost:3000";
 var waitingNumber;
 var firstUrl;
 
+var secureClick = function(self, selector){
+  self.mouseEvent('mousedown', selector);
+  self.mouseEvent('mouseup', selector);
+};
+
 casper.test.begin('Get the number of customers currently in waiting list', function(test) {
 
   casper.start(path+'/seller.html').then(function() {
@@ -30,10 +35,6 @@ casper.test.begin('Get the number of customers currently in waiting list', funct
 
   casper.then(function(){
     this.echo('There is '+waitingNumber+' customers in waiting list.');
-    casper.click('.products');
-    this.waitForSelector(".products.active", function(){
-      console.log(this.getCurrentUrl());
-    });
   });
 
   casper.run(function() {
@@ -43,9 +44,14 @@ casper.test.begin('Get the number of customers currently in waiting list', funct
 
 casper.test.begin('Add a customer to the waiting list', function(test){
   casper.start(path+'/customer.html').then(function(){
-    this.waitForSelector("#engine.engine", function(){
-      firstUrl = this.getCurrentUrl();
-      this.click('#engine');
+    casper.viewport(360, 640).then(function() {
+      this.wait(3000, function(){
+        firstUrl = this.getCurrentUrl();
+        this.waitForSelector(".engine", function(){
+          test.assertExists('.engine');
+          secureClick(this, '.engine');
+        });
+      });
     });
   });
 
@@ -53,10 +59,16 @@ casper.test.begin('Add a customer to the waiting list', function(test){
     this.waitFor(function check() {
       return this.getCurrentUrl() != firstUrl;
     }, function then() {
-      console.log(this.getCurrentUrl());
-    }, function timeout() {
-      this.echo("Temps dépassé.").exit();
+      test.assertUrlMatch(/#\/question\/545f70d9946ea453ece17e7e/, 'Client clicked on the ".engine" button and can now see the first question');
     });
+  });
+
+  casper.waitForText("Peinture", function(){
+    secureClick(this, 'a:nth-child(3)');
+  });
+
+  casper.waitForText("peinture", function(){
+    secureClick(this, 'a:nth-child(3)');
   });
 
   casper.run(function(){

@@ -41,8 +41,8 @@
 
               <div class="item item-divider">File d'attente</div>
               <a href="#/tab/dash" class=" waitlist item item-button-right" ng-repeat="(key, user) in syncQueue" ng-class="{'selected': customer.$id == user.$id}" ng-click="changeCustomer(key)">
-                User {{user.$$hashKey}} 
-                <button class="button button-stable">
+                User {{user.$$hashKey}}
+                <button class="button button-stable" ng-click="deleteUser(key)">
                   done
                   <!-- <i class="icon ion-android-archive"></i> -->
                 </button>
