@@ -122,13 +122,13 @@ casper.test.begin('Seller APP : Verify that the customer has been added to the w
         this.echo("Temps dépassé.").exit();
       });
     });
-
+/*
     casper.then(function(){
       this.echo('There is now '+waitingNumberEnd+' customers in waiting list.');
       var total = parseInt(waitingNumberEnd)-parseInt(waitingNumberInital);
       test.assert(total==1 ,"Add a customer to the waiting list really add a customer to the waiting list");
     });
-
+*/
 
     casper.run(function() {
       test.done();
