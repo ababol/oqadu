@@ -58,10 +58,10 @@ casper.test.begin('Verify the landed page of the Seller App', function(test) {
     test.assertUrlMatch(/#\/recommendation\/545fc3da946ea453ece17f62/, 'The client can see the recommendation');
   })
 
-  casper.waitForSelector('.product', function(){
+  casper.waitForSelector('.productreco', function(){
     //this.click('.recommendation');
-    this.mouseEvent('mousedown','.product');
-    this.mouseEvent('mouseup','.product'); 
+    this.mouseEvent('mousedown','.productreco');
+    this.mouseEvent('mouseup','.productreco');
   });
 
   casper.then(function(){
