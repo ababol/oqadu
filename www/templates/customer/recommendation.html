@@ -2,7 +2,7 @@
   <ion-content class="padding">
     <div class="list">
 
-        <a ng-repeat="product in products" class="item item-thumbnail-left recommendation" href="#/product/{{product._id}}">
+        <a ng-repeat="product in products" class="item item-thumbnail-left product" href="#/product/{{product._id}}">
           <img src="{{product.img[0]}}" />
           <h2>{{product.name}}</h2>
           <p>{{product.price}}€</p>
