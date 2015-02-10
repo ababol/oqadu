@@ -1,4 +1,4 @@
-<ion-view title="Recommendation">
+<ion-view title="title">
   <ion-content class="padding">
     <div class="list">
 
@@ -8,6 +8,8 @@
           <p>{{product.price}}€</p>
           <p><i ng-repeat="review in product.reviewAvgHtml track by $index" class='{{review}}'></i></p>
         </a>
+
+        <h1 ng-show="noProduct">{{noProduct}}</h1>
 
     </div>
   </ion-content>
