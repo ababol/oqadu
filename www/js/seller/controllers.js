@@ -1,26 +1,35 @@
 angular.module('starter.controllers', [])
 
 .controller('MainCtrl', function ($scope, $state, $firebase, Sellers) {
-  $scope.seller = {id:0, name: "John Doe", shelf: "Peinture"};
+  $scope.seller = {id:1, name: "John Doe", shelf: "Peinture"};
   $scope.state = $state;
   $scope.syncQueue = [];
+  $scope.customer = {};
+  $scope.currentID = null;
 
   $scope.initSeller = function(id){
     $scope.seller = Sellers.get(id);
     var ref = new Firebase("https://oqadu.firebaseio.com/"+$scope.seller.shelf+"/queue");
     var sync = $firebase(ref);
     $scope.syncQueue = sync.$asArray();
-    $scope.customer = $scope.syncQueue[0];
     $scope.syncQueue.$loaded(function(){
-      $scope.customer = $scope.syncQueue[0];
+      $scope.changeCustomer(0);
     });
   }
 
-  $scope.initSeller(0);
   $scope.changeCustomer = function(k){
-    if(k>=0 && k<$scope.syncQueue.length)
+    if(k>=0 && k<$scope.syncQueue.length){
+      if($scope.currentID != null){
+        delete $scope.syncQueue[$scope.currentID].seller;
+        $scope.syncQueue.$save($scope.currentID);
+      }
+      $scope.syncQueue[k].seller = $scope.seller.id;
+      $scope.syncQueue.$save(k);
       $scope.customer = $scope.syncQueue[k];
+      $scope.currentID = k;
+    }
   }
+  $scope.initSeller(0);
 
   $scope.deleteUser = function(index){
     $scope.syncQueue.$remove(index).then(function(){
@@ -37,6 +46,7 @@ angular.module('starter.controllers', [])
 })
 
 .controller('ProductCtrl', function($scope, Products) {
+
 })
 
 .controller('ProductDetailCtrl', function($scope, $stateParams, $state, $ionicSlideBoxDelegate, Products) {
@@ -221,6 +231,14 @@ angular.module('starter.controllers', [])
   Products.all().success(function(data){
     $scope.products = data;
   });
+
+   $scope.addProductToCustomer = function(product){
+    console.log($scope.customer);
+    $scope.customer.products[product._id] = product;
+    //TODO ADD TAGS !!!
+    $scope.syncQueue[$scope.currentID].products[product._id] = product;
+    $scope.syncQueue.$save($scope.currentID);
+  }
 })
 
 .controller('ContentController', function($scope, $ionicSideMenuDelegate) {

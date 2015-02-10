@@ -17,6 +17,14 @@ $energized : #f0b840;
     padding: .8em;
     padding-left: 2.3em;
     opacity: .5;
+    >i.icon{
+      display: none;
+    }
+    &.used{
+      >i.icon{
+        display: inline-flex;
+      }
+    }
     >button{
       display: none;
     }
