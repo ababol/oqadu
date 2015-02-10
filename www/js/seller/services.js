@@ -99,8 +99,9 @@ angular.module('starter.services', [])
   // Might use a resource here that returns a JSON array
   // Some fake testing data
   var sellers = [
-    {id:0, name: "John Doe", shelf: "Peinture"},
-    {id:1, name: "Zlatan", shelf: "Jardin"}
+    {id:1, name: "John Doe", shelf: "Peinture"},
+    {id:2, name: "Zlatan", shelf: "Jardin"},
+    {id:3, name: "Ribery", shelf: "Peinture"}
   ];
 
   return {
