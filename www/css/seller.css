@@ -7871,6 +7871,36 @@ ion-side-menu > ion-content > div.scroll > ul > a.item.logout {
 .tag-item {
   margin: 3px 6px 3px 0; }
 
+.list.menu > .item.assertive {
+  color: white;
+  background-color: #ef4e3a;
+  border-color: #cc2311; }
+.list.menu > .item.energized {
+  color: white;
+  background-color: #f0b840;
+  border-color: #d39211; }
+.list.menu > .item.waitlist {
+  text-align: left;
+  padding: 0.8em;
+  padding-left: 2.3em;
+  opacity: 0.5; }
+  .list.menu > .item.waitlist > i.icon {
+    display: none; }
+  .list.menu > .item.waitlist.used > i.icon {
+    display: inline-flex; }
+  .list.menu > .item.waitlist > button {
+    display: none; }
+  .list.menu > .item.waitlist.selected {
+    opacity: 1; }
+    .list.menu > .item.waitlist.selected > button {
+      display: inline-flex;
+      font-size: 0.8em;
+      top: 12px;
+      right: 16px;
+      min-width: 34px;
+      min-height: 20px;
+      line-height: 20px; }
+
 .scroll > .button-half {
   margin-top: 0 !important;
   margin-bottom: 1%; }
