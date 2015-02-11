@@ -1,5 +1,5 @@
-var path = "http://oqadu.herokuapp.com";
-//var path = "http://localhost:3000";
+// var path = "http://oqadu.herokuapp.com";
+var path = "www";
 var waitingNumberInital, waitingNumberEnd;
 var firstUrl;
 

@@ -8,6 +8,7 @@ angular.module('starter.controllers', [])
   $scope.currentID = null;
 
   $scope.initSeller = function(id){
+    $scope.currentID = null;
     $scope.seller = Sellers.get(id);
     var ref = new Firebase("https://oqadu.firebaseio.com/"+$scope.seller.shelf+"/queue");
     var sync = $firebase(ref);
@@ -15,23 +16,25 @@ angular.module('starter.controllers', [])
     $scope.syncQueue.$loaded(function(){
       $scope.changeCustomer(0);
     });
+    $scope.syncQueue.$watch(function(ev){
+      console.log(ev);
+      if($scope.currentID != null)
+        $scope.customer = $scope.syncQueue[$scope.currentID];
+    });
   }
 
   $scope.changeCustomer = function(k){
     if(k>=0 && k<$scope.syncQueue.length){
-      if($scope.currentID != null){
-        delete $scope.syncQueue[$scope.currentID].seller;
-        $scope.syncQueue.$save($scope.currentID);
-      }
-      $scope.syncQueue[k].seller = $scope.seller.id;
-      $scope.syncQueue.$save(k);
       $scope.customer = $scope.syncQueue[k];
       $scope.currentID = k;
     }
   }
   $scope.initSeller(0);
 
-  $scope.deleteUser = function(index){
+  $scope.deleteUser = function(){
+    var index = $scope.currentID;
+    $scope.currentID = null;
+    $scope.customer = {};
     $scope.syncQueue.$remove(index).then(function(){
       console.log(index + " deleted");
     });

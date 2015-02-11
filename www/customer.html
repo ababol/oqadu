@@ -53,7 +53,8 @@
           Conseiller
         </a>
         <a href="#/cart" class="tab-item">
-          <i class="icon ion-ios7-cart-outline"></i>
+          <i class="icon" ng-class="(user.cart.length > 0) ? 'ion-ios7-cart' : 'ion-ios7-cart-outline'"></i>
+          <span ng-if="user.cart.length">{{user.cart.length}}</span>
         </a>
       </div>
       <div id="barReg" ng-show="registred" class="tabs tabs-icon-left">
@@ -72,7 +73,8 @@
           <i class="icon ion-ios7-close-outline"></i>
         </a>
         <a href="#/cart" class="tab-item">
-          <i class="icon ion-ios7-cart-outline"></i>
+          <i class="icon" ng-class="(user.cart.length > 0) ? 'ion-ios7-cart' : 'ion-ios7-cart-outline'"></i>
+          <span ng-if="user.cart.length">{{user.cart.length}}</span>
         </a>
       </div>
     </footer>
