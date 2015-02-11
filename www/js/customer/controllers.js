@@ -15,8 +15,14 @@ angular.module('starter.controllers', [])
   $scope.hideLoading = function() {
     $ionicLoading.hide();
   };
+  $scope.showFooter = function() {
+    $scope.hideFoot = false;
+  };
+  $scope.hideFooter = function() {
+    $scope.hideFoot = true;
+  };
   $scope.error = function(err) {
-    $scope.showFooter = false;
+    $scope.hideFoot = true;
     $scope.errorTxt = "API ERROR " + err.status + " - " + err.data;
   };
   $scope.setUserKey = function(key) {
@@ -36,9 +42,8 @@ angular.module('starter.controllers', [])
     waiting: false
   };
 
-  $scope.showFooter = false;
   $scope.acceptRegistering = function(){
-    $scope.showFooter = true;
+    $scope.showFooter();
   }
 
   //Firebase
@@ -58,7 +63,6 @@ angular.module('starter.controllers', [])
 })
 
 .controller('QuestionCtrl', function($scope, $q, $stateParams, Questions, Answers) {
-  angular.element(document.querySelector('#barUnreg')).removeClass('invisible');
   $scope.question = [];
   $scope.answers = [];
 
@@ -75,7 +79,6 @@ angular.module('starter.controllers', [])
       $scope.acceptRegistering();
       $scope.connectToFirebaseQueue(data.text)
     }
-    console.log($scope.showFooter);
     $scope.user.qa[$scope.question._id] = {
       question: $scope.question,
       answer: data
@@ -187,8 +190,8 @@ angular.module('starter.controllers', [])
 })
 
 .controller('HomeCtrl', function($scope, $ionicViewService) {
+  $scope.hideFooter();
   $scope.hide();
-  angular.element(document.querySelector('#barUnreg')).addClass('invisible');
   $ionicViewService.clearHistory();
 })
 
