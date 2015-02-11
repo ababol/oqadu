@@ -236,12 +236,12 @@ angular.module('starter.controllers', [])
       $scope.syncQueue.$add($scope.user).then(function(userRef){
         $scope.setUserKey(userRef.key());
         $scope.waitlistPosition = transformPositionToString($scope.syncQueue.length - 1);
-        $scope.waitTime = $scope.waitlistPosition * 3;
+        $scope.waitTime = ($scope.syncQueue.length - 1) * 3;
         $scope.registred = true;
       });
       $scope.syncQueue.$watch(function(e){
         $scope.waitlistPosition = transformPositionToString($scope.syncQueue.length - 1);
-        $scope.waitTime = $scope.waitlistPosition * 3;
+        $scope.waitTime = ($scope.syncQueue.length - 1) * 3;
       });
     }
   };
@@ -359,16 +359,16 @@ function getReviewHtml (reviewAvg) {
 }
 
 function transformPositionToString(position){
-  var lastNumber = position[position.length-1];
+  var lastNumber = (""+position).slice(-1);
   var extension;
   switch(lastNumber){
-    case 1:
+    case "1":
       extension = "st";
       break;
-    case 2:
+    case "2":
       extension = "nd";
       break;
-    case 3:
+    case "3":
       extension = "rd";
       break;
     default:
