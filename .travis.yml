@@ -9,5 +9,3 @@ deploy:
     repo: ababol/oqadu
 notifications:
   slack: bricodata:oVMdJIuCeyzZz3MfwEYg1TGk
-before_script:
-  - npm start
