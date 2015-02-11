@@ -228,19 +228,19 @@ angular.module('starter.controllers', [])
 
 .controller('BarCtrl', function($scope) {
   $scope.registred = false;
-  $scope.waitlistPosition = -1;
+  $scope.waitlistPosition = "";
   $scope.waitTime = -1;
   $scope.registerQueue = function() {
     if (!$scope.user.waiting) {
       $scope.user.waiting = true;
       $scope.syncQueue.$add($scope.user).then(function(userRef){
         $scope.setUserKey(userRef.key());
-        $scope.waitlistPosition = $scope.syncQueue.length - 1;
+        $scope.waitlistPosition = transformPositionToString($scope.syncQueue.length - 1);
         $scope.waitTime = $scope.waitlistPosition * 3;
         $scope.registred = true;
       });
       $scope.syncQueue.$watch(function(e){
-        $scope.waitlistPosition = $scope.syncQueue.length - 1;
+        $scope.waitlistPosition = transformPositionToString($scope.syncQueue.length - 1);
         $scope.waitTime = $scope.waitlistPosition * 3;
       });
     }
@@ -356,4 +356,24 @@ function getReviewHtml (reviewAvg) {
     }
   }
   return reviewHtml;
+}
+
+function transformPositionToString(position){
+  var lastNumber = position[position.length-1];
+  var extension;
+  switch(lastNumber){
+    case 1:
+      extension = "st";
+      break;
+    case 2:
+      extension = "nd";
+      break;
+    case 3:
+      extension = "rd";
+      break;
+    default:
+      extension ="th";
+      break;
+  }
+  return position + extension;
 }
