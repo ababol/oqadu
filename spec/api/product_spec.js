@@ -1,38 +1,38 @@
-var url = "https://oqadu.herokuapp.com",
+var url = "http://babol.me:3000",
   frisby = require('frisby');
 
 // tests of the APIv2
 
 // test the integrity of the returned JSON by getting the products list
-frisby.create('Check Products endpoints')
-.get(url + '/api/v2/products')
-.expectHeaderContains('Content-Type', 'json')
-.expectStatus(200)
-.expectJSONTypes('*', {
-  name: String,
-  dutyFreePrice: Number,
-  tags: Array,
-  pictures: Array,
-  features: Array
-})
-.toss();
+// frisby.create('Check Products endpoints')
+// .get(url + '/api/v2/products')
+// .expectHeaderContains('Content-Type', 'json')
+// .expectStatus(200)
+// .expectJSONTypes('*', {
+//   name: String,
+//   dutyFreePrice: Number,
+//   tags: Array,
+//   pictures: Array,
+//   features: Array
+// })
+// .toss();
 
 // test the data of the product with id 545fc3da946ea453ece17f22
-var expectedProduct = {
-  "_id":"545fc3da946ea453ece17f22",
-  "name":"Tondeuse à essence STERWINS 460HSP140-3, 160 cm3",
-  "dutyFreePrice":289,
-  "tags":["outillage","gazon","tonte"],
-  "pictures":["img/products/tondeuse-a-essence-sterwins-460hsp140-3-160-cm3.jpg"],
-  "features":["Surface conseillé(m²):1500", "Type de propulsion:tractée", "Type d'éjection:2 en 1 : arrière et mulching"]
-};
-
-frisby.create('Check Product Tondeuse')
-  .get(url + '/api/v2/products/545fc3da946ea453ece17f22')
-    .expectHeaderContains('Content-Type', 'json')
-    .expectStatus(200)
-    .expectJSON(expectedProduct)
-.toss();
+// var expectedProduct = {
+//   "_id":"545fc3da946ea453ece17f22",
+//   "name":"Tondeuse à essence STERWINS 460HSP140-3, 160 cm3",
+//   "dutyFreePrice":289,
+//   "tags":["outillage","gazon","tonte"],
+//   "pictures":["img/products/tondeuse-a-essence-sterwins-460hsp140-3-160-cm3.jpg"],
+//   "features":["Surface conseillé(m²):1500", "Type de propulsion:tractée", "Type d'éjection:2 en 1 : arrière et mulching"]
+// };
+//
+// frisby.create('Check Product Tondeuse')
+//   .get(url + '/api/v1/products/545fc3da946ea453ece17f22')
+//     .expectHeaderContains('Content-Type', 'json')
+//     .expectStatus(200)
+//     .expectJSON(expectedProduct)
+// .toss();
 
 // test example of a product from the APIv1
 var expectedTondeuse = {

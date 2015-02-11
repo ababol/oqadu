@@ -1,25 +1,40 @@
 angular.module('starter.controllers', [])
 
 .controller('MainCtrl', function ($scope, $state, $firebase, Sellers) {
-  $scope.seller = {id:0, name: "John Doe", shelf: "Peinture"};
+  $scope.seller = {id:1, name: "John Doe", shelf: "Peinture"};
   $scope.state = $state;
   $scope.syncQueue = [];
-  
+  $scope.customer = {};
+  $scope.currentID = null;
+
   $scope.initSeller = function(id){
     $scope.seller = Sellers.get(id);
     var ref = new Firebase("https://oqadu.firebaseio.com/"+$scope.seller.shelf+"/queue");
     var sync = $firebase(ref);
     $scope.syncQueue = sync.$asArray();
-    $scope.customer = $scope.syncQueue[0];
     $scope.syncQueue.$loaded(function(){
-      $scope.customer = $scope.syncQueue[0];
+      $scope.changeCustomer(0);
     });
   }
 
-  $scope.initSeller(0);
   $scope.changeCustomer = function(k){
-    if(k>=0 && k<$scope.syncQueue.length)
+    if(k>=0 && k<$scope.syncQueue.length){
+      if($scope.currentID != null){
+        delete $scope.syncQueue[$scope.currentID].seller;
+        $scope.syncQueue.$save($scope.currentID);
+      }
+      $scope.syncQueue[k].seller = $scope.seller.id;
+      $scope.syncQueue.$save(k);
       $scope.customer = $scope.syncQueue[k];
+      $scope.currentID = k;
+    }
+  }
+  $scope.initSeller(0);
+
+  $scope.deleteUser = function(index){
+    $scope.syncQueue.$remove(index).then(function(){
+      console.log(index + " deleted");
+    });
   }
 })
 
@@ -31,6 +46,7 @@ angular.module('starter.controllers', [])
 })
 
 .controller('ProductCtrl', function($scope, Products) {
+
 })
 
 .controller('ProductDetailCtrl', function($scope, $stateParams, $state, $ionicSlideBoxDelegate, Products) {
@@ -63,13 +79,38 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('TagCtrl', function($scope, Tags) {
-    $scope.tags = Tags.all();
+.controller('TagCtrl', function($scope, Tags, $ionicPopup) {
+    $scope.tags = [];
+    $scope.data = {};
+    $scope.addTag = function(){
+
+      var myPopup = $ionicPopup.show({
+        template: '<input type="text" ng-model="data.newTag" autofocus="true">',
+        title: 'Enter tag',
+        scope: $scope,
+        buttons: [
+          { text: 'Cancel' },
+          {
+            text: '<b>Save</b>',
+            type: 'button-positive',
+            onTap: function(e) {
+              if($scope.data.newTag && $scope.data.newTag != ""){
+                $scope.tags.push($scope.data.newTag);
+                console.log('TODO : ajout firebase');
+              }
+            }
+          }
+        ]
+      });
+    }
 })
 
 .controller('WaitlistCtrl', function($scope) {
   console.log($scope.syncQueue);
-  $scope.waitingNumber  = $scope.syncQueue.length;
+  $scope.waitingNumber  = '-1';
+  $scope.syncQueue.$loaded(function(){
+    $scope.waitingNumber  = $scope.syncQueue.length;
+  });
   $scope.syncQueue.$watch(function(ev){
     $scope.waitingNumber  = $scope.syncQueue.length;
   });
@@ -85,7 +126,7 @@ angular.module('starter.controllers', [])
       series: [{
           data: [[8, 10], [9, 15], [10, 12], [11, 8], [12, 7], [13, 1], [14, 1], [15, 19], [16, 15], [17, 10]]
       }],
-      
+
       title: {
           text: '',
           style: {
@@ -124,7 +165,7 @@ angular.module('starter.controllers', [])
         },
         xAxis: {
             type: 'datetime',
-            dateTimeLabelFormats: { 
+            dateTimeLabelFormats: {
                 month: '%e. %b',
                 year: '%b'
             },
@@ -190,6 +231,14 @@ angular.module('starter.controllers', [])
   Products.all().success(function(data){
     $scope.products = data;
   });
+
+   $scope.addProductToCustomer = function(product){
+    console.log($scope.customer);
+    $scope.customer.products[product._id] = product;
+    //TODO ADD TAGS !!!
+    $scope.syncQueue[$scope.currentID].products[product._id] = product;
+    $scope.syncQueue.$save($scope.currentID);
+  }
 })
 
 .controller('ContentController', function($scope, $ionicSideMenuDelegate) {

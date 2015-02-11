@@ -40,12 +40,10 @@
               <a href="#" data-click-menulink  ng-click="initSeller(seller.id +1)" class="item logout">{{seller.name}}</a>
 
               <div class="item item-divider">File d'attente</div>
-              <a href="#/tab/dash" class=" waitlist item item-button-right" ng-repeat="(key, user) in syncQueue" ng-class="{'selected': customer.$id == user.$id}" ng-click="changeCustomer(key)">
+              <a href="#/tab/dash" class=" waitlist item item-button-right item-icon-right" ng-repeat="(key, user) in syncQueue | limitTo: 7" ng-class="{'selected': customer.$id == user.$id}" ng-class="{'used': user.seller}" ng-click="changeCustomer(key)">
                 User {{user.$$hashKey}} 
-                <button class="button button-stable">
-                  done
-                  <!-- <i class="icon ion-android-archive"></i> -->
-                </button>
+                <button class="button button-stable" ng-click="deleteUser(key)">done</button>
+                <i class="icon ion-person"></i>
               </a>
 
               <a href="#/waitlist" data-click-menulink class="item stats energized"  ng-class="{'active': state.current.name=='waitlist'}">Statistiques</a>

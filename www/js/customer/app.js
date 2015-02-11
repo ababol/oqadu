@@ -61,6 +61,12 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
       controller: 'RecommendationCtrl'
     })
 
+    .state('cart', {
+      url: '/cart',
+      templateUrl: 'templates/customer/recommendation.html',
+      controller: 'CartCtrl'
+    })
+
     .state('product', {
       url: '/product/:productId',
       templateUrl: 'templates/customer/product.html',
