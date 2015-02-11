@@ -47,17 +47,19 @@
       <div id="barUnreg" ng-hide="registred" class="tabs tabs-icon-left">
         <a href="#/home" class="tab-item">
           <i class="icon ion-ios7-home-outline"></i>
-          Home
         </a>
         <a id="waitingList" ng-click="registerQueue()" class="tab-item join">
           <i class="icon ion-ios7-plus-outline"></i>
-          Joindre la file d'attente
+          Conseiller
+        </a>
+        <a href="#/cart" class="tab-item">
+          <i class="icon" ng-class="(user.cart.length > 0) ? 'ion-ios7-cart' : 'ion-ios7-cart-outline'"></i>
+          <span ng-if="user.cart.length">{{user.cart.length}}</span>
         </a>
       </div>
       <div id="barReg" ng-show="registred" class="tabs tabs-icon-left">
         <a href="#/home" class="tab-item home">
           <i class="icon ion-ios7-home-outline"></i>
-          Home
         </a>
         <span class="tab-item">
           <i class="icon ion-ios7-people-outline"></i>
@@ -67,9 +69,12 @@
           <i class="icon ion-ios7-clock-outline"></i>
           2min
         </span>
-        <a class="tab-item" ng-click="unregisterQueue()">
+        <a id="leaveWaitingList" class="tab-item" ng-click="unregisterQueue()">
           <i class="icon ion-ios7-close-outline"></i>
-          Se désinscrire
+        </a>
+        <a href="#/cart" class="tab-item">
+          <i class="icon" ng-class="(user.cart.length > 0) ? 'ion-ios7-cart' : 'ion-ios7-cart-outline'"></i>
+          <span ng-if="user.cart.length">{{user.cart.length}}</span>
         </a>
       </div>
     </footer>

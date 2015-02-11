@@ -1,5 +1,5 @@
-var path = "http://oqadu.herokuapp.com";
-//var path = "http://localhost:3000";
+// var path = "http://oqadu.herokuapp.com";
+var path = "www";
 var waitingNumberInital, waitingNumberEnd;
 var firstUrl;
 
@@ -41,6 +41,7 @@ casper.test.begin('Seller APP : Get the number of customers currently in waiting
     test.done();
   });
 });
+
 
 casper.test.begin('Customer APP : Add a customer to the waiting list', function(test){
   casper.start(path+'/customer.html').then(function(){
@@ -87,9 +88,8 @@ casper.test.begin('Customer APP : Add a customer to the waiting list', function(
   casper.waitForText("Produit", function(){
     test.assertTextExists('Produit', 'Cutomer can see the details of a Rouleau');
     secureClick(this, '#waitingList');
-    this.waitForText('Se désinscrire', function(){
-      test.assertTextExists('Se désinscrire', 'Cutomer joined the waiting list');
-      this.capture('cap1.png');
+    this.waitForSelector('#leaveWaitingList', function(){
+      test.assertExists('#leaveWaitingList', 'Cutomer joined the waiting list');
     });
   });
 
