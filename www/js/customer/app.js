@@ -7,7 +7,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter.services', 'firebase'])
 
-.run(function($rootScope, $location, $ionicPlatform) {
+.run(function($rootScope, $ionicPlatform) {
   var history = 0;
 
   $ionicPlatform.ready(function() {
