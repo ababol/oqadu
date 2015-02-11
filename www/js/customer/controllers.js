@@ -35,6 +35,11 @@ angular.module('starter.controllers', [])
     waiting: false
   };
 
+  $scope.showFooter = false;
+  $scope.acceptRegistering = function(){
+    $scope.showFooter = true;
+  }
+
   //Firebase
   $scope.connectedQueue = null;
   $scope.connectToFirebaseQueue = function(queue) {
@@ -66,8 +71,10 @@ angular.module('starter.controllers', [])
 
   $scope.selectAnswer = function(data) {
     if ($scope.question._id == "545f70d9946ea453ece17e7e") {
+      $scope.acceptRegistering();
       $scope.connectToFirebaseQueue(data.text)
     }
+    console.log($scope.showFooter);
     $scope.user.qa[$scope.question._id] = {
       question: $scope.question,
       answer: data
@@ -221,13 +228,20 @@ angular.module('starter.controllers', [])
 
 .controller('BarCtrl', function($scope) {
   $scope.registred = false;
+  $scope.waitlistPosition = -1;
+  $scope.waitTime = -1;
   $scope.registerQueue = function() {
     if (!$scope.user.waiting) {
       $scope.user.waiting = true;
       $scope.syncQueue.$add($scope.user).then(function(userRef){
         $scope.setUserKey(userRef.key());
-        console.log("added to waitlist");
+        $scope.waitlistPosition = $scope.syncQueue.length - 1;
+        $scope.waitTime = $scope.waitlistPosition * 3;
         $scope.registred = true;
+      });
+      $scope.syncQueue.$watch(function(e){
+        $scope.waitlistPosition = $scope.syncQueue.length - 1;
+        $scope.waitTime = $scope.waitlistPosition * 3;
       });
     }
   };
