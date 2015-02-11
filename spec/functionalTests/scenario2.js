@@ -1,7 +1,7 @@
 /*Scenario 2: the client answers to each question, until he get the detail of the product of the suggestion. Finally, he joins the waiting list and returns to the main menu*/
 
 //var path = "http://oqadu.herokuapp.com";
-var path = "http://localhost:3000";
+var path = "www";
 
 casper.test.begin('Verify the landed page of the Seller App', function(test) {
   casper.start(path+'/customer.html').waitForText("Moteur", function() {
