@@ -1,18 +1,15 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['Helper'])
 .constant('$ionicLoadingConfig', {
   template: "<img src='img/loader.gif' width='80'/>"
 })
 .controller('MainCtrl', function($scope, $rootScope, $ionicLoading, $firebase) {
-  $scope.show = function() {
+  $scope.showLoader = function() {
     $scope.errorTxt = false;
     $scope.loaded = false;
     $ionicLoading.show();
   };
-  $scope.hide = function() {
-    $scope.loaded = true;
-    $ionicLoading.hide();
-  };
-  $scope.hideLoading = function() {
+  $scope.hideLoader = function(loaded) {
+    $scope.loaded = loaded;
     $ionicLoading.hide();
   };
   $scope.showFooter = function() {
@@ -97,9 +94,8 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('RecommendationCtrl', function($scope, $q, $stateParams, Recommendations, Products) {
+.controller('RecommendationCtrl', function($scope, $q, $stateParams, utils, Recommendations, Products) {
   $scope.products = [];
-  $scope.title = "Recommantion";
 
   loader($scope, $q.when(
     Recommendations.get($stateParams.recoId)
@@ -113,8 +109,8 @@ angular.module('starter.controllers', [])
       ]).then(function(data) {
         product = data[0].data;
 
-        product.reviewAvg = getReviewAvg(data[1].data);
-        product.reviewAvgHtml = getReviewHtml(product.reviewAvg);
+        product.reviewAvg = utils.getReviewAvg(data[1].data);
+        product.reviewAvgHtml = utils.getReviewHtml(product.reviewAvg);
         product.reviews = data[1].data;
 
         $scope.products.push(product);
@@ -140,7 +136,7 @@ angular.module('starter.controllers', [])
   }));
 })
 
-.controller('ProductCtrl', function($scope, $rootScope, $q, $stateParams, $ionicNavBarDelegate, $ionicSlideBoxDelegate, Products) {
+.controller('ProductCtrl', function($scope, $rootScope, $q, $stateParams, utils, $ionicNavBarDelegate, $ionicSlideBoxDelegate, Products) {
   $scope.showBackButton = $rootScope.showBackButton;
   $scope.product = [];
 
@@ -151,8 +147,8 @@ angular.module('starter.controllers', [])
   ]).then(function(data) {
     product = data[0].data;
 
-    product.reviewAvg = getReviewAvg(data[1].data);
-    product.reviewAvgHtml = getReviewHtml(product.reviewAvg);
+    product.reviewAvg = utils.getReviewAvg(data[1].data);
+    product.reviewAvgHtml = utils.getReviewHtml(product.reviewAvg);
     product.reviews = data[1].data;
     product.faq = data[2].data;
 
@@ -191,7 +187,7 @@ angular.module('starter.controllers', [])
 
 .controller('HomeCtrl', function($scope, $ionicViewService) {
   $scope.hideFooter();
-  $scope.hide();
+  $scope.hideLoader(true);
   $ionicViewService.clearHistory();
 })
 
@@ -257,11 +253,10 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('CartCtrl', function($scope, $q, Products) {
+.controller('CartCtrl', function($scope, $q, utils, Products) {
   var cart = $scope.user.cart,
     promise = $q.when();
 
-  $scope.title = "Panier";
   $scope.products = [];
   $scope.noProduct = null;
 
@@ -275,8 +270,8 @@ angular.module('starter.controllers', [])
       ]).then(function(data) {
         product = data[0].data;
 
-        product.reviewAvg = getReviewAvg(data[1].data);
-        product.reviewAvgHtml = getReviewHtml(product.reviewAvg);
+        product.reviewAvg = utils.getReviewAvg(data[1].data);
+        product.reviewAvgHtml = utils.getReviewHtml(product.reviewAvg);
         product.reviews = data[1].data;
 
         $scope.products.push(product);
@@ -312,51 +307,23 @@ angular.module('starter.controllers', [])
 });
 
 function loader($scope, callback) {
-  $scope.show();
+  $scope.showLoader();
 
   callback
   .catch($scope.error)
   .finally(function() {
     if (window.location.hash.indexOf("product") > -1) {
       setTimeout(function() {
-        $scope.hideLoading();
+        $scope.hideLoader(false);
         setTimeout(function() {
-          $scope.hide();
+          $scope.hideLoader(true);
           $scope.updateSlider();
         }, 300);
       }, 400);
     } else {
-      $scope.hide();
+      $scope.hideLoader(true);
     }
   });
-}
-
-function getReviewAvg(reviews) {
-  if (reviews.length === 0) {
-    return "N/A";
-  }
-
-  var reviewSum = 0;
-  reviews.forEach(function(review) {
-    reviewSum += review.score;
-  });
-  return Math.round(reviewSum);
-}
-
-function getReviewHtml (reviewAvg) {
-  if (reviewAvg === "N/A") {
-    return [];
-  }
-
-  var reviewHtml = [];
-  for (var i = 1; i <= 5; i++) {
-    if (i <= reviewAvg) {
-      reviewHtml.push("ion-ios7-star");
-    } else {
-      reviewHtml.push("ion-ios7-star-outline");
-    }
-  }
-  return reviewHtml;
 }
 
 function transformPositionToString(position){

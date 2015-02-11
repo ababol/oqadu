@@ -1,11 +1,28 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['Helper'])
+.constant('$ionicLoadingConfig', {
+  template: "<img src='img/loader.gif' width='80'/>"
+})
 
-.controller('MainCtrl', function ($scope, $state, $firebase, Sellers) {
+.controller('MainCtrl', function ($scope, $ionicLoading, $state, $firebase, Sellers) {
   $scope.seller = {id:1, name: "John Doe", shelf: "Peinture"};
   $scope.state = $state;
   $scope.syncQueue = [];
   $scope.customer = {};
   $scope.currentID = null;
+  $scope.loaded = true;
+
+  $scope.showLoader = function() {
+    $scope.errorTxt = false;
+    $scope.loaded = false;
+    $ionicLoading.show();
+  };
+  $scope.hideLoader = function() {
+    $scope.loaded = true;
+    $ionicLoading.hide();
+  };
+  $scope.error = function(err) {
+    $scope.errorTxt = "API ERROR " + err.status + " - " + err.data;
+  };
 
   $scope.initSeller = function(id){
     $scope.currentID = null;
@@ -52,19 +69,22 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('ProductDetailCtrl', function($scope, $stateParams, $state, $ionicSlideBoxDelegate, Products) {
+.controller('ProductDetailCtrl', function($scope, $q, $stateParams, $state, $ionicSlideBoxDelegate, utils, Products) {
   $scope.backUrl = $state.current.backUrl;
-  Products.get($stateParams.productId).success(function(product){
-    Products.getReviews($stateParams.productId).success(function(reviews) {
-      product.reviewAvg = getReviewAvg(reviews);
-      product.reviewAvgHtml = getReviewHtml(product.reviewAvg);
-      product.reviews = reviews;
-      Products.getFaq($stateParams.productId).success(function(faq) {
-        product.faq = faq;
-        $scope.product = product;
-      });
-    });
-  });
+  loader($scope, $q.all([
+    Products.get($stateParams.productId),
+    Products.getReviews($stateParams.productId),
+    Products.getFaq($stateParams.productId)
+  ]).then(function(data) {
+    product = data[0].data;
+
+    product.reviewAvg = utils.getReviewAvg(data[1].data);
+    product.reviewAvgHtml = utils.getReviewHtml(product.reviewAvg);
+    product.reviews = data[1].data;
+    product.faq = data[2].data;
+
+    $scope.product = product;
+  }));
   $scope.updateSlider = function () {
     return $ionicSlideBoxDelegate.update();
   };
@@ -229,9 +249,9 @@ angular.module('starter.controllers', [])
 
 .controller('AllProductsCtrl', function($scope, Products) {
 
-  Products.all().success(function(data){
+  loader($scope, Products.all().success(function(data){
     $scope.products = data;
-  });
+  }));
 
    $scope.addProductToCustomer = function(product){
     console.log($scope.customer);
@@ -248,31 +268,12 @@ angular.module('starter.controllers', [])
   };
 });
 
+function loader($scope, callback) {
+  $scope.showLoader();
 
-
-function getReviewAvg(reviews) {
-  if (reviews.length === 0)
-    return "N/A";
-
-  var reviewSum = 0;
-
-  reviews.forEach(function(review) {
-    reviewSum += review.score;
+  callback
+  .catch($scope.error)
+  .finally(function() {
+    $scope.hideLoader();
   });
-  return Math.round(reviewSum);
-}
-
-function getReviewHtml (reviewAvg) {
-  if (reviewAvg === "N/A")
-    return [];
-
-  var reviewHtml = [];
-  for (var i = 1; i <= 5; i++) {
-    if (i <= reviewAvg)
-      reviewHtml.push("ion-ios7-star");
-    else
-      reviewHtml.push("ion-ios7-star-outline");
-  }
-
-  return reviewHtml;
 }
