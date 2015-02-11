@@ -44,6 +44,7 @@
   "license": "MIT",
   "cordovaPlugins": [
     "https://github.com/ababol/BarcodeScanner",
-    "org.apache.cordova.statusbar"
+    "org.apache.cordova.statusbar",
+    "org.apache.cordova.network-information"
   ]
 }

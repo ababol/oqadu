@@ -1,4 +1,4 @@
-angular.module('starter.controllers', ['Helper'])
+angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
 .constant('$ionicLoadingConfig', {
   template: "<img src='img/loader.gif' width='80'/>"
 })

@@ -5,19 +5,50 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'highcharts-ng', 'firebase'])
+angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter.services'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $ionicPopup) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
-    if(window.cordova && window.cordova.plugins.Keyboard) {
+    if (window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
-    if(window.StatusBar) {
+    if (window.StatusBar) {
       // org.apache.cordova.statusbar required
       StatusBar.backgroundColorByHexString('#4A87EE');
       ionic.Platform.fullScreen(true, true);
+    }
+
+    if (window.Connection) {
+      if (navigator.connection.type == Connection.NONE) {
+        $ionicPopup.show({
+          title: "Connexion Internet Requise",
+          content: "Une connexion internet est requise afin que l'application puisse fonctionner.",
+          buttons: [
+            {
+              text: 'Cancel',
+              onTap: function(e) {
+                ionic.Platform.exitApp();
+                if (navigator.connection.type == Connection.NONE) {
+                  //don't allow the user to close unless he has a connection
+                  e.preventDefault();
+                }
+              }
+            },
+            {
+              text: '<b>Ok</b>',
+              type: 'button-positive',
+              onTap: function(e) {
+                if (navigator.connection.type == Connection.NONE) {
+                  //don't allow the user to close unless he has a connection
+                  e.preventDefault();
+                }
+              }
+            }
+          ]
+        });
+      }
     }
   });
 })
