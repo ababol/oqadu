@@ -7,7 +7,9 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter.services', 'firebase'])
 
-.run(function($ionicPlatform) {
+.run(function($rootScope, $location, $ionicPlatform) {
+  var history = 0;
+
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -18,6 +20,11 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+  });
+
+  $rootScope.$on('$locationChangeSuccess', function() {
+    history++;
+    $rootScope.showBackButton = (history >= 2);
   });
 })
 

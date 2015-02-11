@@ -2,7 +2,7 @@ angular.module('starter.controllers', [])
 .constant('$ionicLoadingConfig', {
   template: "<img src='img/loader.gif' width='80'/>"
 })
-.controller('MainCtrl', function($scope, $ionicLoading, $firebase) {
+.controller('MainCtrl', function($scope, $rootScope, $ionicLoading, $firebase) {
   $scope.show = function() {
     $scope.errorTxt = false;
     $scope.loaded = false;
@@ -16,6 +16,7 @@ angular.module('starter.controllers', [])
     $ionicLoading.hide();
   };
   $scope.error = function(err) {
+    $scope.showFooter = false;
     $scope.errorTxt = "API ERROR " + err.status + " - " + err.data;
   };
   $scope.setUserKey = function(key) {
@@ -96,7 +97,6 @@ angular.module('starter.controllers', [])
 .controller('RecommendationCtrl', function($scope, $q, $stateParams, Recommendations, Products) {
   $scope.products = [];
   $scope.title = "Recommantion";
-  window.lastAnswer = $stateParams.recoId;
 
   loader($scope, $q.when(
     Recommendations.get($stateParams.recoId)
@@ -137,8 +137,8 @@ angular.module('starter.controllers', [])
   }));
 })
 
-.controller('ProductCtrl', function($scope, $q, $stateParams, $ionicSlideBoxDelegate, Products) {
-  $scope.lastAnswer = window.lastAnswer || 0;
+.controller('ProductCtrl', function($scope, $rootScope, $q, $stateParams, $ionicNavBarDelegate, $ionicSlideBoxDelegate, Products) {
+  $scope.showBackButton = $rootScope.showBackButton;
   $scope.product = [];
 
   loader($scope, $q.all([
@@ -171,8 +171,6 @@ angular.module('starter.controllers', [])
   };
 
   $scope.updateSlider = function() {
-    angular.element(document.querySelector('#backButton')).removeClass('ng-hide');
-    // $scope.height = angular.element(document.querySelector('#leftCol'))[0].offsetHeight;
     return $ionicSlideBoxDelegate.update();
   };
 })
