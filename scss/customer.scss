@@ -24,6 +24,7 @@ $balanced: #45B82E !default;
 
 @import "scss/both/pace";
 @import "scss/both/button";
+@import "scss/both/loader";
 
 // Include customer
 @import "scss/customer/loading";
@@ -56,19 +57,4 @@ span.tab-item {
   .card {
     margin: 5px 5px !important;
   }
-}
-
-.loading-container .loading, .backdrop {
-  background: transparent !important;
-}
-
-.ng-hide-add-active {
-  display: block!important;
-  -webkit-transition: .3s linear all;
-  transition: .3s linear all;
-  -webkit-transition-delay: .3s;
-  transition-delay: .3s;
-}
-.ng-hide {
-  opacity: 0;
 }

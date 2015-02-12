@@ -1,21 +1,25 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['Helper', 'firebase'])
 .constant('$ionicLoadingConfig', {
   template: "<img src='img/loader.gif' width='80'/>"
 })
-.controller('MainCtrl', function($scope, $ionicLoading, $firebase) {
-  $scope.show = function() {
+.controller('MainCtrl', function($scope, $rootScope, $ionicLoading, $firebase) {
+  $scope.showLoader = function() {
     $scope.errorTxt = false;
     $scope.loaded = false;
     $ionicLoading.show();
   };
-  $scope.hide = function() {
-    $scope.loaded = true;
+  $scope.hideLoader = function(loaded) {
+    $scope.loaded = loaded;
     $ionicLoading.hide();
   };
-  $scope.hideLoading = function() {
-    $ionicLoading.hide();
+  $scope.showFooter = function() {
+    $scope.hideFoot = false;
+  };
+  $scope.hideFooter = function() {
+    $scope.hideFoot = true;
   };
   $scope.error = function(err) {
+    $scope.hideFoot = true;
     $scope.errorTxt = "API ERROR " + err.status + " - " + err.data;
   };
   $scope.setUserKey = function(key) {
@@ -35,6 +39,10 @@ angular.module('starter.controllers', [])
     waiting: false
   };
 
+  $scope.acceptRegistering = function(){
+    $scope.showFooter();
+  }
+
   //Firebase
   $scope.connectedQueue = null;
   $scope.connectToFirebaseQueue = function(queue) {
@@ -52,7 +60,6 @@ angular.module('starter.controllers', [])
 })
 
 .controller('QuestionCtrl', function($scope, $q, $stateParams, Questions, Answers) {
-  angular.element(document.querySelector('#barUnreg')).removeClass('invisible');
   $scope.question = [];
   $scope.answers = [];
 
@@ -66,6 +73,7 @@ angular.module('starter.controllers', [])
 
   $scope.selectAnswer = function(data) {
     if ($scope.question._id == "545f70d9946ea453ece17e7e") {
+      $scope.acceptRegistering();
       $scope.connectToFirebaseQueue(data.text)
     }
     $scope.user.qa[$scope.question._id] = {
@@ -86,10 +94,8 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('RecommendationCtrl', function($scope, $q, $stateParams, Recommendations, Products) {
+.controller('RecommendationCtrl', function($scope, $q, $stateParams, utils, Recommendations, Products) {
   $scope.products = [];
-  $scope.title = "Recommantion";
-  window.lastAnswer = $stateParams.recoId;
 
   loader($scope, $q.when(
     Recommendations.get($stateParams.recoId)
@@ -103,8 +109,8 @@ angular.module('starter.controllers', [])
       ]).then(function(data) {
         product = data[0].data;
 
-        product.reviewAvg = getReviewAvg(data[1].data);
-        product.reviewAvgHtml = getReviewHtml(product.reviewAvg);
+        product.reviewAvg = utils.getReviewAvg(data[1].data);
+        product.reviewAvgHtml = utils.getReviewHtml(product.reviewAvg);
         product.reviews = data[1].data;
 
         $scope.products.push(product);
@@ -130,8 +136,8 @@ angular.module('starter.controllers', [])
   }));
 })
 
-.controller('ProductCtrl', function($scope, $q, $stateParams, $ionicSlideBoxDelegate, Products) {
-  $scope.lastAnswer = window.lastAnswer || 0;
+.controller('ProductCtrl', function($scope, $rootScope, $q, $stateParams, utils, $ionicNavBarDelegate, $ionicSlideBoxDelegate, Products) {
+  $scope.showBackButton = $rootScope.showBackButton;
   $scope.product = [];
 
   loader($scope, $q.all([
@@ -141,8 +147,8 @@ angular.module('starter.controllers', [])
   ]).then(function(data) {
     product = data[0].data;
 
-    product.reviewAvg = getReviewAvg(data[1].data);
-    product.reviewAvgHtml = getReviewHtml(product.reviewAvg);
+    product.reviewAvg = utils.getReviewAvg(data[1].data);
+    product.reviewAvgHtml = utils.getReviewHtml(product.reviewAvg);
     product.reviews = data[1].data;
     product.faq = data[2].data;
 
@@ -164,8 +170,6 @@ angular.module('starter.controllers', [])
   };
 
   $scope.updateSlider = function() {
-    angular.element(document.querySelector('#backButton')).removeClass('ng-hide');
-    // $scope.height = angular.element(document.querySelector('#leftCol'))[0].offsetHeight;
     return $ionicSlideBoxDelegate.update();
   };
 })
@@ -182,8 +186,8 @@ angular.module('starter.controllers', [])
 })
 
 .controller('HomeCtrl', function($scope, $ionicViewService) {
-  $scope.hide();
-  angular.element(document.querySelector('#barUnreg')).addClass('invisible');
+  $scope.hideFooter();
+  $scope.hideLoader(true);
   $ionicViewService.clearHistory();
 })
 
@@ -221,13 +225,20 @@ angular.module('starter.controllers', [])
 
 .controller('BarCtrl', function($scope) {
   $scope.registred = false;
+  $scope.waitlistPosition = "";
+  $scope.waitTime = -1;
   $scope.registerQueue = function() {
     if (!$scope.user.waiting) {
       $scope.user.waiting = true;
       $scope.syncQueue.$add($scope.user).then(function(userRef){
         $scope.setUserKey(userRef.key());
-        console.log("added to waitlist");
+        $scope.waitlistPosition = transformPositionToString($scope.syncQueue.length - 1);
+        $scope.waitTime = ($scope.syncQueue.length - 1) * 3;
         $scope.registred = true;
+      });
+      $scope.syncQueue.$watch(function(e){
+        $scope.waitlistPosition = transformPositionToString($scope.syncQueue.length - 1);
+        $scope.waitTime = ($scope.syncQueue.length - 1) * 3;
       });
     }
   };
@@ -242,11 +253,10 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('CartCtrl', function($scope, $q, Products) {
+.controller('CartCtrl', function($scope, $q, utils, Products) {
   var cart = $scope.user.cart,
     promise = $q.when();
 
-  $scope.title = "Panier";
   $scope.products = [];
   $scope.noProduct = null;
 
@@ -260,8 +270,8 @@ angular.module('starter.controllers', [])
       ]).then(function(data) {
         product = data[0].data;
 
-        product.reviewAvg = getReviewAvg(data[1].data);
-        product.reviewAvgHtml = getReviewHtml(product.reviewAvg);
+        product.reviewAvg = utils.getReviewAvg(data[1].data);
+        product.reviewAvgHtml = utils.getReviewHtml(product.reviewAvg);
         product.reviews = data[1].data;
 
         $scope.products.push(product);
@@ -297,49 +307,41 @@ angular.module('starter.controllers', [])
 });
 
 function loader($scope, callback) {
-  $scope.show();
+  $scope.showLoader();
 
   callback
   .catch($scope.error)
   .finally(function() {
     if (window.location.hash.indexOf("product") > -1) {
       setTimeout(function() {
-        $scope.hideLoading();
+        $scope.hideLoader(false);
         setTimeout(function() {
-          $scope.hide();
+          $scope.hideLoader(true);
           $scope.updateSlider();
         }, 300);
       }, 400);
     } else {
-      $scope.hide();
+      $scope.hideLoader(true);
     }
   });
 }
 
-function getReviewAvg(reviews) {
-  if (reviews.length === 0) {
-    return "N/A";
+function transformPositionToString(position){
+  var lastNumber = (""+position).slice(-1);
+  var extension;
+  switch(lastNumber){
+    case "1":
+      extension = "st";
+      break;
+    case "2":
+      extension = "nd";
+      break;
+    case "3":
+      extension = "rd";
+      break;
+    default:
+      extension ="th";
+      break;
   }
-
-  var reviewSum = 0;
-  reviews.forEach(function(review) {
-    reviewSum += review.score;
-  });
-  return Math.round(reviewSum);
-}
-
-function getReviewHtml (reviewAvg) {
-  if (reviewAvg === "N/A") {
-    return [];
-  }
-
-  var reviewHtml = [];
-  for (var i = 1; i <= 5; i++) {
-    if (i <= reviewAvg) {
-      reviewHtml.push("ion-ios7-star");
-    } else {
-      reviewHtml.push("ion-ios7-star-outline");
-    }
-  }
-  return reviewHtml;
+  return position + extension;
 }

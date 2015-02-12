@@ -7905,6 +7905,19 @@ $ios-transition-box-shadow-end: -200px 0px 200px rgba(0,0,0,0.15), -5px 0px 5px 
   padding-right: 0px !important;
   padding-top: 0px !important; }
 
+.loading-container .loading, .backdrop {
+  background: transparent !important; }
+
+.ng-hide-add-active {
+  display: block !important;
+  -webkit-transition: 0.3s linear all;
+  transition: 0.3s linear all;
+  -webkit-transition-delay: 0.3s;
+  transition-delay: 0.3s; }
+
+.ng-hide {
+  opacity: 0; }
+
 #loading {
   margin: 0 !important;
   padding: 0 !important;
@@ -7967,16 +7980,3 @@ span.tab-item {
 
 .product .card {
   margin: 5px 5px !important; }
-
-.loading-container .loading, .backdrop {
-  background: transparent !important; }
-
-.ng-hide-add-active {
-  display: block !important;
-  -webkit-transition: 0.3s linear all;
-  transition: 0.3s linear all;
-  -webkit-transition-delay: 0.3s;
-  transition-delay: 0.3s; }
-
-.ng-hide {
-  opacity: 0; }
