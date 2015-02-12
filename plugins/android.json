@@ -23,6 +23,10 @@
                         {
                             "xml": "<feature name=\"StatusBar\"><param name=\"android-package\" value=\"org.apache.cordova.statusbar.StatusBar\" /><param name=\"onload\" value=\"true\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"NetworkStatus\"><param name=\"android-package\" value=\"org.apache.cordova.networkinformation.NetworkManager\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -54,6 +58,12 @@
                         },
                         {
                             "xml": "<uses-feature android:name=\"android.hardware.camera\" android:required=\"false\" />",
+                            "count": 1
+                        }
+                    ],
+                    "/*": [
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />",
                             "count": 1
                         }
                     ]
@@ -557,6 +567,9 @@
             "PACKAGE_NAME": "com.ionicframework.oqadu412243"
         },
         "org.apache.cordova.statusbar": {
+            "PACKAGE_NAME": "com.ionicframework.oqadu412243"
+        },
+        "org.apache.cordova.network-information": {
             "PACKAGE_NAME": "com.ionicframework.oqadu412243"
         }
     },

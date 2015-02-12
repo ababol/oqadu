@@ -35,6 +35,10 @@
                         {
                             "xml": "<preference name=\"StatusBarStyle\" value=\"lightcontent\" />",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"NetworkStatus\"><param name=\"ios-package\" value=\"CDVConnection\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -70,6 +74,12 @@
                             "xml": "false",
                             "count": 1
                         }
+                    ],
+                    "SystemConfiguration.framework": [
+                        {
+                            "xml": "true",
+                            "count": 1
+                        }
                     ]
                 }
             }
@@ -89,6 +99,9 @@
             "PACKAGE_NAME": "com.ionicframework.oqadu412243"
         },
         "org.apache.cordova.statusbar": {
+            "PACKAGE_NAME": "com.ionicframework.oqadu412243"
+        },
+        "org.apache.cordova.network-information": {
             "PACKAGE_NAME": "com.ionicframework.oqadu412243"
         }
     },

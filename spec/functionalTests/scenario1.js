@@ -1,6 +1,6 @@
-//var path = "http://oqadu.herokuapp.com";
-var path = "http://localhost:3000";
-var waitingNumber;
+// var path = "http://oqadu.herokuapp.com";
+var path = "www";
+var waitingNumberInital, waitingNumberEnd;
 var firstUrl;
 
 var secureClick = function(self, selector){
@@ -8,7 +8,7 @@ var secureClick = function(self, selector){
   self.mouseEvent('mouseup', selector);
 };
 
-casper.test.begin('Get the number of customers currently in waiting list', function(test) {
+casper.test.begin('Seller APP : Get the number of customers currently in waiting list', function(test) {
 
   casper.start(path+'/seller.html').then(function() {
     test.assertUrlMatch(/#\/tab\/user$/, 'Redirecting to #/tab/user by default');
@@ -22,10 +22,10 @@ casper.test.begin('Get the number of customers currently in waiting list', funct
   casper.then(function(){
     this.waitFor(function check(){
       return this.evaluate(function(){
-        return document.querySelector('.waitingNumber').innerText != "0";
+        return document.querySelector('.waitingNumber').innerText != "-1";
       });
     }, function then(){
-        waitingNumber = this.evaluate(function(){
+      waitingNumberInital = this.evaluate(function(){
         return document.querySelector('.waitingNumber').innerText;
       });
     }, function timeout() {
@@ -34,7 +34,7 @@ casper.test.begin('Get the number of customers currently in waiting list', funct
   });
 
   casper.then(function(){
-    this.echo('There is '+waitingNumber+' customers in waiting list.');
+    this.echo('There is '+waitingNumberInital+' customers in waiting list.');
   });
 
   casper.run(function() {
@@ -42,7 +42,8 @@ casper.test.begin('Get the number of customers currently in waiting list', funct
   });
 });
 
-casper.test.begin('Add a customer to the waiting list', function(test){
+
+casper.test.begin('Customer APP : Add a customer to the waiting list', function(test){
   casper.start(path+'/customer.html').then(function(){
     casper.viewport(360, 640).then(function() {
       this.wait(3000, function(){
@@ -64,14 +65,72 @@ casper.test.begin('Add a customer to the waiting list', function(test){
   });
 
   casper.waitForText("Peinture", function(){
+    test.assertTextExists('Peinture', 'Cutomer answers Peinture');
     secureClick(this, 'a:nth-child(3)');
+
   });
 
   casper.waitForText("peinture", function(){
+    test.assertTextExists('peinture', 'Cutomer answers Materiel de peinture');
     secureClick(this, 'a:nth-child(3)');
+  });
+
+  casper.waitForText("Rouleau", function(){
+    test.assertTextExists('Rouleau', 'Cutomer answers Rouleau');
+    secureClick(this, 'a:nth-child(3)');
+  });
+
+  casper.waitForText("Rouleau", function(){
+    test.assertTextExists('Rouleau', 'Cutomer can see the product Rouleau');
+    secureClick(this, 'a:nth-child(1)');
+  });
+
+  casper.waitForText("Produit", function(){
+    test.assertTextExists('Produit', 'Cutomer can see the details of a Rouleau');
+    secureClick(this, '#waitingList');
+    this.waitForSelector('#leaveWaitingList', function(){
+      test.assertExists('#leaveWaitingList', 'Cutomer joined the waiting list');
+    });
   });
 
   casper.run(function(){
     test.done();
   });
+});
+
+
+casper.test.begin('Seller APP : Verify that the customer has been added to the waiting list', function(test){
+    casper.start(path+'/seller.html').then(function() {
+      test.assertUrlMatch(/#\/tab\/user$/, 'Redirecting to #/tab/user by default');
+      this.clickLabel('Statistiques');
+    });
+
+    casper.then(function(){
+      test.assertUrlMatch(/#\/waitlist/, 'Redirecting to #/waitlist');
+    });
+
+    casper.then(function(){
+      this.waitFor(function check(){
+        return this.evaluate(function(){
+          return document.querySelector('.waitingNumber').innerText != "-1";
+        });
+      }, function then(){
+          waitingNumberEnd = this.evaluate(function(){
+          return document.querySelector('.waitingNumber').innerText;
+        });
+      }, function timeout() {
+        this.echo("Temps dépassé.").exit();
+      });
+    });
+
+    casper.then(function(){
+      this.echo('There is now '+waitingNumberEnd+' customers in waiting list.');
+      var total = parseInt(waitingNumberEnd)-parseInt(waitingNumberInital);
+      test.assert(total==1 ,"Add a customer to the waiting list really add a customer to the waiting list");
+    });
+
+
+    casper.run(function() {
+      test.done();
+    });
 });

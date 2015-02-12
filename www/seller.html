@@ -16,9 +16,11 @@
     <script src="lib/firebase/firebase.js"></script>
     <script src="lib/angularfire/dist/angularfire.min.js"></script>
     <!-- cordova script (this will be a 404 during development) -->
+    <script src="lib/ng-cordova.min.js"></script>
     <script src="cordova.js"></script>
 
     <!-- your app's js -->
+    <script src="js/utils.js"></script>
     <script src="js/seller/app.js"></script>
     <script src="js/seller/controllers.js"></script>
     <script src="js/seller/services.js"></script>
@@ -28,7 +30,21 @@
    <ion-side-menus ng-controller="MainCtrl">
       <!-- Center content -->
       <ion-side-menu-content>
-        <ion-nav-view></ion-nav-view>
+        <section ng-show="errorTxt">
+          <div class="list card">
+            <div class="item">
+              <h2>{{errorTxt}}</h2>
+              <p>Un incident technique est survenu.<br/>
+              Veuillez contacter <a style="color: green;" href="mailto:support@oqadu.com">un admistrateur.</a></p>
+            </div>
+            <div class="item item-body">
+              <img class="full-image" src="img/computer_error.gif">
+            </div>
+          </div>
+        </section>
+        <section ng-hide="errorTxt">
+          <ion-nav-view></ion-nav-view>
+        </section>
       </ion-side-menu-content>
 
       <!-- Left menu -->
@@ -40,12 +56,10 @@
               <a href="#" data-click-menulink  ng-click="initSeller(seller.id +1)" class="item logout">{{seller.name}}</a>
 
               <div class="item item-divider">File d'attente</div>
-              <a href="#/tab/dash" class=" waitlist item item-button-right" ng-repeat="(key, user) in syncQueue" ng-class="{'selected': customer.$id == user.$id}" ng-click="changeCustomer(key)">
+              <a href="#/tab/dash" class=" waitlist item item-button-right item-icon-right" ng-repeat="(key, user) in syncQueue | limitTo: 7" ng-class="{'selected': customer.$id == user.$id}" ng-class="{'used': user.seller}" ng-click="changeCustomer(key)">
                 User {{user.$$hashKey}}
-                <button class="button button-stable" ng-click="deleteUser(key)">
-                  done
-                  <!-- <i class="icon ion-android-archive"></i> -->
-                </button>
+                <button class="button button-stable" ng-click="deleteUser()">done</button>
+                <i class="icon ion-person"></i>
               </a>
 
               <a href="#/waitlist" data-click-menulink class="item stats energized"  ng-class="{'active': state.current.name=='waitlist'}">Statistiques</a>

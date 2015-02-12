@@ -4,7 +4,7 @@
   "description": "OQADU - Ou Quand l'Attente Devient Utile",
   "scripts": {
     "start": "node app.js",
-    "test": "./test.sh"
+    "test": "jasmine-node spec/api/product_spec.js && casperjs test spec/functionalTests/scenario1.js"
   },
   "dependencies": {
     "body-parser": "^1.9.2",
@@ -44,6 +44,7 @@
   "license": "MIT",
   "cordovaPlugins": [
     "https://github.com/ababol/BarcodeScanner",
-    "org.apache.cordova.statusbar"
+    "org.apache.cordova.statusbar",
+    "org.apache.cordova.network-information"
   ]
 }

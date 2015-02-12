@@ -1,77 +1,90 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['Helper', 'firebase'])
 .constant('$ionicLoadingConfig', {
   template: "<img src='img/loader.gif' width='80'/>"
 })
-.controller('MainCtrl', function ($scope, $ionicLoading, $firebase) {
-  $scope.show = function() {
+.controller('MainCtrl', function($scope, $rootScope, $ionicLoading, $firebase) {
+  $scope.showLoader = function() {
     $scope.errorTxt = false;
     $scope.loaded = false;
     $ionicLoading.show();
   };
-  $scope.hide = function(){
-    $scope.loaded = true;
+  $scope.hideLoader = function(loaded) {
+    $scope.loaded = loaded;
     $ionicLoading.hide();
   };
-  $scope.hideLoading = function() {
-    $ionicLoading.hide();
+  $scope.showFooter = function() {
+    $scope.hideFoot = false;
   };
-  $scope.error = function(msg, status) {
-    $scope.errorTxt = "API ERROR " + status + " - " + msg;
+  $scope.hideFooter = function() {
+    $scope.hideFoot = true;
   };
+  $scope.error = function(err) {
+    $scope.hideFoot = true;
+    $scope.errorTxt = "API ERROR " + err.status + " - " + err.data;
+  };
+  $scope.setUserKey = function(key) {
+    $scope.userKey = key;
+  };
+  $scope.getUserKey = function() {
+    return $scope.userKey || null;
+  };
+  $scope.getUser = function() {
+    return $scope.user;
+  };
+
   $scope.user = {
     qa: {},
-    products: {},
+    products: [],
+    cart: [],
     waiting: false
   };
 
-  //I don't understand why it doesn't work with the userKey stored in the $scope...
-  window.userKey = null;
+  $scope.acceptRegistering = function(){
+    $scope.showFooter();
+  }
 
   //Firebase
   $scope.connectedQueue = null;
-  $scope.connectToFirebaseQueue = function(queue){
-    var ref = new Firebase("https://oqadu.firebaseio.com/"+queue+"/queue");
-    var sync = $firebase(ref);
+  $scope.connectToFirebaseQueue = function(queue) {
+    var ref = new Firebase("https://oqadu.firebaseio.com/" + queue + "/queue"),
+      sync = $firebase(ref);
+
     $scope.syncQueue = sync.$asArray();
     $scope.connectedQueue = queue;
-    console.log("https://oqadu.firebaseio.com/"+queue+"/queue");
+    console.log("https://oqadu.firebaseio.com/" + queue + "/queue");
     return $scope.syncQueue;
-  }
-  var ref = new Firebase("https://oqadu.firebaseio.com/queue");
-  var sync = $firebase(ref);
+  };
+  var ref = new Firebase("https://oqadu.firebaseio.com/queue"),
+    sync = $firebase(ref);
   $scope.syncQueue = sync.$asArray();
-
-
 })
 
-.controller('QuestionCtrl', function($scope, $stateParams, Questions, Answers) {
-  angular.element(document.querySelector('#barUnreg')).removeClass('invisible');
+.controller('QuestionCtrl', function($scope, $q, $stateParams, Questions, Answers) {
   $scope.question = [];
   $scope.answers = [];
 
-  var getQuestions = Questions.get($stateParams.questionId),
-      processQuestions = function(question){
-        $scope.question = question;
-        Answers.get($stateParams.questionId).success(function(answers){
-          $scope.answers = answers;
-        });
-      };
+  loader($scope, $q.all([
+    Questions.get($stateParams.questionId),
+    Answers.get($stateParams.questionId)
+  ]).then(function(data) {
+    $scope.question = data[0].data;
+    $scope.answers = data[1].data;
+  }));
 
-
-  loader($scope, getQuestions, processQuestions);
-
-  $scope.selectAnswer = function(data){
-    if($scope.question._id == "545f70d9946ea453ece17e7e"){
+  $scope.selectAnswer = function(data) {
+    if ($scope.question._id == "545f70d9946ea453ece17e7e") {
+      $scope.acceptRegistering();
       $scope.connectToFirebaseQueue(data.text)
     }
     $scope.user.qa[$scope.question._id] = {
       question: $scope.question,
       answer: data
     };
-    if($scope.user.waiting){
-      var index = $scope.syncQueue.$indexFor(window.userKey);
-      if(!$scope.syncQueue[index].qa)
+    if ($scope.user.waiting) {
+      var index = $scope.syncQueue.$indexFor($scope.getUserKey());
+      if (!$scope.syncQueue[index].qa) {
         $scope.syncQueue[index].qa = {};
+      }
       $scope.syncQueue[index].qa[$scope.question._id] = {
         question: $scope.question,
         answer: data
@@ -81,56 +94,82 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('RecommendationCtrl', function($scope, $stateParams, Recommendations, Products) {
+.controller('RecommendationCtrl', function($scope, $q, $stateParams, utils, Recommendations, Products) {
   $scope.products = [];
-  window.lastAnswer = $stateParams.recoId;
-  console.log($stateParams);
 
-  var getReco = Recommendations.get($stateParams.recoId),
-      processReco = function(reco){
-        // Not really proud of that, callback hell :(, maybe implement with promise in the future
-        [].concat(reco.products).forEach(function (productId){
-          Products.get(productId).success(function(product){
-            Products.getReviews(productId).success(function(reviews){
-              product.reviewAvg = getReviewAvg(reviews);
-              product.reviewAvgHtml = getReviewHtml(product.reviewAvg);
-              $scope.products.push(product);
-              $scope.user.products[product._id] = product;
-              if($scope.user.waiting){
-                var index = $scope.syncQueue.$indexFor(window.userKey);
-                if(!$scope.syncQueue[index].products)
-                  $scope.syncQueue[index].products = {};
-                $scope.syncQueue[index].products[product._id] = product;
-                $scope.syncQueue.$save(index).then(function(){console.log("updated");});
-              }
-            });
-          });
-        });
-      };
+  loader($scope, $q.when(
+    Recommendations.get($stateParams.recoId)
+  ).then(function(reco) {
+    var deferred = $q.defer();
 
-  loader($scope, getReco, processReco);
+    [].concat(reco.data.products).forEach(function(productId, key) {
+      $q.all([
+        Products.get(productId),
+        Products.getReviews(productId)
+      ]).then(function(data) {
+        product = data[0].data;
+
+        product.reviewAvg = utils.getReviewAvg(data[1].data);
+        product.reviewAvgHtml = utils.getReviewHtml(product.reviewAvg);
+        product.reviews = data[1].data;
+
+        $scope.products.push(product);
+        $scope.user.products[product._id] = product;
+
+        if ($scope.user.waiting) {
+          var index = $scope.syncQueue.$indexFor($scope.getUserKey());
+          if (!$scope.syncQueue[index].products) {
+            $scope.syncQueue[index].products = {};
+          }
+          $scope.syncQueue[index].products[product._id] = product;
+          $scope.syncQueue.$save(index).then(function() {console.log("updated");});
+        }
+
+        // Si on a parcouru tout le tableau de produit, on peut valider la promesse
+        if (key === reco.data.products.length - 1) {
+          return deferred.resolve();
+        }
+      });
+    });
+
+    return deferred.promise;
+  }));
 })
 
-.controller('ProductCtrl', function($scope, $stateParams, $ionicSlideBoxDelegate, Products) {
-  $scope.lastAnswer = window.lastAnswer || 0;
-  var getProducts = Products.get($stateParams.productId),
-      processProducts = function(product) {
-        Products.getReviews($stateParams.productId).success(function(reviews) {
-          product.reviewAvg = getReviewAvg(reviews);
-          product.reviewAvgHtml = getReviewHtml(product.reviewAvg);
-          product.reviews = reviews;
-          Products.getFaq($stateParams.productId).success(function(faq) {
-            product.faq = faq;
-            $scope.product = product;
-          });
-        });
-      };
+.controller('ProductCtrl', function($scope, $rootScope, $q, $stateParams, utils, $ionicNavBarDelegate, $ionicSlideBoxDelegate, Products) {
+  $scope.showBackButton = $rootScope.showBackButton;
+  $scope.product = [];
 
-  loader($scope, getProducts, processProducts);
+  loader($scope, $q.all([
+    Products.get($stateParams.productId),
+    Products.getReviews($stateParams.productId),
+    Products.getFaq($stateParams.productId)
+  ]).then(function(data) {
+    product = data[0].data;
 
-  $scope.updateSlider = function () {
-    angular.element(document.querySelector('#backButton')).removeClass('ng-hide');
-    // $scope.height = angular.element(document.querySelector('#leftCol'))[0].offsetHeight;
+    product.reviewAvg = utils.getReviewAvg(data[1].data);
+    product.reviewAvgHtml = utils.getReviewHtml(product.reviewAvg);
+    product.reviews = data[1].data;
+    product.faq = data[2].data;
+
+    $scope.product = product;
+  }));
+
+  $scope.addToCart = function(id) {
+    var index = $scope.getInTheCart(id);
+    console.log(index);
+    if (index > -1) {
+      $scope.user.cart.splice(index, 1);
+    } else {
+      $scope.user.cart.push(id);
+    }
+  };
+
+  $scope.getInTheCart = function(id) {
+    return $scope.user.cart.indexOf(id);
+  };
+
+  $scope.updateSlider = function() {
     return $ionicSlideBoxDelegate.update();
   };
 })
@@ -147,43 +186,38 @@ angular.module('starter.controllers', [])
 })
 
 .controller('HomeCtrl', function($scope, $ionicViewService) {
-  $scope.hide();
-  angular.element(document.querySelector('#barUnreg')).addClass('invisible');
+  $scope.hideFooter();
+  $scope.hideLoader(true);
   $ionicViewService.clearHistory();
 })
 
 .controller('LoadingCtrl', function($state) {
   angular.element(document.querySelector('#loading')).removeClass('hide');
-  var logo = Snap.select("#logo");
-
-  var leroy = logo.select("#leroy"),
-    	merlin = logo.select("#merlin"),
-      triangle = logo.select("#triangle"),
-    	TIME_ANIM = 500;
+  var logo = Snap.select("#logo"),
+    leroy = logo.select("#leroy"),
+    merlin = logo.select("#merlin"),
+    triangle = logo.select("#triangle"),
+    TIME_ANIM = 500;
 
   leroy.animate({
-  	// transform: "t0,1,r0"
      transform: "t0,0s1,1,0,0"
   }, TIME_ANIM);
 
   merlin.animate({
-  	// transform: "t0,1,r0"
-    // transform: "t0,-200,r180"
      transform: "t0,0S1,1,0,0"
   }, TIME_ANIM);
 
-  setTimeout(function(){
+  setTimeout(function() {
     angular.element(document.querySelector('#loading')).addClass('fadeNone');
   }, 2000);
 
 
-  setTimeout(function(){
+  setTimeout(function() {
     angular.element(document.querySelector('#loading')).addClass('hide');
   }, 2500);
 
-  setTimeout(function(){
+  setTimeout(function() {
     $state.transitionTo("home");
-    // window.location.href = "customer.html#/home";
   }, 200);
 
   triangle.animate({opacity:1,transform:"s1,1"}, 2000, mina.elastic);
@@ -191,25 +225,74 @@ angular.module('starter.controllers', [])
 
 .controller('BarCtrl', function($scope) {
   $scope.registred = false;
-  $scope.registerQueue = function () {
-    if(!$scope.user.waiting){
+  $scope.waitlistPosition = "";
+  $scope.waitTime = -1;
+  $scope.registerQueue = function() {
+    if (!$scope.user.waiting) {
       $scope.user.waiting = true;
       $scope.syncQueue.$add($scope.user).then(function(userRef){
-        window.userKey = userRef.key();
-        console.log("added to waitlist");
+        $scope.setUserKey(userRef.key());
+        $scope.waitlistPosition = transformPositionToString($scope.syncQueue.length - 1);
+        $scope.waitTime = ($scope.syncQueue.length - 1) * 3;
         $scope.registred = true;
+      });
+      $scope.syncQueue.$watch(function(e){
+        $scope.waitlistPosition = transformPositionToString($scope.syncQueue.length - 1);
+        $scope.waitTime = ($scope.syncQueue.length - 1) * 3;
       });
     }
   };
-  $scope.unregisterQueue = function () {
-    if($scope.user.waiting){
+  $scope.unregisterQueue = function() {
+    if ($scope.user.waiting) {
       $scope.user.waiting = false;
-      $scope.syncQueue.$remove($scope.syncQueue.$indexFor(window.userKey)).then(function(userRef){
+      $scope.syncQueue.$remove($scope.syncQueue.$indexFor($scope.getUserKey())).then(function(userRef){
         $scope.registred = false;
         console.log("remove from waitlist");
       });
     }
   };
+})
+
+.controller('CartCtrl', function($scope, $q, utils, Products) {
+  var cart = $scope.user.cart,
+    promise = $q.when();
+
+  $scope.products = [];
+  $scope.noProduct = null;
+
+  function callback() {
+    var deferred = $q.defer();
+
+    cart.forEach(function(productId, key) {
+      $q.all([
+        Products.get(productId),
+        Products.getReviews(productId)
+      ]).then(function(data) {
+        product = data[0].data;
+
+        product.reviewAvg = utils.getReviewAvg(data[1].data);
+        product.reviewAvgHtml = utils.getReviewHtml(product.reviewAvg);
+        product.reviews = data[1].data;
+
+        $scope.products.push(product);
+
+        // Si on a parcouru tout le tableau de produit, on peut valider la promesse
+        if (key === cart.length - 1) {
+          return deferred.resolve();
+        }
+      });
+    });
+
+    return deferred.promise;
+  }
+
+  if (cart.length === 0) {
+    $scope.noProduct = "Pas de produits!";
+  } else {
+    promise = callback();
+  }
+
+  loader($scope, promise);
 })
 
 .controller('ScanCtrl', function($scope, $location, $cordovaBarcodeScanner) {
@@ -223,45 +306,42 @@ angular.module('starter.controllers', [])
   });
 });
 
-function loader($scope, get, process) {
-  $scope.show();
+function loader($scope, callback) {
+  $scope.showLoader();
 
-  get.success(process)
-  .error($scope.error)
+  callback
+  .catch($scope.error)
   .finally(function() {
-    if(window.location.hash.indexOf('product') > -1) {
-      setTimeout(function(){
-        $scope.hideLoading();
-        setTimeout(function(){
-          $scope.hide();
+    if (window.location.hash.indexOf("product") > -1) {
+      setTimeout(function() {
+        $scope.hideLoader(false);
+        setTimeout(function() {
+          $scope.hideLoader(true);
           $scope.updateSlider();
         }, 300);
       }, 400);
     } else {
-      $scope.hide();
+      $scope.hideLoader(true);
     }
   });
 }
 
-function getReviewAvg(reviews) {
-  if (reviews.length === 0)
-    return "N/A";
-  var reviewSum = 0;
-  reviews.forEach(function(review) {
-    reviewSum += review.score;
-  });
-  return Math.round(reviewSum);
-}
-
-function getReviewHtml (reviewAvg) {
-  if (reviewAvg === "N/A")
-    return [];
-  var reviewHtml = [];
-  for (var i = 1; i <= 5; i++) {
-    if (i <= reviewAvg)
-      reviewHtml.push("ion-ios7-star");
-    else
-      reviewHtml.push("ion-ios7-star-outline");
+function transformPositionToString(position){
+  var lastNumber = (""+position).slice(-1);
+  var extension;
+  switch(lastNumber){
+    case "1":
+      extension = "st";
+      break;
+    case "2":
+      extension = "nd";
+      break;
+    case "3":
+      extension = "rd";
+      break;
+    default:
+      extension ="th";
+      break;
   }
-  return reviewHtml;
+  return position + extension;
 }

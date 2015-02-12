@@ -1,15 +1,15 @@
- <ion-nav-bar class="bar bar-header bar-light nav-title-slide-ios7">
-  <a ng-if="lastAnswer" href="#/recommendation/{{lastAnswer}}">
-    <ion-nav-back-button class="button-icon icon ion-ios7-arrow-back" id="backButton">
-    Back
-    </ion-nav-back-button>
-  </a>
+<ion-nav-bar class="bar bar-header bar-light nav-title-slide-ios7">
+  <button class="button-icon icon ion-ios7-arrow-back button back-button"
+     ng-show="showBackButton"
+     onclick="window.history.back()"> Back</button>
 </ion-nav-bar>
 <ion-view title="Produit" class="product">
   <ion-content style="padding: 10px 0 10px 0;">
     <div class="row no-padding-side">
       <div class="col left no-padding-side">
-        <span class="fakebutton ion-bag blue">
+        <span class="fakebutton blue"
+              ng-click="addToCart(product._id)"
+              ng-class="(getInTheCart(product._id) > -1) ? 'ion-ios7-cart' : 'ion-ios7-cart-outline'">
           {{product.price}}€
         </span>
       </div>
