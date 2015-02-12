@@ -11,7 +11,8 @@ var product = restful.model('product', mongoose.Schema({
 	dutyFreePrice: {type:'Number', required:true},
 	tags: {type:['ObjectId'], ref:'tag', required:true},
 	pictures: {type:[picture], required:false},
-	features: {type:[feature], required:false}
+	features: {type:[feature], required:false},
+  reviews: {type:[review], required:false}
 }));
 
 exports = module.exports = product;
