@@ -8,7 +8,7 @@ var feature = mongoose.model('feature').schema;
 var product = restful.model('product', mongoose.Schema({
 	barcode: {type:'Number', required:true},
 	name: {type:'string', required:true},
-	dutyFreePrice: {type:'Number', required:true},
+	price: {type:'Number', required:true},
 	tags: {type:['ObjectId'], ref:'tag', required:true},
 	pictures: {type:[picture], required:false},
 	features: {type:[feature], required:false},
