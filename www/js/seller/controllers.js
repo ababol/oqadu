@@ -9,15 +9,12 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
   $scope.syncQueue = [];
   $scope.customer = {};
   $scope.currentID = null;
-  $scope.loaded = true;
 
   $scope.showLoader = function() {
     $scope.errorTxt = false;
-    $scope.loaded = false;
     $ionicLoading.show();
   };
   $scope.hideLoader = function() {
-    $scope.loaded = true;
     $ionicLoading.hide();
   };
   $scope.error = function(err) {
