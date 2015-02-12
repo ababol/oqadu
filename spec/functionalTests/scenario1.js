@@ -111,7 +111,7 @@ casper.test.begin('Customer APP : Add a customer to the waiting list', function(
     this.echo("temps dépassé").exit();
     },
       5000);
-    
+
   },function timeout() {
     this.echo("temps dépassé").exit();
   },
