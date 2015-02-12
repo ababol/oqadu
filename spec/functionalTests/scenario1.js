@@ -1,5 +1,5 @@
 // var path = "http://oqadu.herokuapp.com";
-var path = "www";
+var path = "http://localhost:3000";
 var waitingNumberInital, waitingNumberEnd;
 var firstUrl;
 
@@ -91,6 +91,54 @@ casper.test.begin('Customer APP : Add a customer to the waiting list', function(
     this.waitForSelector('#leaveWaitingList', function(){
       test.assertExists('#leaveWaitingList', 'Cutomer joined the waiting list');
     });
+  });
+
+  casper.then(function() {
+    secureClick(this, '.add-product');
+    var cartLenght= this.evaluate(function(){
+      return document.querySelector('.cart').innerText.toString().replace(" ", "");
+    });
+    test.assert(cartLenght == "1", 'Rouleau added to cart (cart.lenght = 1)');
+    secureClick(this, '.cart');
+    test.assertUrlMatch(/#\/cart/, 'Customer can see his cart');
+  });
+
+  casper.waitForText("Rouleau", function(){
+    test.assertTextExists('Rouleau', 'Rouleau appear in cart');
+    this.waitForSelector('.productreco', function(){
+      secureClick(this, '.productreco');
+    }, function timeout() {
+    this.echo("temps dépassé").exit();
+    },
+      5000);
+    
+  },function timeout() {
+    this.echo("temps dépassé").exit();
+  },
+    5000);
+
+  casper.waitForSelector('.add-product', function(){
+    test.assertTextExists('Produit', 'Customer is back to the details of a Rouleau');
+    casper.wait(1000, function(){
+      secureClick(this, '.add-product');
+    });
+    }, function timeout() {
+    this.echo("temps dépassé").exit();
+    },
+      5000);
+
+  casper.waitForSelector('.cart',function(){
+    secureClick(this, '.cart');
+    test.assertUrlMatch(/#\/cart/, 'Customer can see his cart');
+  });
+
+  casper.wait(1000, function(){
+     test.assertTextDoesntExist('Rouleau', 'Rouleau was remove from cart');
+  });
+
+  casper.then(function(){
+    secureClick(this, '.home');
+    test.assertUrlMatch(/#\/home/, 'Redirecting to #/home by default');
   });
 
   casper.run(function(){
