@@ -3,6 +3,7 @@ var restful = require('node-restful'),
 
 var picture = mongoose.model('picture').schema;
 var feature = mongoose.model('feature').schema;
+var review = mongoose.model('review').schema;
 
 // MONGO SCHEMA
 var product = restful.model('product', mongoose.Schema({
