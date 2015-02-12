@@ -5,7 +5,7 @@ var restful = require('node-restful'),
 // MONGO SCHEMA
 var picture = restful.model('picture', mongoose.Schema({
 	label: {type:'string', required:true},
-	url: {type:'string', required:true}
+	path: {type:'string', required:true}
 }));
 
 

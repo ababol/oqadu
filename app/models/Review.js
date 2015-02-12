@@ -3,7 +3,7 @@ var restful = require('node-restful'),
 
 // MONGO SCHEMA
 var review = restful.model('review', mongoose.Schema({
-	reviewedProduct: {type:'ObjectId', ref:'product', required:true},
+  title: {type:'string', required:true},
 	reviewerName: {type:'string', required:true},
 	score: {type:'Number', required:true},
 	comment:{type:'string', required: false}
