@@ -1,5 +1,5 @@
 // var path = "http://oqadu.herokuapp.com";
-var path = "http://localhost:3000";
+var path = "www";
 var waitingNumberInital, waitingNumberEnd;
 var firstUrl;
 
@@ -111,7 +111,7 @@ casper.test.begin('Customer APP : Add a customer to the waiting list', function(
     this.echo("temps dépassé").exit();
     },
       5000);
-    
+
   },function timeout() {
     this.echo("temps dépassé").exit();
   },
