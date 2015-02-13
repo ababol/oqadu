@@ -17,24 +17,24 @@ class Question(MongoModel):
 
     def exportJson(self):
         json = "{"
-        json += "text:\"" +self.text+"\","
+        json += "\"text\": \"" +self.text+"\","
 
-        json += "answers:["
+        json += "\"answers\": ["
         length = len(self.__answers)
         for i in range(0, length):
             answer = self.__answers[i]
             json += answer.exportJson()
             if i != length - 1:
-                json+=","
+                json+=", "
         json += "],"
 
-        json += "tags:["
+        json += "\"tags\": ["
         length = len(self.__tags)
         for i in range(0, length):
             tag = self.__tags[i]
             json += tag.exportJson()
             if i != length - 1:
-                json+=","
+                json+=", "
         json += "]"
 
         json +="}"

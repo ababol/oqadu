@@ -27,8 +27,8 @@ class ProductListPageManager(PageManager):
         productCount = len(productLinks)
         for i in range(0, productCount, 2):
             productLink = productLinks[i]
-            productUrl = productLink["href"]
-            imgPath = productLink.contents[1]["src"]
+            productUrl = productLink["href"].strip()
+            imgPath = productLink.contents[1]["src"].strip()
 
             if productUrl in self.__products.keys():
                 self.__products[productUrl].addTags(deepcopy(self.__tags))

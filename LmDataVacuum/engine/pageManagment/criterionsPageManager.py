@@ -53,12 +53,11 @@ class CriterionsPageManager(PageManager):
     def exctractDatas(self):
         dom = self.getDocument()
 
-        allProductCount =  int(dom.select("#showcase > h2")[0].string.split(' ')[0])
         # CRITERIONS (SMART QUESTION BUILDER)
         criterionFieldSets = dom.select("#criterions > fieldset")
         for criterionFieldSet in criterionFieldSets:
             # Criterion
-            criterion = Criterion(criterionFieldSet.contents[1].contents[0].string)
+            criterion = Criterion(criterionFieldSet.contents[1].contents[0].string.strip())
             self.__criterions.append(criterion)
             criteriasLi = criterionFieldSet.contents[3].contents
             criteriasCount = len(criteriasLi)

@@ -37,44 +37,44 @@ class Product(MongoModel):
 
     def exportJson(self):
         json = "{"
-        json += "barcode:"+str(self.barcode)+","
-        json += "name:\""+self.name+"\","
-        json += "price:"+str(self.price)+","
+        json += "\"barcode\": "+str(self.barcode)+","
+        json += "\"name\": \""+self.name+"\","
+        json += "\"price\": "+str(self.price)+","
 
-        json += "tags:["
+        json += "\"tags\": ["
         length = len(self.__tags)
         for i in range(0, length):
             tag = self.__tags[i]
             json += tag.exportJson()
             if i != length - 1:
-                json+=","
+                json+=", "
         json += "],"
 
-        json += "pictures:["
+        json += "\"pictures\": ["
         length = len(self.__pictures)
         for i in range(0, length):
             picture = self.__pictures[i]
             json += picture.exportJson()
             if i != length - 1:
-                json+=","
+                json+=", "
         json += "],"
 
-        json += "features:["
+        json += "\"features\": ["
         length = len(self.__features)
         for i in range(0, length):
             feature = self.__features[i]
             json += feature.exportJson()
             if i != length - 1:
-                json+=","
+                json+=", "
         json += "],"
 
-        json += "reviews:["
+        json += "\"reviews\": ["
         length = len(self.__reviews)
         for i in range(0, length):
             review = self.__reviews[i]
             json += review.exportJson()
             if i != length - 1:
-                json+=","
+                json+=", "
         json += "]"
 
         json +="}"

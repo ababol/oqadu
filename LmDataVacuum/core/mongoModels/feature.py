@@ -9,7 +9,7 @@ class Feature(MongoModel):
 
     def exportJson(self):
         json = "{"
-        json += "label:\""+self.label+"\","
-        json += "value:\""+self.value+"\""
+        json += "\"label\": \""+self.label+"\","
+        json += "\"value\": \""+self.value+"\""
         json +="}"
         return json

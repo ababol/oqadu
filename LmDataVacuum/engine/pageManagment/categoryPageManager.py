@@ -27,8 +27,8 @@ class CategoryPageManager(PageManager):
         answersHtml = dom.select('section.univers-box > h2 > a')
 
         for answerHtml in answersHtml:
-            answerUrl = answerHtml["href"];
-            answer = Answer(answerHtml.string)
+            answerUrl = answerHtml["href"]
+            answer = Answer(answerHtml.string.strip())
             question.addAnswer(answer)
 
             # TAGS

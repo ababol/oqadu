@@ -37,8 +37,8 @@ class SubcategoryPageManager(PageManager):
         # ANSWERS
         answersHtml = dom.select('section.product-entry > ul > li > h3 > a')
         for answerHtml in answersHtml:
-            answerUrl = answerHtml["href"];
-            answerText = answerHtml.string
+            answerUrl = answerHtml["href"]
+            answerText = answerHtml.string.strip()
             if answerText.find("...") > 0:
                 answerText = answerHtml["title"]
             answer = Answer(answerText)
