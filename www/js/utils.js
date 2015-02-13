@@ -28,4 +28,17 @@ angular.module('Helper', [])
       return reviewHtml;
     }
   };
+})
+.directive('toggleMain', function() {
+  return {
+    restrict: 'C',
+    link: function(scope, element, attrs) {
+      element.bind('click', function() {
+        scope.checked = !scope.checked;
+        angular.element(element.parent()[0].querySelector('.toggleContent')).toggleClass('ng-hide');
+        element[0].querySelector('input').checked = scope.checked;
+        scope.refreshScroll();
+      });
+    }
+  };
 });

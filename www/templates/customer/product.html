@@ -4,7 +4,7 @@
      onclick="window.history.back()"> Back</button>
 </ion-nav-bar>
 <ion-view title="Produit" class="product">
-  <ion-content style="padding: 10px 0 10px 0;">
+  <ion-content style="padding-top: 5px;">
     <div class="row no-padding-side">
       <div class="col left no-padding-side">
         <span class="fakebutton blue add-product"
@@ -47,23 +47,23 @@
     </div>
 
     <div class="card" ng-if="product.name">
-      <div class="item item-divider">
-        <ion-toggle class="slideToggle" ng-checked="true">
+      <div class="item item-divider toggleMain" ng-init="checked=true">
+        <ion-toggle ng-checked="true">
           Description
         </ion-toggle>
       </div>
-      <div class="item item-text-wrap">
+      <div class="item item-text-wrap toggleContent">
         {{ product.name }}
       </div>
     </div>
 
     <div class="card" ng-if="product.faq">
-      <div class="item item-divider">
-        <ion-toggle class="slideToggle">
+      <div class="item item-divider toggleMain">
+        <ion-toggle>
           F.A.Q.
         </ion-toggle>
       </div>
-      <div class="item item-text-wrap noShow">
+      <div class="item item-text-wrap ng-hide toggleContent">
         <div class="item item-divider" ng-repeat-start="faq in product.faq">
           {{faq.question}}
         </div>
@@ -89,12 +89,12 @@
     </div>
 
     <div class="card" ng-if="product.reviews">
-      <div class="item item-divider">
-        <ion-toggle class="slideToggle">
-          <i ng-repeat="review in product.reviewAvgHtml track by $index" class='icon {{review}}'></i>
+      <div class="item item-divider toggleMain">
+        <ion-toggle>
+          <i ng-repeat="review in product.reviewAvgHtml track by $index" class="icon {{review}}"></i>
         </ion-toggle>
       </div>
-      <div class="item item-text-wrap noShow">
+      <div class="item item-text-wrap ng-hide toggleContent">
         <div ng-repeat-start="review in product.reviews track by $index" class="item item-divider">
           {{review.title}} ({{review.score}}/5) par {{review.nickname}}
         </div>
@@ -104,6 +104,6 @@
       </div>
     </div>
 
-    <div style="height: 47px"></div>
+    <div style="height: 55px"></div>
   </ion-content>
 </ion-view>
