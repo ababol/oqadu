@@ -3,7 +3,7 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
   template: "<img src='img/loader.gif' width='80'/>"
 })
 
-.controller('MainCtrl', function ($scope, $ionicLoading, $state, $firebase, Sellers) {
+.controller('MainCtrl', function ($scope, $ionicLoading, $ionicScrollDelegate, $state, $firebase, Sellers) {
   $scope.seller = {id:1, name: "John Doe", shelf: "Peinture"};
   $scope.state = $state;
   $scope.syncQueue = [];
@@ -19,6 +19,10 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
   };
   $scope.error = function(err) {
     $scope.errorTxt = "API ERROR " + err.status + " - " + err.data;
+  };
+
+  $scope.refreshScroll = function() {
+    $ionicScrollDelegate.resize();
   };
 
   $scope.initSeller = function(id){
@@ -84,16 +88,6 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
   }));
   $scope.updateSlider = function () {
     return $ionicSlideBoxDelegate.update();
-  };
-})
-.directive('slideToggle', function () {
-  return {
-    restrict: 'C',
-    link: function (scope, element, attr) {
-      element.bind('click', function () {
-        element.parent().next().toggleClass('noShow');
-      });
-    }
   };
 })
 

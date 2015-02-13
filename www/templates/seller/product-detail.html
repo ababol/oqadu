@@ -58,12 +58,12 @@
   </div>
 
   <div class="card" ng-if="product.faq">
-      <div class="item item-divider">
-        <ion-toggle class="slideToggle">
+      <div class="item item-divider toggleMain">
+        <ion-toggle>
           F.A.Q.
         </ion-toggle>
       </div>
-      <div class="item item-text-wrap noShow">
+      <div class="item item-text-wrap ng-hide toggleContent">
         <div class="item item-divider" ng-repeat-start="faq in product.faq">
           {{faq.question}}
         </div>
@@ -89,12 +89,12 @@
     </div>
 
     <div class="card" ng-if="product.reviews">
-      <div class="item item-divider">
-        <ion-toggle class="slideToggle">
-          <i ng-repeat="review in product.reviewAvgHtml track by $index" class='icon {{review}}'></i>
+      <div class="item item-divider toggleMain">
+        <ion-toggle>
+          <i ng-repeat="review in product.reviewAvgHtml track by $index" class="icon {{review}}"></i>
         </ion-toggle>
       </div>
-      <div class="item item-text-wrap noShow">
+      <div class="item item-text-wrap ng-hide toggleContent">
         <div ng-repeat-start="review in product.reviews track by $index" class="item item-divider">
           {{review.title}} ({{review.score}}/5) par {{review.nickname}}
         </div>
@@ -103,9 +103,6 @@
         </div>
       </div>
     </div>
-
-    <div style="height: 47px"></div>
-
 
   </ion-content>
 </ion-view>

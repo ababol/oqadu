@@ -5,7 +5,6 @@ var modelsIndex = {
   product : require('../models/Product'),
   question : require('../models/Question'),
   review : require('../models/Review'),
-  tag : require('../models/Tag'),
   user : require('../models/User')
 };
 
