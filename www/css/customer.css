@@ -7905,6 +7905,15 @@ $ios-transition-box-shadow-end: -200px 0px 200px rgba(0,0,0,0.15), -5px 0px 5px 
   padding-right: 0px !important;
   padding-top: 0px !important; }
 
+.item-divider .item-toggle {
+  background-color: transparent !important;
+  border-width: 0px !important; }
+
+.tab-item .badge {
+  position: relative !important;
+  top: -1px !important;
+  right: 0 !important; }
+
 .loading-container .loading, .backdrop {
   background: transparent !important; }
 
@@ -7970,13 +7979,6 @@ span.tab-item {
   border-width: 0px; }
   .item.product img {
     max-width: 100%; }
-
-.noShow {
-  display: none; }
-
-.slideToggle {
-  background: transparent !important;
-  border-width: 0px !important; }
 
 .product .card {
   margin: 5px 5px !important; }

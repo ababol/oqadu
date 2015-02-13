@@ -2,7 +2,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
 .constant('$ionicLoadingConfig', {
   template: "<img src='img/loader.gif' width='80'/>"
 })
-.controller('MainCtrl', function($scope, $rootScope, $ionicLoading, $firebase) {
+.controller('MainCtrl', function($scope, $rootScope, $ionicLoading, $ionicScrollDelegate, $firebase) {
   $scope.showLoader = function() {
     $scope.errorTxt = false;
     $scope.loaded = false;
@@ -17,6 +17,9 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
   };
   $scope.hideFooter = function() {
     $scope.hideFoot = true;
+  };
+  $scope.refreshScroll = function() {
+    $ionicScrollDelegate.resize();
   };
   $scope.error = function(err) {
     $scope.hideFoot = true;
@@ -171,17 +174,6 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
 
   $scope.updateSlider = function() {
     return $ionicSlideBoxDelegate.update();
-  };
-})
-
-.directive('slideToggle', function () {
-  return {
-    restrict: 'C',
-    link: function (scope, element, attr) {
-      element.bind('click', function () {
-        element.parent().next().toggleClass('noShow');
-      });
-    }
   };
 })
 

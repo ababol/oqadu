@@ -91,3 +91,14 @@ text-align: left;
   padding-right: 0px !important;
   padding-top: 0px !important;
 }
+
+.item-divider .item-toggle {
+  background-color: transparent !important;
+  border-width: 0px !important;
+}
+
+.tab-item .badge {
+  position: relative !important;
+  top: -1px !important;
+  right: 0 !important;
+}
