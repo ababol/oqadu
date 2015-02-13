@@ -23,4 +23,4 @@ while len(pages) > 0 :
         pages.append(subPage)
 
 datasJson = mongoCollection.exportJson().encode("utf-8")
-FileFactory.write('../datas.json', datasJson)
+FileFactory.write('./exctractedDatas.json', datasJson)
