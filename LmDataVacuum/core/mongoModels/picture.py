@@ -9,7 +9,7 @@ class Picture(MongoModel):
 
     def exportJson(self):
         json = "{"
-        json += "label:" +self.label+","
-        json += "path:" + self.path
+        json += "label:\"" +self.label+"\","
+        json += "path:\"" + self.path+"\""
         json +="}"
         return json

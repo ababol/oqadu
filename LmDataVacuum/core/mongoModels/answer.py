@@ -15,7 +15,7 @@ class Answer(MongoModel):
 
     def exportJson(self):
         json = "{"
-        json += "text:" +self.text+","
+        json += "text:\""+self.text+"\","
         json += "tags:["
         tagCount = len(self.__tags)
         for i in range(0, tagCount):

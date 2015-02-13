@@ -17,7 +17,7 @@ class Question(MongoModel):
 
     def exportJson(self):
         json = "{"
-        json += "text:" +self.text+","
+        json += "text:\"" +self.text+"\","
 
         json += "answers:["
         length = len(self.__answers)

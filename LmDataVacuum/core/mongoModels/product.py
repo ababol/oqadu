@@ -38,7 +38,7 @@ class Product(MongoModel):
     def exportJson(self):
         json = "{"
         json += "barcode:"+str(self.barcode)+","
-        json += "name:"+self.name+","
+        json += "name:\""+self.name+"\","
         json += "price:"+str(self.price)+","
 
         json += "tags:["

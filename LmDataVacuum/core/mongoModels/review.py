@@ -11,9 +11,9 @@ class Review(MongoModel):
 
     def exportJson(self):
         json = "{"
-        json += "title:" +self.title+","
-        json += "reviewerName:" +self.reviewerName+","
+        json += "title:\"" +self.title+"\","
+        json += "reviewerName:\"" +self.reviewerName+"\","
         json += "score:" +self.score+","
-        json += "comment:" + self.comment
+        json += "comment:\"" + self.comment+"\""
         json +="}"
         return json

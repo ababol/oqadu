@@ -5,4 +5,4 @@ class Tag(MongoModel):
         self.label = label
 
     def exportJson(self):
-        return self.label
+        return "\""+self.label+"\""
