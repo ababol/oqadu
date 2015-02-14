@@ -7,7 +7,7 @@ var answer = mongoose.model('answer').schema;
 var question = restful.model('question', mongoose.Schema({
 	text: {type:'string', required:true},
 	answers: {type:[answer], required: true},
-	tags: {type:['string'], required:true}
+	tags: {type:['string'], required:false}
 }));
 
 exports = module.exports = question;

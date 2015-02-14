@@ -5,7 +5,7 @@ var restful = require('node-restful'),
 // MONGO SCHEMA
 var answer = restful.model('answer', mongoose.Schema({
 	text: {type:'string', required:true},
-	tags : {type:['string'], required:true}
+	tags : {type:['string'], required:false}
 }));
 
 
