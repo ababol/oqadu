@@ -1,9 +1,8 @@
-var app = require('../app'),
-	product = require('../models/Product'),
+var product = require('../models/Product'),
 	authenticator = require('../authenticator');
 
 var productRoute = {
-	define: function(){
+	define: function(app, prefixAPI) {
 		product.methods(['get', 'post', 'put', 'delete']);
 
 		product.before('post', authenticator.authenticate);
@@ -45,8 +44,8 @@ var productRoute = {
 			}
 		});
 
-		product.register(app, '/products');
+		product.register(app, prefixAPI + '/Products');
 	}
-}
+};
 
 module.exports = productRoute;

@@ -1,9 +1,8 @@
-var app = require('../app'),
-	question = require('../models/Question'),
+var question = require('../models/Question'),
 	authenticator = require('../authenticator');
 
 var questionRoute = {
-	define: function(){
+	define: function(app, prefixAPI) {
 		question.methods(['get', 'post', 'put', 'delete']);
 
 		question.before('post', authenticator.authenticate);
@@ -28,8 +27,8 @@ var questionRoute = {
 			}
 		});
 
-		question.register(app, '/questions');
+		question.register(app, prefixAPI + '/Questions');
 	}
-}
+};
 
 module.exports = questionRoute;

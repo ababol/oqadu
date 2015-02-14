@@ -1,17 +1,16 @@
-var app = require('../app'),
-	review = require('../models/Review'),
+var review = require('../models/Review'),
 	authenticator = require('../authenticator');
 
 var reviewRoute = {
-	define: function(){
+	define: function(app, prefixAPI) {
 		review.methods(['get', 'post', 'put', 'delete']);
 
 		review.before('post', authenticator.authenticate);
 		review.before('put', authenticator.authenticate);
 		review.before('delete', authenticator.authenticate);
 
-		review.register(app, '/reviews');
+		review.register(app, prefixAPI + '/Reviews');
 	}
-}
+};
 
 module.exports = reviewRoute;

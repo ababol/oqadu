@@ -1,4 +1,3 @@
-var app = require('../app');
 var ReadWriteLock = require('rwlock');
 
 var autoIncIdGen = {
@@ -6,15 +5,15 @@ var autoIncIdGen = {
 	generateUniqueId : function(){
 		return ++autoIncIdGen.lastGivenValue;
 	}
-}
+};
 
 var idGeneratorRoute = {
-	define : function(){
-		
+	define : function(app) {
+
 		var lock = new ReadWriteLock();
 
 		app.get('/uniqueId', function(request, response){
-			
+
 			var id;
   			// LOCKED
   			lock.writeLock(function(){
@@ -26,7 +25,7 @@ var idGeneratorRoute = {
   			response.send(id);
 		});
 	}
-}
+};
 
 
 module.exports = idGeneratorRoute;
