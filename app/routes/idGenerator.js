@@ -1,30 +1,30 @@
 var ReadWriteLock = require('rwlock');
 
 var autoIncIdGen = {
-	lastGivenValue : 0,
-	generateUniqueId : function(){
-		return ++autoIncIdGen.lastGivenValue;
-	}
+  lastGivenValue: 0,
+  generateUniqueId: function() {
+    return ++autoIncIdGen.lastGivenValue;
+  }
 };
 
 var idGeneratorRoute = {
-	define : function(app) {
+  define: function(app) {
 
-		var lock = new ReadWriteLock();
+    var lock = new ReadWriteLock();
 
-		app.get('/uniqueId', function(request, response){
+    app.get('/uniqueId', function(request, response) {
 
-			var id;
-  			// LOCKED
-  			lock.writeLock(function(){
-  				id = autoIncIdGen.generateUniqueId();
-  				release();
-  			});
-  			// REALEASED
-  			response.status(200);
-  			response.send(id);
-		});
-	}
+      var id;
+      // LOCKED
+      lock.writeLock(function() {
+        id = autoIncIdGen.generateUniqueId();
+        release();
+      });
+      // REALEASED
+      response.status(200);
+      response.send(id);
+    });
+  }
 };
 
 

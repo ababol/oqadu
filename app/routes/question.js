@@ -1,34 +1,37 @@
-var question = require('../models/Question'),
-	authenticator = require('../authenticator');
+var Question = require('../models/Question'),
+  authenticator = require('../authenticator');
 
 var questionRoute = {
-	define: function(app, prefixAPI) {
-		question.methods(['get', 'post', 'put', 'delete']);
+  define: function(app, prefixAPI) {
+    Question.methods(['get', 'post', 'put', 'delete']);
 
-		question.before('post', authenticator.authenticate);
-		question.before('put', authenticator.authenticate);
-		question.before('delete', authenticator.authenticate);
+    Question.before('post', authenticator.authenticate);
+    Question.before('put', authenticator.authenticate);
+    Question.before('delete', authenticator.authenticate);
 
-		// custom route
-		question.route('next',['get'] ,function(request, response, next){
-			var selectedQuestion;
-			var input = request.body.tags;
+    // custom route
+    Question.route('next', ['get'], function(request, response) {
+      var input = request.body.tags,
+        selectedQuestion;
 
-			selectedquestion = question.findOne({
-				tags: {$all : input}
-			}, function(){});
+      var query  = Question.where({ tags: input });
+      query.findOne(function (err, question) {
+        if (err) {
+          response.status(400);
+          return response.send("Error while getting next question.");
+        }
+        if (question === null) {
+          response.status(416);
+          return response.send("Not any remaining questions.");
+        } else {
+          response.status(200);
+          return response.send(question);
+        }
+      });
+    });
 
-			if(selectedQuestion == null){
-				response.status(416);
-				response.send('Not any remaining questions.');
-			}else{
-				response.status(200);
-				response.send(selectedQuestion);
-			}
-		});
-
-		question.register(app, prefixAPI + '/Questions');
-	}
+  Question.register(app, prefixAPI + '/Questions');
+}
 };
 
 module.exports = questionRoute;
