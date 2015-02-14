@@ -19,7 +19,7 @@ class CategoryPageManager(PageManager):
     def exctractDatas(self):
 
         # QUESTION
-        question = Question('Quel rayon vous interesse?', [])
+        question = Question('Quel rayon vous intéresse?', [])
         self._datas.addQuestion(question)
 
         # ANSWERS
