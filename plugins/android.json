@@ -517,7 +517,7 @@
                             "count": 1
                         },
                         {
-                            "xml": "<string name=\"result_text\">Found plain text</string>",
+                            "xml": "<string name=\"result_text\">Code barre scanné</string>",
                             "count": 1
                         },
                         {

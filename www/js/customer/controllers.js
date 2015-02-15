@@ -271,22 +271,19 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
 .controller('ScanCtrl', function($scope, $q, $location, $cordovaBarcodeScanner, $ionicPopup, Products) {
   $cordovaBarcodeScanner.scan()
     .then(function(imageData) {
-      var deferred = $q.defer();
-
-      Products.getProductId(imageData.text).then(function(id) {
-        return deferred.resolve(JSON.parse(id.data));
-      });
-
-      return deferred.promise;
-    })
-    .then(function(id) {
-      $location.path("product/54de3751b7e9b0141917f30d").replace();
-    })
-    .catch(function(err) {
-      $ionicPopup.alert({
-        title: 'Erreur ' + err.status,
-        template: err.data
-      });
+      Products.getProductId(imageData.text)
+        .then(function(id) {
+          $location.path("product/" + JSON.parse(id.data));
+        })
+        .catch(function(err) {
+          $ionicPopup.alert({
+            title: "Erreur " + err.status,
+            template: err.data
+          })
+          .then(function() {
+            $location.path("home");
+          });
+        });
     });
 });
 
