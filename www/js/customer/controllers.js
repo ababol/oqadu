@@ -65,26 +65,27 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
 
 .controller('QuestionCtrl', function($scope, $q, $location, $stateParams, Questions) {
   $scope.question = [];
-
-  if ($stateParams.tags) {
-    $scope.user.tags = $stateParams.tags;
+  if ($stateParams.tags === undefined) {
+    $stateParams.tags = "";
   }
 
+  $scope.user.tags = $stateParams.tags;
+
   loader($scope, $q.when(
-    Questions.get($scope.user.tags)
+    Questions.get($stateParams.tags)
   ).then(function(question) {
     var data = question.data;
     if (data === "Not any remaining questions.") {
-      return $location.path("recommendation/" + $scope.user.tags);
+      return $location.path("recommendation/" + $stateParams.tags);
     } else {
       $scope.question = question.data;
     }
   }));
 
   $scope.selectAnswer = function(data) {
-    if ($scope.user.tags !== "") {
+    if (data.tags.length === 1) {
       $scope.acceptRegistering();
-      $scope.connectToFirebaseQueue(data.text);
+      $scope.connectToFirebaseQueue(data.tags[0]);
     }
     $scope.user.qa[$scope.question._id] = {
       question: $scope.question,
