@@ -4,7 +4,7 @@ var url = "https://oqadu.herokuapp.com",
 // tests of the APIv2
 var expectedQuestion = {
   "_id": "54de3713b7e9b0141917eaed",
-  "text": "Quel rayon vous interesse?",
+  "text": "Quel rayon vous intéresse?",
   "__v": 0,
   "tags": [],
   "answers": [{
@@ -74,9 +74,9 @@ frisby.create('Check All Questions /Questions')
   .expectJSON('?', expectedQuestion)
 .toss();
 
-// frisby.create('Check Product ID /Questions/:productId')
-//   .get(url + '/api/v2/Questions/54de3738b7e9b0141917ec44')
-//   .expectHeaderContains('Content-Type', 'json')
-//   .expectStatus(200)
-//   .expectJSON(expectedQuestion)
-// .toss();
+frisby.create('Check First Question /Questions/:productId')
+  .get(url + '/api/v2/Questions/Tags/?tags=')
+  .expectHeaderContains('Content-Type', 'json')
+  .expectStatus(200)
+  .expectJSON(expectedQuestion)
+.toss();

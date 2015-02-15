@@ -39,7 +39,8 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
     qa: {},
     products: [],
     cart: [],
-    waiting: false
+    waiting: false,
+    tags: ""
   };
 
   $scope.acceptRegistering = function(){
@@ -62,16 +63,22 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
   $scope.syncQueue = sync.$asArray();
 })
 
-.controller('QuestionCtrl', function($scope, $q, $stateParams, Questions, Answers) {
+.controller('QuestionCtrl', function($scope, $q, $stateParams, Questions) {
   $scope.question = [];
   $scope.answers = [];
 
-  loader($scope, $q.all([
-    Questions.get($stateParams.questionId),
-    Answers.get($stateParams.questionId)
-  ]).then(function(data) {
-    $scope.question = data[0].data;
-    $scope.answers = data[1].data;
+  if ($stateParams.tags) {
+    if ($scope.user.tags) {
+      $scope.user.tags += "," + $stateParams.tags;
+    } else {
+      $scope.user.tags = $stateParams.tags;
+    }
+  }
+
+  loader($scope, $q.when(
+    Questions.get($scope.user.tags)
+  ).then(function(question) {
+    $scope.question = question.data;
   }));
 
   $scope.selectAnswer = function(data) {

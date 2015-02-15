@@ -10,28 +10,33 @@ var questionRoute = {
     Question.before('delete', authenticator.authenticate);
 
     // custom route
-    Question.route('next', ['get'], function(request, response) {
-      var input = request.body.tags,
-        selectedQuestion;
+    Question.route('Tags.get', function(req, res) {
+      var tags = req.query.tags.split(","),
+        selectedQuestion, query;
 
-      var query  = Question.where({ tags: input });
+      if (tags.length === 0 || tags[0] === "") {
+        query = Question.where({tags: {$size: 0}});
+      } else {
+        query  = Question.where("tags").all(tags);
+      }
       query.findOne(function (err, question) {
         if (err) {
-          response.status(400);
-          return response.send("Error while getting next question.");
+          res.status(400);
+          return res.send("Error while getting next question.");
         }
         if (question === null) {
-          response.status(416);
-          return response.send("Not any remaining questions.");
+          res.status(416);
+          return res.send("Not any remaining questions.");
         } else {
-          response.status(200);
-          return response.send(question);
+          res.status(200);
+          console.log(question)
+          return res.send(question);
         }
       });
     });
 
-  Question.register(app, prefixAPI + '/Questions');
-}
+    Question.register(app, prefixAPI + '/Questions');
+  }
 };
 
 module.exports = questionRoute;

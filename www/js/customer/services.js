@@ -1,4 +1,4 @@
-var url = "http://babol.me:3000";
+var url = "http://localhost:3000";
 // var url = "http://192.168.43.118:3000";
 
 
@@ -7,24 +7,18 @@ angular.module('starter.services', [])
   return {
     all: function() {
       return $http({
-        url: url+'/api/v1/Questions',
+        url: url+'/api/v2/Questions',
         method: 'GET'
       });
     },
-    get: function(questionId) {
-      return $http({
-        url: url+'/api/v1/Questions/'+questionId,
-        method: 'GET'
-      });
-    }
-  };
-})
+    get: function(tags) {
+      console.log(tags)
+      if (tags === undefined) {
+        tags = "";
+      }
 
-.factory('Answers', function($http) {
-  return {
-    get: function(questionId) {
       return $http({
-        url: url+'/api/v1/Answers/?questionId='+questionId,
+        url: url+'/api/v2/Questions/Tags/?tags='+tags,
         method: 'GET'
       });
     }
@@ -35,7 +29,7 @@ angular.module('starter.services', [])
   return {
     get: function(recoId) {
       return $http({
-        url: url+'/api/v1/Recommendations/'+recoId,
+        url: url+'/api/v2/Recommendations/'+recoId,
         method: 'GET'
       });
     }
@@ -46,19 +40,19 @@ angular.module('starter.services', [])
   return {
     get: function(productId) {
       return $http({
-        url: url+'/api/v1/Products/'+productId,
+        url: url+'/api/v2/Products/'+productId,
         method: 'GET'
       });
     },
     getReviews: function(productId) {
       return $http({
-        url: url+'/api/v1/Reviews/?productId='+productId,
+        url: url+'/api/v2/Reviews/?productId='+productId,
         method: 'GET'
       });
     },
     getFaq: function(productId) {
       return $http({
-        url: url+'/api/v1/Faqs/?productId='+productId,
+        url: url+'/api/v2/Faqs/?productId='+productId,
         method: 'GET'
       });
     }

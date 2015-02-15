@@ -1,21 +1,21 @@
-var product = require('../models/Product'),
+var Product = require('../models/Product'),
   authenticator = require('../authenticator');
 
 var productRoute = {
   define: function(app, prefixAPI) {
-    product.methods(['get', 'post', 'put', 'delete']);
+    Product.methods(['get', 'post', 'put', 'delete']);
 
-    product.before('post', authenticator.authenticate);
-    product.before('put', authenticator.authenticate);
-    product.before('delete', authenticator.authenticate);
+    Product.before('post', authenticator.authenticate);
+    Product.before('put', authenticator.authenticate);
+    Product.before('delete', authenticator.authenticate);
 
     // custom route
-    product.route('recommendations', ['get'], function(request, response) {
-      var input = request.body.tags,
+    Product.route('recommendations', ['get'], function(request, response) {
+      var tags = request.body.tags,
         recommendations;
 
-      recommendations = product.find({
-        tags: { $in: input }
+      recommendations = Product.find({
+        tags: { $in: tags }
       });
 
       if (recommendations == null) {
@@ -27,12 +27,12 @@ var productRoute = {
       }
     });
 
-    product.route('product-barcode', ['get'], function(request, response) {
-      var input = request.body.barcode,
+    Product.route('product-barcode', ['get'], function(request, response) {
+      var barcode = request.body.barcode,
         correspondingProduct;
 
-      correspondingProduct = product.find({
-        barcode: input
+      correspondingProduct = Product.find({
+        barcode: barcode
       });
 
       if (correspondingProduct == null) {
@@ -44,7 +44,7 @@ var productRoute = {
       }
     });
 
-    product.register(app, prefixAPI + '/Products');
+    Product.register(app, prefixAPI + '/Products');
   }
 };
 
