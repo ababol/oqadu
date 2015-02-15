@@ -67,11 +67,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
   $scope.question = [];
 
   if ($stateParams.tags) {
-    if ($scope.user.tags) {
-      $scope.user.tags += "," + $stateParams.tags;
-    } else {
-      $scope.user.tags = $stateParams.tags;
-    }
+    $scope.user.tags = $stateParams.tags;
   }
 
   loader($scope, $q.when(
