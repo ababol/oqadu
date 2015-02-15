@@ -19,29 +19,16 @@
         </span>
       </div>
     </div>
+
     <div class="row" style="padding: 5px 0 5px 0;top:-10px;position:relative;z-index:-1;">
       <div class="col col-100">
         <div class="item item-image product">
           <ion-slide-box on-slide-changed="slideHasChanged($index)"  show-pager="true">
             <!-- ng init update slider to fix a display bug !-->
-            <ion-slide ng-repeat="img in product.img track by $index" ng-init="updateSlider()">
-              <img src="{{img}}" style="max-height: {{height}}px">
+            <ion-slide ng-repeat="img in product.pictures track by $index" ng-init="updateSlider()">
+              <img src="{{img.path}}" alt="{{img.label}}">
             </ion-slide>
           </ion-slide-box>
-        </div>
-      </div>
-    </div>
-    <div class="row" style="padding: 5px 0 5px 0;">
-      <div class="col col-100">
-        <div id="leftCol">
-          <div class="list">
-            <div class="item item-divider" ng-repeat-start="label in product.info_label">
-              {{label}}
-            </div>
-            <div class="item" ng-repeat-end>
-              {{product.info_text[$index]}}
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -54,6 +41,21 @@
       </div>
       <div class="item item-text-wrap toggleContent">
         {{ product.name }}
+      </div>
+    </div>
+
+    <div class="row" style="padding: 5px 0 5px 0;">
+      <div class="col col-100">
+        <div id="leftCol">
+          <div class="list">
+            <div class="item item-divider" ng-repeat-start="feature in product.features">
+              {{feature.label}}
+            </div>
+            <div class="item" ng-repeat-end>
+              {{feature.value}}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
