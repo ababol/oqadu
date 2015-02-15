@@ -12,7 +12,6 @@ angular.module('starter.services', [])
       });
     },
     get: function(tags) {
-      console.log(tags)
       if (tags === undefined) {
         tags = "";
       }

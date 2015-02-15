@@ -65,7 +65,6 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
 
 .controller('QuestionCtrl', function($scope, $q, $location, $stateParams, Questions) {
   $scope.question = [];
-  $scope.answers = [];
 
   if ($stateParams.tags) {
     if ($scope.user.tags) {
@@ -80,17 +79,16 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
   ).then(function(question) {
     var data = question.data;
     if (data === "Not any remaining questions.") {
-      console.log("#/recommendation/" + $scope.user.tags);
-      return $location.path("#/recommendation/" + $scope.user.tags);
+      return $location.path("recommendation/" + $scope.user.tags);
     } else {
       $scope.question = question.data;
     }
   }));
 
   $scope.selectAnswer = function(data) {
-    if ($scope.question._id == "545f70d9946ea453ece17e7e") {
+    if ($scope.user.tags !== "") {
       $scope.acceptRegistering();
-      $scope.connectToFirebaseQueue(data.text)
+      $scope.connectToFirebaseQueue(data.text);
     }
     $scope.user.qa[$scope.question._id] = {
       question: $scope.question,
@@ -162,6 +160,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
 })
 
 .controller('HomeCtrl', function($scope, $ionicViewService) {
+  $scope.user.tags = "";
   $scope.hideFooter();
   $scope.hideLoader(true);
   $ionicViewService.clearHistory();
@@ -240,17 +239,15 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
     var deferred = $q.defer();
 
     cart.forEach(function(productId, key) {
-      $q.all([
-        Products.get(productId),
-        Products.getReviews(productId)
-      ]).then(function(data) {
-        product = data[0].data;
+      $q.when(
+        Products.get(productId)
+      ).then(function(product) {
 
-        product.reviewAvg = utils.getReviewAvg(data[1].data);
-        product.reviewAvgHtml = utils.getReviewHtml(product.reviewAvg);
-        product.reviews = data[1].data;
+        // product.reviewAvg = utils.getReviewAvg(data[1].data);
+        // product.reviewAvgHtml = utils.getReviewHtml(product.reviewAvg);
+        // product.reviews = data[1].data;
 
-        $scope.products.push(product);
+        $scope.products.push(product.data);
 
         // Si on a parcouru tout le tableau de produit, on peut valider la promesse
         if (key === cart.length - 1) {
@@ -283,7 +280,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
       return deferred.promise;
     })
     .then(function(id) {
-      $location.path("#/product/" + id);
+      $location.path("product/54de3751b7e9b0141917f30d").replace();
     })
     .catch(function(err) {
       $ionicPopup.alert({
