@@ -1,4 +1,4 @@
-var url = "http://localhost:3000";
+var url = "https://oqadu.herokuapp.com";
 // var url = "http://192.168.43.118:3000";
 
 
@@ -18,7 +18,7 @@ angular.module('starter.services', [])
       }
 
       return $http({
-        url: url+'/api/v2/Questions/Tags/?tags='+tags,
+        url: url+'/api/v2/Questions/Tags/?tags=' + tags,
         method: 'GET'
       });
     }
@@ -27,9 +27,9 @@ angular.module('starter.services', [])
 
 .factory('Recommendations', function($http) {
   return {
-    get: function(recoId) {
+    get: function(tags) {
       return $http({
-        url: url+'/api/v2/Recommendations/'+recoId,
+        url: url+'/api/v2/Products/Recommendations/?tags=' + tags,
         method: 'GET'
       });
     }
@@ -40,19 +40,13 @@ angular.module('starter.services', [])
   return {
     get: function(productId) {
       return $http({
-        url: url+'/api/v2/Products/'+productId,
+        url: url+'/api/v2/Products/' + productId,
         method: 'GET'
       });
     },
-    getReviews: function(productId) {
+    getProductId: function(barcode) {
       return $http({
-        url: url+'/api/v2/Reviews/?productId='+productId,
-        method: 'GET'
-      });
-    },
-    getFaq: function(productId) {
-      return $http({
-        url: url+'/api/v2/Faqs/?productId='+productId,
+        url: url+'/api/v2/Products/Barcode/?barcode=' + barcode,
         method: 'GET'
       });
     }

@@ -63,7 +63,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
   $scope.syncQueue = sync.$asArray();
 })
 
-.controller('QuestionCtrl', function($scope, $q, $stateParams, Questions) {
+.controller('QuestionCtrl', function($scope, $q, $location, $stateParams, Questions) {
   $scope.question = [];
   $scope.answers = [];
 
@@ -78,7 +78,13 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
   loader($scope, $q.when(
     Questions.get($scope.user.tags)
   ).then(function(question) {
-    $scope.question = question.data;
+    var data = question.data;
+    if (data === "Not any remaining questions.") {
+      console.log("#/recommendation/" + $scope.user.tags);
+      return $location.path("#/recommendation/" + $scope.user.tags);
+    } else {
+      $scope.question = question.data;
+    }
   }));
 
   $scope.selectAnswer = function(data) {
@@ -108,61 +114,32 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
   $scope.products = [];
 
   loader($scope, $q.when(
-    Recommendations.get($stateParams.recoId)
-  ).then(function(reco) {
-    var deferred = $q.defer();
+    Recommendations.get($stateParams.tags)
+  ).then(function(recos) {
+    $scope.products = recos.data;
 
-    [].concat(reco.data.products).forEach(function(productId, key) {
-      $q.all([
-        Products.get(productId),
-        Products.getReviews(productId)
-      ]).then(function(data) {
-        product = data[0].data;
-
-        product.reviewAvg = utils.getReviewAvg(data[1].data);
-        product.reviewAvgHtml = utils.getReviewHtml(product.reviewAvg);
-        product.reviews = data[1].data;
-
-        $scope.products.push(product);
-        $scope.user.products[product._id] = product;
-
-        if ($scope.user.waiting) {
-          var index = $scope.syncQueue.$indexFor($scope.getUserKey());
-          if (!$scope.syncQueue[index].products) {
-            $scope.syncQueue[index].products = {};
-          }
-          $scope.syncQueue[index].products[product._id] = product;
-          $scope.syncQueue.$save(index).then(function() {console.log("updated");});
-        }
-
-        // Si on a parcouru tout le tableau de produit, on peut valider la promesse
-        if (key === reco.data.products.length - 1) {
-          return deferred.resolve();
-        }
-      });
-    });
-
-    return deferred.promise;
+    // product.reviewAvg = utils.getReviewAvg(data[1].data);
+    // product.reviewAvgHtml = utils.getReviewHtml(product.reviewAvg);
+    // product.reviews = data[1].data;
+    // if ($scope.user.waiting) {
+    //   var index = $scope.syncQueue.$indexFor($scope.getUserKey());
+    //   if (!$scope.syncQueue[index].products) {
+    //     $scope.syncQueue[index].products = {};
+    //   }
+    //   $scope.syncQueue[index].products[product._id] = product;
+    //   $scope.syncQueue.$save(index).then(function() {console.log("updated");});
+    // }
   }));
 })
 
 .controller('ProductCtrl', function($scope, $rootScope, $q, $stateParams, utils, $ionicNavBarDelegate, $ionicSlideBoxDelegate, Products) {
   $scope.showBackButton = $rootScope.showBackButton;
-  $scope.product = [];
+  $scope.product = {};
 
-  loader($scope, $q.all([
-    Products.get($stateParams.productId),
-    Products.getReviews($stateParams.productId),
-    Products.getFaq($stateParams.productId)
-  ]).then(function(data) {
-    product = data[0].data;
-
-    product.reviewAvg = utils.getReviewAvg(data[1].data);
-    product.reviewAvgHtml = utils.getReviewHtml(product.reviewAvg);
-    product.reviews = data[1].data;
-    product.faq = data[2].data;
-
-    $scope.product = product;
+  loader($scope, $q.when(
+    Products.get($stateParams.productId)
+  ).then(function(product) {
+    $scope.product = product.data;
   }));
 
   $scope.addToCart = function(id) {
@@ -294,15 +271,26 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
   loader($scope, promise);
 })
 
-.controller('ScanCtrl', function($scope, $location, $cordovaBarcodeScanner) {
-  $cordovaBarcodeScanner.scan().then(function(imageData) {
-    alert(imageData.text);
-    console.log("Barcode Format -> " + imageData.format);
-    console.log("Cancelled -> " + imageData.cancelled);
-    $location.path("#/product/" + imageData.text);
-  }, function(error) {
-    console.log("An error happened -> " + error);
-  });
+.controller('ScanCtrl', function($scope, $q, $location, $cordovaBarcodeScanner, $ionicPopup, Products) {
+  $cordovaBarcodeScanner.scan()
+    .then(function(imageData) {
+      var deferred = $q.defer();
+
+      Products.getProductId(imageData.text).then(function(id) {
+        return deferred.resolve(JSON.parse(id.data));
+      });
+
+      return deferred.promise;
+    })
+    .then(function(id) {
+      $location.path("#/product/" + id);
+    })
+    .catch(function(err) {
+      $ionicPopup.alert({
+        title: 'Erreur ' + err.status,
+        template: err.data
+      });
+    });
 });
 
 function loader($scope, callback) {

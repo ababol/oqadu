@@ -17,19 +17,19 @@ var questionRoute = {
       if (tags.length === 0 || tags[0] === "") {
         query = Question.where({tags: {$size: 0}});
       } else {
-        query  = Question.where("tags").all(tags);
+        query = Question.where("tags").all(tags);
       }
-      query.findOne(function (err, question) {
+
+      query.findOne(function(err, question) {
         if (err) {
           res.status(400);
-          return res.send("Error while getting next question.");
+          return res.send("Error while getting next question.<br/>" + err);
         }
         if (question === null) {
-          res.status(416);
+          res.status(200);
           return res.send("Not any remaining questions.");
         } else {
           res.status(200);
-          console.log(question)
           return res.send(question);
         }
       });

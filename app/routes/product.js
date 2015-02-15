@@ -10,38 +10,49 @@ var productRoute = {
     Product.before('delete', authenticator.authenticate);
 
     // custom route
-    Product.route('recommendations', ['get'], function(request, response) {
-      var tags = request.body.tags,
-        recommendations;
+    Product.route('Recommendations.get', function(req, res) {
+      var tags = req.query.tags.split(","),
+        recommendations, query;
 
-      recommendations = Product.find({
-        tags: { $in: tags }
+      query = Product.where("tags").all(tags);
+      query.find(function(err, products) {
+        if (err) {
+          res.status(400);
+          return res.send("Error while getting the recommendations.<br/>" + err);
+        }
+        if (products === null) {
+          res.status(416);
+          return res.send("Aucun produit correspondant aux tags: '" + tags.join(",") + "' trouvé.");
+        } else {
+          res.status(200);
+          return res.send(products);
+        }
       });
-
-      if (recommendations == null) {
-        response.status(416);
-        response.send('No product corresponds to the given tags.');
-      } else {
-        response.status(200);
-        response.send(recommendations);
-      }
     });
 
-    Product.route('product-barcode', ['get'], function(request, response) {
-      var barcode = request.body.barcode,
-        correspondingProduct;
+    Product.route('Barcode.get', function(req, res) {
+      var barcode = parseInt(req.query.barcode, 10),
+        product, query;
 
-      correspondingProduct = Product.find({
-        barcode: barcode
-      });
-
-      if (correspondingProduct == null) {
-        response.status(404);
-        response.send('There is not any product corresponding to that bar code.');
-      } else {
-        response.status(200);
-        response.send(correspondingProduct);
+      if (isNaN(barcode)) {
+        barcode = 0;
       }
+
+      query = Product.where({ barcode: barcode });
+      query.findOne({}, '_id', function(err, product) {
+        console.log(product)
+        if (err) {
+          res.status(400);
+          return res.send("Error while getting the product.<br/>" + err);
+        }
+        if (product === null) {
+          res.status(404);
+          return res.send("Aucun produit trouvé.");
+        } else {
+          res.status(200);
+          return res.send(product._id);
+        }
+      });
     });
 
     Product.register(app, prefixAPI + '/Products');
