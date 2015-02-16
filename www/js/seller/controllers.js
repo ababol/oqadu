@@ -20,9 +20,14 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
   $scope.error = function(err) {
     $scope.errorTxt = "API ERROR " + err.status + " - " + err.data;
   };
-
   $scope.refreshScroll = function() {
     $ionicScrollDelegate.resize();
+  };
+  $scope.addTagToCustomer = function(tag){
+    if(!$scope.customer.tags)
+      return;
+    $scope.syncQueue[$scope.currentID].tags.push(tag);
+    $scope.syncQueue.$save($scope.currentID);
   };
 
   $scope.initSeller = function(id){
@@ -81,9 +86,9 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
   };
 })
 
-.controller('TagCtrl', function($scope, Tags, $ionicPopup) {
-    $scope.tags = [];
+.controller('TagCtrl', function($scope, $ionicPopup) {
     $scope.data = {};
+    console.log($scope.customer);
     $scope.addTag = function(){
 
       var myPopup = $ionicPopup.show({
@@ -97,8 +102,7 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
             type: 'button-positive',
             onTap: function(e) {
               if($scope.data.newTag && $scope.data.newTag != ""){
-                $scope.tags.push($scope.data.newTag);
-                console.log('TODO : ajout firebase');
+                $scope.addTagToCustomer($scope.data.newTag);
               }
             }
           }

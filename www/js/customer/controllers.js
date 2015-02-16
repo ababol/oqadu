@@ -43,7 +43,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
     products: [],
     cart: [],
     waiting: false,
-    tags: ""
+    tags: []
   };
 
   $scope.acceptRegistering = function(){
@@ -72,8 +72,6 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
     $stateParams.tags = "";
   }
 
-  $scope.user.tags = $stateParams.tags;
-
   loader($scope, $q.when(
     Questions.get($stateParams.tags)
   ).then(function(question) {
@@ -86,14 +84,18 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
   }));
 
   $scope.selectAnswer = function(data) {
-    if (data.tags.length === 1) {
+    console.log($scope.user);
+    console.log(data);
+    if ($scope.user.tags.length == 0 && data.tags.length > 0) {
       $scope.acceptRegistering();
       $scope.connectToFirebaseQueue(data.tags[0]);
+      $scope.user.tags = [];
     }
     $scope.user.qa[$scope.question._id] = {
       question: $scope.question,
       answer: data
     };
+    $scope.user.tags = $scope.user.tags.concat(data.tags); 
     if ($scope.user.waiting) {
       var index = $scope.syncQueue.$indexFor($scope.getUserKey());
       if (!$scope.syncQueue[index].qa) {
@@ -103,6 +105,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
         question: $scope.question,
         answer: data
       };
+      $scope.syncQueue[index].tags = $scope.user.tags;
       $scope.syncQueue.$save(index).then(function(){console.log("updated");});
     }
   };
