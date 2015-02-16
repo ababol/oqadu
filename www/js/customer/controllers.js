@@ -64,7 +64,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
 })
 
 .controller('QuestionCtrl', function($scope, $q, $location, $stateParams, Questions) {
-  $scope.question = [];
+  $scope.question = {};
   if ($stateParams.tags === undefined) {
     $stateParams.tags = "";
   }
@@ -159,11 +159,16 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
   };
 })
 
-.controller('HomeCtrl', function($scope, $ionicViewService) {
+.controller('HomeCtrl', function($scope, $ionicViewService, Products) {
   $scope.user.tags = "";
   $scope.hideFooter();
   $scope.hideLoader(true);
   $ionicViewService.clearHistory();
+
+  Products.getPromo().then(function (products) {
+    // products.forEach()
+    console.log(products);
+  });
 })
 
 .controller('LoadingCtrl', function($state) {

@@ -71,20 +71,10 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
 })
 
 .controller('ProductDetailCtrl', function($scope, $q, $stateParams, $state, $ionicSlideBoxDelegate, utils, Products) {
-  $scope.backUrl = $state.current.backUrl;
-  loader($scope, $q.all([
-    Products.get($stateParams.productId),
-    Products.getReviews($stateParams.productId),
-    Products.getFaq($stateParams.productId)
-  ]).then(function(data) {
-    product = data[0].data;
-
-    product.reviewAvg = utils.getReviewAvg(data[1].data);
-    product.reviewAvgHtml = utils.getReviewHtml(product.reviewAvg);
-    product.reviews = data[1].data;
-    product.faq = data[2].data;
-
-    $scope.product = product;
+  loader($scope, $q.when(
+    Products.get($stateParams.productId)
+  ).then(function(product) {
+    $scope.product = product.data;
   }));
   $scope.updateSlider = function () {
     return $ionicSlideBoxDelegate.update();

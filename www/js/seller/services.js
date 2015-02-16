@@ -1,5 +1,5 @@
 // var url = "http://192.168.43.118:3000";
-var url = "http://babol.me:3000";
+var url = "https://oqadu.herokuapp.com";
 
 angular.module('starter.services', [])
 
@@ -8,25 +8,13 @@ angular.module('starter.services', [])
   return {
     all: function() {
       return $http({
-        url: url+'/api/v1/Products/',
+        url: url+'/api/v2/Products/',
         method: 'GET'
       });
     },
     get: function(productId) {
       return $http({
-        url: url+'/api/v1/Products/'+productId,
-        method: 'GET'
-      });
-    },
-    getReviews: function(productId) {
-      return $http({
-        url: url+'/api/v1/Reviews/?productId='+productId,
-        method: 'GET'
-      });
-    },
-    getFaq: function(productId) {
-      return $http({
-        url: url+'/api/v1/Faqs/?productId='+productId,
+        url: url+'/api/v2/Products/'+productId,
         method: 'GET'
       });
     }
