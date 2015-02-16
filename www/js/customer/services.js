@@ -48,6 +48,12 @@ angular.module('starter.services', [])
         url: url+'/api/v2/Products/Barcode/?barcode=' + barcode,
         method: 'GET'
       });
+    },
+    getPromo: function() {
+      return $http({
+        url: url+'/api/v2/Products/?promo__gt=5',
+        method: 'GET'
+      });
     }
   };
 })

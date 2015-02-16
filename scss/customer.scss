@@ -54,9 +54,8 @@ span.tab-item {
   }
 }
 
-.logoRow {
-  height: 75%;
-}
-.buttonsRow {
-  height: 25%;
+.padding {
+  &.home {
+    padding: 10px 10px 59px 10px;
+  }
 }

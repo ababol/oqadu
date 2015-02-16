@@ -7983,8 +7983,5 @@ span.tab-item {
 .product .card {
   margin: 5px 5px !important; }
 
-.logoRow {
-  height: 75%; }
-
-.buttonsRow {
-  height: 25%; }
+.padding.home {
+  padding: 10px 10px 59px 10px; }
