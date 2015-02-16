@@ -110,6 +110,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
 
 .controller('RecommendationCtrl', function($scope, $q, $stateParams, utils, Recommendations, Products) {
   $scope.products = [];
+  $scope.title = "Recommandation";
 
   loader($scope, $q.when(
     Recommendations.get($scope.user.actualTags.join(","))
@@ -243,6 +244,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
 
   $scope.products = [];
   $scope.noProduct = null;
+  $scope.title = "Panier";
 
   function callback() {
     var deferred = $q.defer();
