@@ -29,6 +29,12 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
     $scope.syncQueue[$scope.currentID].tags.push(tag);
     $scope.syncQueue.$save($scope.currentID);
   };
+  $scope.deleteCustomerTag = function(index){
+    if(!$scope.customer.tags || index >= $scope.customer.tags.length)
+      return;
+    $scope.syncQueue[$scope.currentID].tags.splice(index, 1);
+    $scope.syncQueue.$save($scope.currentID);
+  };
 
   $scope.initSeller = function(id){
     $scope.currentID = null;
@@ -87,28 +93,39 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
 })
 
 .controller('TagCtrl', function($scope, $ionicPopup) {
-    $scope.data = {};
-    console.log($scope.customer);
-    $scope.addTag = function(){
-
-      var myPopup = $ionicPopup.show({
-        template: '<input type="text" ng-model="data.newTag" autofocus="true">',
-        title: 'Enter tag',
-        scope: $scope,
-        buttons: [
-          { text: 'Cancel' },
-          {
-            text: '<b>Save</b>',
-            type: 'button-positive',
-            onTap: function(e) {
-              if($scope.data.newTag && $scope.data.newTag != ""){
-                $scope.addTagToCustomer($scope.data.newTag);
-              }
+  $scope.data = {};
+  console.log($scope.customer);
+  $scope.addTag = function(){
+    var myPopup = $ionicPopup.show({
+      template: '<input type="text" ng-model="data.newTag" autofocus="true">',
+      title: 'Enter tag',
+      scope: $scope,
+      buttons: [
+        { text: 'Cancel' },
+        {
+          text: '<b>Save</b>',
+          type: 'button-positive',
+          onTap: function(e) {
+            if($scope.data.newTag && $scope.data.newTag != ""){
+              $scope.addTagToCustomer($scope.data.newTag);
             }
           }
-        ]
-      });
-    }
+        }
+      ]
+    });
+  };
+  $scope.removeTag = function(index){
+    console.log(index);
+    var confirmPopup = $ionicPopup.confirm({
+      title: 'Delete tag',
+      template: 'Are you sure you want to delete this tag?'
+    });
+    confirmPopup.then(function(res) {
+     if(res) {
+       $scope.deleteCustomerTag(index);
+     }
+    });
+  }
 })
 
 .controller('WaitlistCtrl', function($scope) {
