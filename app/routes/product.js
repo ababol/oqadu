@@ -12,7 +12,7 @@ var productRoute = {
     // custom route
     Product.route('Recommendations.get', function(req, res) {
       var tags = req.query.tags.split(","),
-        recommendations, query;
+          query;
 
       query = Product.where("tags").all(tags);
       query.find(function(err, products) {
@@ -32,7 +32,7 @@ var productRoute = {
 
     Product.route('Barcode.get', function(req, res) {
       var barcode = parseInt(req.query.barcode, 10),
-        product, query;
+          query;
 
       if (isNaN(barcode)) {
         barcode = 0;

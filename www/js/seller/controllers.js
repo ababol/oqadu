@@ -20,9 +20,14 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
   $scope.error = function(err) {
     $scope.errorTxt = "API ERROR " + err.status + " - " + err.data;
   };
-
   $scope.refreshScroll = function() {
     $ionicScrollDelegate.resize();
+  };
+  $scope.addTagToCustomer = function(tag){
+    if(!$scope.customer.tags)
+      return;
+    $scope.syncQueue[$scope.currentID].tags.push(tag);
+    $scope.syncQueue.$save($scope.currentID);
   };
 
   $scope.initSeller = function(id){
@@ -71,29 +76,19 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
 })
 
 .controller('ProductDetailCtrl', function($scope, $q, $stateParams, $state, $ionicSlideBoxDelegate, utils, Products) {
-  $scope.backUrl = $state.current.backUrl;
-  loader($scope, $q.all([
-    Products.get($stateParams.productId),
-    Products.getReviews($stateParams.productId),
-    Products.getFaq($stateParams.productId)
-  ]).then(function(data) {
-    product = data[0].data;
-
-    product.reviewAvg = utils.getReviewAvg(data[1].data);
-    product.reviewAvgHtml = utils.getReviewHtml(product.reviewAvg);
-    product.reviews = data[1].data;
-    product.faq = data[2].data;
-
-    $scope.product = product;
+  loader($scope, $q.when(
+    Products.get($stateParams.productId)
+  ).then(function(product) {
+    $scope.product = product.data;
   }));
   $scope.updateSlider = function () {
     return $ionicSlideBoxDelegate.update();
   };
 })
 
-.controller('TagCtrl', function($scope, Tags, $ionicPopup) {
-    $scope.tags = [];
+.controller('TagCtrl', function($scope, $ionicPopup) {
     $scope.data = {};
+    console.log($scope.customer);
     $scope.addTag = function(){
 
       var myPopup = $ionicPopup.show({
@@ -107,8 +102,7 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
             type: 'button-positive',
             onTap: function(e) {
               if($scope.data.newTag && $scope.data.newTag != ""){
-                $scope.tags.push($scope.data.newTag);
-                console.log('TODO : ajout firebase');
+                $scope.addTagToCustomer($scope.data.newTag);
               }
             }
           }

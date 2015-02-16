@@ -6,6 +6,7 @@ var product = restful.model('product', mongoose.Schema({
   barcode: {type:'Number', required:true},
   name: {type:'string', required:true},
   price: {type:'Number', required:true},
+  promo: {type:'Number', required:false},
   tags: {type:['string'], required:false},
   pictures: {
     type:[{
@@ -27,6 +28,13 @@ var product = restful.model('product', mongoose.Schema({
       reviewerName: {type:'string', required:true},
       score: {type:'Number', required:true},
       comment:{type:'string', required: false}
+    }],
+    required:false
+  },
+  faq: {
+    type: [{
+      title: {type:'string', required:true},
+      content: {type:'string', required:true}
     }],
     required:false
   }

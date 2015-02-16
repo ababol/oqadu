@@ -12,7 +12,7 @@ var questionRoute = {
     // custom route
     Question.route('Tags.get', function(req, res) {
       var tags = req.query.tags.split(","),
-        selectedQuestion, query;
+          query;
 
       if (tags.length === 0 || tags[0] === "") {
         query = Question.where({tags: {$size: 0}});
