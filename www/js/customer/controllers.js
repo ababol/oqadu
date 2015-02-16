@@ -69,8 +69,6 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
     $stateParams.tags = "";
   }
 
-  $scope.user.tags = $stateParams.tags;
-
   loader($scope, $q.when(
     Questions.get($stateParams.tags)
   ).then(function(question) {
@@ -83,10 +81,12 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
   }));
 
   $scope.selectAnswer = function(data) {
+    console.log($scope.user);
     console.log(data);
     if ($scope.user.tags.length == 0 && data.tags.length > 0) {
       $scope.acceptRegistering();
       $scope.connectToFirebaseQueue(data.tags[0]);
+      $scope.user.tags = [];
     }
     $scope.user.qa[$scope.question._id] = {
       question: $scope.question,
@@ -102,7 +102,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
         question: $scope.question,
         answer: data
       };
-      $scope.syncQueue[index].tags = $scope.syncQueue[index].tags.concat(data.tags)
+      $scope.syncQueue[index].tags = $scope.user.tags;
       $scope.syncQueue.$save(index).then(function(){console.log("updated");});
     }
   };
