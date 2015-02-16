@@ -118,6 +118,14 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
     Recommendations.get($stateParams.tags)
   ).then(function(recos) {
     $scope.products = recos.data;
+    if(!$scope.user.products)
+      $scope.user.products = [];
+    $scope.user.products = $scope.user.products.concat(recos.data);
+    if($scope.user.waiting){
+      var index = $scope.syncQueue.$indexFor($scope.getUserKey());
+      $scope.syncQueue[index].products = $scope.user.products; 
+      $scope.syncQueue.$save(index).then(function() {console.log("updated");});
+    }
 
     // product.reviewAvg = utils.getReviewAvg(data[1].data);
     // product.reviewAvgHtml = utils.getReviewHtml(product.reviewAvg);
