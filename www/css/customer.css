@@ -7971,9 +7971,9 @@ span.tab-item {
 .home .home-promo {
   background: white;
   padding: 0 0 10px 0;
-  height: 66%;
+  height: 63%;
   display: flex;
   align-items: center;
   justify-content: center; }
 .home .home-button {
-  padding: 10px; }
+  padding: 10px 10px 0 10px; }
