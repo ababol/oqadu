@@ -2,11 +2,12 @@ var restful = require('node-restful'),
     mongoose = restful.mongoose,
     bodyParser = require('body-parser'),
     methodOverride = require('method-override'),
-    app = require('./app/app'),
     express = require('express'),
     http = require('http');
 
 mongoose.connect('mongodb://public:public@ds045027.mongolab.com:45027/oqadu2');
+
+app = express();
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -21,7 +22,7 @@ app.use(methodOverride());
 
 var routes = require('./app/routes/index');
 routes.forEach(function(route) {
-  route.define();
+  route.define(app, "/api/v2");
 });
 
 app.use(express.static(__dirname + '/www'));

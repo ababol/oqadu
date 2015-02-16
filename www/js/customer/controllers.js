@@ -39,7 +39,8 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
     qa: {},
     products: [],
     cart: [],
-    waiting: false
+    waiting: false,
+    tags: []
   };
 
   $scope.acceptRegistering = function(){
@@ -62,27 +63,36 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
   $scope.syncQueue = sync.$asArray();
 })
 
-.controller('QuestionCtrl', function($scope, $q, $stateParams, Questions, Answers) {
-  $scope.question = [];
-  $scope.answers = [];
+.controller('QuestionCtrl', function($scope, $q, $location, $stateParams, Questions) {
+  $scope.question = {};
+  if ($stateParams.tags === undefined) {
+    $stateParams.tags = "";
+  }
 
-  loader($scope, $q.all([
-    Questions.get($stateParams.questionId),
-    Answers.get($stateParams.questionId)
-  ]).then(function(data) {
-    $scope.question = data[0].data;
-    $scope.answers = data[1].data;
+  loader($scope, $q.when(
+    Questions.get($stateParams.tags)
+  ).then(function(question) {
+    var data = question.data;
+    if (data === "Not any remaining questions.") {
+      return $location.path("recommendation/" + $stateParams.tags);
+    } else {
+      $scope.question = question.data;
+    }
   }));
 
   $scope.selectAnswer = function(data) {
-    if ($scope.question._id == "545f70d9946ea453ece17e7e") {
+    console.log($scope.user);
+    console.log(data);
+    if ($scope.user.tags.length == 0 && data.tags.length > 0) {
       $scope.acceptRegistering();
-      $scope.connectToFirebaseQueue(data.text)
+      $scope.connectToFirebaseQueue(data.tags[0]);
+      $scope.user.tags = [];
     }
     $scope.user.qa[$scope.question._id] = {
       question: $scope.question,
       answer: data
     };
+    $scope.user.tags = $scope.user.tags.concat(data.tags); 
     if ($scope.user.waiting) {
       var index = $scope.syncQueue.$indexFor($scope.getUserKey());
       if (!$scope.syncQueue[index].qa) {
@@ -92,6 +102,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
         question: $scope.question,
         answer: data
       };
+      $scope.syncQueue[index].tags = $scope.user.tags;
       $scope.syncQueue.$save(index).then(function(){console.log("updated");});
     }
   };
@@ -101,61 +112,32 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
   $scope.products = [];
 
   loader($scope, $q.when(
-    Recommendations.get($stateParams.recoId)
-  ).then(function(reco) {
-    var deferred = $q.defer();
+    Recommendations.get($stateParams.tags)
+  ).then(function(recos) {
+    $scope.products = recos.data;
 
-    [].concat(reco.data.products).forEach(function(productId, key) {
-      $q.all([
-        Products.get(productId),
-        Products.getReviews(productId)
-      ]).then(function(data) {
-        product = data[0].data;
-
-        product.reviewAvg = utils.getReviewAvg(data[1].data);
-        product.reviewAvgHtml = utils.getReviewHtml(product.reviewAvg);
-        product.reviews = data[1].data;
-
-        $scope.products.push(product);
-        $scope.user.products[product._id] = product;
-
-        if ($scope.user.waiting) {
-          var index = $scope.syncQueue.$indexFor($scope.getUserKey());
-          if (!$scope.syncQueue[index].products) {
-            $scope.syncQueue[index].products = {};
-          }
-          $scope.syncQueue[index].products[product._id] = product;
-          $scope.syncQueue.$save(index).then(function() {console.log("updated");});
-        }
-
-        // Si on a parcouru tout le tableau de produit, on peut valider la promesse
-        if (key === reco.data.products.length - 1) {
-          return deferred.resolve();
-        }
-      });
-    });
-
-    return deferred.promise;
+    // product.reviewAvg = utils.getReviewAvg(data[1].data);
+    // product.reviewAvgHtml = utils.getReviewHtml(product.reviewAvg);
+    // product.reviews = data[1].data;
+    // if ($scope.user.waiting) {
+    //   var index = $scope.syncQueue.$indexFor($scope.getUserKey());
+    //   if (!$scope.syncQueue[index].products) {
+    //     $scope.syncQueue[index].products = {};
+    //   }
+    //   $scope.syncQueue[index].products[product._id] = product;
+    //   $scope.syncQueue.$save(index).then(function() {console.log("updated");});
+    // }
   }));
 })
 
 .controller('ProductCtrl', function($scope, $rootScope, $q, $stateParams, utils, $ionicNavBarDelegate, $ionicSlideBoxDelegate, Products) {
   $scope.showBackButton = $rootScope.showBackButton;
-  $scope.product = [];
+  $scope.product = {};
 
-  loader($scope, $q.all([
-    Products.get($stateParams.productId),
-    Products.getReviews($stateParams.productId),
-    Products.getFaq($stateParams.productId)
-  ]).then(function(data) {
-    product = data[0].data;
-
-    product.reviewAvg = utils.getReviewAvg(data[1].data);
-    product.reviewAvgHtml = utils.getReviewHtml(product.reviewAvg);
-    product.reviews = data[1].data;
-    product.faq = data[2].data;
-
-    $scope.product = product;
+  loader($scope, $q.when(
+    Products.get($stateParams.productId)
+  ).then(function(product) {
+    $scope.product = product.data;
   }));
 
   $scope.addToCart = function(id) {
@@ -177,10 +159,16 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
   };
 })
 
-.controller('HomeCtrl', function($scope, $ionicViewService) {
+.controller('HomeCtrl', function($scope, $ionicViewService, Products) {
+  $scope.user.tags = "";
   $scope.hideFooter();
   $scope.hideLoader(true);
   $ionicViewService.clearHistory();
+
+  Products.getPromo().then(function (products) {
+    // products.forEach()
+    console.log(products);
+  });
 })
 
 .controller('LoadingCtrl', function($state) {
@@ -256,17 +244,15 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
     var deferred = $q.defer();
 
     cart.forEach(function(productId, key) {
-      $q.all([
-        Products.get(productId),
-        Products.getReviews(productId)
-      ]).then(function(data) {
-        product = data[0].data;
+      $q.when(
+        Products.get(productId)
+      ).then(function(product) {
 
-        product.reviewAvg = utils.getReviewAvg(data[1].data);
-        product.reviewAvgHtml = utils.getReviewHtml(product.reviewAvg);
-        product.reviews = data[1].data;
+        // product.reviewAvg = utils.getReviewAvg(data[1].data);
+        // product.reviewAvgHtml = utils.getReviewHtml(product.reviewAvg);
+        // product.reviews = data[1].data;
 
-        $scope.products.push(product);
+        $scope.products.push(product.data);
 
         // Si on a parcouru tout le tableau de produit, on peut valider la promesse
         if (key === cart.length - 1) {
@@ -287,15 +273,23 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
   loader($scope, promise);
 })
 
-.controller('ScanCtrl', function($scope, $location, $cordovaBarcodeScanner) {
-  $cordovaBarcodeScanner.scan().then(function(imageData) {
-    alert(imageData.text);
-    console.log("Barcode Format -> " + imageData.format);
-    console.log("Cancelled -> " + imageData.cancelled);
-    $location.path("#/product/" + imageData.text);
-  }, function(error) {
-    console.log("An error happened -> " + error);
-  });
+.controller('ScanCtrl', function($scope, $q, $location, $cordovaBarcodeScanner, $ionicPopup, Products) {
+  $cordovaBarcodeScanner.scan()
+    .then(function(imageData) {
+      Products.getProductId(imageData.text)
+        .then(function(id) {
+          $location.path("product/" + JSON.parse(id.data));
+        })
+        .catch(function(err) {
+          $ionicPopup.alert({
+            title: "Erreur " + err.status,
+            template: err.data
+          })
+          .then(function() {
+            $location.path("home");
+          });
+        });
+    });
 });
 
 function loader($scope, callback) {

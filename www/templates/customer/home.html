@@ -1,5 +1,11 @@
 <ion-content class="padding home" animation="no-animation">
-  <a id="engine" class="engine button button-half button-block button-balanced" href="#/question/545f70d9946ea453ece17e7e">
+  <ion-slide-box on-slide-changed="slideHasChanged($index)"  show-pager="true">
+    <!-- ng init update slider to fix a display bug !-->
+    <ion-slide ng-repeat="img in product.pictures track by $index" ng-init="updateSlider()">
+      <img src="{{img.path}}" alt="{{img.label}}">
+    </ion-slide>
+  </ion-slide-box>
+  <a id="engine" class="engine button button-half button-block button-balanced" href="#/question/">
     <i class="ion-ios7-search-strong"></i>Moteur de recommandation</a>
   <a class="button button-half button-block button-balanced invert" href="#/scan">
     <i class="ion-ios7-camera"></i>Scannez un article</a>

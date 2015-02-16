@@ -12,11 +12,7 @@
     </div>
 
     <div class="tag-pannel">
-
-      <span ng-repeat="product in customer.products">
-        <div ng-repeat="tag in product.tags" class="button button-light tag-item">{{tag}}</div>
-      </span>
-      <div ng-repeat="tag in tags" class="button button-light tag-item">{{tag}}</div>
+      <div ng-repeat="t in customer.tags" class="button button-light tag-item">{{t}}</div>
       <div class="button button-light tag-item" ng-click="addTag()"><i class="ion-ios7-plus-outline" ></i> Add a tag</div>
     </div>
   </ion-content>

@@ -68,7 +68,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
   // Each state's controller can be found in controllers.js
   $stateProvider
     .state('question', {
-      url: '/question/:questionId',
+      url: '/question/:tags',
       templateUrl: 'templates/customer/question.html',
       controller: 'QuestionCtrl'
     })
@@ -95,7 +95,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
     })
 
     .state('recommendation', {
-      url: '/recommendation/:recoId',
+      url: '/recommendation/:tags',
       templateUrl: 'templates/customer/recommendation.html',
       controller: 'RecommendationCtrl'
     })

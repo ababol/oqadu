@@ -9,14 +9,14 @@
   <ion-content has-header="true" padding="true">
   <div class="row">
     <div class="col">
-        <a class="button icon icon-left ion-chevron-left" href="#{{backUrl}}">Back</a>
+        <a class="button icon icon-left ion-chevron-left" href="#/products">Back</a>
     </div>
   </div>
   <div class="row row-center">
     <div class="col col-33">
           <ion-slide-box on-slide-changed="slideHasChanged($index)"  show-pager="true">
-            <ion-slide ng-repeat="img in product.img track by $index" ng-init="updateSlider()">
-              <img src="{{img}}" width="100%">
+            <ion-slide ng-repeat="img in product.pictures track by $index" ng-init="updateSlider()">
+              <img src="{{img.path}}" alt="{{img.label}}">
             </ion-slide>
           </ion-slide-box>
     </div>
@@ -29,16 +29,16 @@
           </div>
           <div class="col right no-padding-side">
             <span class="fakebutton ion-ios7-star">
-              {{product.reviewAvg}}
+              {{product.reviewAvg}}/5
             </span>
           </div>
         </div>
         <div class="list">
-          <div class="item item-divider" ng-repeat-start="label in product.info_label">
-            {{label}}
+          <div class="item item-divider" ng-repeat-start="feature in product.features">
+            {{feature.label}}
           </div>
           <div class="item" ng-repeat-end>
-            {{product.info_text[$index]}}
+            {{feature.value}}
           </div>
         </div>
     </div>
