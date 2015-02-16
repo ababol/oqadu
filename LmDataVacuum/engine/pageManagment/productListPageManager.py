@@ -29,7 +29,6 @@ class ProductListPageManager(PageManager):
             productLink = productLinks[i]
             productUrl = productLink["href"].strip()
             imgPath = productLink.contents[1]["data-original"].strip()
-            print imgPath
 
             if productUrl in self.__products.keys():
                 self.__products[productUrl].addTags(deepcopy(self.__tags))
