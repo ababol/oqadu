@@ -72,6 +72,21 @@ frisby.create('Check All Questions /Questions')
     tags: [String]
   })
   .expectJSON('?', expectedQuestion)
+  .afterJSON(function(json) {
+    // You can use any normal jasmine-style assertions here
+    var isMoreThan1Answer = true;
+      for (var i = 0; i < json.length; i++) {
+        var answerNb = json[i].answers.length;
+        if (answerNb < 2) {
+          isMoreThan1Answer = false;
+        };
+      };
+    describe("Check each question has more than one answer", function() {
+      it("(answers > 1)", function() {
+        expect(isMoreThan1Answer).toEqual(true);
+      });
+    });
+  })
 .toss();
 
 frisby.create('Check First Question /Questions/:productId')
@@ -79,4 +94,5 @@ frisby.create('Check First Question /Questions/:productId')
   .expectHeaderContains('Content-Type', 'json')
   .expectStatus(200)
   .expectJSON(expectedQuestion)
+  .expectJSONLength('answers', 12)
 .toss();
