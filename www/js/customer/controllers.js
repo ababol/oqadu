@@ -2,7 +2,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
 .constant('$ionicLoadingConfig', {
   template: "<img src='img/loader.gif' width='80'/>"
 })
-.controller('MainCtrl', function($scope, $rootScope, $ionicLoading, $ionicScrollDelegate, $firebase) {
+.controller('MainCtrl', function($scope, $rootScope, $ionicSlideBoxDelegate, $ionicLoading, $ionicScrollDelegate, $firebase) {
   $scope.showLoader = function() {
     $scope.errorTxt = false;
     $scope.loaded = false;
@@ -33,6 +33,9 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
   };
   $scope.getUser = function() {
     return $scope.user;
+  };
+  $scope.updateSlider = function() {
+    return $ionicSlideBoxDelegate.update();
   };
 
   $scope.user = {
@@ -127,7 +130,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
   }));
 })
 
-.controller('ProductCtrl', function($scope, $rootScope, $q, $stateParams, utils, $ionicNavBarDelegate, $ionicSlideBoxDelegate, Products) {
+.controller('ProductCtrl', function($scope, $rootScope, $q, $stateParams, utils, Products) {
   $scope.showBackButton = $rootScope.showBackButton;
   $scope.product = {};
 
@@ -150,10 +153,6 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
   $scope.getInTheCart = function(id) {
     return $scope.user.cart.indexOf(id);
   };
-
-  $scope.updateSlider = function() {
-    return $ionicSlideBoxDelegate.update();
-  };
 })
 
 .controller('HomeCtrl', function($scope, $ionicViewService, Products) {
@@ -162,9 +161,9 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
   $scope.hideLoader(true);
   $ionicViewService.clearHistory();
 
-  Products.getPromo().then(function (products) {
-    // products.forEach()
-    console.log(products);
+  $scope.products = [];
+  Products.getPromo().success(function(products) {
+    $scope.products = products;
   });
 })
 

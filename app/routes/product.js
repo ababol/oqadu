@@ -55,6 +55,24 @@ var productRoute = {
       });
     });
 
+    Product.route('Promo.get', function(req, res) {
+      Product.find({}, "price promo pictures")
+      .where("promo").gt(10)
+      .exec(function(err, products) {
+        if (err) {
+          res.status(400);
+          return res.send("Error while getting the product.<br/>" + err);
+        }
+        if (products === null) {
+          res.status(404);
+          return res.send("Aucun produit trouvé.");
+        } else {
+          res.status(200);
+          return res.send(products);
+        }
+      });
+    });
+
     Product.register(app, prefixAPI + '/Products');
   }
 };

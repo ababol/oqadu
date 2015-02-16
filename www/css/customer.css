@@ -7985,3 +7985,13 @@ span.tab-item {
 
 .padding.home {
   padding: 10px 10px 59px 10px; }
+  .padding.home a {
+    text-decoration: none; }
+
+ion-slide img, .home .promo {
+  text-align: center;
+  margin: 0 auto;
+  display: block; }
+
+ion-slide img {
+  max-height: 400px; }

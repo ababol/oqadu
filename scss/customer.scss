@@ -54,8 +54,17 @@ span.tab-item {
   }
 }
 
-.padding {
-  &.home {
-    padding: 10px 10px 59px 10px;
+.home {
+  img, .home .promo {
+    text-align: center;
+    margin: 0 auto;
+    display: block;
+  }
+
+  ion-slide img {
+    max-height: 400px;
+  }
+  a {
+    text-decoration: none;
   }
 }
