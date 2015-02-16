@@ -95,7 +95,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
     })
 
     .state('recommendation', {
-      url: '/recommendation/:tags',
+      url: '/recommendation',
       templateUrl: 'templates/customer/recommendation.html',
       controller: 'RecommendationCtrl'
     })

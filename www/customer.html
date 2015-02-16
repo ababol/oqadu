@@ -45,7 +45,7 @@
     </section>
     <ion-nav-view name="loading" id="loading" class="fade hide"></ion-nav-view>
     <footer ng-controller="BarCtrl" ng-hide="errorTxt || hideFoot">
-      <div id="barUnreg" ng-hide="registred" class="tabs tabs-icon-left">
+      <div id="barUnreg" ng-hide="registered" class="tabs tabs-icon-left">
         <a href="#/home" class="tab-item">
           <i class="icon ion-ios7-home-outline"></i>
         </a>
@@ -58,7 +58,7 @@
           <span class="badge badge-assertive" ng-if="user.cart.length">{{user.cart.length}}</span>
         </a>
       </div>
-      <div id="barReg" ng-show="registred" class="tabs tabs-icon-left">
+      <div id="barReg" ng-show="registered" class="tabs tabs-icon-left">
         <a href="#/home" class="tab-item home">
           <i class="icon ion-ios7-home-outline"></i>
         </a>

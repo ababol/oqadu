@@ -43,12 +43,11 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
     products: [],
     cart: [],
     waiting: false,
-    tags: []
+    tags: [],
+    actualTags: []
   };
 
-  $scope.acceptRegistering = function(){
-    $scope.showFooter();
-  }
+  $rootScope.registered = false;
 
   //Firebase
   $scope.connectedQueue = null;
@@ -66,29 +65,26 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
   $scope.syncQueue = sync.$asArray();
 })
 
-.controller('QuestionCtrl', function($scope, $q, $location, $stateParams, Questions) {
+.controller('QuestionCtrl', function($scope, $rootScope, $q, $location, Questions) {
   $scope.question = {};
-  if ($stateParams.tags === undefined) {
-    $stateParams.tags = "";
-  }
 
   loader($scope, $q.when(
-    Questions.get($stateParams.tags)
+    Questions.get($scope.user.actualTags.join(","))
   ).then(function(question) {
     var data = question.data;
     if (data === "Not any remaining questions.") {
-      return $location.path("recommendation/" + $stateParams.tags);
+      return $location.path("recommendation");
     } else {
       $scope.question = question.data;
     }
   }));
 
   $scope.selectAnswer = function(data) {
-    console.log($scope.user);
-    console.log(data);
-    if ($scope.user.tags.length == 0 && data.tags.length > 0) {
-      $scope.acceptRegistering();
+    if ($scope.user.tags.length === 0 && data.tags.length > 0
+        || $scope.user.actualTags.length === 0 && !$rootScope.registered) {
+      $scope.showFooter();
       $scope.connectToFirebaseQueue(data.tags[0]);
+      $scope.user.actualTags = [];
       $scope.user.tags = [];
     }
     $scope.user.qa[$scope.question._id] = {
@@ -96,6 +92,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
       answer: data
     };
     $scope.user.tags = $scope.user.tags.concat(data.tags);
+    $scope.user.actualTags = $scope.user.actualTags.concat(data.tags);
     if ($scope.user.waiting) {
       var index = $scope.syncQueue.$indexFor($scope.getUserKey());
       if (!$scope.syncQueue[index].qa) {
@@ -115,7 +112,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
   $scope.products = [];
 
   loader($scope, $q.when(
-    Recommendations.get($stateParams.tags)
+    Recommendations.get($scope.user.actualTags.join(","))
   ).then(function(recos) {
     $scope.products = recos.data;
     if(!$scope.user.products)
@@ -166,11 +163,13 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
   };
 })
 
-.controller('HomeCtrl', function($scope, $ionicViewService, Products) {
-  $scope.user.tags = "";
-  $scope.hideFooter();
-  $scope.hideLoader(true);
-  $ionicViewService.clearHistory();
+.controller('HomeCtrl', function($scope, $rootScope, $ionicViewService, Products) {
+  $scope.user.actualTags = [];
+  if ($scope.user.tags.length === 0 || !$rootScope.registered) {
+    $scope.hideFooter();
+    $scope.hideLoader(true);
+    $ionicViewService.clearHistory();
+  }
 })
 
 .controller('LoadingCtrl', function($state) {
@@ -205,8 +204,8 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
   triangle.animate({opacity:1,transform:"s1,1"}, 2000, mina.elastic);
 })
 
-.controller('BarCtrl', function($scope) {
-  $scope.registred = false;
+.controller('BarCtrl', function($scope, $rootScope) {
+  $rootScope.registered = false;
   $scope.waitlistPosition = "";
   $scope.waitTime = -1;
   $scope.registerQueue = function() {
@@ -216,7 +215,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
         $scope.setUserKey(userRef.key());
         $scope.waitlistPosition = transformPositionToString($scope.syncQueue.length - 1);
         $scope.waitTime = ($scope.syncQueue.length - 1) * 3;
-        $scope.registred = true;
+        $rootScope.registered = true;
       });
       $scope.syncQueue.$watch(function(e){
         $scope.waitlistPosition = transformPositionToString($scope.syncQueue.length - 1);
@@ -228,7 +227,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
     if ($scope.user.waiting) {
       $scope.user.waiting = false;
       $scope.syncQueue.$remove($scope.syncQueue.$indexFor($scope.getUserKey())).then(function(userRef){
-        $scope.registred = false;
+        $rootScope.registered = false;
         console.log("remove from waitlist");
       });
     }

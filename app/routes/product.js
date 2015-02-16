@@ -14,13 +14,13 @@ var productRoute = {
       var tags = req.query.tags.split(","),
           query;
 
-      query = Product.where("tags").all(tags);
+      query = tags[0] === "" ? Product : Product.where("tags").all(tags);
       query.find(function(err, products) {
         if (err) {
           res.status(400);
           return res.send("Error while getting the recommendations.<br/>" + err);
         }
-        if (products === null) {
+        if (products === null || products === []) {
           res.status(416);
           return res.send("Aucun produit correspondant aux tags: '" + tags.join(",") + "' trouvé.");
         } else {
@@ -45,7 +45,7 @@ var productRoute = {
           res.status(400);
           return res.send("Error while getting the product.<br/>" + err);
         }
-        if (product === null) {
+        if (product === null || product === []) {
           res.status(404);
           return res.send("Aucun produit trouvé.");
         } else {
@@ -63,7 +63,7 @@ var productRoute = {
           res.status(400);
           return res.send("Error while getting the product.<br/>" + err);
         }
-        if (products === null) {
+        if (products === null || products === []) {
           res.status(404);
           return res.send("Aucun produit trouvé.");
         } else {
