@@ -215,6 +215,9 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
   $scope.registerQueue = function() {
     if (!$scope.user.waiting) {
       $scope.user.waiting = true;
+      if (plugins && plugins.toast) {
+        plugins.toast.showShortBottom('Inscription "' + $scope.connectedQueue + '"');
+      }
       $scope.syncQueue.$add($scope.user).then(function(userRef){
         $scope.setUserKey(userRef.key());
         $scope.waitlistPosition = transformPositionToString($scope.syncQueue.length - 1);
@@ -231,6 +234,9 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
     if ($scope.user.waiting) {
       $scope.user.waiting = false;
       $scope.syncQueue.$remove($scope.syncQueue.$indexFor($scope.getUserKey())).then(function(userRef){
+        if (plugins && plugins.toast) {
+          plugins.toast.showShortBottom("Désinscription effectuée");
+        }
         $rootScope.registered = false;
         if ($location.path() === "/home") {
           $scope.hideFooter();
