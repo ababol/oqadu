@@ -64,7 +64,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
 })
 
 .controller('QuestionCtrl', function($scope, $q, $location, $stateParams, Questions) {
-  $scope.question = [];
+  $scope.question = {};
   if ($stateParams.tags === undefined) {
     $stateParams.tags = "";
   }
