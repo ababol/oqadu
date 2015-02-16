@@ -43,7 +43,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
     products: [],
     cart: [],
     waiting: false,
-    tags: [],
+    tags: {},
     actualTags: []
   };
 
@@ -80,21 +80,21 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
   }));
 
   $scope.selectAnswer = function(data) {
-    if ($scope.user.tags.length === 0 && data.tags.length > 0
-        || $scope.user.actualTags.length === 0 && !$rootScope.registered) {
-      if (plugins && plugins.toast) {
+    if ($scope.user.actualShelf == null) {
+      if (plugins && plugins.toast)
         plugins.toast.showLongBottom('Vous pouvez dès à présent vous insrire à la file d\'attente auprès du conseiller "' + data.tags[0] + '"');
-      }
+      if(!$rootScope.registered)
+        $scope.connectToFirebaseQueue(data.tags[0]);
       $scope.showFooter();
-      $scope.connectToFirebaseQueue(data.tags[0]);
+      $scope.user.actualShelf = data.tags[0];
       $scope.user.actualTags = [];
-      $scope.user.tags = [];
+      $scope.user.tags[data.tags[0]]  = [];
     }
     $scope.user.qa[$scope.question._id] = {
       question: $scope.question,
       answer: data
     };
-    $scope.user.tags = $scope.user.tags.concat(data.tags);
+    $scope.user.tags[$scope.user.actualShelf] = $scope.user.tags[$scope.user.actualShelf].concat(data.tags);
     $scope.user.actualTags = $scope.user.actualTags.concat(data.tags);
     if ($scope.user.waiting) {
       var index = $scope.syncQueue.$indexFor($scope.getUserKey());
@@ -108,6 +108,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
       $scope.syncQueue[index].tags = $scope.user.tags;
       $scope.syncQueue.$save(index).then(function(){console.log("updated");});
     }
+    console.log($scope.user);
   };
 })
 
@@ -169,11 +170,12 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
 
 .controller('HomeCtrl', function($scope, $rootScope, $ionicViewService, Products) {
   $scope.user.actualTags = [];
-  if ($scope.user.tags.length === 0 || !$rootScope.registered) {
+  if (!$scope.user.actualShelf || !$rootScope.registered) {
     $scope.hideFooter();
     $scope.hideLoader(true);
     $ionicViewService.clearHistory();
   }
+  $scope.user.actualShelf = null;
 })
 
 .controller('LoadingCtrl', function($state) {
