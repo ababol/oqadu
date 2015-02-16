@@ -81,8 +81,9 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
 
   $scope.selectAnswer = function(data) {
     if ($scope.user.actualShelf == null) {
-      if (plugins && plugins.toast)
-        plugins.toast.showLongBottom('Vous pouvez dès à présent vous insrire à la file d\'attente auprès du conseiller "' + data.tags[0] + '"');
+      if (window.plugins && window.plugins.toast) {
+        window.plugins.toast.showLongBottom('Vous pouvez dès à présent vous insrire à la file d\'attente auprès du conseiller "' + data.tags[0] + '"');
+      }
       if(!$rootScope.registered)
         $scope.connectToFirebaseQueue(data.tags[0]);
       $scope.showFooter();
@@ -217,8 +218,8 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
   $scope.registerQueue = function() {
     if (!$scope.user.waiting) {
       $scope.user.waiting = true;
-      if (plugins && plugins.toast) {
-        plugins.toast.showShortBottom('Inscription "' + $scope.connectedQueue + '"');
+      if (window.plugins && window.plugins.toast) {
+        window.plugins.toast.showShortBottom('Inscription "' + $scope.connectedQueue + '"');
       }
       $scope.syncQueue.$add($scope.user).then(function(userRef){
         $scope.setUserKey(userRef.key());
@@ -236,8 +237,8 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
     if ($scope.user.waiting) {
       $scope.user.waiting = false;
       $scope.syncQueue.$remove($scope.syncQueue.$indexFor($scope.getUserKey())).then(function(userRef){
-        if (plugins && plugins.toast) {
-          plugins.toast.showShortBottom("Désinscription effectuée");
+        if (window.plugins && window.plugins.toast) {
+          window.plugins.toast.showShortBottom("Désinscription effectuée");
         }
         $rootScope.registered = false;
         if ($location.path() === "/home") {
