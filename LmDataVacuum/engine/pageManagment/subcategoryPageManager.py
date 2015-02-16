@@ -37,6 +37,7 @@ class SubcategoryPageManager(PageManager):
         # ANSWERS
         answersHtml = dom.select('section.product-entry > ul > li > h3 > a')
         for answerHtml in answersHtml:
+            print "toto"
             answerUrl = answerHtml["href"]
             answerText = answerHtml.string.strip()
             if answerText.find("...") > 0:
@@ -54,7 +55,6 @@ class SubcategoryPageManager(PageManager):
                     self._datas.addTag(tag)
             try:
                 self.addSubPage(SubcategoryPageManager(self._baseUrl, answerUrl, self._datas, deepcopy(self.__tags + answer.getTags())))
-                break
             except:
                 print "error: ", self._baseUrl + answerUrl
                 return

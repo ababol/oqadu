@@ -91,7 +91,6 @@ class CriterionsPageManager(PageManager):
                     question.addAnswer(answer)
                     try:
                         self.addSubPage(ProductListPageManager(self._baseUrl, criteria.url, self._datas, deepcopy(self.__tags + answer.getTags()), products))
-                        break
                     except:
                         print "error: ", self._baseUrl + criteria.url
                         return

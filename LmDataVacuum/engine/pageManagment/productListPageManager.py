@@ -35,7 +35,6 @@ class ProductListPageManager(PageManager):
             else:
                 try:
                     self.addSubPage(ProductPageManager(self._baseUrl, productUrl, self._datas, self.__tags, self.__products, imgPath))
-                    return
                 except:
                     print "error: ", self._baseUrl + productUrl
                     return
