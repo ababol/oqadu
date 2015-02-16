@@ -1,52 +1,62 @@
-var app = require('../app'),
-	product = require('../models/Product'),
-	authenticator = require('../authenticator');
+var Product = require('../models/Product'),
+  authenticator = require('../authenticator');
 
 var productRoute = {
-	define: function(){
-		product.methods(['get', 'post', 'put', 'delete']);
+  define: function(app, prefixAPI) {
+    Product.methods(['get', 'post', 'put', 'delete']);
 
-		product.before('post', authenticator.authenticate);
-		product.before('put', authenticator.authenticate);
-		product.before('delete', authenticator.authenticate);
+    Product.before('post', authenticator.authenticate);
+    Product.before('put', authenticator.authenticate);
+    Product.before('delete', authenticator.authenticate);
 
-		// custom route
-		product.route('recommendations', ['get'], function(request, response, next){
-			var recommendations;
-			var input = request.body.tags;
+    // custom route
+    Product.route('Recommendations.get', function(req, res) {
+      var tags = req.query.tags.split(","),
+        recommendations, query;
 
-			recommendations = product.find({
-				tags:{ $in : input}
-			}, function(){});
+      query = Product.where("tags").all(tags);
+      query.find(function(err, products) {
+        if (err) {
+          res.status(400);
+          return res.send("Error while getting the recommendations.<br/>" + err);
+        }
+        if (products === null) {
+          res.status(416);
+          return res.send("Aucun produit correspondant aux tags: '" + tags.join(",") + "' trouvé.");
+        } else {
+          res.status(200);
+          return res.send(products);
+        }
+      });
+    });
 
-			if(recommendations == null){
-				response.status(416);
-				response.send('No product corresponds to the given tags.');
-			}else{
-				response.status(200);
-				response.send(recommendations);
-			}
-		});
+    Product.route('Barcode.get', function(req, res) {
+      var barcode = parseInt(req.query.barcode, 10),
+        product, query;
 
-		product.route('product-barcode', ['get'], function(request, response, next){
-			var correspondingProduct;
-			var input = request.body.barcode;
+      if (isNaN(barcode)) {
+        barcode = 0;
+      }
 
-			correspondingProduct = product.find({
-				barcode : input
-			}, function(){});
+      query = Product.where({ barcode: barcode });
+      query.findOne({}, '_id', function(err, product) {
+        console.log(product)
+        if (err) {
+          res.status(400);
+          return res.send("Error while getting the product.<br/>" + err);
+        }
+        if (product === null) {
+          res.status(404);
+          return res.send("Aucun produit trouvé.");
+        } else {
+          res.status(200);
+          return res.send(product._id);
+        }
+      });
+    });
 
-			if(correspondingProduct == null){
-				response.status(404);
-				response.send('There is not any product corresponding to that bar code.')
-			}else{
-				response.status(200);
-				response.send(correspondingProduct);
-			}
-		});
-
-		product.register(app, '/products');
-	}
-}
+    Product.register(app, prefixAPI + '/Products');
+  }
+};
 
 module.exports = productRoute;

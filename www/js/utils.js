@@ -41,4 +41,9 @@ angular.module('Helper', [])
       });
     }
   };
-});
+})
+.filter('join', function() {
+  return function(input, splitChar) {
+    return input.join(splitChar);
+  }
+});;
