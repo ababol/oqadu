@@ -204,7 +204,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
   triangle.animate({opacity:1,transform:"s1,1"}, 2000, mina.elastic);
 })
 
-.controller('BarCtrl', function($scope, $rootScope) {
+.controller('BarCtrl', function($scope, $rootScope, $location) {
   $rootScope.registered = false;
   $scope.waitlistPosition = "";
   $scope.waitTime = -1;
@@ -228,6 +228,9 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
       $scope.user.waiting = false;
       $scope.syncQueue.$remove($scope.syncQueue.$indexFor($scope.getUserKey())).then(function(userRef){
         $rootScope.registered = false;
+        if ($location.path() === "/home") {
+          $scope.hideFooter();
+        }
         console.log("remove from waitlist");
       });
     }
