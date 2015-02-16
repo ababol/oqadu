@@ -1,4 +1,4 @@
-var url = "http://localhost:3000";
+var url = "https://oqadu.herokuapp.com";
 // var url = "http://192.168.43.118:3000";
 
 
@@ -46,12 +46,6 @@ angular.module('starter.services', [])
     getProductId: function(barcode) {
       return $http({
         url: url+'/api/v2/Products/Barcode/?barcode=' + barcode,
-        method: 'GET'
-      });
-    },
-    getPromo: function() {
-      return $http({
-        url: url+'/api/v2/Products/Promo',
         method: 'GET'
       });
     }

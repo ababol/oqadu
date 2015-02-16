@@ -55,16 +55,20 @@ span.tab-item {
 }
 
 .home {
-  img, .home .promo {
-    text-align: center;
-    margin: 0 auto;
-    display: block;
-  }
-
-  ion-slide img {
-    max-height: 400px;
-  }
   a {
     text-decoration: none;
+  }
+
+
+  .home-promo {
+    background: white;
+    padding: 0 0 10px 0;
+    height: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .home-button {
+    padding: 10px;
   }
 }

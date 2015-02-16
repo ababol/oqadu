@@ -95,7 +95,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
       question: $scope.question,
       answer: data
     };
-    $scope.user.tags = $scope.user.tags.concat(data.tags); 
+    $scope.user.tags = $scope.user.tags.concat(data.tags);
     if ($scope.user.waiting) {
       var index = $scope.syncQueue.$indexFor($scope.getUserKey());
       if (!$scope.syncQueue[index].qa) {
@@ -123,7 +123,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
     $scope.user.products = $scope.user.products.concat(recos.data);
     if($scope.user.waiting){
       var index = $scope.syncQueue.$indexFor($scope.getUserKey());
-      $scope.syncQueue[index].products = $scope.user.products; 
+      $scope.syncQueue[index].products = $scope.user.products;
       $scope.syncQueue.$save(index).then(function() {console.log("updated");});
     }
 
@@ -171,11 +171,6 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
   $scope.hideFooter();
   $scope.hideLoader(true);
   $ionicViewService.clearHistory();
-
-  $scope.products = [];
-  Products.getPromo().success(function(products) {
-    $scope.products = products;
-  });
 })
 
 .controller('LoadingCtrl', function($state) {
