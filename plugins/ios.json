@@ -39,6 +39,10 @@
                         {
                             "xml": "<feature name=\"NetworkStatus\"><param name=\"ios-package\" value=\"CDVConnection\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Toast\"><param name=\"ios-package\" value=\"Toast\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -72,7 +76,7 @@
                     "QuartzCore.framework": [
                         {
                             "xml": "false",
-                            "count": 1
+                            "count": 2
                         }
                     ],
                     "SystemConfiguration.framework": [
@@ -102,6 +106,9 @@
             "PACKAGE_NAME": "com.ionicframework.oqadu412243"
         },
         "org.apache.cordova.network-information": {
+            "PACKAGE_NAME": "com.ionicframework.oqadu412243"
+        },
+        "nl.x-services.plugins.toast": {
             "PACKAGE_NAME": "com.ionicframework.oqadu412243"
         }
     },

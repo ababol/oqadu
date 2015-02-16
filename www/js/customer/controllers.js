@@ -82,6 +82,9 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
   $scope.selectAnswer = function(data) {
     if ($scope.user.tags.length === 0 && data.tags.length > 0
         || $scope.user.actualTags.length === 0 && !$rootScope.registered) {
+      if (plugins && plugins.toast) {
+        plugins.toast.showLongBottom('Vous pouvez dès à présent vous insrire à la file d\'attente auprès du conseiller "' + data.tags[0] + '"');
+      }
       $scope.showFooter();
       $scope.connectToFirebaseQueue(data.tags[0]);
       $scope.user.actualTags = [];
