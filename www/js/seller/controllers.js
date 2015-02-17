@@ -18,7 +18,7 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
     $ionicLoading.hide();
   };
   $scope.error = function(err) {
-    $scope.errorTxt = "API ERROR " + err.status + " - " + err.data;
+    $scope.errorTxt = "API ERROR " + err.status + " - " + JSON.stringify(err.data);
   };
   $scope.refreshScroll = function() {
     $ionicScrollDelegate.resize();
