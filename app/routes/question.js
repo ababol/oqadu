@@ -44,7 +44,7 @@ var questionRoute = {
         if ((tags.length === 0) || (tags.length === 1 && tags[0] === "")) {
           query = Question.where({tags: {$size: 0}});
         } else {
-          query = Question.where("tags").all(tags).nin(qId);
+          query = Question.where("tags").all(tags).nin("_id", qId);
         }
 
         query.findOne(function(err, question) {
