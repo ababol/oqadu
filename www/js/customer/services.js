@@ -1,4 +1,4 @@
-var url = "https://oqadu.herokuapp.com";
+var url = "http://localhost:3000";
 // var url = "http://192.168.43.118:3000";
 
 
@@ -11,14 +11,11 @@ angular.module('starter.services', [])
         method: 'GET'
       });
     },
-    get: function(tags) {
-      if (tags === undefined) {
-        tags = "";
-      }
-
+    post: function(tags, qId) {
       return $http({
-        url: url+'/api/v2/Questions/Tags/?tags=' + tags,
-        method: 'GET'
+        url: url+'/api/v2/Questions/Next',
+        data: {tags: tags, qId: qId},
+        method: 'POST'
       });
     }
   };
@@ -26,10 +23,11 @@ angular.module('starter.services', [])
 
 .factory('Recommendations', function($http) {
   return {
-    get: function(tags) {
+    post: function(tags) {
       return $http({
-        url: url+'/api/v2/Products/Recommendations/?tags=' + tags,
-        method: 'GET'
+        url: url+'/api/v2/Products/Recommendations',
+        data: tags,
+        method: 'POST'
       });
     }
   };

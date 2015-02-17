@@ -10,11 +10,11 @@ var productRoute = {
     Product.before('delete', authenticator.authenticate);
 
     // custom route
-    Product.route('Recommendations.get', function(req, res) {
-      var tags = req.query.tags.split(","),
+    Product.route('Recommendations.post', function(req, res) {
+      var tags = req.body,
           query;
 
-      query = tags[0] === "" ? Product : Product.where("tags").all(tags);
+      query = tags.length === 0 ? Product : Product.where("tags").all(tags);
       query.find(function(err, products) {
         if (err) {
           res.status(400);

@@ -44,7 +44,10 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
     cart: [],
     waiting: false,
     tags: {},
-    actualTags: []
+    actual: {
+      tags: [],
+      qId: []
+    }
   };
 
   $rootScope.registered = false;
@@ -69,7 +72,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
   $scope.question = {};
 
   loader($scope, $q.when(
-    Questions.get($scope.user.actualTags.join(","))
+    Questions.post($scope.user.actual.tags, $scope.user.actual.qId)
   ).then(function(question) {
     var data = question.data;
     if (data === "Not any remaining questions.") {
@@ -88,7 +91,10 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
         $scope.connectToFirebaseQueue(data.tags[0]);
       $scope.showFooter();
       $scope.user.actualShelf = data.tags[0];
-      $scope.user.actualTags = [];
+      $scope.user.actual = {
+        tags: [],
+        qId: []
+      };
       $scope.user.tags[data.tags[0]]  = [];
     }
     $scope.user.qa[$scope.question._id] = {
@@ -96,7 +102,8 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
       answer: data
     };
     $scope.user.tags[$scope.user.actualShelf] = $scope.user.tags[$scope.user.actualShelf].concat(data.tags);
-    $scope.user.actualTags = $scope.user.actualTags.concat(data.tags);
+    $scope.user.actual.tags = $scope.user.actual.tags.concat(data.tags);
+    $scope.user.actual.qId.push($scope.question._id);
     if ($scope.user.waiting) {
       var index = $scope.syncQueue.$indexFor($scope.getUserKey());
       if (!$scope.syncQueue[index].qa) {
@@ -118,7 +125,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
   $scope.title = "Recommandation";
 
   loader($scope, $q.when(
-    Recommendations.get($scope.user.actualTags.join(","))
+    Recommendations.post($scope.user.actual.tags)
   ).then(function(recos) {
     $scope.products = recos.data;
     if(!$scope.user.products)
@@ -170,7 +177,10 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
 })
 
 .controller('HomeCtrl', function($scope, $rootScope, $ionicViewService, Products) {
-  $scope.user.actualTags = [];
+  $scope.user.actual = {
+    tags: [],
+    qId: []
+  };
   if (!$scope.user.actualShelf || !$rootScope.registered) {
     $scope.hideFooter();
     $scope.hideLoader(true);
@@ -255,11 +265,14 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
     promise = $q.when();
 
   $scope.products = [];
-  $scope.noProduct = null;
   $scope.title = "Panier";
 
   function callback() {
     var deferred = $q.defer();
+
+    if (cart.length === 0) {
+      return deferred.resolve();
+    }
 
     cart.forEach(function(productId, key) {
       $q.when(
@@ -282,13 +295,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
     return deferred.promise;
   }
 
-  if (cart.length === 0) {
-    $scope.noProduct = "Pas de produits!";
-  } else {
-    promise = callback();
-  }
-
-  loader($scope, promise);
+  loader($scope, $q.when(callback));
 })
 
 .controller('ScanCtrl', function($scope, $q, $location, $cordovaBarcodeScanner, $ionicPopup, Products) {

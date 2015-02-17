@@ -19,6 +19,7 @@
     "mongodb": "^1.4.19",
     "mongoose": "^3.8.18",
     "node-restful": "^0.1.17",
+    "q": "^1.1.2",
     "rwlock": "^5.0.0"
   },
   "devDependencies": {
