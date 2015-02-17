@@ -29,8 +29,7 @@ class CategoryPageManager(PageManager):
 
         for answerHtml in answersHtml:
             answerUrl = answerHtml["href"]
-            answer = Answer(answerHtml.string.strip())
-            question.addAnswer(answer)
+            answer = Answer(answerHtml.string.strip().replace('\"', "\\\""))
 
             # TAGS
             formatedStr = answer.text.replace(' ', '')
@@ -41,4 +40,4 @@ class CategoryPageManager(PageManager):
                     tag = Tag(tagLabel)
                     answer.addTag(tag)
                     self._datas.addTag(tag)
-            self.addSubPage(SubcategoryPageManager(self._baseUrl, answerUrl, self._datas, deepcopy(answer.getTags())))
+            self.addSubPage(SubcategoryPageManager(self._baseUrl, answerUrl, self._datas, question, answer, deepcopy(answer.getTags())))

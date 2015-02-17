@@ -17,7 +17,7 @@ rootPage.exctractDatas()
 print baseUrl+relativeRoot
 pages = rootPage.getSubPages();
 
-while len(pages) > 0 and len(mongoCollection.getProducts()) < 200:
+while len(pages) > 0 and len(mongoCollection.getProducts()) < 500:
 
     page = pages.pop();
     page.exctractDatas()

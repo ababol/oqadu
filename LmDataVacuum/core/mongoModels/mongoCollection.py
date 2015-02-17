@@ -46,9 +46,10 @@ class MongoCollection(object):
         length = len(self.__questions)
         for i in range(0, length):
             question = self.__questions[i]
-            json += question.exportJson()
-            if i != length - 1:
-                json+=", "
+            if(question.getAnswersCount()>0):
+                json += question.exportJson()
+                if i != length - 1:
+                    json+=", "
         json += "],"
 
         json += "\"products\": ["

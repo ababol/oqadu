@@ -29,7 +29,7 @@ class ProductPageManager(PageManager):
         dom = self.getDocument()
 
         # PRODUCT NAME
-        name = dom.select("h1")[0].string.strip()
+        name = dom.select("h1")[0].string.strip().replace('\"', "\\\"")
 
         # PRODUCT PRICE
         priceHtml = dom.select(".price > strong")[0].contents
@@ -44,12 +44,12 @@ class ProductPageManager(PageManager):
         product.addTags(self.__tags)
 
         #PRODUCT FEATURES
-        productFeatures = dom.select("#description-technique > .tech-desc > tbody > tr")
+        productFeatures = dom.select("#description-technique > div > table > tbody > tr")
         for productFeature in productFeatures:
             fLabel = productFeature.contents[1].string
             fValue = productFeature.contents[3].string
-            if fValue != None and fLabel != None:
-                product.addFeature(Feature(fLabel.strip('\n').strip('\t').strip(), fValue.strip('\n').strip('\t').strip()))
+            if fValue != None and fLabel != None and fLabel != "Conseil d'utilisation":
+                product.addFeature(Feature(fLabel.strip().replace('\"', "\\\""), fValue.strip().replace('\"', "\\\"")))
 
         # PRODUCT PICTURES
         product.addPicture(Picture(product.name, self.__imgPath))

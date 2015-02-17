@@ -46,12 +46,16 @@ class Criterion(object):
 # exemple : http://www.leroymerlin.fr/v3/p/produits/terrasse-jardin/abri-garage-rangement-et-etendage/abri-de-jardin-l1308217057
 class CriterionsPageManager(PageManager):
 
-    def __init__(self, baseUrl, relativeUrl, mongoCollection, tags):
+    def __init__(self, baseUrl, relativeUrl, mongoCollection, prevQuestion, prevAnswer, tags):
         super(CriterionsPageManager, self).__init__(baseUrl, relativeUrl, mongoCollection)
+        self.__prevQ = prevQuestion
+        self.__prevA = prevAnswer
         self.__tags = tags
         self.__criterions = []
 
     def exctractDatas(self):
+        self.__prevQ.addAnswer(self.__prevA)
+
         dom = self.getDocument()
 
         # CRITERIONS (SMART QUESTION BUILDER)
@@ -69,7 +73,7 @@ class CriterionsPageManager(PageManager):
                     productCount = int(criteriaLi.contents[3].contents[3].string.replace('(','').replace(')',''))
                     if productCount > 0 :
                         criteriaUrl = criteriaLi.contents[1]["value"]
-                        criteriaTitle = criteriaLi.contents[3].contents[2].strip('\n').strip('\t').strip()
+                        criteriaTitle = criteriaLi.contents[3].contents[2].strip('\n').strip('\t').strip().replace('\"', "\\\"")
                         criteria = Criteria(criteriaUrl, criteriaTitle, productCount)
                         criterion.addCriteria(criteria)
 
@@ -91,7 +95,9 @@ class CriterionsPageManager(PageManager):
                     self._datas.addTag(tag)
                     question.addAnswer(answer)
                     try:
-                        self.addSubPage(ProductListPageManager(self._baseUrl, criteria.url, self._datas, deepcopy(self.__tags + answer.getTags()), products))
-                    except:
-                        print "error: criterionsPage", self._baseUrl + criteria.url
+                        ProductListPageManager(self._baseUrl, criteria.url, self._datas, question, answer, deepcopy(self.__tags + answer.getTags()), products).exctractDatas()
+                        print self._baseUrl + criteria.url
+                    except Exception as e:
+                        print "error: criterionPage", self._baseUrl + answerUrl
+                        print e
                         return

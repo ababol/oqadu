@@ -16,8 +16,10 @@ from copy import deepcopy
 class SubcategoryPageManager(PageManager):
 
 
-    def __init__(self, baseUrl, relativeUrl, mongoCollection, tags):
+    def __init__(self, baseUrl, relativeUrl, mongoCollection, prevQuestion, prevAnswer, tags):
         super(SubcategoryPageManager, self).__init__(baseUrl, relativeUrl, mongoCollection)
+        self.__prevQ = prevQuestion
+        self.__prevA = prevAnswer
         self.__tags = tags
 
     def exctractDatas(self):
@@ -25,37 +27,39 @@ class SubcategoryPageManager(PageManager):
         dom = self.getDocument()
         if len(dom.select('#criteria')) > 0 :
             try:
-                self.addSubPage(CriterionsPageManager(self._baseUrl, self._relativeUrl, self._datas, self.__tags))
+                self.addSubPage(CriterionsPageManager(self._baseUrl, self._relativeUrl, self._datas, self.__prevQ, self.__prevA, self.__tags))
                 return
-            except:
-                print "error: ", self._baseUrl + self._relativeUrl
-                return
-
-        # QUESTION
-        question = Question(u'A quoi correspond votre besoin?', self.__tags)
-        self._datas.addQuestion(question)
-
-        # ANSWERS
-        answersHtml = dom.select('section.product-entry > ul > li > h3 > a')
-        for answerHtml in answersHtml:
-            answerUrl = answerHtml["href"]
-            answerText = answerHtml.string.strip()
-            if answerText.find("...") > 0:
-                answerText = answerHtml["title"]
-            answer = Answer(answerText)
-            question.addAnswer(answer)
-
-            # TAGS
-            subStr = answer.text.split(' et ')
-            for string in subStr:
-                tagLabels = string.split(',')
-                for tagLabel in tagLabels:
-                    tag = Tag(tagLabel.strip())
-                    answer.addTag(tag)
-                    self._datas.addTag(tag)
-            try:
-                self.addSubPage(SubcategoryPageManager(self._baseUrl, answerUrl, self._datas, deepcopy(self.__tags + answer.getTags())))
             except Exception as e:
-                print "error: subcategoryPage", self._baseUrl + answerUrl
+                print "error: subcategoryPage->criterion", self._baseUrl + self._relativeUrl
                 print e
                 return
+        else:
+            self.__prevQ.addAnswer(self.__prevA)
+
+            # QUESTION
+            question = Question(u'A quoi correspond votre besoin?', self.__tags)
+            self._datas.addQuestion(question)
+
+            # ANSWERS
+            answersHtml = dom.select('section.product-entry > ul > li > h3 > a')
+            for answerHtml in answersHtml:
+                answerUrl = answerHtml["href"]
+                answerText = answerHtml.string.strip().replace('\"', "\\\"")
+                if answerText.find("...") > 0:
+                    answerText = answerHtml["title"]
+                answer = Answer(answerText)
+
+                # TAGS
+                subStr = answer.text.split(' et ')
+                for string in subStr:
+                    tagLabels = string.split(',')
+                    for tagLabel in tagLabels:
+                        tag = Tag(tagLabel.strip())
+                        answer.addTag(tag)
+                        self._datas.addTag(tag)
+                try:
+                    self.addSubPage(SubcategoryPageManager(self._baseUrl, answerUrl, self._datas, question, answer, self.__tags + deepcopy(answer.getTags())))
+                except Exception as e:
+                    print "error: subcategoryPage", self._baseUrl + answerUrl
+                    print e
+                    return

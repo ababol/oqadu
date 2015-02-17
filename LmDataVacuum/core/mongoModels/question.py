@@ -16,6 +16,9 @@ class Question(MongoModel):
     def addAnswer(self, answer):
         self.__answers.append(answer)
 
+    def getAnswersCount(self):
+        return len(self.__answers)
+
     def exportJson(self):
         json = "{"
         json += "\"text\": \"" +self.text+"\","
