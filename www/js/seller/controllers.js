@@ -26,7 +26,15 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
   $scope.addTagToCustomer = function(tag){
     if(!$scope.customer.tags)
       return;
-    $scope.syncQueue[$scope.currentID].tags.push(tag);
+    if(!$scope.syncQueue[$scope.currentID].tags["custom"])
+      $scope.syncQueue[$scope.currentID].tags["custom"] = [];
+    $scope.syncQueue[$scope.currentID].tags["custom"].push(tag);
+    $scope.syncQueue.$save($scope.currentID);
+  };
+  $scope.deleteCustomerTag = function(shelf, index){
+    if(!$scope.customer.tags || !$scope.customer.tags[shelf] || index >= $scope.customer.tags[shelf].length)
+      return;
+    $scope.syncQueue[$scope.currentID].tags[shelf].splice(index, 1);
     $scope.syncQueue.$save($scope.currentID);
   };
 
@@ -87,28 +95,38 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
 })
 
 .controller('TagCtrl', function($scope, $ionicPopup) {
-    $scope.data = {};
-    console.log($scope.customer);
-    $scope.addTag = function(){
-
-      var myPopup = $ionicPopup.show({
-        template: '<input type="text" ng-model="data.newTag" autofocus="true">',
-        title: 'Enter tag',
-        scope: $scope,
-        buttons: [
-          { text: 'Cancel' },
-          {
-            text: '<b>Save</b>',
-            type: 'button-positive',
-            onTap: function(e) {
-              if($scope.data.newTag && $scope.data.newTag != ""){
-                $scope.addTagToCustomer($scope.data.newTag);
-              }
+  $scope.data = {};
+  $scope.addTag = function(){
+    var myPopup = $ionicPopup.show({
+      template: '<input type="text" ng-model="data.newTag" autofocus="true">',
+      title: 'Enter tag',
+      scope: $scope,
+      buttons: [
+        { text: 'Cancel' },
+        {
+          text: '<b>Save</b>',
+          type: 'button-positive',
+          onTap: function(e) {
+            if($scope.data.newTag && $scope.data.newTag != ""){
+              $scope.addTagToCustomer($scope.data.newTag);
             }
           }
-        ]
-      });
-    }
+        }
+      ]
+    });
+  };
+  $scope.removeTag = function(shelf, index){
+    console.log(index);
+    var confirmPopup = $ionicPopup.confirm({
+      title: 'Delete tag',
+      template: 'Are you sure you want to delete this tag?'
+    });
+    confirmPopup.then(function(res) {
+     if(res) {
+       $scope.deleteCustomerTag(shelf, index);
+     }
+    });
+  }
 })
 
 .controller('WaitlistCtrl', function($scope) {

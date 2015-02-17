@@ -1,12 +1,19 @@
-<ion-content class="padding home" animation="no-animation">
-  <ion-slide-box on-slide-changed="slideHasChanged($index)"  show-pager="true">
-    <!-- ng init update slider to fix a display bug !-->
-    <ion-slide ng-repeat="img in product.pictures track by $index" ng-init="updateSlider()">
-      <img src="{{img.path}}" alt="{{img.label}}">
-    </ion-slide>
-  </ion-slide-box>
-  <a id="engine" class="engine button button-half button-block button-balanced" href="#/question/">
-    <i class="ion-ios7-search-strong"></i>Moteur de recommandation</a>
-  <a class="button button-half button-block button-balanced invert" href="#/scan">
-    <i class="ion-ios7-camera"></i>Scannez un article</a>
-</ion-content>
+<ion-view>
+  <ion-content class="home" animation="no-animation">
+    <section class="home-promo">
+      <img src="img/leroymerlin.svg" width="300">
+    </section>
+
+    <section class="home-button">
+      <a id="engine" href="#/question/">
+        <button class="button button-large button-block icon-left ion-ios7-search-strong button-balanced">File d'attente</button>
+      </a>
+      <a href="#/scan">
+        <button class="button button-large button-block icon-left ion-ios7-barcode-outline button-energized">Scannez un article</button>
+      </a>
+      <a href="#/cart" ng-show="user.cart.length > 0 && !registered">
+        <button class="button button-large button-block icon-left ion-ios7-cart button-assertive">Panier ({{user.cart.length}})</button>
+      </a>
+    </section>
+  </ion-content>
+</ion-view>

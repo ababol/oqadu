@@ -25,7 +25,7 @@ var questionRoute = {
           res.status(400);
           return res.send("Error while getting next question.<br/>" + err);
         }
-        if (question === null) {
+        if (question === null || question === []) {
           res.status(200);
           return res.send("Not any remaining questions.");
         } else {

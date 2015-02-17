@@ -45,6 +45,7 @@
   "cordovaPlugins": [
     "https://github.com/ababol/BarcodeScanner",
     "org.apache.cordova.statusbar",
-    "org.apache.cordova.network-information"
+    "org.apache.cordova.network-information",
+    "https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git"
   ]
 }
