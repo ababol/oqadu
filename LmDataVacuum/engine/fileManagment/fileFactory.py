@@ -1,3 +1,4 @@
+# coding: utf-8
 import os.path
 from os import path, access, R_OK
 # To change this template, choose Tools | Templates
@@ -137,4 +138,3 @@ class FileFactory:
         if local != null :
                  f = open(entityname,'w')
                  f.read()
-    

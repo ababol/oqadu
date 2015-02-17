@@ -1,3 +1,4 @@
+# coding: utf-8
 from tag import Tag
 from question import Question
 from product import Product
@@ -19,6 +20,8 @@ class MongoCollection(object):
             for tag in tags:
                 self.addTag(tag)
 
+    def getProducts(self):
+        return self.__products
 
     def addQuestion(self, question):
         if not isinstance(question, Question) :

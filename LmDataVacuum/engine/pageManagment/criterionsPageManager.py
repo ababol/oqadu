@@ -1,3 +1,4 @@
+# coding: utf-8
 from bs4 import BeautifulSoup
 
 import sys
@@ -92,5 +93,5 @@ class CriterionsPageManager(PageManager):
                     try:
                         self.addSubPage(ProductListPageManager(self._baseUrl, criteria.url, self._datas, deepcopy(self.__tags + answer.getTags()), products))
                     except:
-                        print "error: ", self._baseUrl + criteria.url
+                        print "error: criterionsPage", self._baseUrl + criteria.url
                         return

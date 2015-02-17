@@ -1,8 +1,10 @@
+# coding: utf-8
 from bs4 import BeautifulSoup
 
 import sys
 sys.path.insert(0, '../../');
 
+from engine.fileManagment.fileFactory import FileFactory
 from engine.pageManagment.pageManager import PageManager
 from core.mongoModels.tag import Tag
 from core.mongoModels.answer import Answer
@@ -42,12 +44,12 @@ class ProductPageManager(PageManager):
         product.addTags(self.__tags)
 
         #PRODUCT FEATURES
-        productFeatures = dom.select(".tech-desc > tbody > tr")
+        productFeatures = dom.select("#description-technique > .tech-desc > tbody > tr")
         for productFeature in productFeatures:
             fLabel = productFeature.contents[1].string
             fValue = productFeature.contents[3].string
-            if fValue != None :
-                product.addFeature(Feature(fLabel, fValue))
+            if fValue != None and fLabel != None:
+                product.addFeature(Feature(fLabel.strip('\n').strip('\t').strip(), fValue.strip('\n').strip('\t').strip()))
 
         # PRODUCT PICTURES
         product.addPicture(Picture(product.name, self.__imgPath))

@@ -1,4 +1,7 @@
+# coding: utf-8
 import sys
+import winsound
+
 sys.path.insert(0, '../');
 from engine.pageManagment.categoryPageManager import CategoryPageManager
 from core.mongoModels.mongoCollection import MongoCollection
@@ -14,14 +17,18 @@ rootPage.exctractDatas()
 print baseUrl+relativeRoot
 pages = rootPage.getSubPages();
 
-while len(pages) > 0 :
-    page = pages.pop(0);
+while len(pages) > 0 and len(mongoCollection.getProducts()) < 200:
+
+    page = pages.pop();
     page.exctractDatas()
     print page.getUrl()
     subPages = page.getSubPages();
     for subPage in subPages:
         pages.append(subPage)
 
-datasJson = mongoCollection.exportJson().encode("utf8",  errors='xmlcharrefreplace').strip()
+
+datasJson = mongoCollection.exportJson().encode("utf-8",  errors='xmlcharrefreplace').strip()
 fileName = "exctractedDatas.json"
 FileFactory.write("./"+fileName, datasJson)
+# Play Windows exit sound.
+winsound.PlaySound("SystemExit", winsound.SND_ALIAS)

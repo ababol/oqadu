@@ -1,14 +1,15 @@
 var mongoose = require('node-restful').mongoose;
+var app = require("express")()
 var fs = require('fs');
 var Lock = require('rwlock');
 
 fs.readFile("./exctractedDatas.json", "utf-8", function(err, data){
 
-  mongoose.connect('mongodb://public:public@ds045027.mongolab.com:45027/oqadu2');
+  mongoose.connect('mongodb://public:public@ds045011.mongolab.com:45011/oqadu2');
 
   var routes = require('../app/routes/index');
   routes.forEach(function(route) {
-    route.define();
+    route.define(app, "/api/v2");
   });
 
   var Question = mongoose.model('question')

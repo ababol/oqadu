@@ -1,3 +1,4 @@
+# coding: utf-8
 from bs4 import BeautifulSoup
 
 import sys
@@ -31,13 +32,12 @@ class SubcategoryPageManager(PageManager):
                 return
 
         # QUESTION
-        question = Question('A quoi correspond votre besoin?', self.__tags)
+        question = Question(u'A quoi correspond votre besoin?', self.__tags)
         self._datas.addQuestion(question)
 
         # ANSWERS
         answersHtml = dom.select('section.product-entry > ul > li > h3 > a')
         for answerHtml in answersHtml:
-            print "toto"
             answerUrl = answerHtml["href"]
             answerText = answerHtml.string.strip()
             if answerText.find("...") > 0:
@@ -55,6 +55,7 @@ class SubcategoryPageManager(PageManager):
                     self._datas.addTag(tag)
             try:
                 self.addSubPage(SubcategoryPageManager(self._baseUrl, answerUrl, self._datas, deepcopy(self.__tags + answer.getTags())))
-            except:
-                print "error: ", self._baseUrl + answerUrl
+            except Exception as e:
+                print "error: subcategoryPage", self._baseUrl + answerUrl
+                print e
                 return

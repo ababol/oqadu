@@ -1,3 +1,4 @@
+# coding: utf-8
 from bs4 import BeautifulSoup
 
 import sys
@@ -36,5 +37,5 @@ class ProductListPageManager(PageManager):
                 try:
                     self.addSubPage(ProductPageManager(self._baseUrl, productUrl, self._datas, self.__tags, self.__products, imgPath))
                 except:
-                    print "error: ", self._baseUrl + productUrl
+                    print "error: productListPage", self._baseUrl + productUrl
                     return

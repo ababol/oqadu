@@ -1,3 +1,4 @@
+# coding: utf-8
 from mongoModel import MongoModel
 
 class Tag(MongoModel):
