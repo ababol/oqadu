@@ -11,7 +11,7 @@ angular.module('starter.services', [])
         method: 'GET'
       });
     },
-    post: function(tags, qId) {
+    post: function(tags, qIds) {
       return $http({
         url: url+'/api/v2/Questions/Next',
         data: {tags: tags, qIds: qIds},
