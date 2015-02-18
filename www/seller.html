@@ -69,7 +69,7 @@
             <ul class="list menu">
               <a href="#" data-click-menulink  ng-click="initSeller(seller.id +1)" class="item logout">{{seller.name}}</a>
 
-              <div class="item item-divider">File d'attente ({{syncQueue.length -1}})</div>
+              <div class="item item-divider">File d'attente ({{syncQueue.length}})</div>
               <a href="#/tab/user" class=" waitlist item item-button-right item-icon-right" ng-repeat="(key, user) in syncQueue | limitTo: 7" ng-class="{'selected': customer.$id == user.$id, 'used': user.seller != null && user.seller != seller.id}" ng-click="changeCustomer(key)">
                 User {{user.$$hashKey}}
                 <button class="button button-stable" ng-click="deleteUser()">done</button>
