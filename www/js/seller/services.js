@@ -38,7 +38,7 @@ angular.module('starter.services', [])
     get: function(id){
       return sellers[id % sellers.length]
     },
-    getByLogin: function(username, pass){
+    getByLogin: function(username, pass) {
       var user = null;
       var l = sellers.length;
       var i = 0;
@@ -48,6 +48,18 @@ angular.module('starter.services', [])
         i++;
       }
       return user;
+    }
+  }
+})
+
+.factory('User', function($http) {
+  return {
+    login: function(username, pass) {
+      return $http({
+        url: url+'/api/v2/Users/Login',
+        data: {username: username, password: pass},
+        method: 'POST'
+      });
     }
   }
 });
