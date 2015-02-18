@@ -70,7 +70,7 @@
               <a href="#" data-click-menulink  ng-click="initSeller(seller.id +1)" class="item logout">{{seller.name}}</a>
 
               <div class="item item-divider">File d'attente ({{syncQueue.length -1}})</div>
-              <a href="#/tab/dash" class=" waitlist item item-button-right item-icon-right" ng-repeat="(key, user) in syncQueue | limitTo: 7" ng-class="{'selected': customer.$id == user.$id}" ng-class="{'used': user.seller}" ng-click="changeCustomer(key)">
+              <a href="#/tab/user" class=" waitlist item item-button-right item-icon-right" ng-repeat="(key, user) in syncQueue | limitTo: 7" ng-class="{'selected': customer.$id == user.$id}" ng-class="{'used': user.seller}" ng-click="changeCustomer(key)">
                 User {{user.$$hashKey}}
                 <button class="button button-stable" ng-click="deleteUser()">done</button>
                 <i class="icon ion-person"></i>
