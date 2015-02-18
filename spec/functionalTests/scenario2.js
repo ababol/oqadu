@@ -22,25 +22,28 @@ var clickLoop = function(self, length){// en cours de dev
       });
     self.echo(Lenght2);**/
     
-      for (var j = 2; j <= length+1; j++) {
+      for (var j = 2; j <= length+1; j++ && !self.exists('.productreco')) {
             self.capture('test'+j+'.png');
             secureClick(self, '.answer:nth-child('+j+')');
             self.echo('click');
-            casper.waitForSelector('.answer', function(){
+            if (!self.exists('.productreco')) {
+              casper.waitForSelector('.answer', function(){
               casper.test.assertExists('.answer');
               length = self.evaluate(function(){
                 return document.querySelectorAll(".answer").length;
               });
               this.echo(length);
             });
-            if (self.exists('.productreco')) {
-              casper.test.assertExists('.productreco');
-            return true;
-            }else{
+            
             casper.then(function(){
               clickLoop(self, length);
             }); 
-          }; 
+            }else{
+              casper.test.assertExists('.productreco');
+              //retourner au questions????
+            }
+            
+          
     }
     
 };
