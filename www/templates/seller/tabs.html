@@ -3,7 +3,7 @@
   Each tab's child <ion-nav-view> directive will have its own
   navigation history that also transitions its views in and out.
 -->
-<ion-tabs class="tabs-positive tabs-icon-only tabs-top">
+<ion-tabs ng-show="syncQueue.length > 0" class="tabs-positive tabs-icon-only tabs-top">
 
 
   <ion-tab title="user" icon="icon ion-android-contact" href="#/tab/user" class="user">
