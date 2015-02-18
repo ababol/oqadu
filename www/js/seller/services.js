@@ -26,17 +26,28 @@ angular.module('starter.services', [])
   // Might use a resource here that returns a JSON array
   // Some fake testing data
   var sellers = [
-    {id:1, name: "John Doe", shelf: "Cuisine"},
-    {id:2, name: "Zlatan", shelf: "Jardin"},
-    {id:3, name: "Ribery", shelf: "Peinture"}
+    {id:1, password: "123456", username: "JohnDoe", name: "John Doe", shelf: "Cuisine"},
+    {id:2, password: "123456", username: "Zlatan", name: "Zlatan", shelf: "Jardin"},
+    {id:3, password: "123456", username: "Ribery", name: "Ribery", shelf: "Peinture"}
   ];
 
   return {
     all: function() {
-      return tags;
+      return sellers;
     },
     get: function(id){
       return sellers[id % sellers.length]
+    },
+    getByLogin: function(username, pass){
+      var user = null;
+      var l = sellers.length;
+      var i = 0;
+      while(i < l && user == null){
+        if(sellers[i].username == username && sellers[i].password == pass)
+          user = sellers[i];
+        i++;
+      }
+      return user;
     }
   }
 });

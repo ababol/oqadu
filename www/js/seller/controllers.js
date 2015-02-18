@@ -9,11 +9,19 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
   $scope.syncQueue = [];
   $scope.customer = {};
   $scope.currentID = null;
+  $scope.showLeftMenu = true;
+
 
   $scope.showLoader = function() {
     $scope.errorTxt = false;
     $ionicLoading.show();
   };
+  $scope.setLeftMenu = function(val){
+    $scope.showLeftMenu = val;
+  }
+  $scope.setSeller = function(seller){
+    $scope.seller = seller;
+  }
   $scope.hideLoader = function() {
     $ionicLoading.hide();
   };
@@ -81,6 +89,23 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
 
 .controller('ProductCtrl', function($scope, Products) {
 
+})
+
+.controller('LoginCtrl', function($scope, $location, Sellers){
+  $scope.setLeftMenu(false);
+  var seller = Sellers.get(0);
+  $scope.data = {
+    username: seller.username,
+    password: seller.password
+  }
+  $scope.login = function(){
+    var seller = Sellers.getByLogin($scope.data.username, $scope.data.password);
+    if(seller != null){
+      $location.path("/tab/user");
+      $scope.setSeller(seller);
+      $scope.setLeftMenu(true);
+    }
+  };
 })
 
 .controller('ProductDetailCtrl', function($scope, $q, $stateParams, $state, $ionicSlideBoxDelegate, utils, Products) {

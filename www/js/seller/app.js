@@ -123,6 +123,12 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
       controller: 'AllProductsCtrl'
     })
 
+    .state('login', {
+      url: '/login',
+      templateUrl: 'templates/seller/login.html',
+      controller: 'LoginCtrl'
+    })
+
     .state('product-detail', {
       url: '/product-detail/:productId',
       backUrl: '/products',
@@ -132,6 +138,6 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
 
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/user');
+  $urlRouterProvider.otherwise('/login');
 
 });
