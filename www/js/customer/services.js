@@ -1,4 +1,4 @@
-var url = "https://oqadu.herokuapp.com";
+var url = "http://localhost:3000";
 // var url = "http://192.168.43.118:3000";
 
 
@@ -14,7 +14,7 @@ angular.module('starter.services', [])
     post: function(tags, qId) {
       return $http({
         url: url+'/api/v2/Questions/Next',
-        data: {tags: tags, qId: qId},
+        data: {tags: tags, qIds: qIds},
         method: 'POST'
       });
     }

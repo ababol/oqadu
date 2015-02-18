@@ -1,7 +1,8 @@
 var Question = require('../models/Question'),
   Product = require('../models/Product'),
   authenticator = require('../authenticator'),
-  Q = require('q');
+  Q = require('q'),
+  maxReco = 5;
 
 function checkRecommendation(tags) {
   var deferred = Q.defer();
@@ -11,12 +12,12 @@ function checkRecommendation(tags) {
   }
 
   Product.where("tags").in(tags).count(function(err, products) {
-    if (products < 5) {
-      return deferred.reject("Moins de 5 reco!");
+    if (products < maxReco) {
+      return deferred.reject("Moins de " + maxReco + " reco!");
     }
     Product.where("tags").all(tags).count(function(err, products) {
-      if (products < 5) {
-        return deferred.reject("Moins de 5 reco!");
+      if (products < maxReco) {
+        return deferred.reject("Moins de " + maxReco + " reco!");
       }
       return deferred.resolve("Get More Questions");
     });
@@ -36,7 +37,7 @@ var questionRoute = {
     // custom route
     Question.route('Next.post', function(req, res) {
       var tags = req.body.tags,
-          qId = req.body.qId,
+          qIds = req.body.qIds,
           query;
 
       Q.when(checkRecommendation(tags))
@@ -44,7 +45,7 @@ var questionRoute = {
         if ((tags.length === 0) || (tags.length === 1 && tags[0] === "")) {
           query = Question.where({tags: {$size: 0}});
         } else {
-          query = Question.where("tags").all(tags).nin("_id", qId);
+          query = Question.where("tags").all(tags).nin("_id", qIds);
         }
 
         query.findOne(function(err, question) {

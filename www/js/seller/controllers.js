@@ -91,20 +91,17 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
 
 })
 
-.controller('LoginCtrl', function($scope, $location, Sellers){
+.controller('LoginCtrl', function($scope, $location, User){
   $scope.setLeftMenu(false);
-  var seller = Sellers.get(0);
-  $scope.data = {
-    username: seller.username,
-    password: seller.password
-  }
-  $scope.login = function(){
-    var seller = Sellers.getByLogin($scope.data.username, $scope.data.password);
-    if(seller != null){
+  $scope.login = function(data){
+    User.login(data.username, data.password).then(function(user) {
+      console.log(user)
       $location.path("/tab/user");
-      $scope.setSeller(seller);
+      $scope.setSeller(user.data);
       $scope.setLeftMenu(true);
-    }
+    }).catch(function(err) {
+      $scope.error = err.data;
+    });
   };
 })
 

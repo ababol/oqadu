@@ -46,7 +46,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
     tags: {},
     actual: {
       tags: [],
-      qId: []
+      qIds: []
     }
   };
 
@@ -72,7 +72,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
   $scope.question = {};
 
   loader($scope, $q.when(
-    Questions.post($scope.user.actual.tags, $scope.user.actual.qId)
+    Questions.post($scope.user.actual.tags, $scope.user.actual.qIds)
   ).then(function(question) {
     var data = question.data;
     if (data === "Not any remaining questions.") {
@@ -93,7 +93,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
       $scope.user.actualShelf = data.tags[0];
       $scope.user.actual = {
         tags: [],
-        qId: []
+        qIds: []
       };
       $scope.user.tags[data.tags[0]]  = [];
     }
@@ -103,7 +103,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
     };
     $scope.user.tags[$scope.user.actualShelf] = $scope.user.tags[$scope.user.actualShelf].concat(data.tags);
     $scope.user.actual.tags = $scope.user.actual.tags.concat(data.tags);
-    $scope.user.actual.qId.push($scope.question._id);
+    $scope.user.actual.qIds.push($scope.question._id);
     if ($scope.user.waiting) {
       var index = $scope.syncQueue.$indexFor($scope.getUserKey());
       if (!$scope.syncQueue[index].qa) {
@@ -179,7 +179,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
 .controller('HomeCtrl', function($scope, $rootScope, $ionicViewService, Products) {
   $scope.user.actual = {
     tags: [],
-    qId: []
+    qIds: []
   };
   if (!$scope.user.actualShelf || !$rootScope.registered) {
     $scope.hideFooter();
