@@ -241,12 +241,16 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
       $scope.syncQueue.$watch(function(e){
         $scope.waitlistPosition = transformPositionToString($scope.syncQueue.length);
         if($scope.syncQueue.length === 1){
-          navigator.notification.alert(
-              "Rejoignez le conseiller du rayon ...",
-              null,
-              "C'est à vous",
-              "J'y vais !"
-          );
+          console.log('Beep')
+
+          if (window.plugin && window.plugin.notification) {
+            window.plugin.notification.local.add({
+                id:      1,
+                title:   'C\'est à vous',
+                message: 'Un conseiller vous attend.',
+                sound: 'http://babol.me/beep.mp3'
+            });
+          }
         }
         $scope.waitTime = ($scope.syncQueue.length) * 3;
       });
