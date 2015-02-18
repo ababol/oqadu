@@ -233,13 +233,22 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
       }
       $scope.syncQueue.$add($scope.user).then(function(userRef){
         $scope.setUserKey(userRef.key());
-        $scope.waitlistPosition = transformPositionToString($scope.syncQueue.length - 1);
-        $scope.waitTime = ($scope.syncQueue.length - 1) * 3;
+        console.log($scope.syncQueue.length);
+        $scope.waitlistPosition = transformPositionToString($scope.syncQueue.length);
+        $scope.waitTime = ($scope.syncQueue.length) * 3;
         $rootScope.registered = true;
       });
       $scope.syncQueue.$watch(function(e){
-        $scope.waitlistPosition = transformPositionToString($scope.syncQueue.length - 1);
-        $scope.waitTime = ($scope.syncQueue.length - 1) * 3;
+        $scope.waitlistPosition = transformPositionToString($scope.syncQueue.length);
+        if($scope.syncQueue.length === 1){
+          navigator.notification.alert(
+              "Rejoignez le conseiller du rayon ...",
+              null,
+              "C'est à vous",
+              "J'y vais !"
+          );
+        }
+        $scope.waitTime = ($scope.syncQueue.length) * 3;
       });
     }
   };
@@ -338,20 +347,12 @@ function loader($scope, callback) {
 }
 
 function transformPositionToString(position){
-  var lastNumber = (""+position).slice(-1);
-  var extension;
-  switch(lastNumber){
-    case "1":
-      extension = "st";
-      break;
-    case "2":
-      extension = "nd";
-      break;
-    case "3":
-      extension = "rd";
+  switch(position){
+    case 1:
+      extension = "er";
       break;
     default:
-      extension ="th";
+      extension ="ème";
       break;
   }
   return position + extension;
