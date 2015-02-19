@@ -234,13 +234,15 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
       $scope.syncQueue.$add($scope.user).then(function(userRef){
         $scope.setUserKey(userRef.key());
         console.log($scope.syncQueue.length);
-        $scope.waitlistPosition = transformPositionToString($scope.syncQueue.length);
-        $scope.waitTime = ($scope.syncQueue.length) * 3;
+        var pos = $scope.syncQueue.$indexFor(userRef.key()) +1;
+        $scope.waitlistPosition = transformPositionToString(pos);
+        $scope.waitTime = pos * 3;
         $rootScope.registered = true;
       });
       $scope.syncQueue.$watch(function(e){
-        $scope.waitlistPosition = transformPositionToString($scope.syncQueue.length);
-        if($scope.syncQueue.length === 1){
+        var pos = $scope.syncQueue.$indexFor($scope.getUserKey()) + 1;
+        $scope.waitlistPosition = transformPositionToString(pos);
+        if(pos === 1){
           console.log('Beep')
 
           if (window.plugin && window.plugin.notification) {
@@ -252,7 +254,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
             });
           }
         }
-        $scope.waitTime = ($scope.syncQueue.length) * 3;
+        $scope.waitTime = pos * 3;
       });
     }
   };

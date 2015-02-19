@@ -63,7 +63,6 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
   }
 
   $scope.changeCustomer = function(k){
-    console.log(k);
     if(k>=0 && k<$scope.syncQueue.length){
       if($scope.syncQueue[k].seller != null && $scope.syncQueue[k].seller != $scope.seller.id)
         return;
