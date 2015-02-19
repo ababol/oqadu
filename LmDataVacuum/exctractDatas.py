@@ -17,7 +17,8 @@ rootPage.exctractDatas()
 print baseUrl+relativeRoot
 pages = rootPage.getSubPages();
 
-while len(pages) > 0 and len(mongoCollection.getProducts()) < 500:
+
+while len(pages) > 0:
 
     page = pages.pop();
     page.exctractDatas()
@@ -27,8 +28,6 @@ while len(pages) > 0 and len(mongoCollection.getProducts()) < 500:
         pages.append(subPage)
 
 
-datasJson = mongoCollection.exportJson().encode("utf-8",  errors='xmlcharrefreplace').strip()
-fileName = "exctractedDatas.json"
-FileFactory.write("./"+fileName, datasJson)
+mongoCollection.exportJson("./exctractedDatas.json")
 # Play Windows exit sound.
 winsound.PlaySound("SystemExit", winsound.SND_ALIAS)

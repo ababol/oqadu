@@ -98,6 +98,6 @@ class CriterionsPageManager(PageManager):
                         ProductListPageManager(self._baseUrl, criteria.url, self._datas, question, answer, deepcopy(self.__tags + answer.getTags()), products).exctractDatas()
                         print self._baseUrl + criteria.url
                     except Exception as e:
-                        print "error: criterionPage", self._baseUrl + answerUrl
+                        print "error: criterionPage", self._baseUrl + criteria.url
                         print e
                         return

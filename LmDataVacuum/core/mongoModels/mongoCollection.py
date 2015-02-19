@@ -2,6 +2,7 @@
 from tag import Tag
 from question import Question
 from product import Product
+from engine.fileManagment.fileFactory import FileFactory
 
 class MongoCollection(object):
 
@@ -9,6 +10,9 @@ class MongoCollection(object):
         self.__tags = {}
         self.__questions = []
         self.__products = []
+
+    def getProductCount(self):
+        return len(self.__products)
 
     def addTag(self, tag):
         if not isinstance(tag, Tag) :
@@ -38,33 +42,33 @@ class MongoCollection(object):
             raise TypeError('product must be a instance of Product')
         self.__products.append(product)
 
-    def exportJson(self):
+    def exportJson(self, path):
+        file = open(path,'w')
+        file.write("{")
+        FileFactory.write(path, "TOTO")
 
-        json = "{"
-
-        json += "\"questions\": ["
+        file.write("\"questions\": [")
         length = len(self.__questions)
         for i in range(0, length):
             question = self.__questions[i]
             if(question.getAnswersCount()>0):
-                json += question.exportJson()
+                file.write(question.exportJson().encode("utf-8",  errors='xmlcharrefreplace').strip())
                 if i != length - 1:
-                    json+=", "
-        json += "],"
+                    file.write(", ")
+        file.write("],")
 
-        json += "\"products\": ["
+        file.write("\"products\": [")
         length = len(self.__products)
         for i in range(0, length):
             product = self.__products[i]
-            json += product.exportJson()
+            file.write(product.exportJson().encode("utf-8",  errors='xmlcharrefreplace').strip())
             if i != length - 1:
-                json+=", "
-        json += "]"
+                file.write(", ")
+        file.write("]")
 
-        json +="}"
-
+        file.write("}")
+        file.close()
 
         print "\n\nDatas successfully exctracted:\n"
         print len(self.__questions), "questions generated!"
         print len(self.__products), "products generated!"
-        return json

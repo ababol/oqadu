@@ -43,6 +43,6 @@ class ProductListPageManager(PageManager):
                     ProductPageManager(self._baseUrl, productUrl, self._datas, self.__tags, self.__products, imgPath).exctractDatas()
                     print self._baseUrl + productUrl
                 except Exception as e:
-                    print "error: productListPage", self._baseUrl + answerUrl
+                    print "error: productListPage", self._baseUrl + productUrl
                     print e
                     return
