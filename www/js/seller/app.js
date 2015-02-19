@@ -111,6 +111,16 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
       }
     })
 
+    .state('tab.cart', {
+      url: '/cart',
+      views: {
+        'tab-cart': {
+          templateUrl: 'templates/seller/tab-cart.html',
+          controller: 'CartCtrl'
+        }
+      }
+    })
+
     .state('waitlist', {
       url: '/waitlist',
       templateUrl: 'templates/seller/waitlist.html',
