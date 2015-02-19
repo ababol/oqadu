@@ -1,8 +1,8 @@
 /*Scenario 2: check if there are recommendations for each sequence of possible questions*/
 
 //var path = "http://oqadu.herokuapp.com";
-//var path = "http://localhost:3000";
-var path = "www";
+var path = "http://localhost:3000";
+//var path = "www";
 
 var secureClick = function(self, selector){
   self.mouseEvent('mousedown', selector);
@@ -22,28 +22,28 @@ var clickLoop = function(self, length){// en cours de dev
       });
     self.echo(Lenght2);**/
     
-      for (var j = 2; j <= length+1; j++ && !self.exists('.productreco')) {
-            self.capture('test'+j+'.png');
-            secureClick(self, '.answer:nth-child('+j+')');
-            self.echo('click');
-            if (!self.exists('.productreco')) {
-              casper.waitForSelector('.answer', function(){
-              casper.test.assertExists('.answer');
-              length = self.evaluate(function(){
-                return document.querySelectorAll(".answer").length;
-              });
-              this.echo(length);
-            });
+      for (var j = 2; j <= length+1; j++) {
             
-            casper.then(function(){
-              clickLoop(self, length);
-            }); 
-            }else{
-              casper.test.assertExists('.productreco');
-              //retourner au questions????
-            }
-            
-          
+        self.capture('test'+j+'.png');
+        secureClick(self, '.answer:nth-child('+j+')');
+        self.echo('click');
+          if (!self.exists('.productreco')) {
+          casper.waitForSelector('.answer', function(){
+          casper.test.assertExists('.answer');
+          length = self.evaluate(function(){
+            return document.querySelectorAll(".answer").length;
+          });
+          this.echo(length);
+        });
+        
+        casper.then(function(){
+          clickLoop(self, length);
+        }); 
+        }else{
+          casper.test.assertExists('.productreco');
+          return true;
+          //retourner au questions????
+        } 
     }
     
 };
@@ -56,6 +56,7 @@ casper.test.begin('Verify the landed page of the Seller App', function(test) {
           secureClick(this, '#engine');
         });
   });
+
 
   casper.waitForSelector('.answer', function(){
       test.assertUrlMatch(/#\/question/, 'Client can start to answer');
