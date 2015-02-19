@@ -45,6 +45,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
     waiting: false,
     tags: {},
     actual: {
+      shelf: "",
       tags: [],
       qIds: []
     }
@@ -83,25 +84,20 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
   }));
 
   $scope.selectAnswer = function(data) {
-    if ($scope.user.actualShelf == null) {
+    if (!$scope.user.actual.shelf) {
       if (window.plugins && window.plugins.toast) {
         window.plugins.toast.showLongBottom('Vous pouvez dès à présent vous insrire à la file d\'attente auprès du conseiller "' + data.tags[0] + '"');
       }
+      var shelf = data.tags[0];
       if(!$rootScope.registered)
-        $scope.connectToFirebaseQueue(data.tags[0]);
-      $scope.showFooter();
-      $scope.user.actualShelf = data.tags[0];
-      $scope.user.actual = {
-        tags: [],
-        qIds: []
-      };
-      $scope.user.tags[data.tags[0]]  = [];
+        $scope.connectToFirebaseQueue(shelf);
+      initTags($scope, shelf, []);
     }
     $scope.user.qa[$scope.question._id] = {
       question: $scope.question,
       answer: data
     };
-    $scope.user.tags[$scope.user.actualShelf] = $scope.user.tags[$scope.user.actualShelf].concat(data.tags);
+    $scope.user.tags[$scope.user.actual.shelf] = $scope.user.tags[$scope.user.actual.shelf].concat(data.tags);
     $scope.user.actual.tags = $scope.user.actual.tags.concat(data.tags);
     $scope.user.actual.qIds.push($scope.question._id);
     if ($scope.user.waiting) {
@@ -151,13 +147,18 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
   }));
 })
 
-.controller('ProductCtrl', function($scope, $rootScope, $q, $stateParams, utils, Products) {
+.controller('ProductCtrl', function($scope, $rootScope, $q, $stateParams, $location, utils, Products) {
   $scope.showBackButton = $rootScope.showBackButton;
   $scope.product = {};
 
   loader($scope, $q.when(
     Products.get($stateParams.productId)
   ).then(function(product) {
+    if (!$rootScope.registered && $location.search().scan) {
+      $scope.connectToFirebaseQueue(shelf);
+      initTags($scope, product.data.tags[0], product.data.tags);
+    }
+
     $scope.product = product.data;
   }));
 
@@ -181,12 +182,12 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
     tags: [],
     qIds: []
   };
-  if (!$scope.user.actualShelf || !$rootScope.registered) {
+  if (!$scope.user.actual.shelf || !$rootScope.registered) {
     $scope.hideFooter();
     $scope.hideLoader(true);
     $ionicViewService.clearHistory();
   }
-  $scope.user.actualShelf = null;
+  $scope.user.actual.shelf = null;
 })
 
 .controller('LoadingCtrl', function($state) {
@@ -317,7 +318,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
     .then(function(imageData) {
       Products.getProductId(imageData.text)
         .then(function(id) {
-          $location.path("product/" + JSON.parse(id.data));
+          $location.path("product/" + JSON.parse(id.data) + "?scan=true");
         })
         .catch(function(err) {
           $ionicPopup.alert({
@@ -330,6 +331,16 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
         });
     });
 });
+
+function initTags($scope, shelf, tags) {
+  $scope.showFooter();
+  $scope.user.actual = {
+    shelf: shelf,
+    tags: tags,
+    qIds: []
+  };
+  $scope.user.tags[shelf]  = tags;
+}
 
 function loader($scope, callback) {
   $scope.showLoader();
