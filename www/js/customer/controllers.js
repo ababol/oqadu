@@ -189,10 +189,9 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
 })
 
 .controller('HomeCtrl', function($scope, $rootScope, $ionicViewService, Products) {
-  $scope.user.actual = {
-    tags: [],
-    qIds: []
-  };
+  $scope.user.actual.tags = [];
+  $scope.user.actual.qIds = [];
+  console.log($rootScope.registered)
   if (!$scope.user.actual.shelf || !$rootScope.registered) {
     $scope.hideFooter();
     $scope.hideLoader(true);
