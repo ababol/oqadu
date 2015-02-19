@@ -7971,9 +7971,16 @@ span.tab-item {
 .home .home-promo {
   background: white;
   padding: 0 0 10px 0;
-  height: 63%;
   display: flex;
   align-items: center;
-  justify-content: center; }
+  justify-content: center;
+  height: 65%; }
 .home .home-button {
-  padding: 10px 10px 0 10px; }
+  bottom: 0;
+  left: 0;
+  padding: 10px 10px 0 10px;
+  position: absolute;
+  width: 100%; }
+.home .padding-bar {
+  height: 55px;
+  width: 100%; }
