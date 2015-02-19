@@ -249,8 +249,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
             window.plugin.notification.local.add({
                 id:      1,
                 title:   'C\'est à vous',
-                message: 'Un conseiller vous attend.',
-                sound: 'http://babol.me/beep.mp3'
+                message: 'Un conseiller vous attend.'
             });
           }
         }
