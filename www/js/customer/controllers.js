@@ -309,8 +309,8 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
 
     return deferred.promise;
   }
-
-  loader($scope, $q.when(callback));
+  callback()
+  // loader($scope, $q.when(callback));
 })
 
 .controller('ScanCtrl', function($scope, $q, $location, $cordovaBarcodeScanner, $ionicPopup, Products) {
