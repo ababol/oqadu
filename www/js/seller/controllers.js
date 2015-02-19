@@ -66,15 +66,15 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
 
   $scope.changeCustomer = function(k){
     if(k>=0 && k<$scope.syncQueue.length){
-      if($scope.syncQueue[k].seller != null && $scope.syncQueue[k].seller != $scope.seller.id)
-        return;
+      // if($scope.syncQueue[k].seller != null && $scope.syncQueue[k].seller != $scope.seller.id)
+      //   return;
       $scope.customer = $scope.syncQueue[k];
-      if($scope.currentID != null){
-        $scope.syncQueue[$scope.currentID].seller = null;  
-        $scope.syncQueue.$save($scope.currentID);
-      }
-      $scope.syncQueue[k].seller = $scope.seller.id;
-      $scope.syncQueue.$save(k);
+      // if($scope.currentID != null){
+      //   $scope.syncQueue[$scope.currentID].seller = null;  
+      //   $scope.syncQueue.$save($scope.currentID);
+      // }
+      // $scope.syncQueue[k].seller = $scope.seller.id;
+      // $scope.syncQueue.$save(k);
       $scope.currentID = k;
     }
   }
@@ -95,6 +95,43 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
 })
 
 .controller('CustomerCtrl', function($scope) {
+
+})
+
+.controller('CartCtrl', function($scope, $q, Products) {
+  var cart = $scope.customer.cart,
+    promise = $q.when();
+
+  $scope.cartProducts = [];
+  console.log("///////////cartCtrl");
+  console.log(cart);
+  function callback() {
+    console.log("callback");
+    var deferred = $q.defer();
+
+    if (!cart || cart.length === 0) {
+      return deferred.resolve();
+    }
+
+    cart.forEach(function(productId, key) {
+      $q.when(
+        Products.get(productId)
+      ).then(function(product) {
+        $scope.cartProducts.push(product.data);
+        console.log(product);
+        // Si on a parcouru tout le tableau de produit, on peut valider la promesse
+        if (key === cart.length - 1) {
+          console.log($scope.cartProducts);
+          return deferred.resolve();
+        }
+      });
+    });
+
+    return deferred.promise;
+  }
+  
+  callback();
+  // loader($scope, $q.when(callback));
 })
 
 .controller('ProductCtrl', function($scope,$q, Recommendations) {
@@ -183,40 +220,6 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
   }
 })
 
-.controller('CartCtrl', function($scope,$q, Products) {
-  var cart = $scope.customer.cart,
-    promise = $q.when();
-
-  $scope.cartProducts = [];
-  console.log("///////////cartCtrl");
-  console.log(cart);
-  function callback() {
-    console.log("callback");
-    var deferred = $q.defer();
-
-    if (!cart || cart.length === 0) {
-      return deferred.resolve();
-    }
-
-    cart.forEach(function(productId, key) {
-      $q.when(
-        Products.get(productId)
-      ).then(function(product) {
-        $scope.cartProducts.push(product.data);
-        console.log(product);
-        // Si on a parcouru tout le tableau de produit, on peut valider la promesse
-        if (key === cart.length - 1) {
-          console.log($scope.cartProducts);
-          return deferred.resolve();
-        }
-      });
-    });
-
-    return deferred.promise;
-  }
-  callback();
-  // loader($scope, $q.when(callback));
-})
 
 .controller('WaitlistCtrl', function($scope) {
   console.log($scope.syncQueue);
