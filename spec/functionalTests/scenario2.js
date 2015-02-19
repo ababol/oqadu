@@ -1,8 +1,8 @@
 /*Scenario 2: check if there are recommendations for each sequence of possible questions*/
 
 //var path = "http://oqadu.herokuapp.com";
-var path = "http://localhost:3000";
-//var path = "www";
+//var path = "http://localhost:3000";
+var path = "www";
 
 var secureClick = function(self, selector){
   self.mouseEvent('mousedown', selector);
@@ -24,8 +24,9 @@ var clickLoop = function(self, length){// en cours de dev
     
       for (var j = 2; j <= length+1; j++) {
             
-        self.capture('test'+j+'.png');
+        
         secureClick(self, '.answer:nth-child('+j+')');
+        self.capture('test'+j+'.png');
         self.echo('click');
           if (!self.exists('.productreco')) {
           casper.waitForSelector('.answer', function(){
@@ -41,7 +42,7 @@ var clickLoop = function(self, length){// en cours de dev
         }); 
         }else{
           casper.test.assertExists('.productreco');
-          return true;
+          casper.back();
           //retourner au questions????
         } 
     }
