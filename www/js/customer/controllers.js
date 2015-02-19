@@ -157,8 +157,9 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
     var deferred = $q.defer();
 
     if (!$rootScope.registered && $location.search().scan) {
+      var shelf = product.data.tags[0];
       $scope.connectToFirebaseQueue(shelf);
-      initTags($scope, product.data.tags[0], product.data.tags);
+      initTags($scope, shelf, product.data.tags);
     }
 
     $scope.product = product.data;
