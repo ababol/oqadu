@@ -52,18 +52,6 @@ angular.module('starter.services', [])
   }
 })
 
-.factory('Recommendations', function($http) {
-  return {
-    post: function(tags) {
-      return $http({
-        url: url+'/api/v2/Products/Recommendations',
-        data: tags,
-        method: 'POST'
-      });
-    }
-  };
-})
-
 .factory('User', function($http) {
   return {
     login: function(username, pass) {

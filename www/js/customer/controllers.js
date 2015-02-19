@@ -73,7 +73,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
   $scope.question = {};
 
   loader($scope, $q.when(
-    Questions.post($scope.user.actual.tags, $scope.user.actual.qIds)
+    Questions.getQuestion($scope.user.actual.tags, $scope.user.actual.qIds)
   ).then(function(question) {
     var data = question.data;
     if (data === "Not any remaining questions.") {
@@ -116,12 +116,12 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
   };
 })
 
-.controller('RecommendationCtrl', function($scope, $q, $stateParams, utils, Recommendations, Products) {
+.controller('RecommendationCtrl', function($scope, $q, $stateParams, utils, Products) {
   $scope.products = [];
   $scope.title = "Recommandation";
 
   loader($scope, $q.when(
-    Recommendations.post($scope.user.actual.tags)
+    utils.getRecos($scope.user.actual.tags)
   ).then(function(recos) {
     $scope.products = recos.data;
     if(!$scope.user.products)
@@ -154,12 +154,25 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
   loader($scope, $q.when(
     Products.get($stateParams.productId)
   ).then(function(product) {
+    var deferred = $q.defer();
+
     if (!$rootScope.registered && $location.search().scan) {
       $scope.connectToFirebaseQueue(shelf);
       initTags($scope, product.data.tags[0], product.data.tags);
     }
 
     $scope.product = product.data;
+
+    utils.getRecos(product.data.tags, product.data._id)
+    .then(function(products) {
+      $scope.product.recos = products.data;
+      return deferred.resolve();
+    })
+    .catch(function(err) {
+      return deferred.reject(err);
+    });
+
+    return deferred.promise;
   }));
 
   $scope.addToCart = function(id) {

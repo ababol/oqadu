@@ -11,7 +11,6 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
   $scope.currentID = null;
   $scope.showLeftMenu = true;
 
-
   $scope.showLoader = function() {
     $scope.errorTxt = false;
     $ionicLoading.show();
@@ -70,7 +69,7 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
       //   return;
       $scope.customer = $scope.syncQueue[k];
       // if($scope.currentID != null){
-      //   $scope.syncQueue[$scope.currentID].seller = null;  
+      //   $scope.syncQueue[$scope.currentID].seller = null;
       //   $scope.syncQueue.$save($scope.currentID);
       // }
       // $scope.syncQueue[k].seller = $scope.seller.id;
@@ -129,12 +128,12 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
 
     return deferred.promise;
   }
-  
+
   callback();
   // loader($scope, $q.when(callback));
 })
 
-.controller('ProductCtrl', function($scope,$q, Recommendations) {
+.controller('ProductCtrl', function($scope,$q, utils) {
   $scope.recoProducts = [];
   var refreshProducts = function(){
     var id = $scope.getCurrentID();
@@ -145,7 +144,7 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
       return;
     for(var shelf in $scope.customer.tags){
       $q.when(
-        Recommendations.post($scope.customer.tags[shelf])
+        utils.post($scope.customer.tags[shelf])
       ).then(function(products){
         $scope.recoProducts = $scope.recoProducts.concat(products.data);
       });
