@@ -85,9 +85,6 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
 
   $scope.selectAnswer = function(data) {
     if (!$scope.user.actual.shelf) {
-      if (window.plugins && window.plugins.toast) {
-        window.plugins.toast.showLongBottom('Vous pouvez dès à présent vous insrire à la file d\'attente auprès du conseiller "' + data.tags[0] + '"');
-      }
       var shelf = data.tags[0];
       if(!$rootScope.registered)
         $scope.connectToFirebaseQueue(shelf);
@@ -347,6 +344,10 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
 });
 
 function initTags($scope, shelf, tags) {
+  if (window.plugins && window.plugins.toast) {
+    window.plugins.toast.showLongBottom('Vous pouvez dès à présent vous insrire à la file d\'attente auprès du conseiller "' + shelf + '"');
+  }
+
   $scope.showFooter();
   $scope.user.actual = {
     shelf: shelf,
