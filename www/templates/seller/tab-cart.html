@@ -1,0 +1,30 @@
+<ion-view title="cart">
+  <ion-content>
+
+    <div class="card" ng-if="customer.default">
+      <div class="item item-text-wrap">
+        <h2>Il n'y a aucun client dans votre file d'attente !</h2>
+      </div>
+      <div class="item item-icon-left assertive" ng-click="refresh()">
+        <i class="icon ion-loop"></i>
+        Rafraîchir
+      </div>
+    </div>
+    <ion-list class="products-list">
+      <ion-item class="custom" ng-repeat="product in cartProducts" type="item-text-wrap" href="#/tab/product-detail/{{product._id}}">
+
+        <div class="list card">
+          <div class="item item-image">
+            <img src="{{product.pictures[0].path}}" alt="{{product.pictures[0].label}}">
+          </div>
+          <div class="item item-divider">
+            <h3>{{product.name}}</h3>
+            <p>{{product.description}}</p>
+          </div>
+        </div>
+
+      </ion-item>
+   </ion-list>
+  </ion-content>
+</ion-view>
+
