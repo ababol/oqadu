@@ -31,6 +31,9 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
   $scope.refreshScroll = function() {
     $ionicScrollDelegate.resize();
   };
+  $scope.getCurrentID = function(){
+    return $scope.currentID;
+  }
   $scope.addTagToCustomer = function(tag){
     if(!$scope.customer.tags)
       return;
@@ -95,8 +98,30 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
 .controller('CustomerCtrl', function($scope) {
 })
 
-.controller('ProductCtrl', function($scope, Products) {
-
+.controller('ProductCtrl', function($scope,$q, Recommendations) {
+  $scope.recoProducts = [];
+  var refreshProducts = function(){
+    var id = $scope.getCurrentID();
+    if(id != null)
+        $scope.customer = $scope.syncQueue[id];
+    $scope.recoProducts = [];
+    if($scope.customer == {})
+      return;
+    for(var shelf in $scope.customer.tags){
+      $q.when(
+        Recommendations.post($scope.customer.tags[shelf])
+      ).then(function(products){
+        $scope.recoProducts = $scope.recoProducts.concat(products.data);
+      });
+    }
+  }
+  refreshProducts();
+  $scope.syncQueue.$watch(function(e){
+    var id = $scope.getCurrentID();
+    var k = $scope.syncQueue.$keyAt(id);
+    if(e.event == "child_changed" && e.key == k)
+      refreshProducts();
+  });
 })
 
 .controller('LoginCtrl', function($scope, $location, User){
