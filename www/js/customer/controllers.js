@@ -152,7 +152,6 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
 })
 
 .controller('ProductCtrl', function($scope, $rootScope, $q, $stateParams, $location, utils, Products) {
-  $scope.showBackButton = $rootScope.showBackButton;
   $scope.product = {};
 
   loader($scope, $q.when(
