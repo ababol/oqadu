@@ -11,22 +11,10 @@ angular.module('starter.services', [])
         method: 'GET'
       });
     },
-    post: function(tags, qIds) {
+    getQuestion: function(tags, qIds) {
       return $http({
         url: url+'/api/v2/Questions/Next',
         data: {tags: tags, qIds: qIds},
-        method: 'POST'
-      });
-    }
-  };
-})
-
-.factory('Recommendations', function($http) {
-  return {
-    post: function(tags) {
-      return $http({
-        url: url+'/api/v2/Products/Recommendations',
-        data: tags,
         method: 'POST'
       });
     }

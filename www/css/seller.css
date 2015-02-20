@@ -7900,10 +7900,20 @@ ion-side-menu > ion-content > div.scroll > ul > a.item.logout {
       min-width: 34px;
       min-height: 20px;
       line-height: 20px; }
-
-.scroll > .button-half {
-  margin-top: 0 !important;
-  margin-bottom: 1%; }
+.list.menu .user {
+  width: 100%; }
+  .list.menu .user button {
+    display: block;
+    font-size: 0.8em;
+    top: 12px;
+    right: 16px;
+    min-width: 55px;
+    min-height: 20px;
+    line-height: 20px;
+    float: right;
+    position: absolute;
+    padding: 0;
+    margin: 0; }
 
 .invert {
   color: #66cc33 !important;

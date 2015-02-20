@@ -41,4 +41,21 @@ $energized : #f0b840;
       }
     }
   }
+  .user {
+    width: 100%;
+
+    button {
+      display: block;
+      font-size: 0.8em;
+      top: 12px;
+      right: 16px;
+      min-width: 55px;
+      min-height: 20px;
+      line-height: 20px;
+      float: right;
+      position: absolute;
+      padding: 0;
+      margin: 0;
+    }
+  }
 }

@@ -25,6 +25,7 @@ $balanced: #45B82E !default;
 @import "scss/both/pace";
 @import "scss/both/button";
 @import "scss/both/loader";
+@import "scss/both/product";
 
 // Include customer
 @import "scss/customer/loading";
@@ -46,11 +47,6 @@ span.tab-item {
 
   img {
     max-width: 100%;
-  }
-}
-.product {
-  .card {
-    margin: 5px 5px !important;
   }
 }
 

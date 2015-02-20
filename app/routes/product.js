@@ -11,10 +11,16 @@ var productRoute = {
 
     // custom route
     Product.route('Recommendations.post', function(req, res) {
-      var tags = req.body,
-          query;
+      var tags = req.body.tags,
+        productId = req.body.productId,
+        query;
 
-      query = tags.length === 0 ? Product : Product.where("tags").all(tags);
+      if (tags.length === 0) {
+        query = Product;
+      } else {
+        query = productId ? Product.where("tags").all(tags).ne("_id", productId)
+                          : Product.where("tags").all(tags);
+      }
       query.find(function(err, products) {
         if (err) {
           res.status(400);

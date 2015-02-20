@@ -11,7 +11,6 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
   $scope.currentID = null;
   $scope.showLeftMenu = true;
 
-
   $scope.showLoader = function() {
     $scope.errorTxt = false;
     $ionicLoading.show();
@@ -37,15 +36,16 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
   $scope.addTagToCustomer = function(tag){
     if(!$scope.customer.tags)
       return;
-    if(!$scope.syncQueue[$scope.currentID].tags["custom"])
-      $scope.syncQueue[$scope.currentID].tags["custom"] = [];
-    $scope.syncQueue[$scope.currentID].tags["custom"].push(tag);
+    if(!$scope.syncQueue[$scope.currentID].tags["custom"]){
+      $scope.syncQueue[$scope.currentID].tags["custom"] = [[]];
+    }
+    $scope.syncQueue[$scope.currentID].tags["custom"][0].push(tag);
     $scope.syncQueue.$save($scope.currentID);
   };
-  $scope.deleteCustomerTag = function(shelf, index){
-    if(!$scope.customer.tags || !$scope.customer.tags[shelf] || index >= $scope.customer.tags[shelf].length)
+  $scope.deleteCustomerTag = function(shelf, shelfindex, index){
+    if(!$scope.customer.tags || !$scope.customer.tags[shelf][shelfindex] || index >= $scope.customer.tags[shelf][shelfindex].length)
       return;
-    $scope.syncQueue[$scope.currentID].tags[shelf].splice(index, 1);
+    $scope.syncQueue[$scope.currentID].tags[shelf][shelfindex].splice(index, 1);
     $scope.syncQueue.$save($scope.currentID);
   };
 
@@ -66,15 +66,15 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
 
   $scope.changeCustomer = function(k){
     if(k>=0 && k<$scope.syncQueue.length){
-      if($scope.syncQueue[k].seller != null && $scope.syncQueue[k].seller != $scope.seller.id)
-        return;
+      // if($scope.syncQueue[k].seller != null && $scope.syncQueue[k].seller != $scope.seller.id)
+      //   return;
       $scope.customer = $scope.syncQueue[k];
-      if($scope.currentID != null){
-        $scope.syncQueue[$scope.currentID].seller = null;  
-        $scope.syncQueue.$save($scope.currentID);
-      }
-      $scope.syncQueue[k].seller = $scope.seller.id;
-      $scope.syncQueue.$save(k);
+      // if($scope.currentID != null){
+      //   $scope.syncQueue[$scope.currentID].seller = null;
+      //   $scope.syncQueue.$save($scope.currentID);
+      // }
+      // $scope.syncQueue[k].seller = $scope.seller.id;
+      // $scope.syncQueue.$save(k);
       $scope.currentID = k;
     }
   }
@@ -95,9 +95,46 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
 })
 
 .controller('CustomerCtrl', function($scope) {
+
 })
 
-.controller('ProductCtrl', function($scope,$q, Recommendations) {
+.controller('CartCtrl', function($scope, $q, Products) {
+  var cart = $scope.customer.cart,
+    promise = $q.when();
+
+  $scope.cartProducts = [];
+  console.log("///////////cartCtrl");
+  console.log(cart);
+  function callback() {
+    console.log("callback");
+    var deferred = $q.defer();
+
+    if (!cart || cart.length === 0) {
+      return deferred.resolve();
+    }
+
+    cart.forEach(function(productId, key) {
+      $q.when(
+        Products.get(productId)
+      ).then(function(product) {
+        $scope.cartProducts.push(product.data);
+        console.log(product);
+        // Si on a parcouru tout le tableau de produit, on peut valider la promesse
+        if (key === cart.length - 1) {
+          console.log($scope.cartProducts);
+          return deferred.resolve();
+        }
+      });
+    });
+
+    return deferred.promise;
+  }
+
+  callback();
+  // loader($scope, $q.when(callback));
+})
+
+.controller('ProductCtrl', function($scope,$q, utils) {
   $scope.recoProducts = [];
   var refreshProducts = function(){
     var id = $scope.getCurrentID();
@@ -108,7 +145,7 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
       return;
     for(var shelf in $scope.customer.tags){
       $q.when(
-        Recommendations.post($scope.customer.tags[shelf])
+        utils.post($scope.customer.tags[shelf])
       ).then(function(products){
         $scope.recoProducts = $scope.recoProducts.concat(products.data);
       });
@@ -183,40 +220,6 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
   }
 })
 
-.controller('CartCtrl', function($scope,$q, Products) {
-  var cart = $scope.customer.cart,
-    promise = $q.when();
-
-  $scope.cartProducts = [];
-  console.log("///////////cartCtrl");
-  console.log(cart);
-  function callback() {
-    console.log("callback");
-    var deferred = $q.defer();
-
-    if (!cart || cart.length === 0) {
-      return deferred.resolve();
-    }
-
-    cart.forEach(function(productId, key) {
-      $q.when(
-        Products.get(productId)
-      ).then(function(product) {
-        $scope.cartProducts.push(product.data);
-        console.log(product);
-        // Si on a parcouru tout le tableau de produit, on peut valider la promesse
-        if (key === cart.length - 1) {
-          console.log($scope.cartProducts);
-          return deferred.resolve();
-        }
-      });
-    });
-
-    return deferred.promise;
-  }
-  callback();
-  // loader($scope, $q.when(callback));
-})
 
 .controller('WaitlistCtrl', function($scope) {
   console.log($scope.syncQueue);
