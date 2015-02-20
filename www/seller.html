@@ -71,9 +71,11 @@
 
               <div class="item item-divider">File d'attente ({{syncQueue.length}})</div>
               <a href="#/tab/user" class=" waitlist item item-button-right item-icon-right" ng-repeat="(key, user) in syncQueue | limitTo: 7" ng-class="{'selected': customer.$id == user.$id, 'used': user.seller != null && user.seller != seller.id}" ng-click="changeCustomer(key)">
-                User {{user.$$hashKey}}
-                <button class="button button-stable" ng-click="deleteUser()">done</button>
-                <i class="icon ion-person"></i>
+                <span class="user">
+                  User {{user.$$hashKey}}
+                  <i class="icon-right ion-person"></i>
+                  <button class="button button-stable button-small">done</button>
+                </span>
               </a>
 
               <a href="#/waitlist" data-click-menulink class="item stats energized"  ng-class="{'active': state.current.name=='waitlist'}">Statistiques</a>
