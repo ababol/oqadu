@@ -7901,10 +7901,6 @@ ion-side-menu > ion-content > div.scroll > ul > a.item.logout {
       min-height: 20px;
       line-height: 20px; }
 
-.scroll > .button-half {
-  margin-top: 0 !important;
-  margin-bottom: 1%; }
-
 .invert {
   color: #66cc33 !important;
   background-color: white !important;

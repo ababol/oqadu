@@ -7830,10 +7830,6 @@ $ios-transition-box-shadow-end: -200px 0px 200px rgba(0,0,0,0.15), -5px 0px 5px 
 .pace-inactive {
   display: none; }
 
-.scroll > .button-half {
-  margin-top: 0 !important;
-  margin-bottom: 1%; }
-
 .invert {
   color: #45B82E !important;
   background-color: white !important;
