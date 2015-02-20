@@ -121,10 +121,11 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
     utils.getRecos($scope.user.actual.tags)
   ).then(function(recos) {
     $scope.products = recos.data;
-    if(!$scope.user.products)
+    if(!$scope.user.products) {
       $scope.user.products = [];
+    }
     $scope.user.products = $scope.user.products.concat(recos.data);
-    if($scope.user.waiting){
+    if($scope.user.waiting) {
       var index = $scope.syncQueue.$indexFor($scope.getUserKey());
       $scope.syncQueue[index].products = $scope.user.products;
       $scope.syncQueue.$save(index).then(function() {console.log("updated");});
@@ -286,8 +287,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
 })
 
 .controller('CartCtrl', function($scope, $q, utils, Products) {
-  var cart = $scope.user.cart,
-    promise = $q.when();
+  var cart = $scope.user.cart;
 
   $scope.products = [];
   $scope.title = "Panier";
@@ -319,8 +319,8 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
 
     return deferred.promise;
   }
-  callback()
-  // loader($scope, $q.when(callback));
+
+  loader($scope, $q.when(callback()));
 })
 
 .controller('ScanCtrl', function($scope, $q, $location, $cordovaBarcodeScanner, $ionicPopup, Products) {
