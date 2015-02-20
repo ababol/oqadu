@@ -344,9 +344,11 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
 
 .controller('AllProductsCtrl', function($scope, $q, Products) {
   // Infinite Scroll
-  $scope.products = [];
-  $scope.noMoreItems = false;
-  $scope.skip = 0;
+  function initProducts() {
+    $scope.products = [];
+    $scope.noMoreItems = false;
+    $scope.skip = 0;
+  }
 
   function getMoreProducts() {
     var deferred = $q.defer();
@@ -371,6 +373,7 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
     getMoreProducts();
   };
   // End Infinite Scroll
+  initProducts();
   loader($scope, $q.when(getMoreProducts()));
 
   // Search
@@ -381,10 +384,13 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
   }, 500);
 
   $scope.search = function() {
+    // don't search if no query
     if ($scope.query === "") {
-      $scope.skip = 1;
+      initProducts();
+      getMoreProducts();
+    } else {
+      doSearch($scope.query);
     }
-    doSearch($scope.query);
   };
   // End Search
 
