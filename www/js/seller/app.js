@@ -141,7 +141,6 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
 
     .state('product-detail', {
       url: '/product-detail/:productId',
-      backUrl: '/products',
       templateUrl: 'templates/seller/product-detail.html',
       controller: 'ProductDetailCtrl'
     });

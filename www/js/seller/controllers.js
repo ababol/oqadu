@@ -342,19 +342,56 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
     };
 })
 
-.controller('AllProductsCtrl', function($scope, Products) {
+.controller('AllProductsCtrl', function($scope, $q, Products) {
+  // Infinite Scroll
+  $scope.products = [];
+  $scope.noMoreItems = false;
+  $scope.skip = 0;
 
-  loader($scope, Products.all().success(function(data){
-    $scope.products = data;
-  }));
+  function getMoreProducts() {
+    var deferred = $q.defer();
+    Products.all($scope.skip * 25, 25)
+    .then(function(products) {
+      if (products.data.length === 0) {
+        $scope.noMoreItems = true;
+      }
 
-   $scope.addProductToCustomer = function(product){
+      $scope.products = $scope.products.concat(products.data);
+      $scope.$broadcast('scroll.infiniteScrollComplete');
+      return deferred.resolve();
+    })
+    .catch(function(err) {
+      return deferred.reject(err);
+    });
+    return deferred.promise;
+  }
+
+  $scope.loadMoreProducts = function() {
+    $scope.skip++;
+    getMoreProducts();
+  };
+  // End Infinite Scroll
+  loader($scope, $q.when(getMoreProducts()));
+
+  // Search
+  var doSearch = ionic.debounce(function(query) {
+    Products.search(query).then(function(products) {
+      $scope.products = products.data;
+    });
+  }, 500);
+
+  $scope.search = function() {
+    doSearch($scope.query);
+  };
+  // End Search
+
+  $scope.addProductToCustomer = function(product){
     console.log($scope.customer);
     $scope.customer.products[product._id] = product;
     //TODO ADD TAGS !!!
     $scope.syncQueue[$scope.currentID].products[product._id] = product;
     $scope.syncQueue.$save($scope.currentID);
-  }
+  };
 })
 
 .controller('ContentController', function($scope, $ionicSideMenuDelegate) {

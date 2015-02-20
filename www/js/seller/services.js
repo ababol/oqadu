@@ -6,15 +6,22 @@ angular.module('starter.services', [])
 
 .factory('Products', function($http) {
   return {
-    all: function() {
+    all: function(skip, limit) {
       return $http({
-        url: url+'/api/v2/Products/',
+        url: url+'/api/v2/Products/?skip=' + skip + '&limit=' + limit,
         method: 'GET'
       });
     },
     get: function(productId) {
       return $http({
         url: url+'/api/v2/Products/'+productId,
+        method: 'GET'
+      });
+    },
+    search: function(query) {
+      console.log(query)
+      return $http({
+        url: url + "/api/v2/Products/Search/?name=" + query,
         method: 'GET'
       });
     }

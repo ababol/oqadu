@@ -79,6 +79,28 @@ var productRoute = {
       });
     });
 
+    Product.route('Search.get', function(req, res) {
+      var name = req.query.name;
+
+      Product.find(
+        { $text : { $search : name } },
+        "name pictures"
+      )
+      .exec(function(err, products) {
+        if (err) {
+          res.status(400);
+          return res.send("Error while searching the products.<br/>" + err);
+        }
+        if (products === null || products === []) {
+          res.status(200);
+          return res.send("Aucun produit trouvé.");
+        } else {
+          res.status(200);
+          return res.send(products);
+        }
+      });
+    });
+
     Product.register(app, prefixAPI + '/Products');
   }
 };

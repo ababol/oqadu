@@ -40,4 +40,10 @@ var product = restful.model('product', mongoose.Schema({
   }
 }));
 
+product.collection.ensureIndex({ name: "text" }, function(error) {
+  if (error) {
+    console.log("Issue node, need to update https://github.com/mafintosh/mongojs/issues/135");
+  }
+});
+
 exports = module.exports = product;
