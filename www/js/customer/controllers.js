@@ -114,9 +114,13 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
     $scope.user.actual.tags = $scope.user.actual.tags.concat(data.tags);
     $scope.user.actual.qIds.push($scope.question._id);
   };
+
+  $scope.gotoBackQuestion = function(){
+    myBack($scope, $location);
+  }
 })
 
-.controller('RecommendationCtrl', function($scope, $q, $stateParams, utils, Products) {
+.controller('RecommendationCtrl', function($scope, $q, $location, $stateParams, utils, Products) {
   $scope.products = [];
   $scope.title = "Recommandation";
 
@@ -141,6 +145,10 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
     //   $scope.syncQueue.$save(index).then(function() {console.log("updated");});
     // }
   }));
+
+  $scope.gotoBackQuestion = function(){
+    myBack($scope, $location);
+  }
 })
 
 .controller('ProductCtrl', function($scope, $rootScope, $q, $stateParams, $location, utils, Products) {
@@ -374,6 +382,33 @@ function loader($scope, callback) {
       $scope.hideLoader(true);
     }
   });
+}
+
+function myBack($scope, $location){
+  console.log("works");
+  //Suppression du champ actual.qId de l'ancienne question
+  var lastQId = $scope.user.actual.qIds.pop();
+  var correspondantQA = $scope.user.qa[lastQId];
+  var previousQTags = correspondantQA.answer.tags;
+
+  //Suppression du champ actual.tags ceux générés par la réponse à cette question
+  for(tagId = 0; tagId < previousQTags.length; tagId++){
+    $scope.user.actual.tags.pop();
+  }
+
+  //Suppression de la QA correspondant à la lastQId
+  delete $scope.user.qa[lastQId];
+
+  //Suppression des tags correspondants aux tags fournis par la réponse à la lastQ
+  var index = $scope.user.tags[$scope.user.actual.shelf].length-1;
+  var userTags = $scope.user.tags[$scope.user.actual.shelf][index];
+  for(tagId = 0; tagId < previousQTags.length; tagId++){
+    var i = userTags.indexOf(previousQTags[tagId]);
+    delete userTags[i];
+  }
+
+  //Changement de l'URL pour refresh
+  $location.path('/question/'+$scope.user.actual.qIds[$scope.user.actual.qIds.length-1]);
 }
 
 function transformPositionToString(position){

@@ -1,10 +1,14 @@
-<ion-nav-bar class="bar bar-header bar-light nav-title-slide-ios7" ng-show="{{title === 'Panier'}}">
+<ion-nav-bar class="bar bar-header bar-light nav-title-slide-ios7">
   <button class="button-icon icon ion-ios7-arrow-back button back-button"
-     ng-show="showBackButton"
+     ng-show="{{title === 'Panier'}}"
      onclick="window.history.back()"> Back</button>
+   <button ng-show="{{title === 'Recommandation'}}" class="button-icon icon ion-ios7-arrow-back button back-button"
+      ng-show="true"
+      ng-click="gotoBackQuestion()"> Back</button>
 </ion-nav-bar>
+
 <ion-view title="{{title}} ({{products.length}})">
-  <ion-content class="padding" style="{{title === 'Recommandation' ? 'top: 0;' : ''}}">
+  <ion-content class="padding">
     <div class="list">
 
         <a ng-repeat="product in products" class="item item-thumbnail-left productreco" href="#/product/{{product._id}}">
