@@ -46,12 +46,12 @@
     <ion-nav-view name="loading" id="loading" class="fade hide"></ion-nav-view>
     <footer ng-controller="BarCtrl" ng-hide="errorTxt || hideFoot">
       <div class="tabs tabs-icon-left">
-        <a href="#/home" class="tab-item">
+        <a href="#/home" class="tab-item home">
           <i class="icon ion-ios7-home-outline"></i>
         </a>
 
         <!-- Not Registered -->
-        <a ng-click="registerQueue()" class="tab-item join" ng-hide="registered">
+        <a id="waitingList" ng-click="registerQueue()" class="tab-item join" ng-hide="registered">
           <i class="icon ion-ios7-plus-outline"></i>
           Conseiller
         </a>
@@ -66,7 +66,7 @@
           <i class="icon ion-ios7-clock-outline"></i>
           {{waitTime}}min
         </span>
-        <a ng-show="registered" class="tab-item" ng-click="unregisterQueue()">
+        <a id="leaveWaitingList" ng-show="registered" class="tab-item" ng-click="unregisterQueue()">
           <i class="icon ion-ios7-close-outline"></i>
         </a>
         <!-- End Registered -->

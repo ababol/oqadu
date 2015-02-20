@@ -113,19 +113,14 @@ casper.then(function(){
     var cartLenght= this.evaluate(function(){
       return document.querySelector('.cart').innerText.toString().replace(" ", "");
     });
-    test.assert(cartLenght == "1", 'Rouleau added to cart (cart.lenght = 1)');
+    test.assert(cartLenght == "1", 'product added to cart (cart.lenght = 1)');
     secureClick(this, '.cart');
     test.assertUrlMatch(/#\/cart/, 'Customer can see his cart');
   });
 
-  casper.waitForText("Rouleau", function(){
-    test.assertTextExists('Rouleau', 'Rouleau appear in cart');
-    this.waitForSelector('.productreco', function(){
-      secureClick(this, '.productreco');
-    }, function timeout() {
-    this.echo("temps dépassé").exit();
-    },
-      5000);
+  casper.waitForSelector('.productreco', function(){
+    test.assertExists('.productreco', 'Product appear in cart');
+    secureClick(this, '.productreco');     
 
   },function timeout() {
     this.echo("temps dépassé").exit();
@@ -133,7 +128,7 @@ casper.then(function(){
     5000);
 
   casper.waitForSelector('.add-product', function(){
-    test.assertTextExists('Produit', 'Customer is back to the details of a Rouleau');
+    test.assertTextExists('Produit', 'Customer is back to the details of the product');
     casper.wait(1000, function(){
       secureClick(this, '.add-product');
     });
@@ -148,7 +143,7 @@ casper.then(function(){
   });
 
   casper.wait(1000, function(){
-     test.assertTextDoesntExist('Rouleau', 'Rouleau was remove from cart');
+     test.assertTextDoesntExist('Rouleau', 'Product was remove from cart');
   });
 
   casper.then(function(){
@@ -164,9 +159,20 @@ casper.then(function(){
 
 casper.test.begin('Seller APP : Verify that the customer has been added to the waiting list', function(test){
     casper.start(path+'/seller.html').then(function() {
-      test.assertUrlMatch(/#\/tab\/user$/, 'Redirecting to #/tab/user by default');
-      this.clickLabel('Statistiques');
-    });
+      test.assertUrlMatch(/#\/login/, 'Redirecting to #/login by default');
+    this.fillSelectors('.username', {
+      'input[placeholder="Username"]': 'Zlatan'
+    }, true);
+    this.fillSelectors('.password', {
+      'input[placeholder="Password"]': '123456'
+    }, true);
+    this.clickLabel('Login');
+  });
+
+  casper.wait(2000,function(){
+    test.assertExists('.stats');
+      secureClick(this,'.stats');
+  });
 
     casper.then(function(){
       test.assertUrlMatch(/#\/waitlist/, 'Redirecting to #/waitlist');
