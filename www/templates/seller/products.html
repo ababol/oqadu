@@ -27,6 +27,6 @@
 
       </ion-item>
     </ion-list>
-    <ion-infinite-scroll ng-if="products.length > 0 && !noMoreItems" on-infinite="loadMoreProducts()" distance="10%"></ion-infinite-scroll>
+    <ion-infinite-scroll ng-if="products.length > 0 && !noMoreItems && !query" on-infinite="loadMoreProducts()" distance="10%"></ion-infinite-scroll>
   </ion-content>
 </ion-view>

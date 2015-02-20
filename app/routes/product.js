@@ -80,13 +80,21 @@ var productRoute = {
     });
 
     Product.route('Search.get', function(req, res) {
-      var name = req.query.name;
+      var name = req.query.name,
+        query;
 
-      Product.find(
-        { $text : { $search : name } },
-        "name pictures"
-      )
-      .exec(function(err, products) {
+      if (name) {
+        query = Product.find(
+          { $text : { $search : name } },
+          "name pictures"
+        );
+      } else {
+        query = Product.find(
+          {},
+          'name pictures'
+        ).limit(50);
+      }
+      query.exec(function(err, products) {
         if (err) {
           res.status(400);
           return res.send("Error while searching the products.<br/>" + err);
