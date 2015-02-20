@@ -88,11 +88,11 @@
       <div ng-if="product.recos">
         <div class="item item-divider toggleMain" ng-init="checked=true">
           <ion-toggle ng-checked="true">
-            Produit(s) similaire ({{product.recos.length}})
+            Produit(s) similaire(s) ({{product.recos.length}})
           </ion-toggle>
         </div>
         <div class="item toggleContent">
-          <a class="item item-thumbnail-left" ng-repeat="reco in product.recos track by $index" href="#/product/{{product.id}}">
+          <a class="item item-thumbnail-left" ng-repeat="reco in product.recos track by $index" href="#/product/{{product._id}}">
             <img src="{{reco.pictures[0].path}}" alt="{{reco.pictures[0].label}}">
             <h2>{{reco.name}}</h2>
             <p>{{reco.price}}€</p>
