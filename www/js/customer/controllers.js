@@ -52,6 +52,21 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
   };
 
   $rootScope.registered = false;
+  //Sync user object with firebase when regitered
+  $scope.$watch('user', function(){
+    if(!$rootScope.registered)
+      return
+    var index = $scope.syncQueue.$indexFor($scope.getUserKey());
+    console.log(index);
+    $scope.syncQueue[index].qa = $scope.user.qa;
+    $scope.syncQueue[index].products = $scope.user.products;
+    $scope.syncQueue[index].cart = $scope.user.cart;
+    $scope.syncQueue[index].waiting = $scope.user.waiting;
+    $scope.syncQueue[index].tags = $scope.user.tags;
+    $scope.syncQueue[index].actual = $scope.user.actual;
+    $scope.syncQueue.$save(index).then(function(){console.log("updated");});
+  },true);
+
 
   //Firebase
   $scope.connectedQueue = null;
@@ -94,22 +109,10 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
       question: $scope.question,
       answer: data
     };
-    $scope.user.tags[$scope.user.actual.shelf] = $scope.user.tags[$scope.user.actual.shelf].concat(data.tags);
+    var index = $scope.user.tags[$scope.user.actual.shelf].length-1;
+    $scope.user.tags[$scope.user.actual.shelf][index] = $scope.user.tags[$scope.user.actual.shelf][index].concat(data.tags);
     $scope.user.actual.tags = $scope.user.actual.tags.concat(data.tags);
     $scope.user.actual.qIds.push($scope.question._id);
-    if ($scope.user.waiting) {
-      var index = $scope.syncQueue.$indexFor($scope.getUserKey());
-      if (!$scope.syncQueue[index].qa) {
-        $scope.syncQueue[index].qa = {};
-      }
-      $scope.syncQueue[index].qa[$scope.question._id] = {
-        question: $scope.question,
-        answer: data
-      };
-      $scope.syncQueue[index].tags = $scope.user.tags;
-      $scope.syncQueue.$save(index).then(function(){console.log("updated");});
-    }
-    console.log($scope.user);
   };
 })
 
@@ -125,11 +128,6 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
       $scope.user.products = [];
     }
     $scope.user.products = $scope.user.products.concat(recos.data);
-    if($scope.user.waiting) {
-      var index = $scope.syncQueue.$indexFor($scope.getUserKey());
-      $scope.syncQueue[index].products = $scope.user.products;
-      $scope.syncQueue.$save(index).then(function() {console.log("updated");});
-    }
 
     // product.reviewAvg = utils.getReviewAvg(data[1].data);
     // product.reviewAvgHtml = utils.getReviewHtml(product.reviewAvg);
@@ -353,7 +351,9 @@ function initTags($scope, shelf, tags) {
     tags: tags,
     qIds: []
   };
-  $scope.user.tags[shelf]  = tags;
+  if(!$scope.user.tags[shelf])
+    $scope.user.tags[shelf] = [];
+  $scope.user.tags[shelf].push(tags);
 }
 
 function loader($scope, callback) {
