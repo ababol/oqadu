@@ -1,4 +1,4 @@
-// var path = "http://oqadu.herokuapp.com";
+//var path = "http://oqadu.herokuapp.com";
 var path = "www";
 //var path = "http://localhost:3000";
 
@@ -8,6 +8,21 @@ var firstUrl;
 var secureClick = function(self, selector){
   self.mouseEvent('mousedown', selector);
   self.mouseEvent('mouseup', selector);
+};
+
+var clickLoop = function(self, selector){
+  self.wait(2000, function(){
+    if (!self.exists('.productreco')) {
+          casper.waitForSelector(selector, function(){
+          casper.test.assertExists(selector, 'Cutomer answers question');
+          secureClick(self, selector);          
+          clickLoop(self,selector);
+          });
+        }else{
+           casper.test.assertExists('.productreco', 'Cutomer can see recommandations');
+        }
+  });
+        
 };
 
 casper.test.begin('Seller APP : Get the number of customers currently in waiting list', function(test) {
@@ -77,30 +92,17 @@ casper.test.begin('Customer APP : Add a customer to the waiting list', function(
     });
   });
 
-  casper.waitForText("Peinture", function(){
-    test.assertTextExists('Peinture', 'Cutomer answers Peinture');
-    secureClick(this, 'a:nth-child(3)');
+casper.then(function(){
+  clickLoop(this, '.answer');
+});
 
-  });
-
-  casper.waitForText("peinture", function(){
-    test.assertTextExists('peinture', 'Cutomer answers Materiel de peinture');
-    secureClick(this, 'a:nth-child(3)');
-  });
-
-  casper.waitForText("Rouleau", function(){
-    test.assertTextExists('Rouleau', 'Cutomer answers Rouleau');
-    secureClick(this, 'a:nth-child(3)');
-  });
-
-  casper.waitForText("Rouleau", function(){
-    test.assertTextExists('Rouleau', 'Cutomer can see the product Rouleau');
+  casper.waitForSelector('.productreco', function(){
     secureClick(this, 'a:nth-child(1)');
   });
 
   casper.waitForText("Produit", function(){
-    test.assertTextExists('Produit', 'Cutomer can see the details of a Rouleau');
-    secureClick(this, '#waitingList');
+    test.assertTextExists('Produit', 'Cutomer can see the details of a product');
+    secureClick(this, '.join');
     this.waitForSelector('#leaveWaitingList', function(){
       test.assertExists('#leaveWaitingList', 'Cutomer joined the waiting list');
     });
