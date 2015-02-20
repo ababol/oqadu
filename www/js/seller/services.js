@@ -19,7 +19,6 @@ angular.module('starter.services', [])
       });
     },
     search: function(query) {
-      console.log(query)
       return $http({
         url: url + "/api/v2/Products/Search/?name=" + query,
         method: 'GET'

@@ -381,6 +381,7 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
   }, 500);
 
   $scope.search = function() {
+    console.log($scope.query)
     doSearch($scope.query);
   };
   // End Search
