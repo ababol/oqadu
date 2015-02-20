@@ -92,7 +92,7 @@
           </ion-toggle>
         </div>
         <div class="item toggleContent">
-          <a class="item item-thumbnail-left" ng-repeat="reco in product.recos track by $index" href="#/product/{{product._id}}">
+          <a class="item item-thumbnail-left" ng-repeat="reco in product.recos track by $index" href="#/product/{{reco._id}}">
             <img src="{{reco.pictures[0].path}}" alt="{{reco.pictures[0].label}}">
             <h2>{{reco.name}}</h2>
             <p>{{reco.price}}€</p>

@@ -18,8 +18,8 @@ var productRoute = {
       if (tags.length === 0) {
         query = Product;
       } else {
-        query = productId ? Product.where("tags").all(tags)
-                          : Product.where("tags").all(tags).ne("_id", productId);
+        query = productId ? Product.where("tags").all(tags).ne("_id", productId)
+                          : Product.where("tags").all(tags);
       }
       query.find(function(err, products) {
         if (err) {
