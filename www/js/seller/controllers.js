@@ -36,15 +36,16 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
   $scope.addTagToCustomer = function(tag){
     if(!$scope.customer.tags)
       return;
-    if(!$scope.syncQueue[$scope.currentID].tags["custom"])
-      $scope.syncQueue[$scope.currentID].tags["custom"] = [];
-    $scope.syncQueue[$scope.currentID].tags["custom"].push(tag);
+    if(!$scope.syncQueue[$scope.currentID].tags["custom"]){
+      $scope.syncQueue[$scope.currentID].tags["custom"] = [[]];
+    }
+    $scope.syncQueue[$scope.currentID].tags["custom"][0].push(tag);
     $scope.syncQueue.$save($scope.currentID);
   };
-  $scope.deleteCustomerTag = function(shelf, index){
-    if(!$scope.customer.tags || !$scope.customer.tags[shelf] || index >= $scope.customer.tags[shelf].length)
+  $scope.deleteCustomerTag = function(shelf, shelfindex, index){
+    if(!$scope.customer.tags || !$scope.customer.tags[shelf][shelfindex] || index >= $scope.customer.tags[shelf][shelfindex].length)
       return;
-    $scope.syncQueue[$scope.currentID].tags[shelf].splice(index, 1);
+    $scope.syncQueue[$scope.currentID].tags[shelf][shelfindex].splice(index, 1);
     $scope.syncQueue.$save($scope.currentID);
   };
 
