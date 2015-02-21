@@ -7,7 +7,7 @@
   <author email="arnaud@babol.me" href="https://github.com/ababol/oqadu">
     OQADU Team
   </author>
-  <content src="seller.html"/>
+  <content src="customer.html"/>
   <access origin="*"/>
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="false"/>

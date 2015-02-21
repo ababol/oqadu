@@ -99,11 +99,8 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
 })
 
 .controller('ScanCtrl', function($scope, $location, $cordovaBarcodeScanner, $ionicPopup, User) {
-  // $cordovaBarcodeScanner.scan()
-  // .then(function(imageData) {
-    imageData = {
-      text: "123456"
-    };
+  $cordovaBarcodeScanner.scan()
+  .then(function(imageData) {
     User.getByClientId(parseInt(imageData.text, 10))
       .then(function(customer) {
         console.log("custoner", customer)
@@ -125,7 +122,7 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
           $location.path("tab/user");
         });
       });
-  // });
+  });
 })
 
 .controller('CustomerCtrl', function($scope) {
