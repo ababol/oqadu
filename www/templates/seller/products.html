@@ -18,7 +18,7 @@
             <h3>{{product.name}}</h3>
             <p>{{product.description}}</p>
           </div>
-          <div class="item tabs tabs-secondary tabs-icon-left" ng-show="currentID != null">
+          <div class="item tabs tabs-secondary tabs-icon-left" ng-if="currentID != null">
             <a class="tab-item" ng-click="addProductToCustomer(product)" href="#/tab/product">
               <i class="icon ion-bag"></i> Add this product
             </a>

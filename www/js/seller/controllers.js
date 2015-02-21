@@ -87,15 +87,48 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
     $scope.syncQueue.$remove(index).then(function(){
       console.log(index + " deleted");
     });
-  }
-})
+  };
 
+  $scope.addCustomer = function(customer) {
+    $scope.syncQueue[$scope.currentID].customer = customer;
+    $scope.syncQueue.$save($scope.currentID);
+  };
+})
 
 .controller('UserCtrl', function($scope) {
 })
 
-.controller('CustomerCtrl', function($scope) {
+.controller('ScanCtrl', function($scope, $location, $cordovaBarcodeScanner, $ionicPopup, User) {
+  // $cordovaBarcodeScanner.scan()
+  // .then(function(imageData) {
+    imageData = {
+      text: "123456"
+    };
+    User.getByClientId(parseInt(imageData.text, 10))
+      .then(function(customer) {
+        console.log("custoner", customer)
+        $ionicPopup.alert({
+          title: "Client Trouvé!",
+          template: "La carte de <b>" + customer.data[0].name + "</b> a été correctement scannée."
+        })
+        .then(function() {
+          $scope.addCustomer(customer.data[0]);
+          $location.path("tab/user?userAdded=true");
+        });
+      })
+      .catch(function(err) {
+        $ionicPopup.alert({
+          title: "Erreur " + err.status,
+          template: err.data
+        })
+        .then(function() {
+          $location.path("tab/user");
+        });
+      });
+  // });
+})
 
+.controller('CustomerCtrl', function($scope) {
 })
 
 .controller('CartCtrl', function($scope, $q, Products) {

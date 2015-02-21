@@ -66,6 +66,12 @@ angular.module('starter.services', [])
         data: {username: username, password: pass},
         method: 'POST'
       });
+    },
+    getByClientId: function(clientId) {
+      return $http({
+        url: url+'/api/v2/Users/?clientId=' + clientId + '&limit=1',
+        method: 'GET'
+      });
     }
   }
 });

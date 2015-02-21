@@ -1,9 +1,10 @@
 <ion-nav-bar class="bar bar-header bar-light nav-title-slide-ios7">
-  <button class="button-icon icon ion-ios7-arrow-back button back-button"
-     ng-show="{{title === 'Panier'}}"
-     onclick="window.history.back()"> Back</button>
-   <button ng-show="{{title === 'Recommandation'}}" class="button-icon icon ion-ios7-arrow-back button back-button"
-      ng-click="gotoBackQuestion()"> Back</button>
+  <button ng-show="{{title === 'Panier'}}"
+    class="button-icon icon ion-ios7-arrow-back button back-button"
+    onclick="window.history.back()"> Back</button>
+  <button ng-show="{{title == 'Recommandation'}}"
+    class="button-icon icon ion-ios7-arrow-back button back-button"
+    ng-click="gotoBackQuestion()"> Back</button>
 </ion-nav-bar>
 
 <ion-view title="{{title}} ({{products.length}})">
@@ -17,7 +18,7 @@
           <p><i ng-repeat="review in product.reviewAvgHtml track by $index" class='{{review}}'></i></p>
         </a>
 
-        <h1 ng-show="products.length === 0">Pas de produit!</h1>
+        <h1 ng-if="products.length === 0">Pas de produit!</h1>
 
     </div>
   </ion-content>

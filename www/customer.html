@@ -61,20 +61,20 @@
         <!-- End Not Registered -->
 
         <!-- Registered -->
-        <span ng-show="registered" class="tab-item">
+        <span ng-if="registered" class="tab-item">
           <i class="icon ion-ios7-people-outline"></i>
           {{waitlistPosition}}
         </span>
-        <span ng-show="registered" class="tab-item">
+        <span ng-if="registered" class="tab-item">
           <i class="icon ion-ios7-clock-outline"></i>
           {{waitTime}}min
         </span>
-        <a id="leaveWaitingList" ng-show="registered" class="tab-item" ng-click="unregisterQueue()">
+        <a id="leaveWaitingList" ng-if="registered" class="tab-item" ng-click="unregisterQueue()">
           <i class="icon ion-ios7-close-outline"></i>
         </a>
         <!-- End Registered -->
 
-        <a href="#/cart" class="tab-item cart" ng-show="user.cart.length > 0">
+        <a href="#/cart" class="tab-item cart" ng-if="user.cart.length > 0">
           <i class="icon ion-ios7-cart"></i>
           <span class="badge badge-assertive">{{user.cart.length}}</span>
         </a>

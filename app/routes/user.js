@@ -3,7 +3,7 @@ var User = require('../models/User'),
 
 var userRoute = {
   define: function(app, prefixAPI) {
-    User.methods(['post']);
+    User.methods(['get', 'post']);
 
     User.before('post', authenticator.authenticate);
 

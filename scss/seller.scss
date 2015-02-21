@@ -40,6 +40,10 @@ ion-side-menu > ion-content > div.scroll > ul > a.item.logout{
   border-top-color: $blue;
 }
 
+ion-nav-view {
+  background-color: white;
+}
+
 @import "scss/seller/productsList";
 @import "scss/seller/statistiques";
 @import "scss/seller/tag";

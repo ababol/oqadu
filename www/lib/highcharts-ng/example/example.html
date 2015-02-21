@@ -22,10 +22,10 @@
                     <label for="prettyJSON"><input id="prettyJSON" type="checkbox" ng-model="prettyJSON"> Pretty JSON</label>
                 </div>
                 <div class="row-fluid">
-                    <pre ng-show="prettyJSON">
+                    <pre ng-if="prettyJSON">
 {{ chartConfig | json }}
                     </pre>
-                    <pre ng-show="!prettyJSON">
+                    <pre ng-if="!prettyJSON">
 {{ chartConfig }}
                     </pre>
                 </div>

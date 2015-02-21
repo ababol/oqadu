@@ -159,6 +159,8 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
   ).then(function(product) {
     var deferred = $q.defer();
 
+    // Si non enregistré et que le client accede a la page produit via le scan
+    // on display la bar + connect firebase
     if (!$rootScope.registered && $location.search().scan) {
       var shelf = product.data.tags[0];
       $scope.connectToFirebaseQueue(shelf);
