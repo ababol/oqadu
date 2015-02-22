@@ -19,8 +19,8 @@ from copy import deepcopy
 # exemple :
 class ProductPageManager(PageManager):
 
-    def __init__(self, baseUrl, relativeUrl, mongoCollection, tags, products, imgPath):
-        super(ProductPageManager, self).__init__(baseUrl, relativeUrl, mongoCollection)
+    def __init__(self, baseUrl, relativeUrl, mongoCollection, tags, products, imgPath, maxProductCount):
+        super(ProductPageManager, self).__init__(baseUrl, relativeUrl, mongoCollection, maxProductCount)
         self.__tags = tags
         self.__products = products
         self.__imgPath = imgPath

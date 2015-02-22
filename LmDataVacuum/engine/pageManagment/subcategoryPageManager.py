@@ -16,8 +16,8 @@ from copy import deepcopy
 class SubcategoryPageManager(PageManager):
 
 
-    def __init__(self, baseUrl, relativeUrl, mongoCollection, prevQuestion, prevAnswer, tags):
-        super(SubcategoryPageManager, self).__init__(baseUrl, relativeUrl, mongoCollection)
+    def __init__(self, baseUrl, relativeUrl, mongoCollection, prevQuestion, prevAnswer, tags, maxProductCount):
+        super(SubcategoryPageManager, self).__init__(baseUrl, relativeUrl, mongoCollection, maxProductCount)
         self.__prevQ = prevQuestion
         self.__prevA = prevAnswer
         self.__tags = tags
@@ -27,7 +27,7 @@ class SubcategoryPageManager(PageManager):
         dom = self.getDocument()
         if len(dom.select('#criteria')) > 0 :
             try:
-                self.addSubPage(CriterionsPageManager(self._baseUrl, self._relativeUrl, self._datas, self.__prevQ, self.__prevA, self.__tags))
+                self.addSubPage(CriterionsPageManager(self._baseUrl, self._relativeUrl, self._datas, self.__prevQ, self.__prevA, self.__tags, self._maxProductCount))
                 return
             except Exception as e:
                 print "error: subcategoryPage->criterion", self._baseUrl + self._relativeUrl
@@ -42,6 +42,7 @@ class SubcategoryPageManager(PageManager):
 
             # ANSWERS
             answersHtml = dom.select('section.product-entry > ul > li > h3 > a')
+            length = len(answersHtml)
             for answerHtml in answersHtml:
                 answerUrl = answerHtml["href"]
                 answerText = answerHtml.string.strip().replace('\"', "\\\"")
@@ -58,7 +59,7 @@ class SubcategoryPageManager(PageManager):
                         answer.addTag(tag)
                         self._datas.addTag(tag)
                 try:
-                    self.addSubPage(SubcategoryPageManager(self._baseUrl, answerUrl, self._datas, question, answer, self.__tags + deepcopy(answer.getTags())))
+                    self.addSubPage(SubcategoryPageManager(self._baseUrl, answerUrl, self._datas, question, answer, self.__tags + deepcopy(answer.getTags()), int(round(self._maxProductCount/length))))
                 except Exception as e:
                     print "error: subcategoryPage", self._baseUrl + answerUrl
                     print e

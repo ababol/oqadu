@@ -10,15 +10,14 @@ from engine.fileManagment.fileFactory import FileFactory
 baseUrl = "http://www.leroymerlin.fr"
 relativeRoot = "/v3/p/produits-l1308218734"
 
-
+maxProductCount = 1000
 mongoCollection = MongoCollection()
-rootPage = CategoryPageManager(baseUrl, relativeRoot, mongoCollection)
+rootPage = CategoryPageManager(baseUrl, relativeRoot, mongoCollection, maxProductCount)
 rootPage.exctractDatas()
 print baseUrl+relativeRoot
 pages = rootPage.getSubPages();
 
-
-while len(pages) > 0:
+while len(pages) > 0 and mongoCollection.getProductCount() < maxProductCount:
 
     page = pages.pop();
     page.exctractDatas()

@@ -46,8 +46,8 @@ class Criterion(object):
 # exemple : http://www.leroymerlin.fr/v3/p/produits/terrasse-jardin/abri-garage-rangement-et-etendage/abri-de-jardin-l1308217057
 class CriterionsPageManager(PageManager):
 
-    def __init__(self, baseUrl, relativeUrl, mongoCollection, prevQuestion, prevAnswer, tags):
-        super(CriterionsPageManager, self).__init__(baseUrl, relativeUrl, mongoCollection)
+    def __init__(self, baseUrl, relativeUrl, mongoCollection, prevQuestion, prevAnswer, tags, maxProductCount):
+        super(CriterionsPageManager, self).__init__(baseUrl, relativeUrl, mongoCollection, maxProductCount)
         self.__prevQ = prevQuestion
         self.__prevA = prevAnswer
         self.__tags = tags
@@ -88,6 +88,7 @@ class CriterionsPageManager(PageManager):
                 self._datas.addQuestion(question)
 
                 # ANSWERS & TAGS
+                length = len(criterion.criterias)
                 for criteria in criterion.criterias:
                     answer = Answer(criteria.title)
                     tag = Tag(criteria.title)
@@ -95,7 +96,7 @@ class CriterionsPageManager(PageManager):
                     self._datas.addTag(tag)
                     question.addAnswer(answer)
                     try:
-                        ProductListPageManager(self._baseUrl, criteria.url, self._datas, question, answer, deepcopy(self.__tags + answer.getTags()), products).exctractDatas()
+                        ProductListPageManager(self._baseUrl, criteria.url, self._datas, question, answer, deepcopy(self.__tags + answer.getTags()), products, int(round(self._maxProductCount/length))).exctractDatas()
                         print self._baseUrl + criteria.url
                     except Exception as e:
                         print "error: criterionPage", self._baseUrl + criteria.url

@@ -14,8 +14,8 @@ from copy import deepcopy
 # exemple : http://www.leroymerlin.fr/v3/p/produits-l1308218734
 class CategoryPageManager(PageManager):
 
-    def __init__(self, baseUrl, relativeUrl, mongoCollection):
-        super(CategoryPageManager, self).__init__(baseUrl, relativeUrl, mongoCollection)
+    def __init__(self, baseUrl, relativeUrl, mongoCollection, maxProductCount):
+        super(CategoryPageManager, self).__init__(baseUrl, relativeUrl, mongoCollection, maxProductCount)
 
     def exctractDatas(self):
 
@@ -27,6 +27,7 @@ class CategoryPageManager(PageManager):
         dom = self.getDocument()
         answersHtml = dom.select('section.univers-box > h2 > a')
 
+        length = len(answersHtml)
         for answerHtml in answersHtml:
             answerUrl = answerHtml["href"]
             answer = Answer(answerHtml.string.strip().replace('\"', "\\\""))
@@ -40,4 +41,4 @@ class CategoryPageManager(PageManager):
                     tag = Tag(tagLabel)
                     answer.addTag(tag)
                     self._datas.addTag(tag)
-            self.addSubPage(SubcategoryPageManager(self._baseUrl, answerUrl, self._datas, question, answer, deepcopy(answer.getTags())))
+            self.addSubPage(SubcategoryPageManager(self._baseUrl, answerUrl, self._datas, question, answer, deepcopy(answer.getTags()), int(round(self._maxProductCount/length))))

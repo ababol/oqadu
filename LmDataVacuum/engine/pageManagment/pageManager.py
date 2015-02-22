@@ -10,7 +10,7 @@ from engine.pageManagment.htmlTools import HtmlReader
 class PageManager(object):
 
 
-    def __init__(self, baseUrl, relativeUrl, mongoCollection):
+    def __init__(self, baseUrl, relativeUrl, mongoCollection, maxProductCount):
         self._baseUrl = baseUrl
         self._relativeUrl = relativeUrl
         url = baseUrl + relativeUrl
@@ -18,6 +18,7 @@ class PageManager(object):
         self.__htmlPage = HtmlPage(url, document)
         self._datas = mongoCollection
         self.__subPages = []
+        self._maxProductCount = maxProductCount
 
     def getDocument(self):
         return self.__htmlPage.getDocument()

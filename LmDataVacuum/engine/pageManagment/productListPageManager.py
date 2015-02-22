@@ -16,8 +16,8 @@ from copy import deepcopy
 # exemple : http://www.leroymerlin.fr/v3/p/produits/terrasse-jardin/abri-garage-rangement-et-etendage/abri-de-jardin-l1308217057
 class ProductListPageManager(PageManager):
 
-    def __init__(self, baseUrl, relativeUrl, mongoCollection, prevQuestion, prevAnswer, tags, products):
-        super(ProductListPageManager, self).__init__(baseUrl, relativeUrl, mongoCollection)
+    def __init__(self, baseUrl, relativeUrl, mongoCollection, prevQuestion, prevAnswer, tags, products, maxProductCount):
+        super(ProductListPageManager, self).__init__(baseUrl, relativeUrl, mongoCollection, maxProductCount)
         self.__prevQ = prevQuestion
         self.__prevA = prevAnswer
         self.__tags = tags
@@ -31,7 +31,8 @@ class ProductListPageManager(PageManager):
         if productCount != 0:
             self.__prevQ.addAnswer(self.__prevA)
 
-        for i in range(0, productCount, 2):
+        i = 0
+        while i < productCount and i <= self._maxProductCount*2:
             productLink = productLinks[i]
             productUrl = productLink["href"].strip()
             imgPath = productLink.contents[1]["data-original"].strip()
@@ -40,9 +41,10 @@ class ProductListPageManager(PageManager):
                 self.__products[productUrl].addTags(deepcopy(self.__tags))
             else:
                 try:
-                    ProductPageManager(self._baseUrl, productUrl, self._datas, self.__tags, self.__products, imgPath).exctractDatas()
+                    ProductPageManager(self._baseUrl, productUrl, self._datas, self.__tags, self.__products, imgPath, 0).exctractDatas()
                     print self._baseUrl + productUrl
                 except Exception as e:
                     print "error: productListPage", self._baseUrl + productUrl
                     print e
                     return
+            i += 2
