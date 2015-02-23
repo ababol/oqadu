@@ -9,7 +9,8 @@ var user = restful.model('user', mongoose.Schema({
   name: {type:'string', required:true},
   clientId: {type: 'Number', required: true, default: 0},
   rank: {type: 'Number', required: true, default: 0},
-  shelf: {type: 'string', required: false}
+  shelf: {type: 'string', required: false},
+  avatar: {type: 'string', required: false}
 }));
 
  exports = module.exports = user;
