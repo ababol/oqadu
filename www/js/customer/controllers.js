@@ -267,7 +267,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
         $scope.waitlistPosition = transformPositionToString(pos);
         $scope.waitTime = pos * 3;
         //si l'evenement est a propos de mon user et que il faut le beeper
-        if($scope.getUserKey() == e.key && $scope.syncQueue[userIndex].beep){
+        if($scope.getUserKey() == e.key && $scope.syncQueue[userIndex] && $scope.syncQueue[userIndex].beep){
           console.log('Beep')
           if (window.plugin && window.plugin.notification) {
             window.plugin.notification.local.add({
