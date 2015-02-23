@@ -99,8 +99,16 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
 })
 
 .controller('ScanCtrl', function($scope, $location, $cordovaBarcodeScanner, $ionicPopup, User) {
+  if (!window.cordova) {
+    return $location.path("tab/user");
+  }
+
   $cordovaBarcodeScanner.scan()
   .then(function(imageData) {
+    if (!imageData || !imageData.text) {
+      return $location.path("tab/user");
+    }
+
     User.getByClientId(parseInt(imageData.text, 10))
       .then(function(customer) {
         console.log("custoner", customer)
@@ -110,16 +118,16 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
         })
         .then(function() {
           $scope.addCustomer(customer.data[0]);
-          $location.path("tab/user?userAdded=true");
+          return $location.path("tab/user");
         });
       })
       .catch(function(err) {
         $ionicPopup.alert({
           title: "Erreur " + err.status,
-          template: err.data
+          template: JSON.stringify(err.data)
         })
         .then(function() {
-          $location.path("tab/user");
+          return $location.path("tab/user");
         });
       });
   });
