@@ -8,4 +8,9 @@
   .item-toggle {
     padding: 16px 10px 16px 5px;
   }
+  .item {
+    overflow: visible;
+    text-overflow: inherit;
+    white-space: normal;
+  }
 }
