@@ -186,7 +186,6 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
 
   $scope.addToCart = function(id) {
     var index = $scope.getInTheCart(id);
-    console.log(index);
     if (index > -1) {
       $scope.user.cart.splice(index, 1);
     } else {

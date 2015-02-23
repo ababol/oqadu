@@ -4,21 +4,6 @@
 <ion-view title="{{product.name}}" class="product">
   <ion-content>
 
-    <section class="row no-padding-side" ng-if="product.price">
-      <div class="col left no-padding-side">
-        <span class="fakebutton blue add-product"
-              ng-click="addToCart(product._id)"
-              ng-class="(getInTheCart(product._id) > -1) ? 'ion-ios7-cart' : 'ion-ios7-cart-outline'">
-          {{product.price}}€
-        </span>
-      </div>
-      <div class="col right no-padding-side">
-        <span class="fakebutton energized">
-          <i ng-repeat="review in product.reviewAvgHtml track by $index" class="icon {{review}}"></i>
-        </span>
-      </div>
-    </section>
-
     <section class="row product-img">
       <div class="col col-33" ng-if="product.pictures">
         <div class="item item-image product">
@@ -28,6 +13,21 @@
               <img src="{{img.path}}" alt="{{img.label}}">
             </ion-slide>
           </ion-slide-box>
+        </div>
+
+        <div class="row">
+          <div class="col-50 left no-padding-side">
+            <span class="fakebutton grey add-product"
+                  ng-click="addToCart(product._id)"
+                  ng-class="(getInTheCart(product._id) > -1) ? 'ion-ios7-cart' : 'ion-ios7-cart-outline'">
+              {{product.price}}€
+            </span>
+          </div>
+          <div class="col-50 right no-padding-side">
+            <span class="fakebutton grey">
+              <i ng-repeat="review in product.reviewAvgHtml track by $index" class="icon {{review}}"></i>
+            </span>
+          </div>
         </div>
       </div>
       <div class="col col-66">
@@ -72,12 +72,12 @@
           </div>
 
           <div ng-if="product.reviews && product.reviews.length > 0">
-            <div class="item item-divider toggleMain" ng-init="checked=true">
-              <ion-toggle ng-checked="true">
+            <div class="item item-divider toggleMain" ng-init="checked=false">
+              <ion-toggle ng-checked="false">
                 Avis Clients ({{product.reviews.length}})
               </ion-toggle>
             </div>
-            <div class="item toggleContent">
+            <div class="item toggleContent ng-hide">
               <div class="item item-divider" ng-repeat-start="review in product.reviews">
                 {{review.title}} ({{review.score}}/5) par {{review.reviewerName}}
               </div>

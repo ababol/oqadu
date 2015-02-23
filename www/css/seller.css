@@ -7842,12 +7842,8 @@ ion-nav-view {
     .products-list .item-complex.custom .item-content {
       padding: 0px; }
 
-.noShow {
-  display: none; }
-
-.show {
-  /* Css Transitions to make the unfold effect or simply a display: block */
-  display: block; }
+.productButtons .fakebuttton {
+  margin: 0 10px 0 10px; }
 
 .waitlist {
   text-align: center; }
