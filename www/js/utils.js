@@ -12,12 +12,14 @@ angular.module('Helper', [])
       });
       return Math.round(reviewSum);
     },
-    getReviewHtml: function(reviewAvg) {
+    getReviewHtml: function(reviews) {
+      var reviewAvg = this.getReviewAvg(reviews),
+          reviewHtml = [];
+
       if (reviewAvg === "N/A") {
         return [];
       }
 
-      var reviewHtml = [];
       for (var i = 1; i <= 5; i++) {
         if (i <= reviewAvg) {
           reviewHtml.push("ion-ios7-star");

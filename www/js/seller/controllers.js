@@ -3,7 +3,7 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
   template: "<img src='img/loader.gif' width='80'/>"
 })
 
-.controller('MainCtrl', function ($scope, $ionicLoading, $ionicScrollDelegate, $state, $firebase, Sellers) {
+.controller('MainCtrl', function ($scope, $ionicLoading, $ionicScrollDelegate, $state, $firebase, $timeout, Sellers) {
   $scope.seller = {id:1, name: "John Doe", shelf: "Peinture"};
   $scope.state = $state;
   $scope.syncQueue = [];
@@ -65,26 +65,23 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
   }
 
   $scope.changeCustomer = function(k){
-    if(k>=0 && k<$scope.syncQueue.length){
-      // if($scope.syncQueue[k].seller != null && $scope.syncQueue[k].seller != $scope.seller.id)
-      //   return;
+    if(k>=0 && k<$scope.syncQueue.length && k != $scope.currentID){
       $scope.customer = $scope.syncQueue[k];
-      // if($scope.currentID != null){
-      //   $scope.syncQueue[$scope.currentID].seller = null;
-      //   $scope.syncQueue.$save($scope.currentID);
-      // }
-      // $scope.syncQueue[k].seller = $scope.seller.id;
-      // $scope.syncQueue.$save(k);
+      $scope.syncQueue[k].beep = true;
+      $scope.syncQueue.$save(k);
       $scope.currentID = k;
+      $timeout(function(){
+        $scope.syncQueue[$scope.currentID].beep = false;
+        $scope.syncQueue.$save($scope.currentID);
+      }, 1000, true);
     }
   }
   $scope.initSeller(0);
 
-  $scope.deleteUser = function(){
-    var index = $scope.currentID;
-    $scope.currentID = null;
-    $scope.customer = {};
+  $scope.deleteUser = function(index){
     $scope.syncQueue.$remove(index).then(function(){
+      $scope.currentID = null;
+      $scope.customer = {};
       console.log(index + " deleted");
     });
   };
@@ -99,8 +96,16 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
 })
 
 .controller('ScanCtrl', function($scope, $location, $cordovaBarcodeScanner, $ionicPopup, User) {
+  if (!window.cordova) {
+    return $location.path("tab/user");
+  }
+
   $cordovaBarcodeScanner.scan()
   .then(function(imageData) {
+    if (!imageData || !imageData.text) {
+      return $location.path("tab/user");
+    }
+
     User.getByClientId(parseInt(imageData.text, 10))
       .then(function(customer) {
         console.log("custoner", customer)
@@ -110,16 +115,16 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
         })
         .then(function() {
           $scope.addCustomer(customer.data[0]);
-          $location.path("tab/user?userAdded=true");
+          return $location.path("tab/user");
         });
       })
       .catch(function(err) {
         $ionicPopup.alert({
           title: "Erreur " + err.status,
-          template: err.data
+          template: JSON.stringify(err.data)
         })
         .then(function() {
-          $location.path("tab/user");
+          return $location.path("tab/user");
         });
       });
   });
