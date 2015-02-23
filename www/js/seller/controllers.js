@@ -145,6 +145,15 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
       utils.getCartDetails($scope, $q, Products, utils, cart);
     }
   });
+
+  $scope.removeProductFromCart = function(productId){
+    console.log($scope.syncQueue[$scope.getCurrentID()].cart);
+    console.log(productId);
+    var index = cart.indexOf(productId);
+    console.log(index);
+    $scope.syncQueue[$scope.getCurrentID()].cart.splice(index, 1);
+    $scope.syncQueue.$save($scope.getCurrentID());
+  }
 })
 
 .controller('ProductCtrl', function($scope,$q, utils) {
