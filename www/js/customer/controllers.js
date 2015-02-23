@@ -90,10 +90,16 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
   loader($scope, $q.when(
     Questions.getQuestion($scope.user.actual.tags, $scope.user.actual.qIds)
   ).then(function(question) {
-    var data = question.data;
+    var data = question.data,
+      status = question.status;
     if (data === "Not any remaining questions.") {
       return $location.path("recommendation");
-    } else {
+    }
+    else if(status === 204){
+      $scope.user.actual.qIds.push(data);
+      return $location.path("question/"+data);
+    }
+    else {
       $scope.question = question.data;
     }
   }));
