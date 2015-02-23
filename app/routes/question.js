@@ -5,7 +5,7 @@ var Question = require('../models/Question'),
   maxReco = 5;
 
 
-function checkAnswer(tags){
+function checkAnswer(tags) {
   var deferred = Q.defer();
 
   if (tags.length === 0) {
@@ -17,7 +17,7 @@ function checkAnswer(tags){
       return deferred.resolve("Valid answer");
     }
     else{
-      return deferred.reject("Invalid answer")
+      return deferred.resolve("Invalid answer");
     }
   });
 
@@ -77,21 +77,31 @@ var questionRoute = {
             res.status(200);
             return res.send("Not any remaining questions.");
           } else {
-            question.answers.forEach(function(answer){
-              Q.when(checkAnswer(tags.concat(answer.tags)))
-              .catch(function(){
-                var index = question.answers.indexOf(answer);
-                question.answers.splice(index, 1);
-              });
+            var promises = [];
+
+            question.answers.forEach(function(answer) {
+              promises.push(checkAnswer(tags.concat(answer.tags)));
             });
-            if(question.answers.length > 1){
-              res.status(200);
-              return res.send(question);
-            }
-            else{
-              res.status(204);
-              return res.send(question._id)
-            }
+
+            Q.all(promises)
+            .then(function(data) {
+              data.forEach(function (answer, index) {
+                if (answer === "Invalid answer") {
+                  question.answers.splice(index, 1);
+                }
+              });
+              return question;
+            })
+            .then(function(filteredQ) {
+              if (filteredQ.answers.length > 1) {
+                res.status(200);
+                return res.send(question);
+              }
+              else {
+                res.status(204);
+                return res.send(question._id);
+              }
+            });
 
           }
         });
