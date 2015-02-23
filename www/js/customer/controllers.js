@@ -298,35 +298,8 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
 
 .controller('CartCtrl', function($scope, $q, utils, Products) {
   var cart = $scope.user.cart;
-
-  $scope.products = [];
   $scope.title = "Panier";
-
-  function callback() {
-    var deferred = $q.defer();
-
-    if (cart.length === 0) {
-      return deferred.resolve();
-    }
-
-    cart.forEach(function(productId, key) {
-      $q.when(
-        Products.get(productId)
-      ).then(function(product) {
-        product.data.reviewAvgHtml = utils.getReviewHtml(product.data.reviews);
-        $scope.products.push(product.data);
-
-        // Si on a parcouru tout le tableau de produit, on peut valider la promesse
-        if (key === cart.length - 1) {
-          return deferred.resolve();
-        }
-      });
-    });
-
-    return deferred.promise;
-  }
-
-  loader($scope, $q.when(callback()));
+  utils.getCartDetails($scope, $q, Products, utils, cart);
 })
 
 .controller('ScanCtrl', function($scope, $q, $location, $cordovaBarcodeScanner, $ionicPopup, Products) {

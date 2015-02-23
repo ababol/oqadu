@@ -71,8 +71,10 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
       $scope.syncQueue.$save(k);
       $scope.currentID = k;
       $timeout(function(){
-        $scope.syncQueue[$scope.currentID].beep = false;
-        $scope.syncQueue.$save($scope.currentID);
+        if($scope.syncQueue[$scope.currentID]){
+          $scope.syncQueue[$scope.currentID].beep = false;
+          $scope.syncQueue.$save($scope.currentID);
+        }
       }, 1000, true);
     }
   }
@@ -133,40 +135,9 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
 .controller('CustomerCtrl', function($scope) {
 })
 
-.controller('CartCtrl', function($scope, $q, Products) {
-  var cart = $scope.customer.cart,
-    promise = $q.when();
-
-  $scope.cartProducts = [];
-  console.log("///////////cartCtrl");
-  console.log(cart);
-  function callback() {
-    console.log("callback");
-    var deferred = $q.defer();
-
-    if (!cart || cart.length === 0) {
-      return deferred.resolve();
-    }
-
-    cart.forEach(function(productId, key) {
-      $q.when(
-        Products.get(productId)
-      ).then(function(product) {
-        $scope.cartProducts.push(product.data);
-        console.log(product);
-        // Si on a parcouru tout le tableau de produit, on peut valider la promesse
-        if (key === cart.length - 1) {
-          console.log($scope.cartProducts);
-          return deferred.resolve();
-        }
-      });
-    });
-
-    return deferred.promise;
-  }
-
-  callback();
-  // loader($scope, $q.when(callback));
+.controller('CartCtrl', function($scope, $q, Products, utils) {
+  var cart = $scope.customer.cart;
+  utils.getCartDetails($scope, $q, Products, utils, cart);
 })
 
 .controller('ProductCtrl', function($scope,$q, utils) {
