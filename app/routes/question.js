@@ -12,7 +12,7 @@ function checkAnswer(tags){
     return deferred.resolve("Valid answer");
   }
 
-  Product.where("tags").in(tags).count(function(err, productCount) {
+  Product.where("tags").all(tags).count(function(err, productCount) {
     if(productCount > 0){
       return deferred.resolve("Valid answer");
     }
