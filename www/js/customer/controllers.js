@@ -116,7 +116,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
   };
 
   $scope.gotoBackQuestion = function(){
-    myBack($scope, $location);
+    gotoBackQuestion($scope, $location);
   }
 })
 
@@ -147,7 +147,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
   }));
 
   $scope.gotoBackQuestion = function(){
-    myBack($scope, $location);
+    gotoBackQuestion($scope, $location);
   }
 })
 
@@ -384,8 +384,7 @@ function loader($scope, callback) {
   });
 }
 
-function myBack($scope, $location){
-  console.log("works");
+function gotoBackQuestion($scope, $location){
   //Suppression du champ actual.qId de l'ancienne question
   var lastQId = $scope.user.actual.qIds.pop();
   var correspondantQA = $scope.user.qa[lastQId];
