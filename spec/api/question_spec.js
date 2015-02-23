@@ -2,65 +2,35 @@ var url = "https://oqadu.herokuapp.com",
   frisby = require('frisby');
 
 // tests of the APIv2
-var expectedQuestion = {
-  "_id": "54de3713b7e9b0141917eaed",
-  "text": "Quel rayon vous intéresse?",
-  "__v": 0,
-  "tags": [],
-  "answers": [{
-    "text": "Terrasse & Jardin",
-    "_id": "54de3713b7e9b0141917eaf9",
-    "tags": ["Terrasse", "Jardin"]
-  }, {
-    "text": "Salle de bains",
-    "_id": "54de3713b7e9b0141917eaf8",
-    "tags": ["Salledebains"]
-  }, {
-    "text": "Cuisine",
-    "_id": "54de3713b7e9b0141917eaf7",
-    "tags": ["Cuisine"]
-  }, {
-    "text": "Rangement & Dressing",
-    "_id": "54de3713b7e9b0141917eaf6",
-    "tags": ["Rangement", "Dressing"]
-  }, {
-    "text": "Matériaux & Menuiserie",
-    "_id": "54de3713b7e9b0141917eaf5",
-    "tags": ["Matériaux", "Menuiserie"]
-  }, {
-    "text": "Carrelage, parquet & sol souple",
-    "_id": "54de3713b7e9b0141917eaf4",
-    "tags": ["Carrelage", "parquet", "solsouple"]
-  }, {
-    "text": "Décoration & Eclairage",
-    "_id": "54de3713b7e9b0141917eaf3",
-    "tags": ["Décoration", "Eclairage"]
-  }, {
-    "text": "Peinture & Droguerie",
-    "_id": "54de3713b7e9b0141917eaf2",
-    "tags": ["Peinture", "Droguerie"]
-  }, {
-    "text": "Electricité & Domotique",
-    "_id": "54de3713b7e9b0141917eaf1",
-    "tags": ["Electricité", "Domotique"]
-  }, {
-    "text": "Chauffage & Plomberie",
-    "_id": "54de3713b7e9b0141917eaf0",
-    "tags": ["Chauffage", "Plomberie"]
-  }, {
-    "text": "Quincaillerie & Sécurité",
-    "_id": "54de3713b7e9b0141917eaef",
-    "tags": ["Quincaillerie", "Sécurité"]
-  }, {
-    "text": "Outillage",
-    "_id": "54de3713b7e9b0141917eaee",
-    "tags": ["Outillage"]
-  }]
-};
+var expectedQuestion = {"_id":"54eb0c4f91a0fe304b3a3292",
+"text":"Quel rayon vous intéresse?",
+"__v":0,
+"tags":[],
+"answers":[{"text":"Outillage",
+            "_id":"54eb0c4f91a0fe304b3a3299",
+            "tags":["Outillage"]},
+            {"text":"Quincaillerie & Sécurité",
+            "_id":"54eb0c4f91a0fe304b3a3298",
+            "tags":["Quincaillerie","Sécurité"]},
+            {"text":"Chauffage & Plomberie",
+            "_id":"54eb0c4f91a0fe304b3a3297",
+            "tags":["Chauffage","Plomberie"]},
+            {"text":"Electricité & Domotique",
+            "_id":"54eb0c4f91a0fe304b3a3296",
+            "tags":["Electricité","Domotique"]},
+            {"text":"Peinture & Droguerie",
+            "_id":"54eb0c4f91a0fe304b3a3295",
+            "tags":["Peinture","Droguerie"]},
+            {"text":"Décoration & Eclairage",
+            "_id":"54eb0c4f91a0fe304b3a3294",
+            "tags":["Décoration","Eclairage"]},
+            {"text":"Carrelage, parquet & sol souple",
+            "_id":"54eb0c4f91a0fe304b3a3293",
+            "tags":["Carrelage","parquet","solsouple"]}]};
 
 // test the integrity of the returned JSON by getting the products list
-frisby.create('Check All Questions /Questions')
-  .get(url + '/api/v2/Questions')
+frisby.create('Check the 50 first Questions /Questions?limit=50')
+  .get(url + '/api/v2/Questions?limit=50')
   .expectHeaderContains('Content-Type', 'json')
   .expectStatus(200)
   .expectJSONTypes('*', {
@@ -89,10 +59,9 @@ frisby.create('Check All Questions /Questions')
   })
 .toss();
 
-frisby.create('Check First Question /Questions/:productId')
-  .get(url + '/api/v2/Questions/Tags/?tags=')
+frisby.create('Check First Question /Questions/:questionId')
+  .get(url + '/api/v2/Questions/54eb0c4f91a0fe304b3a3292')
   .expectHeaderContains('Content-Type', 'json')
   .expectStatus(200)
   .expectJSON(expectedQuestion)
-  .expectJSONLength('answers', 12)
 .toss();
