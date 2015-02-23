@@ -157,11 +157,13 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
     if($scope.customer == {})
       return;
     for(var shelf in $scope.customer.tags){
-      $q.when(
-        utils.post($scope.customer.tags[shelf])
-      ).then(function(products){
-        $scope.recoProducts = $scope.recoProducts.concat(products.data);
-      });
+      for(var i in $scope.customer.tags[shelf]){
+        $q.when(
+          utils.getRecos($scope.customer.tags[shelf][i], null)
+        ).then(function(products){
+          $scope.recoProducts = $scope.recoProducts.concat(products.data);
+        });
+      }
     }
   }
   refreshProducts();
