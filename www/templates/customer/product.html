@@ -14,8 +14,8 @@
         </span>
       </div>
       <div class="col right no-padding-side">
-        <span class="fakebutton ion-ios7-star energized">
-          {{product.reviewAvg}}/5
+        <span class="fakebutton energized">
+          <i ng-repeat="review in product.reviewAvgHtml track by $index" class="icon {{review}}"></i>
         </span>
       </div>
     </section>
@@ -73,15 +73,15 @@
         </div>
       </div>
 
-      <div ng-if="product.reviews">
+      <div ng-if="product.reviews && product.reviews.length > 0">
         <div class="item item-divider toggleMain" ng-init="checked=false">
           <ion-toggle ng-checked="false">
-            Avis Clients
+            Avis Clients ({{product.reviews.length}})
           </ion-toggle>
         </div>
         <div class="item toggleContent ng-hide">
           <div class="item item-divider" ng-repeat-start="review in product.reviews">
-            {{review.title}}
+            {{review.title}} ({{review.score}}/5) par {{review.reviewerName}}
           </div>
           <div class="item" ng-repeat-end>
             {{review.comment}}
@@ -100,7 +100,9 @@
             <img src="{{reco.pictures[0].path}}" alt="{{reco.pictures[0].label}}">
             <h2>{{reco.name}}</h2>
             <p>{{reco.price}}€</p>
-            <p>5etoiles</p>
+            <p ng-if="reco.reviews && reco.reviews.length > 0">
+              <i ng-repeat="review in reco.reviewAvgHtml track by $index" class="icon {{review}}"></i>
+            </p>
           </a>
         </div>
       </div>

@@ -128,22 +128,14 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
     utils.getRecos($scope.user.actual.tags)
   ).then(function(recos) {
     $scope.products = recos.data;
+    $scope.products.forEach(function(reco) {
+      reco.reviewAvgHtml = utils.getReviewHtml(reco.reviews);
+    });
+
     if(!$scope.user.products) {
       $scope.user.products = [];
     }
     $scope.user.products = $scope.user.products.concat(recos.data);
-
-    // product.reviewAvg = utils.getReviewAvg(data[1].data);
-    // product.reviewAvgHtml = utils.getReviewHtml(product.reviewAvg);
-    // product.reviews = data[1].data;
-    // if ($scope.user.waiting) {
-    //   var index = $scope.syncQueue.$indexFor($scope.getUserKey());
-    //   if (!$scope.syncQueue[index].products) {
-    //     $scope.syncQueue[index].products = {};
-    //   }
-    //   $scope.syncQueue[index].products[product._id] = product;
-    //   $scope.syncQueue.$save(index).then(function() {console.log("updated");});
-    // }
   }));
 
   $scope.gotoBackQuestion = function(){
@@ -168,10 +160,15 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
     }
 
     $scope.product = product.data;
+    $scope.product.reviewAvgHtml = utils.getReviewHtml(product.data.reviews);
 
     utils.getRecos(product.data.tags, product.data._id)
     .then(function(products) {
       $scope.product.recos = products.data;
+
+      $scope.product.recos.forEach(function(reco) {
+        reco.reviewAvgHtml = utils.getReviewHtml(reco.reviews);
+      });
       return deferred.resolve();
     })
     .catch(function(err) {
@@ -387,12 +384,12 @@ function loader($scope, callback) {
 
 function gotoBackQuestion($scope, $location){
   //Suppression du champ actual.qId de l'ancienne question
-  var lastQId = $scope.user.actual.qIds.pop();
-  var correspondantQA = $scope.user.qa[lastQId];
-  var previousQTags = correspondantQA.answer.tags;
+  var lastQId = $scope.user.actual.qIds.pop(),
+    correspondantQA = $scope.user.qa[lastQId],
+    previousQTags = correspondantQA.answer.tags;
 
   //Suppression du champ actual.tags ceux générés par la réponse à cette question
-  for(tagId = 0; tagId < previousQTags.length; tagId++){
+  for(var tagId = 0; tagId < previousQTags.length; tagId++){
     $scope.user.actual.tags.pop();
   }
 
@@ -400,9 +397,10 @@ function gotoBackQuestion($scope, $location){
   delete $scope.user.qa[lastQId];
 
   //Suppression des tags correspondants aux tags fournis par la réponse à la lastQ
-  var index = $scope.user.tags[$scope.user.actual.shelf].length-1;
-  var userTags = $scope.user.tags[$scope.user.actual.shelf][index];
-  for(tagId = 0; tagId < previousQTags.length; tagId++){
+  var index = $scope.user.tags[$scope.user.actual.shelf].length-1,
+    userTags = $scope.user.tags[$scope.user.actual.shelf][index];
+
+  for(var tagId = 0; tagId < previousQTags.length; tagId++){
     var i = userTags.indexOf(previousQTags[tagId]);
     userTags.splice(i, 1);
   }
