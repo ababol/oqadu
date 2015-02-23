@@ -3,7 +3,7 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
   template: "<img src='img/loader.gif' width='80'/>"
 })
 
-.controller('MainCtrl', function ($scope, $ionicLoading, $ionicScrollDelegate, $state, $firebase, Sellers) {
+.controller('MainCtrl', function ($scope, $ionicLoading, $ionicScrollDelegate, $state, $firebase, $timeout, Sellers) {
   $scope.seller = {id:1, name: "John Doe", shelf: "Peinture"};
   $scope.state = $state;
   $scope.syncQueue = [];
@@ -66,16 +66,14 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
 
   $scope.changeCustomer = function(k){
     if(k>=0 && k<$scope.syncQueue.length){
-      // if($scope.syncQueue[k].seller != null && $scope.syncQueue[k].seller != $scope.seller.id)
-      //   return;
       $scope.customer = $scope.syncQueue[k];
-      // if($scope.currentID != null){
-      //   $scope.syncQueue[$scope.currentID].seller = null;
-      //   $scope.syncQueue.$save($scope.currentID);
-      // }
-      // $scope.syncQueue[k].seller = $scope.seller.id;
-      // $scope.syncQueue.$save(k);
+      $scope.syncQueue[k].beep = true;
+      $scope.syncQueue.$save(k);
       $scope.currentID = k;
+      $timeout(function(){
+        $scope.syncQueue[$scope.currentID].beep = false;
+        $scope.syncQueue.$save($scope.currentID);
+      }, 1000, true);
     }
   }
   $scope.initSeller(0);

@@ -259,11 +259,13 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
         $rootScope.registered = true;
       });
       $scope.syncQueue.$watch(function(e){
-        var pos = $scope.syncQueue.$indexFor($scope.getUserKey()) + 1;
+        var userIndex = $scope.syncQueue.$indexFor($scope.getUserKey()); 
+        var pos = userIndex + 1;
         $scope.waitlistPosition = transformPositionToString(pos);
-        if(pos === 1){
+        $scope.waitTime = pos * 3;
+        //si l'evenement est a propos de mon user et que il faut le beeper
+        if($scope.getUserKey() == e.key && $scope.syncQueue[userIndex].beep){
           console.log('Beep')
-
           if (window.plugin && window.plugin.notification) {
             window.plugin.notification.local.add({
                 id:      1,
@@ -272,7 +274,6 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
             });
           }
         }
-        $scope.waitTime = pos * 3;
       });
     }
   };
