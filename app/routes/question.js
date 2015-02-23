@@ -84,8 +84,15 @@ var questionRoute = {
                 question.answers.splice(index, 1);
               });
             });
-            res.status(200);
-            return res.send(question);
+            if(question.answers.length > 1){
+              res.status(200);
+              return res.send(question);
+            }
+            else{
+              res.status(204);
+              return res.send(question._id)
+            }
+
           }
         });
       })
