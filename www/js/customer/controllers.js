@@ -405,7 +405,7 @@ function myBack($scope, $location){
   var userTags = $scope.user.tags[$scope.user.actual.shelf][index];
   for(tagId = 0; tagId < previousQTags.length; tagId++){
     var i = userTags.indexOf(previousQTags[tagId]);
-    delete userTags[i];
+    userTags.splice(i, 1);
   }
 
   //Changement de l'URL pour refresh
