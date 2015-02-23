@@ -213,7 +213,25 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
   loader($scope, $q.when(
     Products.get($stateParams.productId)
   ).then(function(product) {
+    var deferred = $q.defer();
+
     $scope.product = product.data;
+    $scope.product.reviewAvgHtml = utils.getReviewHtml(product.data.reviews);
+
+    utils.getRecos(product.data.tags, product.data._id)
+    .then(function(products) {
+      $scope.product.recos = products.data;
+
+      $scope.product.recos.forEach(function(reco) {
+        reco.reviewAvgHtml = utils.getReviewHtml(reco.reviews);
+      });
+      return deferred.resolve();
+    })
+    .catch(function(err) {
+      return deferred.reject(err);
+    });
+
+    return deferred.promise;
   }));
   $scope.updateSlider = function () {
     return $ionicSlideBoxDelegate.update();
