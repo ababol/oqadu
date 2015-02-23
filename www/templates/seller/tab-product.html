@@ -12,11 +12,11 @@
     </div>
 
     <ion-list class="products-list">
-      <ion-item class="custom" ng-repeat="product in customer.products" type="item-text-wrap" href="#/tab/product-detail/{{product._id}}">
+      <ion-item class="custom" ng-repeat="product in recoProducts" type="item-text-wrap" href="#/tab/product-detail/{{product._id}}">
 
         <div class="list card">
           <div class="item item-image">
-            <img src="{{product.img[0]}}">
+            <img src="{{product.pictures[0].path}}" alt="{{product.pictures[0].label}}">
           </div>
           <div class="item item-divider">
             <h3>{{product.name}}</h3>

@@ -11,9 +11,10 @@
       <a href="#/scan">
         <button class="button button-large button-block icon-left ion-ios7-barcode-outline button-energized">Scannez un article</button>
       </a>
-      <a href="#/cart" ng-show="user.cart.length > 0 && !registered">
+      <a href="#/cart" ng-if="user.cart.length > 0 && !registered">
         <button class="button button-large button-block icon-left ion-ios7-cart button-assertive">Panier ({{user.cart.length}})</button>
       </a>
+      <div class="padding-bar" ng-if="registered"></div>
     </section>
   </ion-content>
 </ion-view>

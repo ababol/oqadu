@@ -33,6 +33,9 @@
             <h2>{{errorTxt}}</h2>
             <p>Un incident technique est survenu.<br/>
             Veuillez contacter <a style="color: green;" href="mailto:support@oqadu.com">un admistrateur.</a></p>
+            <a href="#/home" class="tab-item">
+              <i class="icon ion-ios7-home-outline"></i>
+            </a>
           </div>
           <div class="item item-body">
             <img class="full-image" src="img/hipster_dog.jpg">
@@ -45,35 +48,33 @@
     </section>
     <ion-nav-view name="loading" id="loading" class="fade hide"></ion-nav-view>
     <footer ng-controller="BarCtrl" ng-hide="errorTxt || hideFoot">
-      <div id="barUnreg" ng-hide="registered" class="tabs tabs-icon-left">
-        <a href="#/home" class="tab-item">
-          <i class="icon ion-ios7-home-outline"></i>
-        </a>
-        <a id="waitingList" ng-click="registerQueue()" class="tab-item join">
-          <i class="icon ion-ios7-plus-outline"></i>
-          Conseiller
-        </a>
-        <a href="#/cart" class="tab-item cart" ng-show="user.cart.length > 0">
-          <i class="icon ion-ios7-cart"></i>
-          <span class="badge badge-assertive">{{user.cart.length}}</span>
-        </a>
-      </div>
-      <div id="barReg" ng-show="registered" class="tabs tabs-icon-left">
+      <div class="tabs tabs-icon-left">
         <a href="#/home" class="tab-item home">
           <i class="icon ion-ios7-home-outline"></i>
         </a>
-        <span class="tab-item">
+
+        <!-- Not Registered -->
+        <a id="waitingList" ng-click="registerQueue()" class="tab-item join" ng-hide="registered">
+          <i class="icon ion-ios7-plus-outline"></i>
+          Conseiller
+        </a>
+        <!-- End Not Registered -->
+
+        <!-- Registered -->
+        <span ng-if="registered" class="tab-item">
           <i class="icon ion-ios7-people-outline"></i>
           {{waitlistPosition}}
         </span>
-        <span class="tab-item">
+        <span ng-if="registered" class="tab-item">
           <i class="icon ion-ios7-clock-outline"></i>
           {{waitTime}}min
         </span>
-        <a id="leaveWaitingList" class="tab-item" ng-click="unregisterQueue()">
+        <a id="leaveWaitingList" ng-if="registered" class="tab-item" ng-click="unregisterQueue()">
           <i class="icon ion-ios7-close-outline"></i>
         </a>
-        <a href="#/cart" class="tab-item" ng-show="user.cart.length > 0">
+        <!-- End Registered -->
+
+        <a href="#/cart" class="tab-item cart" ng-if="user.cart.length > 0">
           <i class="icon ion-ios7-cart"></i>
           <span class="badge badge-assertive">{{user.cart.length}}</span>
         </a>

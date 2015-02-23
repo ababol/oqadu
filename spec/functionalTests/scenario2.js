@@ -1,86 +1,78 @@
-/*Scenario 2: the client answers to each question, until he get the detail of the product of the suggestion. Finally, he joins the waiting list and returns to the main menu*/
+/*Scenario 2: check if there are recommendations for each sequence of possible questions*/
 
 //var path = "http://oqadu.herokuapp.com";
+//var path = "http://localhost:3000";
 var path = "www";
 
+var secureClick = function(self, selector){
+  self.mouseEvent('mousedown', selector);
+  self.mouseEvent('mouseup', selector);
+};
+
+
+
+var clickLoop = function(self, length){// en cours de dev
+  
+    /*self.echo('test');
+
+    casper.waitForSelector('.answer', function(){
+      self.capture('test'+index+'.png');
+      var Lenght2= self.evaluate(function(){
+        return document.querySelectorAll(".answer").length;
+      });
+    self.echo(Lenght2);**/
+    
+      for (var j = 2; j <= length+1; j++) {
+            
+        
+        secureClick(self, '.answer:nth-child('+j+')');
+        self.capture('test'+j+'.png');
+        self.echo('click');
+          if (!self.exists('.productreco')) {
+          casper.waitForSelector('.answer', function(){
+          casper.test.assertExists('.answer');
+          length = self.evaluate(function(){
+            return document.querySelectorAll(".answer").length;
+          });
+          this.echo(length);
+        });
+        
+        casper.then(function(){
+          clickLoop(self, length);
+        }); 
+        }else{
+          casper.test.assertExists('.productreco');
+          casper.back();
+          //retourner au questions????
+        } 
+    }
+    
+};
+
 casper.test.begin('Verify the landed page of the Seller App', function(test) {
-  casper.start(path+'/customer.html').waitForText("Moteur", function() {
+  casper.start(path+'/customer.html').waitForText("File", function() {
     test.assertUrlMatch(/#\/home/, 'Redirecting to #/home by default');
+    this.waitForSelector("#engine", function(){
+          test.assertExists('#engine');
+          secureClick(this, '#engine');
+        });
   });
 
-  casper.waitForSelector('.engine', function(){
-    //this.click('.engine');
-    this.mouseEvent('mousedown','.engine');
-    this.mouseEvent('mouseup','.engine');
-  });
-
-  casper.waitForText("Jardin", function(){
-    test.assertUrlMatch(/#\/question\/545f70d9946ea453ece17e7e/, 'The client can see the first question');
-  });
 
   casper.waitForSelector('.answer', function(){
-    //this.click('.answer:nth-child(2)');
-    this.mouseEvent('mousedown','.answer:nth-child(2)');
-    this.mouseEvent('mouseup','.answer:nth-child(2)');
-  });
+      test.assertUrlMatch(/#\/question/, 'Client can start to answer');
+      var Lenght= this.evaluate(function(){
+        return document.querySelectorAll(".answer").length;
+        });
+      this.echo(Lenght);
+      clickLoop(this, Lenght);
+    }, function timeout() {
+    this.echo("temps dépassé").exit();
+    },
+      5000);
 
-  casper.then(function(){
-    test.assertUrlMatch(/#\/question\/545f70d9946ea453ece17e7f/, 'The client can see the second question');
-  });
 
-  casper.waitForSelector('.answer', function(){
-    //this.click('.answer:nth-child(2)');
-    this.mouseEvent('mousedown','.answer:nth-child(2)');
-    this.mouseEvent('mouseup','.answer:nth-child(2)');
-  });
 
-  casper.then(function(){
-    test.assertUrlMatch(/#\/question\/545f70d9946ea453ece17e81/, 'The client can see the third question');
-  })
-
-  casper.waitForSelector('.answer', function(){
-    //this.click('.answer:nth-child(2)');
-    this.mouseEvent('mousedown','.answer:nth-child(2)');
-    this.mouseEvent('mouseup','.answer:nth-child(2)');
-  });
-
-  casper.then(function(){
-    test.assertUrlMatch(/#\/question\/545f70d9946ea453ece17e85/, 'The client can see the fourth question');
-  })
-
-  casper.waitForSelector('.answer', function(){
-    //this.click('.answer:nth-child(2)');
-    this.mouseEvent('mousedown','.answer:nth-child(2)');
-    this.mouseEvent('mouseup','.answer:nth-child(2)');
-  });
-
-  casper.then(function(){
-    test.assertUrlMatch(/#\/recommendation\/545fc3da946ea453ece17f62/, 'The client can see the recommendation');
-  })
-
-  casper.waitForSelector('.productreco', function(){
-    //this.click('.recommendation');
-    this.mouseEvent('mousedown','.productreco');
-    this.mouseEvent('mouseup','.productreco');
-  });
-
-  casper.then(function(){
-    test.assertUrlMatch(/#\/product\/545fc3da946ea453ece17f22/, 'The client can see the product detail');
-  })
-
-  casper.waitForSelector('.join', function(){
-    //this.click('.join');
-    this.mouseEvent('mousedown','.join');
-    this.mouseEvent('mouseup','.join');
-    console.log("The client join the queue");
-    //this.click('.home');
-    this.mouseEvent('mousedown','.home');
-    this.mouseEvent('mouseup','.home');
-  });
-
-  casper.then(function(){
-    test.assertUrlMatch(/#\/home/, 'Redirecting to #/home by default');
-  })
 
 
   casper.run(function() {

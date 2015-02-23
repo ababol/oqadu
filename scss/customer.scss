@@ -25,6 +25,7 @@ $balanced: #45B82E !default;
 @import "scss/both/pace";
 @import "scss/both/button";
 @import "scss/both/loader";
+@import "scss/both/product";
 
 // Include customer
 @import "scss/customer/loading";
@@ -48,11 +49,6 @@ span.tab-item {
     max-width: 100%;
   }
 }
-.product {
-  .card {
-    margin: 5px 5px !important;
-  }
-}
 
 .home {
   a {
@@ -63,12 +59,20 @@ span.tab-item {
   .home-promo {
     background: white;
     padding: 0 0 10px 0;
-    height: 63%;
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 65%;
   }
   .home-button {
+    bottom: 0;
+    left: 0;
     padding: 10px 10px 0 10px;
+    position: absolute;
+    width: 100%;
+  }
+  .padding-bar {
+    height: 55px;
+    width: 100%;
   }
 }

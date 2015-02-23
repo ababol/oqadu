@@ -10,11 +10,17 @@ var productRoute = {
     Product.before('delete', authenticator.authenticate);
 
     // custom route
-    Product.route('Recommendations.get', function(req, res) {
-      var tags = req.query.tags.split(","),
-          query;
+    Product.route('Recommendations.post', function(req, res) {
+      var tags = req.body.tags,
+        productId = req.body.productId,
+        query;
 
-      query = tags[0] === "" ? Product : Product.where("tags").all(tags);
+      if (tags.length === 0) {
+        query = Product;
+      } else {
+        query = productId ? Product.where("tags").all(tags).ne("_id", productId)
+                          : Product.where("tags").all(tags);
+      }
       query.find(function(err, products) {
         if (err) {
           res.status(400);
@@ -65,6 +71,28 @@ var productRoute = {
         }
         if (products === null || products === []) {
           res.status(404);
+          return res.send("Aucun produit trouvé.");
+        } else {
+          res.status(200);
+          return res.send(products);
+        }
+      });
+    });
+
+    Product.route('Search.get', function(req, res) {
+      var name = req.query.name,
+        query;
+
+      Product.find(
+        { $text: { $search: name } },
+        "name pictures"
+      ).exec(function(err, products) {
+        if (err) {
+          res.status(400);
+          return res.send("Error while searching the products.<br/>" + err);
+        }
+        if (products === null || products === []) {
+          res.status(200);
           return res.send("Aucun produit trouvé.");
         } else {
           res.status(200);

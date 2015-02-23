@@ -9,32 +9,43 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
   $scope.syncQueue = [];
   $scope.customer = {};
   $scope.currentID = null;
+  $scope.showLeftMenu = true;
 
   $scope.showLoader = function() {
     $scope.errorTxt = false;
     $ionicLoading.show();
   };
+  $scope.setLeftMenu = function(val){
+    $scope.showLeftMenu = val;
+  }
+  $scope.setSeller = function(seller){
+    $scope.seller = seller;
+  }
   $scope.hideLoader = function() {
     $ionicLoading.hide();
   };
   $scope.error = function(err) {
-    $scope.errorTxt = "API ERROR " + err.status + " - " + err.data;
+    $scope.errorTxt = "API ERROR " + err.status + " - " + JSON.stringify(err.data);
   };
   $scope.refreshScroll = function() {
     $ionicScrollDelegate.resize();
   };
+  $scope.getCurrentID = function(){
+    return $scope.currentID;
+  }
   $scope.addTagToCustomer = function(tag){
     if(!$scope.customer.tags)
       return;
-    if(!$scope.syncQueue[$scope.currentID].tags["custom"])
-      $scope.syncQueue[$scope.currentID].tags["custom"] = [];
-    $scope.syncQueue[$scope.currentID].tags["custom"].push(tag);
+    if(!$scope.syncQueue[$scope.currentID].tags["custom"]){
+      $scope.syncQueue[$scope.currentID].tags["custom"] = [[]];
+    }
+    $scope.syncQueue[$scope.currentID].tags["custom"][0].push(tag);
     $scope.syncQueue.$save($scope.currentID);
   };
-  $scope.deleteCustomerTag = function(shelf, index){
-    if(!$scope.customer.tags || !$scope.customer.tags[shelf] || index >= $scope.customer.tags[shelf].length)
+  $scope.deleteCustomerTag = function(shelf, shelfindex, index){
+    if(!$scope.customer.tags || !$scope.customer.tags[shelf][shelfindex] || index >= $scope.customer.tags[shelf][shelfindex].length)
       return;
-    $scope.syncQueue[$scope.currentID].tags[shelf].splice(index, 1);
+    $scope.syncQueue[$scope.currentID].tags[shelf][shelfindex].splice(index, 1);
     $scope.syncQueue.$save($scope.currentID);
   };
 
@@ -48,7 +59,6 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
       $scope.changeCustomer(0);
     });
     $scope.syncQueue.$watch(function(ev){
-      console.log(ev);
       if($scope.currentID != null)
         $scope.customer = $scope.syncQueue[$scope.currentID];
     });
@@ -56,7 +66,15 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
 
   $scope.changeCustomer = function(k){
     if(k>=0 && k<$scope.syncQueue.length){
+      // if($scope.syncQueue[k].seller != null && $scope.syncQueue[k].seller != $scope.seller.id)
+      //   return;
       $scope.customer = $scope.syncQueue[k];
+      // if($scope.currentID != null){
+      //   $scope.syncQueue[$scope.currentID].seller = null;
+      //   $scope.syncQueue.$save($scope.currentID);
+      // }
+      // $scope.syncQueue[k].seller = $scope.seller.id;
+      // $scope.syncQueue.$save(k);
       $scope.currentID = k;
     }
   }
@@ -69,18 +87,121 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
     $scope.syncQueue.$remove(index).then(function(){
       console.log(index + " deleted");
     });
-  }
+  };
+
+  $scope.addCustomer = function(customer) {
+    $scope.syncQueue[$scope.currentID].customer = customer;
+    $scope.syncQueue.$save($scope.currentID);
+  };
 })
 
-
 .controller('UserCtrl', function($scope) {
+})
+
+.controller('ScanCtrl', function($scope, $location, $cordovaBarcodeScanner, $ionicPopup, User) {
+  $cordovaBarcodeScanner.scan()
+  .then(function(imageData) {
+    User.getByClientId(parseInt(imageData.text, 10))
+      .then(function(customer) {
+        console.log("custoner", customer)
+        $ionicPopup.alert({
+          title: "Client Trouvé!",
+          template: "La carte de <b>" + customer.data[0].name + "</b> a été correctement scannée."
+        })
+        .then(function() {
+          $scope.addCustomer(customer.data[0]);
+          $location.path("tab/user?userAdded=true");
+        });
+      })
+      .catch(function(err) {
+        $ionicPopup.alert({
+          title: "Erreur " + err.status,
+          template: err.data
+        })
+        .then(function() {
+          $location.path("tab/user");
+        });
+      });
+  });
 })
 
 .controller('CustomerCtrl', function($scope) {
 })
 
-.controller('ProductCtrl', function($scope, Products) {
+.controller('CartCtrl', function($scope, $q, Products) {
+  var cart = $scope.customer.cart,
+    promise = $q.when();
 
+  $scope.cartProducts = [];
+  console.log("///////////cartCtrl");
+  console.log(cart);
+  function callback() {
+    console.log("callback");
+    var deferred = $q.defer();
+
+    if (!cart || cart.length === 0) {
+      return deferred.resolve();
+    }
+
+    cart.forEach(function(productId, key) {
+      $q.when(
+        Products.get(productId)
+      ).then(function(product) {
+        $scope.cartProducts.push(product.data);
+        console.log(product);
+        // Si on a parcouru tout le tableau de produit, on peut valider la promesse
+        if (key === cart.length - 1) {
+          console.log($scope.cartProducts);
+          return deferred.resolve();
+        }
+      });
+    });
+
+    return deferred.promise;
+  }
+
+  callback();
+  // loader($scope, $q.when(callback));
+})
+
+.controller('ProductCtrl', function($scope,$q, utils) {
+  $scope.recoProducts = [];
+  var refreshProducts = function(){
+    var id = $scope.getCurrentID();
+    if(id != null)
+        $scope.customer = $scope.syncQueue[id];
+    $scope.recoProducts = [];
+    if($scope.customer == {})
+      return;
+    for(var shelf in $scope.customer.tags){
+      $q.when(
+        utils.post($scope.customer.tags[shelf])
+      ).then(function(products){
+        $scope.recoProducts = $scope.recoProducts.concat(products.data);
+      });
+    }
+  }
+  refreshProducts();
+  $scope.syncQueue.$watch(function(e){
+    var id = $scope.getCurrentID();
+    var k = $scope.syncQueue.$keyAt(id);
+    if(e.event == "child_changed" && e.key == k)
+      refreshProducts();
+  });
+})
+
+.controller('LoginCtrl', function($scope, $location, User){
+  $scope.setLeftMenu(false);
+  $scope.login = function(data){
+    User.login(data.username, data.password).then(function(user) {
+      console.log(user)
+      $location.path("/tab/user");
+      $scope.setSeller(user.data);
+      $scope.setLeftMenu(true);
+    }).catch(function(err) {
+      $scope.error = err.data;
+    });
+  };
 })
 
 .controller('ProductDetailCtrl', function($scope, $q, $stateParams, $state, $ionicSlideBoxDelegate, utils, Products) {
@@ -128,6 +249,7 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
     });
   }
 })
+
 
 .controller('WaitlistCtrl', function($scope) {
   console.log($scope.syncQueue);
@@ -250,19 +372,65 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
     };
 })
 
-.controller('AllProductsCtrl', function($scope, Products) {
+.controller('AllProductsCtrl', function($scope, $q, Products) {
+  // Infinite Scroll
+  function initProducts() {
+    $scope.products = [];
+    $scope.noMoreItems = false;
+    $scope.skip = 0;
+  }
 
-  loader($scope, Products.all().success(function(data){
-    $scope.products = data;
-  }));
+  function getMoreProducts() {
+    var deferred = $q.defer();
+    Products.all($scope.skip * 25, 25)
+    .then(function(products) {
+      if (products.data.length === 0) {
+        $scope.noMoreItems = true;
+      }
 
-   $scope.addProductToCustomer = function(product){
+      $scope.products = $scope.products.concat(products.data);
+      $scope.$broadcast('scroll.infiniteScrollComplete');
+      return deferred.resolve();
+    })
+    .catch(function(err) {
+      return deferred.reject(err);
+    });
+    return deferred.promise;
+  }
+
+  $scope.loadMoreProducts = function() {
+    $scope.skip++;
+    getMoreProducts();
+  };
+  // End Infinite Scroll
+  initProducts();
+  loader($scope, $q.when(getMoreProducts()));
+
+  // Search
+  var doSearch = ionic.debounce(function(query) {
+    Products.search(query).then(function(products) {
+      $scope.products = products.data;
+    });
+  }, 500);
+
+  $scope.search = function() {
+    // don't search if no query
+    if ($scope.query === "") {
+      initProducts();
+      getMoreProducts();
+    } else {
+      doSearch($scope.query);
+    }
+  };
+  // End Search
+
+  $scope.addProductToCustomer = function(product){
     console.log($scope.customer);
     $scope.customer.products[product._id] = product;
     //TODO ADD TAGS !!!
     $scope.syncQueue[$scope.currentID].products[product._id] = product;
     $scope.syncQueue.$save($scope.currentID);
-  }
+  };
 })
 
 .controller('ContentController', function($scope, $ionicSideMenuDelegate) {

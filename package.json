@@ -4,7 +4,7 @@
   "description": "OQADU - Ou Quand l'Attente Devient Utile",
   "scripts": {
     "start": "node app.js",
-    "test": "jasmine-node spec/api && casperjs test spec/functionalTests"
+    "test": "casperjs test spec/functionalTests/scenario1.js"
   },
   "dependencies": {
     "body-parser": "^1.9.2",
@@ -19,6 +19,7 @@
     "mongodb": "^1.4.19",
     "mongoose": "^3.8.18",
     "node-restful": "^0.1.17",
+    "q": "^1.1.2",
     "rwlock": "^5.0.0"
   },
   "devDependencies": {
@@ -46,6 +47,7 @@
     "https://github.com/ababol/BarcodeScanner",
     "org.apache.cordova.statusbar",
     "org.apache.cordova.network-information",
-    "https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git"
+    "https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git",
+    "https://github.com/katzer/cordova-plugin-local-notifications.git"
   ]
 }

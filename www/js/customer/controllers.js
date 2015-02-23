@@ -44,10 +44,29 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
     cart: [],
     waiting: false,
     tags: {},
-    actualTags: []
+    actual: {
+      shelf: "",
+      tags: [],
+      qIds: []
+    }
   };
 
   $rootScope.registered = false;
+  //Sync user object with firebase when regitered
+  $scope.$watch('user', function(){
+    if(!$rootScope.registered)
+      return
+    var index = $scope.syncQueue.$indexFor($scope.getUserKey());
+    console.log(index);
+    $scope.syncQueue[index].qa = $scope.user.qa;
+    $scope.syncQueue[index].products = $scope.user.products;
+    $scope.syncQueue[index].cart = $scope.user.cart;
+    $scope.syncQueue[index].waiting = $scope.user.waiting;
+    $scope.syncQueue[index].tags = $scope.user.tags;
+    $scope.syncQueue[index].actual = $scope.user.actual;
+    $scope.syncQueue.$save(index).then(function(){console.log("updated");});
+  },true);
+
 
   //Firebase
   $scope.connectedQueue = null;
@@ -69,7 +88,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
   $scope.question = {};
 
   loader($scope, $q.when(
-    Questions.get($scope.user.actualTags.join(","))
+    Questions.getQuestion($scope.user.actual.tags, $scope.user.actual.qIds)
   ).then(function(question) {
     var data = question.data;
     if (data === "Not any remaining questions.") {
@@ -80,55 +99,39 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
   }));
 
   $scope.selectAnswer = function(data) {
-    if ($scope.user.actualShelf == null) {
-      if (window.plugins && window.plugins.toast) {
-        window.plugins.toast.showLongBottom('Vous pouvez dès à présent vous insrire à la file d\'attente auprès du conseiller "' + data.tags[0] + '"');
-      }
+    if (!$scope.user.actual.shelf) {
+      var shelf = data.tags[0];
       if(!$rootScope.registered)
-        $scope.connectToFirebaseQueue(data.tags[0]);
-      $scope.showFooter();
-      $scope.user.actualShelf = data.tags[0];
-      $scope.user.actualTags = [];
-      $scope.user.tags[data.tags[0]]  = [];
+        $scope.connectToFirebaseQueue(shelf);
+      initTags($scope, shelf, []);
     }
     $scope.user.qa[$scope.question._id] = {
       question: $scope.question,
       answer: data
     };
-    $scope.user.tags[$scope.user.actualShelf] = $scope.user.tags[$scope.user.actualShelf].concat(data.tags);
-    $scope.user.actualTags = $scope.user.actualTags.concat(data.tags);
-    if ($scope.user.waiting) {
-      var index = $scope.syncQueue.$indexFor($scope.getUserKey());
-      if (!$scope.syncQueue[index].qa) {
-        $scope.syncQueue[index].qa = {};
-      }
-      $scope.syncQueue[index].qa[$scope.question._id] = {
-        question: $scope.question,
-        answer: data
-      };
-      $scope.syncQueue[index].tags = $scope.user.tags;
-      $scope.syncQueue.$save(index).then(function(){console.log("updated");});
-    }
-    console.log($scope.user);
+    var index = $scope.user.tags[$scope.user.actual.shelf].length-1;
+    $scope.user.tags[$scope.user.actual.shelf][index] = $scope.user.tags[$scope.user.actual.shelf][index].concat(data.tags);
+    $scope.user.actual.tags = $scope.user.actual.tags.concat(data.tags);
+    $scope.user.actual.qIds.push($scope.question._id);
   };
+
+  $scope.gotoBackQuestion = function(){
+    gotoBackQuestion($scope, $location);
+  }
 })
 
-.controller('RecommendationCtrl', function($scope, $q, $stateParams, utils, Recommendations, Products) {
+.controller('RecommendationCtrl', function($scope, $q, $location, $stateParams, utils, Products) {
   $scope.products = [];
   $scope.title = "Recommandation";
 
   loader($scope, $q.when(
-    Recommendations.get($scope.user.actualTags.join(","))
+    utils.getRecos($scope.user.actual.tags)
   ).then(function(recos) {
     $scope.products = recos.data;
-    if(!$scope.user.products)
+    if(!$scope.user.products) {
       $scope.user.products = [];
-    $scope.user.products = $scope.user.products.concat(recos.data);
-    if($scope.user.waiting){
-      var index = $scope.syncQueue.$indexFor($scope.getUserKey());
-      $scope.syncQueue[index].products = $scope.user.products;
-      $scope.syncQueue.$save(index).then(function() {console.log("updated");});
     }
+    $scope.user.products = $scope.user.products.concat(recos.data);
 
     // product.reviewAvg = utils.getReviewAvg(data[1].data);
     // product.reviewAvgHtml = utils.getReviewHtml(product.reviewAvg);
@@ -142,16 +145,40 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
     //   $scope.syncQueue.$save(index).then(function() {console.log("updated");});
     // }
   }));
+
+  $scope.gotoBackQuestion = function(){
+    gotoBackQuestion($scope, $location);
+  }
 })
 
-.controller('ProductCtrl', function($scope, $rootScope, $q, $stateParams, utils, Products) {
-  $scope.showBackButton = $rootScope.showBackButton;
+.controller('ProductCtrl', function($scope, $rootScope, $q, $stateParams, $location, utils, Products) {
   $scope.product = {};
 
   loader($scope, $q.when(
     Products.get($stateParams.productId)
   ).then(function(product) {
+    var deferred = $q.defer();
+
+    // Si non enregistré et que le client accede a la page produit via le scan
+    // on display la bar + connect firebase
+    if (!$rootScope.registered && $location.search().scan) {
+      var shelf = product.data.tags[0];
+      $scope.connectToFirebaseQueue(shelf);
+      initTags($scope, shelf, product.data.tags);
+    }
+
     $scope.product = product.data;
+
+    utils.getRecos(product.data.tags, product.data._id)
+    .then(function(products) {
+      $scope.product.recos = products.data;
+      return deferred.resolve();
+    })
+    .catch(function(err) {
+      return deferred.reject(err);
+    });
+
+    return deferred.promise;
   }));
 
   $scope.addToCart = function(id) {
@@ -170,13 +197,15 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
 })
 
 .controller('HomeCtrl', function($scope, $rootScope, $ionicViewService, Products) {
-  $scope.user.actualTags = [];
-  if (!$scope.user.actualShelf || !$rootScope.registered) {
+  $scope.user.actual.tags = [];
+  $scope.user.actual.qIds = [];
+  console.log($rootScope.registered)
+  if (!$scope.user.actual.shelf || !$rootScope.registered) {
     $scope.hideFooter();
     $scope.hideLoader(true);
     $ionicViewService.clearHistory();
   }
-  $scope.user.actualShelf = null;
+  $scope.user.actual.shelf = null;
 })
 
 .controller('LoadingCtrl', function($state) {
@@ -223,13 +252,27 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
       }
       $scope.syncQueue.$add($scope.user).then(function(userRef){
         $scope.setUserKey(userRef.key());
-        $scope.waitlistPosition = transformPositionToString($scope.syncQueue.length - 1);
-        $scope.waitTime = ($scope.syncQueue.length - 1) * 3;
+        console.log($scope.syncQueue.length);
+        var pos = $scope.syncQueue.$indexFor(userRef.key()) +1;
+        $scope.waitlistPosition = transformPositionToString(pos);
+        $scope.waitTime = pos * 3;
         $rootScope.registered = true;
       });
       $scope.syncQueue.$watch(function(e){
-        $scope.waitlistPosition = transformPositionToString($scope.syncQueue.length - 1);
-        $scope.waitTime = ($scope.syncQueue.length - 1) * 3;
+        var pos = $scope.syncQueue.$indexFor($scope.getUserKey()) + 1;
+        $scope.waitlistPosition = transformPositionToString(pos);
+        if(pos === 1){
+          console.log('Beep')
+
+          if (window.plugin && window.plugin.notification) {
+            window.plugin.notification.local.add({
+                id:      1,
+                title:   'C\'est à vous',
+                message: 'Un conseiller vous attend.'
+            });
+          }
+        }
+        $scope.waitTime = pos * 3;
       });
     }
   };
@@ -251,15 +294,17 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
 })
 
 .controller('CartCtrl', function($scope, $q, utils, Products) {
-  var cart = $scope.user.cart,
-    promise = $q.when();
+  var cart = $scope.user.cart;
 
   $scope.products = [];
-  $scope.noProduct = null;
   $scope.title = "Panier";
 
   function callback() {
     var deferred = $q.defer();
+
+    if (cart.length === 0) {
+      return deferred.resolve();
+    }
 
     cart.forEach(function(productId, key) {
       $q.when(
@@ -282,13 +327,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
     return deferred.promise;
   }
 
-  if (cart.length === 0) {
-    $scope.noProduct = "Pas de produits!";
-  } else {
-    promise = callback();
-  }
-
-  loader($scope, promise);
+  loader($scope, $q.when(callback()));
 })
 
 .controller('ScanCtrl', function($scope, $q, $location, $cordovaBarcodeScanner, $ionicPopup, Products) {
@@ -296,7 +335,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
     .then(function(imageData) {
       Products.getProductId(imageData.text)
         .then(function(id) {
-          $location.path("product/" + JSON.parse(id.data));
+          $location.path("product/" + JSON.parse(id.data) + "?scan=true");
         })
         .catch(function(err) {
           $ionicPopup.alert({
@@ -309,6 +348,22 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
         });
     });
 });
+
+function initTags($scope, shelf, tags) {
+  if (window.plugins && window.plugins.toast) {
+    window.plugins.toast.showLongBottom('Vous pouvez dès à présent vous insrire à la file d\'attente auprès du conseiller "' + shelf + '"');
+  }
+
+  $scope.showFooter();
+  $scope.user.actual = {
+    shelf: shelf,
+    tags: tags,
+    qIds: []
+  };
+  if(!$scope.user.tags[shelf])
+    $scope.user.tags[shelf] = [];
+  $scope.user.tags[shelf].push(tags);
+}
 
 function loader($scope, callback) {
   $scope.showLoader();
@@ -330,21 +385,39 @@ function loader($scope, callback) {
   });
 }
 
+function gotoBackQuestion($scope, $location){
+  //Suppression du champ actual.qId de l'ancienne question
+  var lastQId = $scope.user.actual.qIds.pop();
+  var correspondantQA = $scope.user.qa[lastQId];
+  var previousQTags = correspondantQA.answer.tags;
+
+  //Suppression du champ actual.tags ceux générés par la réponse à cette question
+  for(tagId = 0; tagId < previousQTags.length; tagId++){
+    $scope.user.actual.tags.pop();
+  }
+
+  //Suppression de la QA correspondant à la lastQId
+  delete $scope.user.qa[lastQId];
+
+  //Suppression des tags correspondants aux tags fournis par la réponse à la lastQ
+  var index = $scope.user.tags[$scope.user.actual.shelf].length-1;
+  var userTags = $scope.user.tags[$scope.user.actual.shelf][index];
+  for(tagId = 0; tagId < previousQTags.length; tagId++){
+    var i = userTags.indexOf(previousQTags[tagId]);
+    userTags.splice(i, 1);
+  }
+
+  //Changement de l'URL pour refresh
+  $location.path('/question/'+$scope.user.actual.qIds[$scope.user.actual.qIds.length-1]);
+}
+
 function transformPositionToString(position){
-  var lastNumber = (""+position).slice(-1);
-  var extension;
-  switch(lastNumber){
-    case "1":
-      extension = "st";
-      break;
-    case "2":
-      extension = "nd";
-      break;
-    case "3":
-      extension = "rd";
+  switch(position){
+    case 1:
+      extension = "er";
       break;
     default:
-      extension ="th";
+      extension ="ème";
       break;
   }
   return position + extension;

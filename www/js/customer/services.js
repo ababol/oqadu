@@ -11,25 +11,11 @@ angular.module('starter.services', [])
         method: 'GET'
       });
     },
-    get: function(tags) {
-      if (tags === undefined) {
-        tags = "";
-      }
-
+    getQuestion: function(tags, qIds) {
       return $http({
-        url: url+'/api/v2/Questions/Tags/?tags=' + tags,
-        method: 'GET'
-      });
-    }
-  };
-})
-
-.factory('Recommendations', function($http) {
-  return {
-    get: function(tags) {
-      return $http({
-        url: url+'/api/v2/Products/Recommendations/?tags=' + tags,
-        method: 'GET'
+        url: url+'/api/v2/Questions/Next',
+        data: {tags: tags, qIds: qIds},
+        method: 'POST'
       });
     }
   };

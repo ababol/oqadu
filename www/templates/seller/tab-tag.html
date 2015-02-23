@@ -12,8 +12,10 @@
     </div>
 
     <div class="tag-pannel">
-      <span ng-repeat="(shelf, tags) in customer.tags">
-        <div ng-repeat="tag in tags" class="button button-light tag-item" ng-click="removeTag(shelf, $index)"><i class="ion-trash-a"></i> {{tag}}</div>
+      <span ng-repeat="(shelf, tagsShelf) in customer.tags">
+        <span ng-repeat="(index, tags) in tagsShelf">
+          <div ng-repeat="tag in tags" class="button button-light tag-item" ng-click="removeTag(shelf, index, $index)"><i class="ion-trash-a"></i> {{tag}}</div>
+        </span>
       </span>
       <div class="button button-stable tag-item" ng-click="addTag()"><i class="ion-ios7-plus-outline" ></i> Add a tag</div>
     </div>

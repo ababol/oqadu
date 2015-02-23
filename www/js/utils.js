@@ -1,5 +1,5 @@
 angular.module('Helper', [])
-.factory('utils', function() {
+.factory('utils', function($http) {
   return {
     getReviewAvg: function(reviews) {
       if (reviews.length === 0) {
@@ -26,6 +26,13 @@ angular.module('Helper', [])
         }
       }
       return reviewHtml;
+    },
+    getRecos: function(tags, productId) {
+      return $http({
+        url: url+'/api/v2/Products/Recommendations',
+        data: {tags: tags, productId: productId},
+        method: 'POST'
+      });
     }
   };
 })
@@ -46,4 +53,4 @@ angular.module('Helper', [])
   return function(input, splitChar) {
     return input.join(splitChar);
   }
-});;
+});

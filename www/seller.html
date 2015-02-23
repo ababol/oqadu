@@ -30,7 +30,7 @@
    <ion-side-menus ng-controller="MainCtrl">
       <!-- Center content -->
       <ion-side-menu-content>
-        <section ng-show="errorTxt">
+        <section ng-if="errorTxt">
           <div class="list card">
             <div class="item">
               <h2>{{errorTxt}}</h2>
@@ -48,30 +48,42 @@
       </ion-side-menu-content>
 
       <!-- Left menu -->
-      <ion-side-menu side="left" expose-aside-when="(min-width:600px)">
+      <ion-side-menu ng-hide="showLeftMenu" side="left" expose-aside-when="(min-width:600px)">
+        <ion-content has-header="true">
+          <div class="list card">
+            <div class="item item-image">
+              <img src="img/leroymerlin.svg">
+            </div>
+            <span class="item item-icon-left" href="#" style="text-align:center;">
+              <i class="icon ion-log-in"></i>Leroy Merlin / Lesquin
+            </span>
+          </div>
+        </ion-content>
+      </ion-side-menu>
+
+
+      <ion-side-menu ng-if="showLeftMenu" side="left" expose-aside-when="(min-width:600px)">
 
           <!-- if you need scroll and click in menu: has-header="true" scroll="true" overflow-scroll="true" -->
           <ion-content has-header="true">
             <ul class="list menu">
               <a href="#" data-click-menulink  ng-click="initSeller(seller.id +1)" class="item logout">{{seller.name}}</a>
 
-              <div class="item item-divider">File d'attente ({{syncQueue.length -1}})</div>
-              <a href="#/tab/dash" class=" waitlist item item-button-right item-icon-right" ng-repeat="(key, user) in syncQueue | limitTo: 7" ng-class="{'selected': customer.$id == user.$id}" ng-class="{'used': user.seller}" ng-click="changeCustomer(key)">
-                User {{user.$$hashKey}}
-                <button class="button button-stable" ng-click="deleteUser()">done</button>
-                <i class="icon ion-person"></i>
+              <div class="item item-divider">File d'attente ({{syncQueue.length}})</div>
+              <a href="#/tab/user" class=" waitlist item item-button-right item-icon-right" ng-repeat="(key, user) in syncQueue | limitTo: 7" ng-class="{'selected': customer.$id == user.$id, 'used': user.seller != null && user.seller != seller.id}" ng-click="changeCustomer(key)">
+                <span class="user">
+                  {{user.customer.name ? user.customer.name : 'User ' + user.$$hashKey}}
+                  <i class="icon-right ion-person"></i>
+                  <button class="button button-stable button-small" ng-click="deleteUser()">done</button>
+                </span>
               </a>
 
               <a href="#/waitlist" data-click-menulink class="item stats energized"  ng-class="{'active': state.current.name=='waitlist'}">Statistiques</a>
               <a href="#/products" data-click-menulink class="item products assertive"  ng-class="{'active': state.current.name.substring(0,7)=='product'}">Produits</a>
             </ul>
-
-<!--             <button class="button button-block button-positive" ng-click="refresh()">Rafraîchir</button>
-            <button class="button button-block button-energized" ng-click="nextCustomer()">Personne suivante</button>
-            <button class="button button-block button-assertive" ng-click="prevCustomer()">Personne précédente</button>
- -->
           </ion-content>
       </ion-side-menu>
+
     </ion-side-menus>
   </body>
 </html>

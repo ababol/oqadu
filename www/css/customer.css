@@ -7830,10 +7830,6 @@ $ios-transition-box-shadow-end: -200px 0px 200px rgba(0,0,0,0.15), -5px 0px 5px 
 .pace-inactive {
   display: none; }
 
-.scroll > .button-half {
-  margin-top: 0 !important;
-  margin-bottom: 1%; }
-
 .invert {
   color: #45B82E !important;
   background-color: white !important;
@@ -7910,6 +7906,15 @@ $ios-transition-box-shadow-end: -200px 0px 200px rgba(0,0,0,0.15), -5px 0px 5px 
 .ng-hide {
   opacity: 0; }
 
+.product-img {
+  padding: 0 0 5px 0;
+  top: -20px;
+  position: relative;
+  z-index: -1; }
+
+.product.list .item-toggle {
+  padding: 16px 10px 16px 5px; }
+
 #loading {
   margin: 0 !important;
   padding: 0 !important;
@@ -7963,17 +7968,21 @@ span.tab-item {
   .item.product img {
     max-width: 100%; }
 
-.product .card {
-  margin: 5px 5px !important; }
-
 .home a {
   text-decoration: none; }
 .home .home-promo {
   background: white;
   padding: 0 0 10px 0;
-  height: 63%;
   display: flex;
   align-items: center;
-  justify-content: center; }
+  justify-content: center;
+  height: 65%; }
 .home .home-button {
-  padding: 10px 10px 0 10px; }
+  bottom: 0;
+  left: 0;
+  padding: 10px 10px 0 10px;
+  position: absolute;
+  width: 100%; }
+.home .padding-bar {
+  height: 55px;
+  width: 100%; }
