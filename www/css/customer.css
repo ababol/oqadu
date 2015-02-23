@@ -7906,12 +7906,6 @@ $ios-transition-box-shadow-end: -200px 0px 200px rgba(0,0,0,0.15), -5px 0px 5px 
 .ng-hide {
   opacity: 0; }
 
-.product-img {
-  padding: 0 0 5px 0;
-  top: -20px;
-  position: relative;
-  z-index: -1; }
-
 .product.list .item-toggle {
   padding: 16px 10px 16px 5px; }
 .product.list .item {
@@ -7964,6 +7958,12 @@ ion-nav-view {
 
 span.tab-item {
   cursor: initial !important; }
+
+.product-img {
+  padding: 0 0 5px 0;
+  top: -20px;
+  position: relative;
+  z-index: -1; }
 
 .item.product {
   text-align: center;

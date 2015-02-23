@@ -78,10 +78,10 @@
               </ion-toggle>
             </div>
             <div class="item toggleContent ng-hide">
-              <div class="item item-divider" ng-repeat-start="review in product.reviews">
+              <div class="item item-divider review" ng-repeat-start="review in product.reviews">
                 {{review.title}} ({{review.score}}/5) par {{review.reviewerName}}
               </div>
-              <div class="item" ng-repeat-end>
+              <div class="item review" ng-repeat-end>
                 {{review.comment}}
               </div>
             </div>

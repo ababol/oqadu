@@ -40,6 +40,14 @@ ion-nav-view {
 span.tab-item {
   cursor: initial !important;
 }
+
+.product-img {
+  padding: 0 0 5px 0;
+  top: -20px;
+  position: relative;
+  z-index: -1;
+}
+
 .item.product {
   text-align: center;
   margin: 0 auto;
