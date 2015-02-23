@@ -11,23 +11,27 @@ var secureClick = function(self, selector){
 
 
 
-var clickLoop = function(self, length){// en cours de dev
+/**var clickLoop = function(self, length){// en cours de dev
   
-    /*self.echo('test');
+    self.echo('test');
 
     casper.waitForSelector('.answer', function(){
       self.capture('test'+index+'.png');
       var Lenght2= self.evaluate(function(){
         return document.querySelectorAll(".answer").length;
       });
-    self.echo(Lenght2);**/
+    self.echo(Lenght2);
     
       for (var j = 2; j <= length+1; j++) {
-            
         
-        secureClick(self, '.answer:nth-child('+j+')');
+
+          secureClick(self, '.answer:nth-child('+j+')');
+        
+
         self.capture('test'+j+'.png');
         self.echo('click');
+
+         casper.wait(2000, function(){
           if (!self.exists('.productreco')) {
           casper.waitForSelector('.answer', function(){
           casper.test.assertExists('.answer');
@@ -42,11 +46,70 @@ var clickLoop = function(self, length){// en cours de dev
         }); 
         }else{
           casper.test.assertExists('.productreco');
-          casper.back();
+          casper.wait(2000, function(){
+            self.capture('test'+j+'.png');
+            });
+          secureClick(self, '.back-button');
           //retourner au questions????
         } 
+        });
     }
     
+};**/
+
+var func = function(self, Lenght, i) {
+  
+        
+       self.waitForSelector('.answer:nth-child('+i+')', function(){
+       self.echo([i, ".answer", Lenght]);
+          secureClick(self, '.answer:nth-child('+i+')');
+          self.echo('click');
+        });
+      casper.wait(2000, function(){
+      if (!self.exists('.productreco')) {
+       self.waitForSelector(".answer", function(){
+          casper.test.assertExists('.answer');
+          var Lenght= self.evaluate(function(){
+        return document.querySelectorAll(".answer").length;
+        });
+          self.then(function(){
+            loopFor(self, Lenght, 2);
+          });
+          
+        });
+     }else{
+          
+          casper.wait(1000, function(){
+            self.capture('test1.png');
+            casper.test.assertExists('.productreco');
+          
+          secureClick(self, '.return');
+          self.echo("return");
+          casper.wait(1000, function(){
+            self.capture('test2.png');
+            if (i == (Lenght+1)) {
+            secureClick(self, '.return');
+            self.echo("return2");
+        };
+          });
+          
+          });
+          
+
+
+          //retourner au questions????
+        }
+     });
+};
+
+var loopFor = function(self, Lenght, i){
+      if (i <= Lenght+1) {
+        var result = func(self, Lenght, i);
+        i++;
+        loopFor(self, Lenght, i);
+        
+      }
+      
 };
 
 casper.test.begin('Verify the landed page of the Seller App', function(test) {
@@ -64,14 +127,16 @@ casper.test.begin('Verify the landed page of the Seller App', function(test) {
       var Lenght= this.evaluate(function(){
         return document.querySelectorAll(".answer").length;
         });
-      this.echo(Lenght);
-      clickLoop(this, Lenght);
+      loopFor(this, Lenght, 2);
+      //clickLoop(this, Lenght);
     }, function timeout() {
     this.echo("temps dépassé").exit();
     },
       5000);
 
+casper.then(function(){
 
+});
 
 
 
