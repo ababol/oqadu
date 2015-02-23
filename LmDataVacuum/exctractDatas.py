@@ -10,7 +10,7 @@ from engine.fileManagment.fileFactory import FileFactory
 baseUrl = "http://www.leroymerlin.fr"
 relativeRoot = "/v3/p/produits-l1308218734"
 
-maxProductCount = 1000
+maxProductCount = 5000
 mongoCollection = MongoCollection()
 rootPage = CategoryPageManager(baseUrl, relativeRoot, mongoCollection, maxProductCount)
 rootPage.exctractDatas()

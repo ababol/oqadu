@@ -80,6 +80,7 @@ class CriterionsPageManager(PageManager):
         products = {}
 
         # QUESTIONS
+        criterionsCount = len(self.__criterions)
         for criterion in self.__criterions:
 
             if criterion.getProductCount() >= 1:
@@ -88,13 +89,12 @@ class CriterionsPageManager(PageManager):
                 self._datas.addQuestion(question)
 
                 # ANSWERS & TAGS
-                length = len(criterion.criterias)
+                length = criterionsCount * len(criterion.criterias)
                 for criteria in criterion.criterias:
                     answer = Answer(criteria.title)
                     tag = Tag(criteria.title)
                     answer.addTag(tag)
                     self._datas.addTag(tag)
-                    question.addAnswer(answer)
                     try:
                         ProductListPageManager(self._baseUrl, criteria.url, self._datas, question, answer, deepcopy(self.__tags + answer.getTags()), products, int(round(self._maxProductCount/length))).exctractDatas()
                         print self._baseUrl + criteria.url

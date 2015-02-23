@@ -32,7 +32,8 @@ class ProductListPageManager(PageManager):
             self.__prevQ.addAnswer(self.__prevA)
 
         i = 0
-        while i < productCount and i <= self._maxProductCount*2:
+        counter = 0
+        while i < productCount and counter <= self._maxProductCount:
             productLink = productLinks[i]
             productUrl = productLink["href"].strip()
             imgPath = productLink.contents[1]["data-original"].strip()
@@ -42,6 +43,7 @@ class ProductListPageManager(PageManager):
             else:
                 try:
                     ProductPageManager(self._baseUrl, productUrl, self._datas, self.__tags, self.__products, imgPath, 0).exctractDatas()
+                    counter += 1
                     print self._baseUrl + productUrl
                 except Exception as e:
                     print "error: productListPage", self._baseUrl + productUrl

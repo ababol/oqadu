@@ -2,6 +2,7 @@ var mongoose = require('node-restful').mongoose;
 var app = require("express")()
 var fs = require('fs');
 var Lock = require('rwlock');
+var rb = require('./engine/ReviewBuilder');
 
 fs.readFile("./exctractedDatas.json", "utf-8", function(err, data){
 
@@ -38,6 +39,7 @@ fs.readFile("./exctractedDatas.json", "utf-8", function(err, data){
   lock1.writeLock(function(release1){
     json.products.forEach(function(product){
       lock2.writeLock(function(release2){
+        product.reviews.push(rb.getReview())
         var productDocument = new Product(product);
         productDocument.save(function(){
           release2();
