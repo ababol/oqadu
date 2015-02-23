@@ -11,11 +11,13 @@
   <ion-content class="padding">
     <div class="list">
 
-        <a ng-repeat="product in products" class="item item-thumbnail-left productreco" href="#/product/{{product._id}}">
+        <a ng-repeat="product in products" class="item item-thumbnail-left productreco" href="#/product/{{product._id}}{{title === 'Panier' ? '?scan=true' : ''}}">
           <img src="{{product.pictures[0].path}}" alt="{{product.pictures[0].label}}" />
           <h2>{{product.name}}</h2>
           <p>{{product.price}}€</p>
-          <p><i ng-repeat="review in product.reviewAvgHtml track by $index" class='{{review}}'></i></p>
+          <p ng-if="product.reviews && product.reviews.length > 0">
+            <i ng-repeat="review in product.reviewAvgHtml track by $index" class="icon {{review}}"></i>
+          </p>
         </a>
 
         <h1 ng-if="products.length === 0">Pas de produit!</h1>

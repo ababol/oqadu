@@ -202,12 +202,12 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
 .controller('HomeCtrl', function($scope, $rootScope, $ionicViewService, Products) {
   $scope.user.actual.tags = [];
   $scope.user.actual.qIds = [];
-  console.log($rootScope.registered)
-  if (!$scope.user.actual.shelf || !$rootScope.registered) {
+
+  if ((!$scope.user.actual.shelf && !$rootScope.registered) || !$rootScope.registered) {
     $scope.hideFooter();
-    $scope.hideLoader(true);
     $ionicViewService.clearHistory();
   }
+  $scope.hideLoader(true);
   $scope.user.actual.shelf = null;
 })
 
@@ -262,7 +262,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
         $rootScope.registered = true;
       });
       $scope.syncQueue.$watch(function(e){
-        var userIndex = $scope.syncQueue.$indexFor($scope.getUserKey()); 
+        var userIndex = $scope.syncQueue.$indexFor($scope.getUserKey());
         var pos = userIndex + 1;
         $scope.waitlistPosition = transformPositionToString(pos);
         $scope.waitTime = pos * 3;
@@ -314,11 +314,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
       $q.when(
         Products.get(productId)
       ).then(function(product) {
-
-        // product.reviewAvg = utils.getReviewAvg(data[1].data);
-        // product.reviewAvgHtml = utils.getReviewHtml(product.reviewAvg);
-        // product.reviews = data[1].data;
-
+        product.data.reviewAvgHtml = utils.getReviewHtml(product.data.reviews);
         $scope.products.push(product.data);
 
         // Si on a parcouru tout le tableau de produit, on peut valider la promesse
