@@ -409,7 +409,8 @@ function gotoBackQuestion($scope, $location){
   $location.path('/question/'+$scope.user.actual.qIds[$scope.user.actual.qIds.length-1]);
 }
 
-function transformPositionToString(position){
+function transformPositionToString(position) {
+  var extension = "";
   switch(position){
     case 1:
       extension = "er";
