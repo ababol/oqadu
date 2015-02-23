@@ -136,13 +136,8 @@ casper.then(function(){
     },
       5000);
 
-  casper.waitForSelector('.cart',function(){
-    secureClick(this, '.cart');
-    test.assertUrlMatch(/#\/cart/, 'Customer can see his cart');
-  });
-
-  casper.wait(1000, function(){
-     test.assertTextDoesntExist('Rouleau', 'Product was remove from cart');
+  casper.then(function(){
+    test.assertDoesntExist('.cart');
   });
 
   casper.then(function(){
