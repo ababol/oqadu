@@ -90,10 +90,16 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
   loader($scope, $q.when(
     Questions.getQuestion($scope.user.actual.tags, $scope.user.actual.qIds)
   ).then(function(question) {
-    var data = question.data;
+    var data = question.data,
+      status = question.status;
     if (data === "Not any remaining questions.") {
       return $location.path("recommendation");
-    } else {
+    }
+    else if(status === 204){
+      $scope.user.actual.qIds.push(data);
+      return $location.path("question/"+data);
+    }
+    else {
       $scope.question = question.data;
     }
   }));
@@ -256,11 +262,13 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
         $rootScope.registered = true;
       });
       $scope.syncQueue.$watch(function(e){
-        var pos = $scope.syncQueue.$indexFor($scope.getUserKey()) + 1;
+        var userIndex = $scope.syncQueue.$indexFor($scope.getUserKey()); 
+        var pos = userIndex + 1;
         $scope.waitlistPosition = transformPositionToString(pos);
-        if(pos === 1){
+        $scope.waitTime = pos * 3;
+        //si l'evenement est a propos de mon user et que il faut le beeper
+        if($scope.getUserKey() == e.key && $scope.syncQueue[userIndex].beep){
           console.log('Beep')
-
           if (window.plugin && window.plugin.notification) {
             window.plugin.notification.local.add({
                 id:      1,
@@ -269,7 +277,6 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
             });
           }
         }
-        $scope.waitTime = pos * 3;
       });
     }
   };
