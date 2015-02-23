@@ -65,7 +65,7 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
   }
 
   $scope.changeCustomer = function(k){
-    if(k>=0 && k<$scope.syncQueue.length){
+    if(k>=0 && k<$scope.syncQueue.length && k != $scope.currentID){
       $scope.customer = $scope.syncQueue[k];
       $scope.syncQueue[k].beep = true;
       $scope.syncQueue.$save(k);
@@ -78,11 +78,10 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
   }
   $scope.initSeller(0);
 
-  $scope.deleteUser = function(){
-    var index = $scope.currentID;
-    $scope.currentID = null;
-    $scope.customer = {};
+  $scope.deleteUser = function(index){
     $scope.syncQueue.$remove(index).then(function(){
+      $scope.currentID = null;
+      $scope.customer = {};
       console.log(index + " deleted");
     });
   };
