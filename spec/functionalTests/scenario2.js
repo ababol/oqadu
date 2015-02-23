@@ -4,6 +4,8 @@
 //var path = "http://localhost:3000";
 var path = "www";
 
+var isBack = false;
+
 var secureClick = function(self, selector){
   self.mouseEvent('mousedown', selector);
   self.mouseEvent('mouseup', selector);
@@ -13,9 +15,13 @@ var testQuestions = function(self, Lenght, i) {
   
         
        self.waitForSelector('.answer:nth-child('+i+')', function(){
+          isBack = false;
           secureClick(self, '.answer:nth-child('+i+')');
           self.echo("réponse "+(i-1)+" / "+Lenght);
-        });
+        }, function timeout() {
+        this.echo("temps dépassé").exit();
+        },
+          5000);
       casper.wait(2000, function(){
       if (!self.exists('.productreco')) {
         self.waitForSelector(".answer", function(){
@@ -27,22 +33,25 @@ var testQuestions = function(self, Lenght, i) {
             loopFor(self, Lenght, 2);
           });
           
-        });
+        }, function timeout() {
+        this.echo("temps dépassé").exit();
+        },
+          5000);
      }else{
           
-          casper.wait(1000, function(){
+          casper.waitForSelector('.productreco', function(){
             casper.test.assertExists('.productreco');
             secureClick(self, '.return');
             self.echo("click back");
+            isBack = true;
             casper.wait(1000, function(){
-              self.capture('test2.png');
-              if (i == (Lenght+1)) {
-                secureClick(self, '.return');
-                self.echo("click back");
-              };
+              self.capture('test1.png');
             });
           
-          });
+          }, function timeout() {
+        this.echo("temps dépassé").exit();
+        },
+          5000);
         }
      });
 };
@@ -52,6 +61,15 @@ var loopFor = function(self, Lenght, i){
         var result = testQuestions(self, Lenght, i);
         i++;
         loopFor(self, Lenght, i);
+        casper.then(function(){
+          if (i == (Lenght+1) && isBack == true) {
+                secureClick(self, '.return');
+                self.echo("click back");
+                casper.wait(1000, function(){
+                  self.capture('test2.png');
+                });
+              };
+        });
       }  
 };
 
