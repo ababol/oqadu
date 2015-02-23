@@ -1,15 +1,14 @@
 <ion-view title="product">
-  <ion-content>
-
+  <ion-content ng-controller="AllProductsCtrl">
     <div class="list list-inset">
       <label class="item item-input">
         <i class="icon ion-search placeholder-icon"></i>
-        <input type="text" placeholder="Search" ng-model="query">
+        <input type="text" placeholder="Search" ng-model="query" ng-change="search()">
       </label>
     </div>
 
     <ion-list class="products-list">
-      <ion-item class="custom" ng-repeat="product in products | filter:query" type="item-text-wrap" href="#/product-detail/{{product._id}}">
+      <ion-item class="custom" ng-repeat="product in products" type="item-text-wrap" href="#/product-detail/{{product._id}}">
 
         <div class="list card">
           <div class="item item-image">
@@ -19,7 +18,7 @@
             <h3>{{product.name}}</h3>
             <p>{{product.description}}</p>
           </div>
-          <div class="item tabs tabs-secondary tabs-icon-left" ng-show="currentID != null">
+          <div class="item tabs tabs-secondary tabs-icon-left" ng-if="currentID != null">
             <a class="tab-item" ng-click="addProductToCustomer(product)" href="#/tab/product">
               <i class="icon ion-bag"></i> Add this product
             </a>
@@ -28,5 +27,6 @@
 
       </ion-item>
     </ion-list>
+    <ion-infinite-scroll ng-if="products.length > 0 && !noMoreItems && !query" on-infinite="loadMoreProducts()" distance="10%"></ion-infinite-scroll>
   </ion-content>
 </ion-view>

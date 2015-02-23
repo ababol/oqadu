@@ -87,15 +87,45 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
     $scope.syncQueue.$remove(index).then(function(){
       console.log(index + " deleted");
     });
-  }
-})
+  };
 
+  $scope.addCustomer = function(customer) {
+    $scope.syncQueue[$scope.currentID].customer = customer;
+    $scope.syncQueue.$save($scope.currentID);
+  };
+})
 
 .controller('UserCtrl', function($scope) {
 })
 
-.controller('CustomerCtrl', function($scope) {
+.controller('ScanCtrl', function($scope, $location, $cordovaBarcodeScanner, $ionicPopup, User) {
+  $cordovaBarcodeScanner.scan()
+  .then(function(imageData) {
+    User.getByClientId(parseInt(imageData.text, 10))
+      .then(function(customer) {
+        console.log("custoner", customer)
+        $ionicPopup.alert({
+          title: "Client Trouvé!",
+          template: "La carte de <b>" + customer.data[0].name + "</b> a été correctement scannée."
+        })
+        .then(function() {
+          $scope.addCustomer(customer.data[0]);
+          $location.path("tab/user?userAdded=true");
+        });
+      })
+      .catch(function(err) {
+        $ionicPopup.alert({
+          title: "Erreur " + err.status,
+          template: err.data
+        })
+        .then(function() {
+          $location.path("tab/user");
+        });
+      });
+  });
+})
 
+.controller('CustomerCtrl', function($scope) {
 })
 
 .controller('CartCtrl', function($scope, $q, Products) {
@@ -342,19 +372,65 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
     };
 })
 
-.controller('AllProductsCtrl', function($scope, Products) {
+.controller('AllProductsCtrl', function($scope, $q, Products) {
+  // Infinite Scroll
+  function initProducts() {
+    $scope.products = [];
+    $scope.noMoreItems = false;
+    $scope.skip = 0;
+  }
 
-  loader($scope, Products.all().success(function(data){
-    $scope.products = data;
-  }));
+  function getMoreProducts() {
+    var deferred = $q.defer();
+    Products.all($scope.skip * 25, 25)
+    .then(function(products) {
+      if (products.data.length === 0) {
+        $scope.noMoreItems = true;
+      }
 
-   $scope.addProductToCustomer = function(product){
+      $scope.products = $scope.products.concat(products.data);
+      $scope.$broadcast('scroll.infiniteScrollComplete');
+      return deferred.resolve();
+    })
+    .catch(function(err) {
+      return deferred.reject(err);
+    });
+    return deferred.promise;
+  }
+
+  $scope.loadMoreProducts = function() {
+    $scope.skip++;
+    getMoreProducts();
+  };
+  // End Infinite Scroll
+  initProducts();
+  loader($scope, $q.when(getMoreProducts()));
+
+  // Search
+  var doSearch = ionic.debounce(function(query) {
+    Products.search(query).then(function(products) {
+      $scope.products = products.data;
+    });
+  }, 500);
+
+  $scope.search = function() {
+    // don't search if no query
+    if ($scope.query === "") {
+      initProducts();
+      getMoreProducts();
+    } else {
+      doSearch($scope.query);
+    }
+  };
+  // End Search
+
+  $scope.addProductToCustomer = function(product){
     console.log($scope.customer);
     $scope.customer.products[product._id] = product;
     //TODO ADD TAGS !!!
     $scope.syncQueue[$scope.currentID].products[product._id] = product;
     $scope.syncQueue.$save($scope.currentID);
-  }
+  };
 })
 
 .controller('ContentController', function($scope, $ionicSideMenuDelegate) {

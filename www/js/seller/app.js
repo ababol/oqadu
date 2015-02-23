@@ -81,6 +81,15 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
       }
     })
 
+    .state('tab.scan', {
+      url: '/scan',
+      views: {
+        'tab-scan': {
+          controller: 'ScanCtrl'
+        }
+      }
+    })
+
     .state('tab.product', {
       url: '/product',
       views: {
@@ -141,13 +150,12 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
 
     .state('product-detail', {
       url: '/product-detail/:productId',
-      backUrl: '/products',
       templateUrl: 'templates/seller/product-detail.html',
       controller: 'ProductDetailCtrl'
     });
 
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/login');
+  $urlRouterProvider.otherwise('/tabs.user');
 
 });

@@ -152,7 +152,6 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
 })
 
 .controller('ProductCtrl', function($scope, $rootScope, $q, $stateParams, $location, utils, Products) {
-  $scope.showBackButton = $rootScope.showBackButton;
   $scope.product = {};
 
   loader($scope, $q.when(
@@ -160,6 +159,8 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
   ).then(function(product) {
     var deferred = $q.defer();
 
+    // Si non enregistré et que le client accede a la page produit via le scan
+    // on display la bar + connect firebase
     if (!$rootScope.registered && $location.search().scan) {
       var shelf = product.data.tags[0];
       $scope.connectToFirebaseQueue(shelf);
@@ -403,7 +404,7 @@ function gotoBackQuestion($scope, $location){
   var userTags = $scope.user.tags[$scope.user.actual.shelf][index];
   for(tagId = 0; tagId < previousQTags.length; tagId++){
     var i = userTags.indexOf(previousQTags[tagId]);
-    delete userTags[i];
+    userTags.splice(i, 1);
   }
 
   //Changement de l'URL pour refresh

@@ -6,15 +6,21 @@ angular.module('starter.services', [])
 
 .factory('Products', function($http) {
   return {
-    all: function() {
+    all: function(skip, limit) {
       return $http({
-        url: url+'/api/v2/Products/',
+        url: url+'/api/v2/Products/?skip=' + skip + '&limit=' + limit,
         method: 'GET'
       });
     },
     get: function(productId) {
       return $http({
         url: url+'/api/v2/Products/'+productId,
+        method: 'GET'
+      });
+    },
+    search: function(query) {
+      return $http({
+        url: url + "/api/v2/Products/Search/?name=" + query,
         method: 'GET'
       });
     }
@@ -59,6 +65,12 @@ angular.module('starter.services', [])
         url: url+'/api/v2/Users/Login',
         data: {username: username, password: pass},
         method: 'POST'
+      });
+    },
+    getByClientId: function(clientId) {
+      return $http({
+        url: url+'/api/v2/Users/?clientId=' + clientId + '&limit=1',
+        method: 'GET'
       });
     }
   }

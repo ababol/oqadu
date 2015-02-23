@@ -30,7 +30,7 @@
    <ion-side-menus ng-controller="MainCtrl">
       <!-- Center content -->
       <ion-side-menu-content>
-        <section ng-show="errorTxt">
+        <section ng-if="errorTxt">
           <div class="list card">
             <div class="item">
               <h2>{{errorTxt}}</h2>
@@ -62,7 +62,7 @@
       </ion-side-menu>
 
 
-      <ion-side-menu ng-show="showLeftMenu" side="left" expose-aside-when="(min-width:600px)">
+      <ion-side-menu ng-if="showLeftMenu" side="left" expose-aside-when="(min-width:600px)">
 
           <!-- if you need scroll and click in menu: has-header="true" scroll="true" overflow-scroll="true" -->
           <ion-content has-header="true">
@@ -72,9 +72,9 @@
               <div class="item item-divider">File d'attente ({{syncQueue.length}})</div>
               <a href="#/tab/user" class=" waitlist item item-button-right item-icon-right" ng-repeat="(key, user) in syncQueue | limitTo: 7" ng-class="{'selected': customer.$id == user.$id, 'used': user.seller != null && user.seller != seller.id}" ng-click="changeCustomer(key)">
                 <span class="user">
-                  User {{user.$$hashKey}}
+                  {{user.customer.name ? user.customer.name : 'User ' + user.$$hashKey}}
                   <i class="icon-right ion-person"></i>
-                  <button class="button button-stable button-small">done</button>
+                  <button class="button button-stable button-small" ng-click="deleteUser()">done</button>
                 </span>
               </a>
 
