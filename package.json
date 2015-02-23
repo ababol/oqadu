@@ -4,7 +4,7 @@
   "description": "OQADU - Ou Quand l'Attente Devient Utile",
   "scripts": {
     "start": "node app.js",
-    "test": "jasmine-node spec/api && casperjs test spec/functionalTests/scenario1.js"
+    "test": "casperjs test spec/functionalTests/scenario1.js"
   },
   "dependencies": {
     "body-parser": "^1.9.2",

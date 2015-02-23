@@ -76,11 +76,16 @@
       <div ng-if="product.reviews">
         <div class="item item-divider toggleMain" ng-init="checked=false">
           <ion-toggle ng-checked="false">
-            Avis Clients (0)
+            Avis Clients
           </ion-toggle>
         </div>
-        <div class="item toggleContent">
-          avis
+        <div class="item toggleContent ng-hide">
+          <div class="item item-divider" ng-repeat-start="review in product.reviews">
+            {{review.title}}
+          </div>
+          <div class="item" ng-repeat-end>
+            {{review.comment}}
+          </div>
         </div>
       </div>
 
