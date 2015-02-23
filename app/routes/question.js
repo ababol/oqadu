@@ -4,6 +4,26 @@ var Question = require('../models/Question'),
   Q = require('q'),
   maxReco = 5;
 
+
+function checkAnswer(tags){
+  var deferred = Q.defer();
+
+  if (tags.length === 0) {
+    return deferred.resolve("Valid answer");
+  }
+
+  Product.where("tags").all(tags).count(function(err, productCount) {
+    if(productCount > 0){
+      return deferred.resolve("Valid answer");
+    }
+    else{
+      return deferred.reject("Invalid answer")
+    }
+  });
+
+  return deferred.promise;
+}
+
 function checkRecommendation(tags) {
   var deferred = Q.defer();
 
@@ -57,8 +77,22 @@ var questionRoute = {
             res.status(200);
             return res.send("Not any remaining questions.");
           } else {
-            res.status(200);
-            return res.send(question);
+            question.answers.forEach(function(answer){
+              Q.when(checkAnswer(tags.concat(answer.tags)))
+              .catch(function(){
+                var index = question.answers.indexOf(answer);
+                question.answers.splice(index, 1);
+              });
+            });
+            if(question.answers.length > 1){
+              res.status(200);
+              return res.send(question);
+            }
+            else{
+              res.status(204);
+              return res.send(question._id)
+            }
+
           }
         });
       })
