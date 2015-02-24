@@ -74,7 +74,7 @@
                 <span class="user">
                   {{user.customer.name ? user.customer.name : 'User ' + user.$$hashKey}}
                   <img ng-show="seller.avatar" src="{{seller.avatar.thumb}}" height="19" width="19" style="position: absolute; left: 12px;" />
-                  <button class="button button-stable button-small" ng-click="deleteUser(key)">done</button>
+                  <button class="button button-stable button-small" ng-show="getCurrentID() == key" ng-click="deleteUser(key)">done</button>
                 </span>
               </a>
 
