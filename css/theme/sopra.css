@@ -226,6 +226,7 @@ img.hackathon{
   border-width: 0px !important;
   box-shadow: 0 0 0 !important;
 }
+
 .userContainer{
   display: block;
   width: 100%;
@@ -239,4 +240,10 @@ img.hackathon{
 .user>h5{
   font-size: .8em !important;
   line-height: 1em !important;
+}
+
+/*//////////// Slide integration continue///////////////////*/
+img.integration{
+  border-width: 0px !important;
+  box-shadow: 0 0 0 !important;
 }
