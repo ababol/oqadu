@@ -262,7 +262,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
         $rootScope.registered = true;
       });
       $scope.syncQueue.$watch(function(e){
-        var userIndex = $scope.syncQueue.$indexFor($scope.getUserKey()); 
+        var userIndex = $scope.syncQueue.$indexFor($scope.getUserKey());
         var pos = userIndex + 1;
         $scope.waitlistPosition = transformPositionToString(pos);
         $scope.waitTime = pos * 3;
