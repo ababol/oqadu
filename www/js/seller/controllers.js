@@ -67,7 +67,7 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
   $scope.changeCustomer = function(k){
     if(k>=0 && k<$scope.syncQueue.length && k != $scope.currentID){
       $scope.customer = $scope.syncQueue[k];
-      $scope.syncQueue[k].beep = true;
+      $scope.syncQueue[k].beep = $scope.seller;
       $scope.syncQueue.$save(k);
       $scope.currentID = k;
       $timeout(function(){
