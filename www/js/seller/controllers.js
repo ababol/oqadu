@@ -55,9 +55,6 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
     var ref = new Firebase("https://oqadu.firebaseio.com/"+$scope.seller.shelf+"/queue");
     var sync = $firebase(ref);
     $scope.syncQueue = sync.$asArray();
-    $scope.syncQueue.$loaded(function(){
-      $scope.changeCustomer(0);
-    });
     $scope.syncQueue.$watch(function(ev){
       if($scope.currentID != null)
         $scope.customer = $scope.syncQueue[$scope.currentID];
