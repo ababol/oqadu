@@ -31,10 +31,9 @@ var testQuestions = function(self, Lenght, i) {
         });
           self.then(function(){
             loopFor(self, Lenght, 2);
-          });
-          
+          }); 
         }, function timeout() {
-        this.echo("temps dépassé").exit();
+        casper.test.assertExists('.productreco');
         },
           5000);
      }else{
@@ -47,7 +46,6 @@ var testQuestions = function(self, Lenght, i) {
             casper.wait(1000, function(){
               self.capture('test1.png');
             });
-          
           }, function timeout() {
         this.echo("temps dépassé").exit();
         },
@@ -57,6 +55,9 @@ var testQuestions = function(self, Lenght, i) {
 };
 
 var loopFor = function(self, Lenght, i){
+      casper.then(function(){
+        casper.test.assert(Lenght>=2, "there is more than 1 question");
+        });
       if (i <= Lenght+1) {
         var result = testQuestions(self, Lenght, i);
         i++;
