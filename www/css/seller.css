@@ -7911,6 +7911,22 @@ ion-nav-view {
     padding: 0;
     margin: 0; }
 
+.textCircle {
+  border-radius: 50%;
+  width: 20px;
+  height: 19px;
+  line-height: 17px;
+  padding: 0;
+  background: #4A87EE;
+  border: 1px solid #4A87EE;
+  color: white;
+  text-align: center;
+  position: absolute;
+  left: 12px;
+  line-height: 17px !important;
+  font: 12px Arial, sans-serif;
+  display: inline-block; }
+
 .invert {
   color: #66cc33 !important;
   background-color: white !important;
