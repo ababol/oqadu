@@ -159,7 +159,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
 
     // Si non enregistré et que le client accede a la page produit via le scan
     // on display la bar + connect firebase
-    if (!$rootScope.registered && $location.search().scan) {
+    if (!$rootScope.registered && ($location.search().scan || $location.url().indexOf("scan=true") > 1)) {
       var shelf = product.data.tags[0];
       $scope.connectToFirebaseQueue(shelf);
       initTags($scope, shelf, product.data.tags);
