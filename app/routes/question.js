@@ -4,20 +4,28 @@ var Question = require('../models/Question'),
   Q = require('q'),
   maxReco = 5;
 
-
-function checkAnswer(tags) {
+function checkAnswer(tags, answer) {
   var deferred = Q.defer();
 
   if (tags.length === 0) {
-    return deferred.resolve("Valid answer");
+    return deferred.resolve({
+      data: 0,
+      valid: true
+    });
   }
 
   Product.where("tags").all(tags).count(function(err, productCount) {
     if(productCount > 0){
-      return deferred.resolve("Valid answer");
+      return deferred.resolve({
+        data: 0,
+        valid: true
+      });
     }
     else{
-      return deferred.resolve("Invalid answer");
+      return deferred.resolve({
+        data: answer,
+        valid: false
+      });
     }
   });
 
@@ -80,14 +88,14 @@ var questionRoute = {
             var promises = [];
 
             question.answers.forEach(function(answer) {
-              promises.push(checkAnswer(tags.concat(answer.tags)));
+              promises.push(checkAnswer(tags.concat(answer.tags), answer));
             });
 
             Q.all(promises)
             .then(function(data) {
-              data.forEach(function (answer, index) {
-                if (answer === "Invalid answer") {
-                  question.answers.splice(index, 1);
+              data.forEach(function(answer) {
+                if (!answer.valid) {
+                  question.answers.splice(question.answers.indexOf(answer.data), 1);
                 }
               });
               return question;
