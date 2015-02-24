@@ -239,3 +239,10 @@ img.hackathon{
 .user>h5{
   font-size: .8em !important;
 }
+
+img.archiTechno{
+  border-width: 0px !important;
+  box-shadow: 0 0 0 !important;
+  margin: 0 !important;
+  margin-top: -60px !important;
+}
