@@ -59,7 +59,6 @@ angular.module('Helper', [])
             }
           });
         });
-
         return deferred.promise;
       }
 
