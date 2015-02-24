@@ -67,7 +67,7 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
   $scope.changeCustomer = function(k){
     if(k>=0 && k<$scope.syncQueue.length && k != $scope.currentID){
       $scope.customer = $scope.syncQueue[k];
-      $scope.syncQueue[k].beep = true;
+      $scope.syncQueue[k].beep = $scope.seller;
       $scope.syncQueue.$save(k);
       $scope.currentID = k;
       $timeout(function(){
@@ -437,10 +437,9 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
   // End Search
 
   $scope.addProductToCustomer = function(product){
-    console.log($scope.customer);
-    $scope.customer.products[product._id] = product;
-    //TODO ADD TAGS !!!
-    $scope.syncQueue[$scope.currentID].products[product._id] = product;
+    if(!$scope.syncQueue[$scope.currentID].cart)
+      $scope.syncQueue[$scope.currentID].cart = [];
+    $scope.syncQueue[$scope.currentID].cart.push(product._id);
     $scope.syncQueue.$save($scope.currentID);
   };
 })
