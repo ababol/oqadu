@@ -1,107 +1,116 @@
-<!--
-  This template loads for the 'tab.product-detail' state (app.js)
-  'product' is a $scope variable created in the productsCtrl controller (controllers.js)
-  The productsCtrl pulls data from the products service (service.js)
-  The products service returns an array of product data
--->
+<ion-nav-bar class="bar bar-header bar-light nav-title-slide-ios7">
+  <a href="#/products"><button class="button-icon icon ion-ios7-arrow-back button back-button"> Back</button></a>
+</ion-nav-bar>
+<ion-view title="{{product.name}}" class="product">
+  <ion-content>
 
-<ion-view title="{{product.name}}">
-  <ion-content has-header="true" padding="true">
-  <div class="row">
-    <div class="col">
-        <a class="button icon icon-left ion-chevron-left" href="#/products">Back</a>
-    </div>
-  </div>
-  <div class="row row-center">
-    <div class="col col-33">
-          <ion-slide-box on-slide-changed="slideHasChanged($index)"  show-pager="true">
+    <section class="row product-img">
+      <div class="col col-33" ng-if="product.pictures">
+        <div class="item item-image product">
+          <ion-slide-box on-slide-changed="slideHasChanged($index)" show-pager="true">
+            <!-- ng init update slider to fix a display bug !-->
             <ion-slide ng-repeat="img in product.pictures track by $index" ng-init="updateSlider()">
               <img src="{{img.path}}" alt="{{img.label}}">
             </ion-slide>
           </ion-slide-box>
-    </div>
-    <div class="col col-offset-10">
-        <div class="row no-padding-side">
-          <div class="col left no-padding-side">
-            <span class="fakebutton ion-bag">
+        </div>
+
+        <div class="row">
+          <div class="col-50 left no-padding-side">
+            <span class="fakebutton grey add-product"
+                  ng-click="addToCart(product._id)"
+                  ng-class="(getInTheCart(product._id) > -1) ? 'ion-ios7-cart' : 'ion-ios7-cart-outline'">
               {{product.price}}€
             </span>
           </div>
-          <div class="col right no-padding-side">
-            <span class="fakebutton ion-ios7-star">
-              {{product.reviewAvg}}/5
+          <div class="col-50 right no-padding-side">
+            <span class="fakebutton grey">
+              <i ng-repeat="review in product.reviewAvgHtml track by $index" class="icon {{review}}"></i>
             </span>
           </div>
         </div>
-        <div class="list">
-          <div class="item item-divider" ng-repeat-start="feature in product.features">
-            {{feature.label}}
-          </div>
-          <div class="item" ng-repeat-end>
-            {{feature.value}}
-          </div>
-        </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col">
-      <div class="item item-text-wrap">
-        {{ product.name }}
       </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col">
-      <div class="button button-light tag-item" ng-repeat="tag in product.tags">{{tag}}</div>
-    </div>
-  </div>
+      <div class="col col-66">
+        <div class="list product">
 
-  <div class="card" ng-if="product.faq">
-      <div class="item item-divider toggleMain">
-        <ion-toggle>
-          F.A.Q.
-        </ion-toggle>
-      </div>
-      <div class="item item-text-wrap ng-hide toggleContent">
-        <div class="item item-divider" ng-repeat-start="faq in product.faq">
-          {{faq.question}}
-        </div>
-        <div class="item item-text-wrap" ng-repeat-end>
-          <span ng-if="faq.answer != 1337">{{faq.answer}}</span>
-          <div class="list" ng-if="faq.answer == 1337">
-            <div class="item range range-positive">
-              Couche(s)
-              <input type="range" min="1" max="5" value="1" ng-model="data.couche">
-              <i class="icon ion-arrow-resize"></i>{{data.couche || 1}}
+          <div ng-if="product.name">
+            <div class="item item-divider toggleMain" ng-init="checked=true">
+              <ion-toggle ng-checked="true">
+                Description
+              </ion-toggle>
             </div>
-            <div class="item range range-positive">
-              m²
-              <input type="range" min="10" max="200" value="33" ng-model="data.metre">
-              <i class="icon ion-arrow-resize"></i>{{data.metre || 33}}
-            </div>
-            <div class="range range-positive">
-              <span class="fakebutton assertive center">Pots: {{(((data.couche || 1) * (data.metre || 33) /100) + 0.49) | number:0}}</span>
+            <div class="item toggleContent">
+              {{ product.name }}
             </div>
           </div>
-        </div>
-      </div>
-    </div>
 
-    <div class="card" ng-if="product.reviews">
-      <div class="item item-divider toggleMain">
-        <ion-toggle>
-          <i ng-repeat="review in product.reviewAvgHtml track by $index" class="icon {{review}}"></i>
-        </ion-toggle>
-      </div>
-      <div class="item item-text-wrap ng-hide toggleContent">
-        <div ng-repeat-start="review in product.reviews track by $index" class="item item-divider">
-          {{review.title}} ({{review.score}}/5) par {{review.nickname}}
-        </div>
-        <div class="item item-text-wrap" ng-repeat-end>
-          {{review.text}}
-        </div>
-      </div>
-    </div>
+          <div ng-if="product.features">
+            <div class="item item-divider toggleMain" ng-init="checked=false">
+              <ion-toggle ng-checked="false">
+                Features
+              </ion-toggle>
+            </div>
+            <div class="item toggleContent ng-hide">
+              <div class="item item-divider" ng-repeat-start="feature in product.features">
+                {{feature.label}}
+              </div>
+              <div class="item" ng-repeat-end>
+                {{feature.value}}
+              </div>
+            </div>
+          </div>
 
+          <div ng-if="product.faq">
+            <div class="item item-divider toggleMain" ng-init="checked=false">
+              <ion-toggle ng-checked="false">
+                F.A.Q.
+              </ion-toggle>
+            </div>
+            <div class="item toggleContent">
+              F.A.Q.
+            </div>
+          </div>
+
+          <div ng-if="product.reviews && product.reviews.length > 0">
+            <div class="item item-divider toggleMain" ng-init="checked=false">
+              <ion-toggle ng-checked="false">
+                Avis Clients ({{product.reviews.length}})
+              </ion-toggle>
+            </div>
+            <div class="item toggleContent ng-hide">
+              <div class="item item-divider review" ng-repeat-start="review in product.reviews">
+                {{review.title}} ({{review.score}}/5) par {{review.reviewerName}}
+              </div>
+              <div class="item review" ng-repeat-end>
+                {{review.comment}}
+              </div>
+            </div>
+          </div>
+
+          <div ng-if="product.recos">
+            <div class="item item-divider toggleMain" ng-init="checked=true">
+              <ion-toggle ng-checked="true">
+                Produit(s) similaire(s) ({{product.recos.length}})
+              </ion-toggle>
+            </div>
+            <div class="item toggleContent">
+              <a class="item item-thumbnail-left" ng-repeat="reco in product.recos track by $index" href="#/product/{{reco._id}}">
+                <img src="{{reco.pictures[0].path}}" alt="{{reco.pictures[0].label}}">
+                <h2>{{reco.name}}</h2>
+                <p>{{reco.price}}€</p>
+                <p ng-if="reco.reviews && reco.reviews.length > 0">
+                  <i ng-repeat="review in reco.reviewAvgHtml track by $index" class="icon {{review}}"></i>
+                </p>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+
+    <div style="height: 55px"></div>
   </ion-content>
 </ion-view>

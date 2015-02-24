@@ -35,6 +35,34 @@ angular.module('Helper', [])
         data: {tags: tags, productId: productId},
         method: 'POST'
       });
+    },
+    getCartDetails: function($scope, $q, Products, utils, cart){
+      $scope.products = [];
+
+      function callback() {
+        var deferred = $q.defer();
+
+        if (!cart || cart.length === 0) {
+          return deferred.resolve();
+        }
+
+        cart.forEach(function(productId, key) {
+          $q.when(
+            Products.get(productId)
+          ).then(function(product) {
+            product.data.reviewAvgHtml = utils.getReviewHtml(product.data.reviews);
+            $scope.products.push(product.data);
+
+            // Si on a parcouru tout le tableau de produit, on peut valider la promesse
+            if (key === cart.length - 1) {
+              return deferred.resolve();
+            }
+          });
+        });
+        return deferred.promise;
+      }
+
+      loader($scope, $q.when(callback()));
     }
   };
 })

@@ -4,70 +4,27 @@
 //var path = "http://localhost:3000";
 var path = "www";
 
+var isBack = false;
+
 var secureClick = function(self, selector){
   self.mouseEvent('mousedown', selector);
   self.mouseEvent('mouseup', selector);
 };
 
-
-
-/**var clickLoop = function(self, length){// en cours de dev
-  
-    self.echo('test');
-
-    casper.waitForSelector('.answer', function(){
-      self.capture('test'+index+'.png');
-      var Lenght2= self.evaluate(function(){
-        return document.querySelectorAll(".answer").length;
-      });
-    self.echo(Lenght2);
-    
-      for (var j = 2; j <= length+1; j++) {
-        
-
-          secureClick(self, '.answer:nth-child('+j+')');
-        
-
-        self.capture('test'+j+'.png');
-        self.echo('click');
-
-         casper.wait(2000, function(){
-          if (!self.exists('.productreco')) {
-          casper.waitForSelector('.answer', function(){
-          casper.test.assertExists('.answer');
-          length = self.evaluate(function(){
-            return document.querySelectorAll(".answer").length;
-          });
-          this.echo(length);
-        });
-        
-        casper.then(function(){
-          clickLoop(self, length);
-        }); 
-        }else{
-          casper.test.assertExists('.productreco');
-          casper.wait(2000, function(){
-            self.capture('test'+j+'.png');
-            });
-          secureClick(self, '.back-button');
-          //retourner au questions????
-        } 
-        });
-    }
-    
-};**/
-
-var func = function(self, Lenght, i) {
+var testQuestions = function(self, Lenght, i) {
   
         
        self.waitForSelector('.answer:nth-child('+i+')', function(){
-       self.echo([i, ".answer", Lenght]);
+          isBack = false;
           secureClick(self, '.answer:nth-child('+i+')');
-          self.echo('click');
-        });
+          self.echo("réponse "+(i-1)+" / "+Lenght);
+        }, function timeout() {
+        this.echo("temps dépassé").exit();
+        },
+          5000);
       casper.wait(2000, function(){
       if (!self.exists('.productreco')) {
-       self.waitForSelector(".answer", function(){
+        self.waitForSelector(".answer", function(){
           casper.test.assertExists('.answer');
           var Lenght= self.evaluate(function(){
         return document.querySelectorAll(".answer").length;
@@ -76,50 +33,57 @@ var func = function(self, Lenght, i) {
             loopFor(self, Lenght, 2);
           });
           
-        });
+        }, function timeout() {
+        this.echo("temps dépassé").exit();
+        },
+          5000);
      }else{
           
-          casper.wait(1000, function(){
-            self.capture('test1.png');
+          casper.waitForSelector('.productreco', function(){
             casper.test.assertExists('.productreco');
-          
-          secureClick(self, '.return');
-          self.echo("return");
-          casper.wait(1000, function(){
-            self.capture('test2.png');
-            if (i == (Lenght+1)) {
             secureClick(self, '.return');
-            self.echo("return2");
-        };
-          });
+            self.echo("click back");
+            isBack = true;
+            casper.wait(1000, function(){
+              self.capture('test1.png');
+            });
           
-          });
-          
-
-
-          //retourner au questions????
+          }, function timeout() {
+        this.echo("temps dépassé").exit();
+        },
+          5000);
         }
      });
 };
 
 var loopFor = function(self, Lenght, i){
       if (i <= Lenght+1) {
-        var result = func(self, Lenght, i);
+        var result = testQuestions(self, Lenght, i);
         i++;
         loopFor(self, Lenght, i);
-        
-      }
-      
+        casper.then(function(){
+          if (i == (Lenght+1) && isBack == true) {
+                secureClick(self, '.return');
+                self.echo("click back");
+                casper.wait(1000, function(){
+                  self.capture('test2.png');
+                });
+              };
+        });
+      }  
 };
 
-casper.test.begin('Verify the landed page of the Seller App', function(test) {
+casper.test.begin('Verify the landed page of the customer App', function(test) {
   casper.start(path+'/customer.html').waitForText("File", function() {
     test.assertUrlMatch(/#\/home/, 'Redirecting to #/home by default');
     this.waitForSelector("#engine", function(){
           test.assertExists('#engine');
           secureClick(this, '#engine');
         });
-  });
+  }, function timeout() {
+    this.echo("temps dépassé").exit();
+    },
+      5000);
 
 
   casper.waitForSelector('.answer', function(){
@@ -129,15 +93,10 @@ casper.test.begin('Verify the landed page of the Seller App', function(test) {
         });
       loopFor(this, Lenght, 2);
       //clickLoop(this, Lenght);
-    }, function timeout() {
+  }, function timeout() {
     this.echo("temps dépassé").exit();
     },
       5000);
-
-casper.then(function(){
-
-});
-
 
 
   casper.run(function() {

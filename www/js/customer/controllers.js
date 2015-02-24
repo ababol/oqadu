@@ -186,7 +186,6 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
 
   $scope.addToCart = function(id) {
     var index = $scope.getInTheCart(id);
-    console.log(index);
     if (index > -1) {
       $scope.user.cart.splice(index, 1);
     } else {
@@ -202,12 +201,12 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
 .controller('HomeCtrl', function($scope, $rootScope, $ionicViewService, Products) {
   $scope.user.actual.tags = [];
   $scope.user.actual.qIds = [];
-  console.log($rootScope.registered)
-  if (!$scope.user.actual.shelf || !$rootScope.registered) {
+
+  if ((!$scope.user.actual.shelf && !$rootScope.registered) || !$rootScope.registered) {
     $scope.hideFooter();
-    $scope.hideLoader(true);
     $ionicViewService.clearHistory();
   }
+  $scope.hideLoader(true);
   $scope.user.actual.shelf = null;
 })
 
@@ -267,7 +266,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
         $scope.waitlistPosition = transformPositionToString(pos);
         $scope.waitTime = pos * 3;
         //si l'evenement est a propos de mon user et que il faut le beeper
-        if($scope.getUserKey() == e.key && $scope.syncQueue[userIndex].beep){
+        if($scope.getUserKey() == e.key && $scope.syncQueue[userIndex] && $scope.syncQueue[userIndex].beep){
           console.log('Beep')
           if (window.plugin && window.plugin.notification) {
             window.plugin.notification.local.add({
@@ -299,55 +298,32 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
 
 .controller('CartCtrl', function($scope, $q, utils, Products) {
   var cart = $scope.user.cart;
-
-  $scope.products = [];
   $scope.title = "Panier";
-
-  function callback() {
-    var deferred = $q.defer();
-
-    if (cart.length === 0) {
-      return deferred.resolve();
-    }
-
-    cart.forEach(function(productId, key) {
-      $q.when(
-        Products.get(productId)
-      ).then(function(product) {
-
-        // product.reviewAvg = utils.getReviewAvg(data[1].data);
-        // product.reviewAvgHtml = utils.getReviewHtml(product.reviewAvg);
-        // product.reviews = data[1].data;
-
-        $scope.products.push(product.data);
-
-        // Si on a parcouru tout le tableau de produit, on peut valider la promesse
-        if (key === cart.length - 1) {
-          return deferred.resolve();
-        }
-      });
-    });
-
-    return deferred.promise;
-  }
-
-  loader($scope, $q.when(callback()));
+  utils.getCartDetails($scope, $q, Products, utils, cart);
 })
 
 .controller('ScanCtrl', function($scope, $q, $location, $cordovaBarcodeScanner, $ionicPopup, Products) {
+  if (!window.cordova) {
+    return $location.path("home");
+  }
+
   $cordovaBarcodeScanner.scan()
     .then(function(imageData) {
+      if (!imageData || !imageData.text) {
+        return $location.path("home");
+      }
+
       Products.getProductId(imageData.text)
         .then(function(id) {
-          $location.path("product/" + JSON.parse(id.data) + "?scan=true");
+          return $location.path("product/" + JSON.parse(id.data) + "?scan=true");
         })
         .catch(function(err) {
           $ionicPopup.alert({
             title: "Erreur " + err.status,
-            template: err.data
+            template: JSON.stringify(err.data)
           })
           .then(function() {
-            $location.path("home");
+            return $location.path("home");
           });
         });
     });

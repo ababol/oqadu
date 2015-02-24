@@ -14,15 +14,14 @@ var clickLoop = function(self, selector){
   self.wait(2000, function(){
     if (!self.exists('.productreco')) {
           casper.waitForSelector(selector, function(){
-          casper.test.assertExists(selector, 'Cutomer answers question');
-          secureClick(self, selector);          
+          casper.test.assertExists(selector, 'Customer answers question');
+          secureClick(self, selector);
           clickLoop(self,selector);
           });
         }else{
-           casper.test.assertExists('.productreco', 'Cutomer can see recommandations');
+           casper.test.assertExists('.productreco', 'Customer can see recommandations');
         }
   });
-        
 };
 
 casper.test.begin('Seller APP : Get the number of customers currently in waiting list', function(test) {
@@ -120,7 +119,7 @@ casper.then(function(){
 
   casper.waitForSelector('.productreco', function(){
     test.assertExists('.productreco', 'Product appear in cart');
-    secureClick(this, '.productreco');     
+    secureClick(this, '.productreco');
 
   },function timeout() {
     this.echo("temps dépassé").exit();
@@ -137,13 +136,8 @@ casper.then(function(){
     },
       5000);
 
-  casper.waitForSelector('.cart',function(){
-    secureClick(this, '.cart');
-    test.assertUrlMatch(/#\/cart/, 'Customer can see his cart');
-  });
-
-  casper.wait(1000, function(){
-     test.assertTextDoesntExist('Rouleau', 'Product was remove from cart');
+  casper.then(function(){
+    test.assertDoesntExist('.cart');
   });
 
   casper.then(function(){
