@@ -79,8 +79,11 @@ angular.module('Helper', [])
     }
   };
 })
-.filter('join', function() {
-  return function(input, splitChar) {
-    return input.join(splitChar);
+.filter('initials', function() {
+  return function(input) {
+    var input = input.split(' '),
+      fI = input[0].substring(0, 1);
+      lI = input[1] ? input[1].substring(0, 1) : "";
+    return fI + lI;
   }
 });
