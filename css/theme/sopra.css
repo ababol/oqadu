@@ -211,3 +211,31 @@ li.no-checked{
   list-style: none;
   margin: 0;
 }
+
+
+
+/*//////////// Slide pres equipe///////////////////*/
+
+.user {
+  display: inline-block;
+  width: 15%;
+  margin: 1% !important;
+}
+
+img.hackathon{
+  border-width: 0px !important;
+  box-shadow: 0 0 0 !important;
+}
+.userContainer{
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+.user>img{
+  border-radius: 100px;
+}
+
+.user>h5{
+  font-size: .8em !important;
+}
