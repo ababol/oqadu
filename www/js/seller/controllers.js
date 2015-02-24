@@ -437,10 +437,9 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
   // End Search
 
   $scope.addProductToCustomer = function(product){
-    console.log($scope.customer);
-    $scope.customer.products[product._id] = product;
-    //TODO ADD TAGS !!!
-    $scope.syncQueue[$scope.currentID].products[product._id] = product;
+    if(!$scope.syncQueue[$scope.currentID].cart)
+      $scope.syncQueue[$scope.currentID].cart = [];
+    $scope.syncQueue[$scope.currentID].cart.push(product._id);
     $scope.syncQueue.$save($scope.currentID);
   };
 })
