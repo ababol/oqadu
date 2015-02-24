@@ -249,7 +249,10 @@ img.archiTechno{
   margin-top: -60px !important;
 }
 
-/*//////////// Slide integration continue///////////////////*/
+/*//////////// Slides Tests et integration continue///////////////////*/
+li.justification{
+margin-left: 100px;
+}
 
 img.integration{
   border-width: 0px !important;
