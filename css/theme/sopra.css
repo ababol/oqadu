@@ -226,6 +226,7 @@ img.hackathon{
   border-width: 0px !important;
   box-shadow: 0 0 0 !important;
 }
+
 .userContainer{
   display: block;
   width: 100%;
@@ -240,3 +241,21 @@ img.hackathon{
   font-size: .8em !important;
   line-height: 1em !important;
 }
+
+img.archiTechno{
+  border-width: 0px !important;
+  box-shadow: 0 0 0 !important;
+  margin: 0 !important;
+  margin-top: -60px !important;
+}
+
+/*//////////// Slides Tests et integration continue///////////////////*/
+li.justification{
+margin-left: 100px;
+}
+
+img.integration{
+  border-width: 0px !important;
+  box-shadow: 0 0 0 !important;
+}
+
