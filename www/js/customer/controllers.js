@@ -123,7 +123,23 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
 
   $scope.gotoBackQuestion = function(){
     gotoBackQuestion($scope, $location);
-  }
+  };
+
+  $scope.unregisterQueue = function() {
+    if ($scope.user.waiting) {
+      $scope.user.waiting = false;
+      $scope.syncQueue.$remove($scope.syncQueue.$indexFor($scope.getUserKey())).then(function(userRef){
+        if (window.plugins && window.plugins.toast) {
+          window.plugins.toast.showShortBottom("Désinscription effectuée");
+        }
+        $rootScope.registered = false;
+        if ($location.path() === "/home") {
+          $scope.hideFooter();
+        }
+        console.log("remove from waitlist");
+      });
+    }
+  };
 })
 
 .controller('RecommendationCtrl', function($scope, $q, $location, $stateParams, utils, Products) {
@@ -266,32 +282,38 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
         $scope.waitlistPosition = transformPositionToString(pos);
         $scope.waitTime = pos * 3;
         //si l'evenement est a propos de mon user et que il faut le beeper
-        if($scope.getUserKey() == e.key && $scope.syncQueue[userIndex] && $scope.syncQueue[userIndex].beep 
+        if($scope.getUserKey() == e.key && $scope.syncQueue[userIndex] && $scope.syncQueue[userIndex].beep
           && $scope.syncQueue[userIndex].beep.name){
           console.log('Beep : ' + $scope.syncQueue[userIndex].beep.name)
           if (window.plugin && window.plugin.notification) {
             window.plugin.notification.local.add({
                 id:      1,
                 title:   'C\'est à vous',
-                message: 'Le conseiller '+$scope.syncQueue[userIndex].beep.name+' vous attend.'
+                message: 'Le conseiller '+$scope.syncQueue[userIndex].beep.name+' vous attend au rayon '+$scope.syncQueue[userIndex].beep.shelf
             });
           }
+          $ionicPopup.confirm({
+            title: $scope.syncQueue[userIndex].seller.name + " est prêt à vous recevoir.",
+            template:
+            "<div class='notifPopup'>\
+              <img src='" + $scope.syncQueue[userIndex].seller.avatar + "' width='250' style='margin: -10px;'>\
+            </div>",
+            buttons:[
+              { text: 'Annuler' },
+              {
+                text: 'Ok',
+                type: 'button-positive'
+              }
+            ]
+          })
+          .then(function(res) {
+             if(res) {
+               $rootScope.registered = false;
+             } else {
+               $scope.unregisterQueue();
+             }
+           });
         }
-      });
-    }
-  };
-  $scope.unregisterQueue = function() {
-    if ($scope.user.waiting) {
-      $scope.user.waiting = false;
-      $scope.syncQueue.$remove($scope.syncQueue.$indexFor($scope.getUserKey())).then(function(userRef){
-        if (window.plugins && window.plugins.toast) {
-          window.plugins.toast.showShortBottom("Désinscription effectuée");
-        }
-        $rootScope.registered = false;
-        if ($location.path() === "/home") {
-          $scope.hideFooter();
-        }
-        console.log("remove from waitlist");
       });
     }
   };

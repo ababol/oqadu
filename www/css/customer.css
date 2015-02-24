@@ -7896,6 +7896,9 @@ $ios-transition-box-shadow-end: -200px 0px 200px rgba(0,0,0,0.15), -5px 0px 5px 
 .loading-container .loading, .backdrop {
   background: transparent !important; }
 
+.popup-container {
+  background: none repeat scroll 0% 0% rgba(0, 0, 0, 0.4); }
+
 .ng-hide-add-active {
   display: block !important;
   -webkit-transition: 0.3s linear all;

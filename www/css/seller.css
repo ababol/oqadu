@@ -7993,6 +7993,9 @@ ion-nav-view {
 .loading-container .loading, .backdrop {
   background: transparent !important; }
 
+.popup-container {
+  background: none repeat scroll 0% 0% rgba(0, 0, 0, 0.4); }
+
 .ng-hide-add-active {
   display: block !important;
   -webkit-transition: 0.3s linear all;
