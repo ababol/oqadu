@@ -206,6 +206,15 @@
 							<li>Répartition sur celles-ci</li>
 						</ul>
 				</section>
+				<section>
+						<h3>Gestionnaire de projet</h3>
+						<ul>
+							<li>Outil simple et souple</li>
+							<li>Qui puisse être utilisé par tous</li>
+							<li>Qui pourra être utilisé tout au long du projet</li>
+							<li>Qui permet de visualiser notre avancement rapidement</li>
+						</ul>
+				</section>
 				<section data-transition="none">
 						<h3>Utilisation de Trello</h3>
 						<img class="trello" src="img/trello/trello1.png"/>
@@ -227,33 +236,54 @@
 						<img class="trello" src="img/trello/trello5.png"/>
 				</section>
 
-
-				<!-- TDD PART -->
 				<section>
-						<h3>TDD - Test Driven Development</h3>
-						<h4>Tests de l'API REST</h4>
+						<h3>Communication d'équipe</h3>
 						<ul>
-							<li class="checked">Choix de la technologie : Frisby.js</li>
-							<ul>
-								<li class="justification">Facilité d'utilisation, surcouche de jasmine-node</li>
-								<li	class="justification">Ses fonctions «expectJSON()» sont intéressantes.</li><br/>
-							</ul>
-							<li class="checked">Test de  validité des types de données JSON fournis par l’API</li><br/>
-							<li class="checked">Test de l’existence des données «product» et «question»</li>
+							<li>Outil simple et multiplateforme</li>
+							<li>Relié avec nos différents services</li>
+							<li>Qui permet de simplifier la communication entre nous</li>
+							<li>Qui permet de nous informer au moindre changement de l'application</li>
 						</ul>
 				</section>
 				<section>
-						<h4>Tests fonctionnels</h4>
+						<h3>Utilisation de Slack</h3>
+						<img class="trello" src="img/slack.png"/>
+				</section>
+			</section>
+
+			<!-- Tests & Integration Continue -->
+			<section>
+				<section data-background="img/tests.jpg">
+					<blockquote>
+						Tests et Intégration Continue
+					</blockquote>
+				</section>
+				<section>
+						<h3>TDD - Test Driven Development</h3>
+						<h4 class="fragment">Tests de l'API REST</h4>
 						<ul>
-							<li class="checked">Choix de la technologie : Casper.js</li>
+							<li class="fragment" class="checked">Choix de la technologie : Frisby.js</li>
 							<ul>
-								<li class="justification">Tester le contenu de la page Web</li>
-								<li class="justification">Remplir et soumettre des formulaires</li>
-								<li	class="justification">Cliquer et suivre les liens...</li><br/>
+								<li class="fragment" class="justification">Facilité d'utilisation, surcouche de jasmine-node</li>
+								<li	class="fragment" class="justification">Ses fonctions «expectJSON()» sont intéressantes.</li><br/>
 							</ul>
-							<li class="checked">Test d’un scénario complet d’utilisation (réponse aux questions, inscription à a liste d’attente, ajout de produit au panier, vérification de la liste d’attente côté seller)</li><br/>
-							<li class="checked">Test pour que chaque suite de questions mène à une recommandation produit</li><br/>
-							<li class="checked">Test du nombre de réponses pour chaque donnée «question»</li>
+							<li class="fragment" class="checked">Test de  validité des types de données JSON fournis par l’API</li><br/>
+							<li class="fragment" class="checked">Test de l’existence des données «product» et «question»</li>
+						</ul>
+				</section>
+				<section>
+						<h3>TDD - Test Driven Development</h3>
+						<h4 class="fragment">Tests fonctionnels</h4>
+						<ul>
+							<li class="fragment" class="checked">Choix de la technologie : Casper.js</li>
+							<ul>
+								<li class="fragment" class="justification">Tester le contenu de la page Web</li>
+								<li class="fragment" class="justification">Remplir et soumettre des formulaires</li>
+								<li class="fragment" class="justification">Cliquer et suivre les liens...</li><br/>
+							</ul>
+							<li class="fragment" class="checked">Test d’un scénario complet d’utilisation (réponse aux questions, inscription à a liste d’attente, ajout de produit au panier, vérification de la liste d’attente côté seller)</li><br/>
+							<li class="fragment" class="checked">Test pour que chaque suite de questions mène à une recommandation produit</li><br/>
+							<li class="fragment" class="checked">Test du nombre de réponses pour chaque donnée «question»</li>
 						</ul>
 				</section>
 
@@ -261,14 +291,14 @@
 				<section>
 						<h3>Intégration continue</h3>
 						<ul>
-							<li class="checked">Un service d'intégration continue : Travis CI</li><br/>
+							<li class="fragment" class="checked">Un service d'intégration continue : Travis CI</li><br/>
 							<ul>
-								<li>Travis permet :</li><br/>
+								<li class="fragment">Travis permet :</li><br/>
 								<ul>
-									<li class="justification">Quoi : d’automatiser des tâches de tests ou de déploiement d’un projet.</li><br/>
-									<li class="justification">Où : dans des environnements à chaque fois vierges.</li><br/>
-									<li	class="justification">Quand : après un envoi de code sur le serveur.</li><br/>
-									<li	class="justification">Comment : en préparant l’environnement (dépendances, données de tests…), en clonant le projet, en extrayant les fichiers et en lançant des commandes spécifiques.</li>
+									<li class="fragment" class="justification">Quoi : d’automatiser des tâches de tests ou de déploiement d’un projet.</li><br/>
+									<li class="fragment" class="justification">Où : dans des environnements à chaque fois vierges.</li><br/>
+									<li	class="fragment" class="justification">Quand : après un envoi de code sur le serveur.</li><br/>
+									<li	class="fragment" class="justification">Comment : en préparant l’environnement (dépendances, données de tests…).</li>
 								</ul>
 							</ul>
 						</ul>
@@ -276,12 +306,12 @@
 				<section>
 						<h3>Intégration continue</h3>
 						<ul>
-							<li class="checked">Un service de cloud computing : Heroku</li><br/>
+							<li class="fragment" class="checked">Un service de cloud computing : Heroku</li><br/>
 							<ul>
-								<li>Heroku permet :</li><br/>
+								<li class="fragment">Heroku permet :</li><br/>
 								<ul>
-									<li class="justification">Le déploiement très rapide d'applications web dans le cloud.</li><br/>
-									<li class="justification">Lorsque Travis exécute les tests, le déploiement sur heroku n'est effectué que si les tests passent.</li>
+									<li class="fragment" class="justification">Le déploiement très rapide d'applications web dans le cloud.</li><br/>
+									<li class="fragment" class="justification">Lorsque Travis exécute les tests, le déploiement sur heroku n'est effectué que si les tests passent.</li>
 								</ul>
 							</ul>
 						</ul>
@@ -299,28 +329,12 @@
 						<img class="integration" src="img/integration3.png"><br/>
 				</section>
 			</section>
-
-
 			<!-- ARCHITECTURE PART -->
+			<section data-background="img/architecture.jpg">
+				<blockquote>Quels sont nos choix d'architecture ?</blockquote>
+			</section>
+
 			<section>
-				<section data-background="img/architecture.jpg">
-					<blockquote>Quels sont nos choix d'architecture ?</blockquote>
-				</section>
-				<section data-transition="none">
-					<img class="archiTechno" src="img/simple.png"/>
-				</section>
-				<section data-transition="none">
-					<img class="archiTechno" src="img/ionic.png"/>
-				</section>
-				<section data-transition="none">
-					<img class="archiTechno" src="img/node.png"/>
-				</section>
-				<section data-transition="none">
-					<img class="archiTechno" src="img/mongo.png"/>
-				</section data-transition="none">
-				<section data-transition="none">
-					<img class="archiTechno" src="img/firebase.png"/>
-				</section>
 
 				<!-- RECOMENDATION ENGINE (DB + API) PART -->
 				<section data-background="img/recoEngine.jpg">
@@ -356,7 +370,6 @@
 					<h3>Modélisation des données</h3>
 					<br/>
 					<h4>Schémas</h4>
-
 				</section>
 
 				<section data-transition="none">
@@ -417,6 +430,13 @@
 
 				</section>
 
+			</section>
+
+			<section>
+				<section data-background="img/server.jpg">
+					<blockquote>Accès au données</blockquote>
+				</section>
+
 				<section>
 					<h3>Le jeu de données</h3>
 					<br/>
@@ -437,6 +457,19 @@
 				</section>
 
 				<section>
+					<h3>Moteur de recommandations génerique</h3>
+					<br/>
+
+
+				</section>
+			</section>
+
+			<section>
+				<section data-background="img/queue.jpg">
+					<blockquote>Gestion de la file d'attente</blockquote>
+				</section>
+
+				<section>
 					<h3>Notre besoin :</h3>
 					<ul>
 						<li class="fragment">Partager les données du client au le vendeur</li>
@@ -453,7 +486,7 @@
 					<ul>
 						<li class="fragment">Serveur et base de donnée</li>
 						<li class="fragment">Synchronise les données en temps réel</li>
-						<li class="fragment">Donne acces aux données via API</li>
+						<li class="fragment">Donne accès aux données via API</li>
 						<li class="fragment">Interface d'administration simple et puissante</li>
 						<li class="fragment">Très bonne intégration avec Angular.JS et donc ionic</li>
 					</ul>
@@ -505,12 +538,41 @@
 			</section>
 
 			<section>
+				<section data-background="img/dev.jpg">
+					<blockquote>Outils de développement</blockquote>
+				</section>
+				<section>
+					<h3>Gestion des librairies</h3>
+					<img class="noborder" src="img/bower.png" style="margin:.6em;" width="200px">
+					<img class="noborder" src="img/npm.png" style="margin:.6em;" width="200px">
+					<p>Installation des dépendances</p>
+					<p>Mise a jour des librairies</p>
+				</section>
+				<section>
+					<h3>Lisibilité du code</h3>
+					<br/>
+					<ul>
+						<li class="fragment">Feuille de style simplifiées en utilisant Sass</li>
+						<li class="fragment">Architecture cohérente du javascript et utilisation de template grâce Angular.js</li>
+						<li class="fragment">Simplification des routes de l'API grâce au framework node-restful</li>
+					</ul>
+				</section>
+				<section>
+					<h3>Automatisation</h3>
+					<img class="noborder" src="img/gulp.png" style="margin:.6em;" width="150px">
+					<p>Compile le Sass en CSS automatiquement</p>
+					<p>Lance les installations des dependances via npm et bower</p>
+				</section>
+			</section>
+
+			<section>
 				<section data-background="img/future.jpg">
 					<blockquote>Avenir du produit</blockquote>
 				</section>
 				<section>
-					<img width="40%"src="img/pistolet.jpg"><br/>
+					<img class="noborder" width="60%"src="img/scanpistol.png"><br/>
 					<ul>
+						<li>Scanners distribués en magasin</li>
 						<li>Démocratisation de l'application</li>
 					</ul>
 				</section>
@@ -553,6 +615,7 @@
 			progress: true,
 			history: true,
 			center: true,
+			slideNumber: true,
 
 			theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
 			transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
