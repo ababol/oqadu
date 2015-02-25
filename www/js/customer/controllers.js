@@ -261,6 +261,13 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
         $rootScope.registered = true;
       });
       $scope.syncQueue.$watch(function(e){
+        console.log(e);
+        if(e.event == "child_removed" && e.key == $scope.getUserKey()){
+          $rootScope.registered = false;
+          return;
+        }
+
+
         var userIndex = $scope.syncQueue.$indexFor($scope.getUserKey());
         var pos = userIndex + 1;
         $scope.waitlistPosition = transformPositionToString(pos);
@@ -291,7 +298,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
             ]
           })
           .then(function(res) {
-            if(!res) {
+            if(res) {
               $scope.unregisterQueue();
             }
           });
@@ -315,6 +322,7 @@ angular.module('starter.controllers', ['Helper', 'firebase'])
       });
     }
   };
+
 })
 
 .controller('CartCtrl', function($scope, $q, utils, Products) {
