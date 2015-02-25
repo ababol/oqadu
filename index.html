@@ -458,6 +458,27 @@
 						<li class="fragment">Très bonne intégration avec Angular.JS et donc ionic</li>
 					</ul>
 				</section>
+				<section>
+					<h3>Firebase dans OQADU</h3>
+					<br/>
+					<p>Synchronise les tableau de file d'attente avec l'app du vendeur</p>
+					<pre><code class="fsharp">
+	//Se connecte a la file d'attente du rayon
+	var ref = new Firebase("https://oqadu.firebaseio.com/" + queue + "/queue");
+	var sync = $firebase(ref);
+
+	//Recupere le tableau de file d'attente, toujours à jours
+	$scope.syncQueue = sync.$asArray();
+					</code></pre>
+					<br/>
+					<p>Permet d'écouter des evenements sur la file d'atente</p>
+					<pre><code class="fsharp">
+	//Permet de lancer des fonctions sur des evenements
+	$scope.syncQueue.$watch(function(e){
+			  console.log("Changement dans la file d'attente")
+	});
+					</code></pre>
+				</section>
 
 			</section>
 
