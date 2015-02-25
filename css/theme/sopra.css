@@ -263,3 +263,9 @@ img.trello{
   border-width: 0px !important;
   box-shadow: 0 0 0 !important;
 }
+
+.reveal .slide-number{
+  font-size: 1.2em;
+  left: 15px;
+  right: auto;
+}
