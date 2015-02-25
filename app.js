@@ -5,7 +5,7 @@ var restful = require('node-restful'),
     express = require('express'),
     http = require('http');
 
-mongoose.connect('mongodb://public:public@ds045011.mongolab.com:45011/oqadu2');
+mongoose.connect('mongodb://127.0.0.1:27017/oqadu2');
 
 app = express();
 
