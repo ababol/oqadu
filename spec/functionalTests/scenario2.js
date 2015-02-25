@@ -1,8 +1,8 @@
 /*Scenario 2: check if there are recommendations for each sequence of possible questions*/
 
 //var path = "http://oqadu.herokuapp.com";
-var path = "http://localhost:3000";
-//var path = "www";
+//var path = "http://localhost:3000";
+var path = "www";
 
 var isBack = false;
 
