@@ -141,27 +141,27 @@
 			<section class="imgdix imgbg" data-transition="fade">
 			</section>
 			<section>
-				<section id="htc-one">
-					<div class="device">
-						<div class="camera"></div>
-						<div class="sensor"></div>
-						<div class="speaker"></div>
-						<div class="inner"></div>
-						<div class="screen">
-							<iframe src="customer.html" style="position: absolute;" width="320px" height="568px" allowtransparency="true" frameborder="0"></iframe>
-						</div>
+				<section>
+					<div class="marvel-device htc-one">
+				    <div class="top-bar"></div>
+				    <div class="camera"></div>
+				    <div class="sensor"></div>
+				    <div class="speaker"></div>
+				    <div class="screen">
+							<iframe src="customer.html" width="320px" height="568px" allowtransparency="true" frameborder="0"></iframe>
+				    </div>
 					</div>
 				</section>
 
-				<section id="ipad" class="landscape black">
-					<div class="device">
-						<div class="inner"></div>
-						<div class="home"></div>
-						<div class="camera"></div>
-						<div class="screen">
-							<iframe src="http://oqadu.herokuapp.com/seller.html" style="position: absolute;" width="768px" height="577px" allowtransparency="true" frameborder="0"></iframe>
-						</div>
+				<section style="margin-left: -66px;">
+					<div class="marvel-device ipad white landscape">
+				    <div class="camera"></div>
+				    <div class="screen">
+							<iframe src="http://oqadu.herokuapp.com/seller.html" width="900px" height="575px" allowtransparency="true" frameborder="0"></iframe>
+				    </div>
+				    <div class="home"></div>
 					</div>
+
 				</section>
 			</section>
 
@@ -260,53 +260,40 @@
 				</section>
 				<section>
 						<h3>TDD - Test Driven Development</h3>
-						<h4 class="fragment">Tests de l'API REST</h4>
+						<h4 class="fragment">Tests de l'API REST</h4><br/>
+						<h5 class="fragment">Frisby.js</h5>
 						<ul>
-							<li class="fragment" class="checked">Choix de la technologie : Frisby.js</li>
-							<ul>
 								<li class="fragment" class="justification">Facilité d'utilisation, surcouche de jasmine-node</li>
-								<li	class="fragment" class="justification">Ses fonctions «expectJSON()» sont intéressantes.</li><br/>
-							</ul>
-							<li class="fragment" class="checked">Test de  validité des types de données JSON fournis par l’API</li><br/>
-							<li class="fragment" class="checked">Test de l’existence des données «product» et «question»</li>
-						</ul>
+								<li	class="fragment" class="justification">Ses fonctions «expectJSON()» sont intéressantes.</li>
 				</section>
 				<section>
 						<h3>TDD - Test Driven Development</h3>
-						<h4 class="fragment">Tests fonctionnels</h4>
+						<h4 class="fragment">Tests fonctionnels</h4><br/>
+						<h5 class="fragment">Casper.js</h5>
 						<ul>
-							<li class="fragment" class="checked">Choix de la technologie : Casper.js</li>
-							<ul>
-								<li class="fragment" class="justification">Tester le contenu de la page Web</li>
-								<li class="fragment" class="justification">Remplir et soumettre des formulaires</li>
-								<li class="fragment" class="justification">Cliquer et suivre les liens...</li><br/>
-							</ul>
-							<li class="fragment" class="checked">Test d’un scénario complet d’utilisation (réponse aux questions, inscription à a liste d’attente, ajout de produit au panier, vérification de la liste d’attente côté seller)</li><br/>
-							<li class="fragment" class="checked">Test pour que chaque suite de questions mène à une recommandation produit</li><br/>
-							<li class="fragment" class="checked">Test du nombre de réponses pour chaque donnée «question»</li>
+							<li class="fragment" class="justification">Tester le contenu de la page Web</li>
+							<li class="fragment" class="justification">Remplir et soumettre des formulaires</li>
+							<li class="fragment" class="justification">Cliquer et suivre les liens...</li>
 						</ul>
 				</section>
 
 				<!-- INTEGRATION CONTINUE PART -->
 				<section>
-						<h3>Intégration continue</h3>
+						<h3>Intégration continue</h3><br/>
+						<h4 class="fragment">Travis CI</h4>							
 						<ul>
-							<li class="fragment" class="checked">Un service d'intégration continue : Travis CI</li><br/>
+							<li class="fragment">Travis permet :</li><br/>
 							<ul>
-								<li class="fragment">Travis permet :</li><br/>
-								<ul>
-									<li class="fragment" class="justification">Quoi : d’automatiser des tâches de tests ou de déploiement d’un projet.</li><br/>
-									<li class="fragment" class="justification">Où : dans des environnements à chaque fois vierges.</li><br/>
-									<li	class="fragment" class="justification">Quand : après un envoi de code sur le serveur.</li><br/>
-									<li	class="fragment" class="justification">Comment : en préparant l’environnement (dépendances, données de tests…).</li>
-								</ul>
+								<li class="fragment" class="justification">Quoi : d’automatiser des tâches de tests ou de déploiement d’un projet.</li><br/>
+								<li class="fragment" class="justification">Où : dans des environnements à chaque fois vierges.</li><br/>
+								<li	class="fragment" class="justification">Quand : après un envoi de code sur le serveur.</li><br/>
+								<li	class="fragment" class="justification">Comment : en préparant l’environnement (dépendances, données de tests…).</li>
 							</ul>
 						</ul>
 				</section>
 				<section>
-						<h3>Intégration continue</h3>
-						<ul>
-							<li class="fragment" class="checked">Un service de cloud computing : Heroku</li><br/>
+						<h3>Intégration continue</h3><br/>
+						<h4 class="fragment">Heroku</h4>
 							<ul>
 								<li class="fragment">Heroku permet :</li><br/>
 								<ul>
@@ -314,7 +301,6 @@
 									<li class="fragment" class="justification">Lorsque Travis exécute les tests, le déploiement sur heroku n'est effectué que si les tests passent.</li>
 								</ul>
 							</ul>
-						</ul>
 				</section>
 				<section data-transition="none">
 						<h3>Intégration continue</h3>
@@ -346,7 +332,7 @@
 					<br/>
 					<h4>No-Sql</h4>
 					<ul>
-						<li class="fragment">Performences</li>
+						<li class="fragment">Performances</li>
 						<li class="fragment">Redondance des données</li>
 						<li class="fragment">
 							<p>Scalabilité<span class ="fragment"> :</span></p>
@@ -366,41 +352,54 @@
 					</ul>
 				</section>
 
-				<section>
+				<section data-transition="none">
 					<h3>Modélisation des données</h3>
 					<br/>
 					<h4>Schémas</h4>
+					<img class="noborder" src="img/schemas - 1.png"/>
+				</section>
+				<section data-transition="none">
+					<h3>Modélisation des données</h3>
+					<br/>
+					<h4>Schémas</h4>
+					<img class="noborder" src="img/schemas - 2.png"/>
+				</section>
+				<section data-transition="none">
+					<h3>Modélisation des données</h3>
+					<br/>
+					<h4>Schémas</h4>
+					<img class="noborder" src="img/schemas - 3.png"/>
 				</section>
 
 				<section data-transition="none">
 					<h3>API</h3>
 					<br/>
 					<h4>Pourquoi?</h4>
-					<img src="img/ApiDefinition-1.png"/>
+					<img class="noborder" src="img/ApiDefinition-1.png"/>
 				</section>
 				<section data-transition="none">
 					<h3>API</h3>
 					<br/>
 					<h4>Pourquoi?</h4>
-					<img src="img/ApiDefinition-2.png"/>
+					<img class="noborder" src="img/ApiDefinition-2.png"/>
 				</section data-transition="none">
 				<section data-transition="none">
 					<h3>API</h3>
 					<br/>
 					<h4>Pourquoi?</h4>
-					<img src="img/ApiDefinition-3.png"/>
+					<img class="noborder" src="img/ApiDefinition-3.png"/>
 				</section>
 				<section data-transition="none">
 					<h3>API</h3>
 					<br/>
 					<h4>Pourquoi?</h4>
-					<img  src="img/ApiDefinition-4.png"/>
+					<img class="noborder"  src="img/ApiDefinition-4.png"/>
 				</section>
 				<section data-transition="none">
 					<h3>API</h3>
 					<br/>
 					<h4>Pourquoi?</h4>
-					<img src="img/ApiDefinition-5.png"/>
+					<img class="noborder" src="img/ApiDefinition-5.png"/>
 				</section>
 
 				<section>
@@ -519,21 +518,32 @@
 				<section data-background="img/application.png">
 					<blockquote>Design & UI</blockquote>
 				</section>
-				<section data-transition="none" >
-					<h3>Ionic!</h3>
-					<img src="img/whyionic.png" style="border:0;box-shadow: none;">
+				<section>
+					<img src="img/ionic_logo.svg" width="300" class="noborder">
 				</section>
 				<section data-transition="none" >
 					<h3>La puissance de:</h3>
-					<img src="img/ionicdef0.png" style="border:0;box-shadow: none;">
+					<img src="img/ionicdef0.png" class="noborder">
 				</section>
 				<section data-transition="none" >
 					<h3>La puissance de:</h3>
-					<img src="img/ionicdef1.png" style="border:0;box-shadow: none;">
+					<img src="img/ionicdef1.png" class="noborder">
 				</section>
 				<section data-transition="none">
 					<h3>La puissance de:</h3>
-					<img src="img/ionicdef2.png" style="border:0;box-shadow: none;">
+					<img src="img/ionicdef2.png" class="noborder">
+				</section>
+				<section>
+					<h3>Cordova</h3>
+					<img src="img/whyionic.png" class="noborder">
+				</section>
+				<section>
+					<h3>Angular</h3>
+					<ul>
+						<li class="fragment">Framework maintenu par Google</li>
+						<li class="fragment">MVC</li>
+						<li class="fragment"><b>Toolbox pour build des applications web</b></li>
+					</ul>
 				</section>
 			</section>
 
