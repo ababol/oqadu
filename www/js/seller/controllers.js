@@ -19,7 +19,16 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
     $scope.showLeftMenu = val;
   }
   $scope.setSeller = function(seller){
+    $scope.currentID = null;
     $scope.seller = seller;
+    var ref = new Firebase("https://oqadu.firebaseio.com/"+$scope.seller.shelf+"/queue");
+    var sync = $firebase(ref);
+    $scope.syncQueue = sync.$asArray();
+    $scope.syncQueue.$watch(function(ev){
+      if($scope.currentID != null)
+        $scope.customer = $scope.syncQueue[$scope.currentID];
+    });
+
   }
   $scope.hideLoader = function() {
     $ionicLoading.hide();
@@ -49,9 +58,9 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
     $scope.syncQueue.$save($scope.currentID);
   };
 
-  $scope.initSeller = function(id){
+  $scope.initSeller = function(seller){
     $scope.currentID = null;
-    $scope.seller = Sellers.get(id);
+    $scope.seller = seller;
     var ref = new Firebase("https://oqadu.firebaseio.com/"+$scope.seller.shelf+"/queue");
     var sync = $firebase(ref);
     $scope.syncQueue = sync.$asArray();
@@ -76,7 +85,7 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
       }, 1000, true);
     }
   }
-  $scope.initSeller(0);
+  $scope.initSeller($scope.seller);
 
   $scope.deleteUser = function(index){
     $scope.syncQueue.$remove(index).then(function(){
