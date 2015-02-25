@@ -274,3 +274,7 @@ img.noborder{
   left: 15px;
   right: auto;
 }
+
+.reveal li{
+  margin: .3em 0 !important;
+}
