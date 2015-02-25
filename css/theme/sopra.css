@@ -264,13 +264,17 @@ img.trello{
   box-shadow: 0 0 0 !important;
 }
 
+img.noborder{
+  border-width: 0px !important;
+  box-shadow: 0 0 0 !important;
+}
+
 .reveal .slide-number{
   font-size: 1.2em;
   left: 15px;
   right: auto;
 }
 
-img.logo{
-  border-width: 0px !important;
-  box-shadow: 0 0 0 !important;
+.reveal li{
+  margin: .3em 0 !important;
 }
