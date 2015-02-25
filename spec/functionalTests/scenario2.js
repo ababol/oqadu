@@ -1,8 +1,8 @@
 /*Scenario 2: check if there are recommendations for each sequence of possible questions*/
 
 //var path = "http://oqadu.herokuapp.com";
-//var path = "http://localhost:3000";
-var path = "www";
+var path = "http://localhost:3000";
+//var path = "www";
 
 var isBack = false;
 
@@ -44,7 +44,6 @@ var testQuestions = function(self, Lenght, i) {
             self.echo("click back");
             isBack = true;
             casper.wait(1000, function(){
-              self.capture('test1.png');
             });
           }, function timeout() {
         this.echo("temps dépassé").exit();
@@ -67,7 +66,6 @@ var loopFor = function(self, Lenght, i){
                 secureClick(self, '.return');
                 self.echo("click back");
                 casper.wait(1000, function(){
-                  self.capture('test2.png');
                 });
               };
         });
