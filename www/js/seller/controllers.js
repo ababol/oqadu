@@ -134,6 +134,8 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
 })
 
 .controller('CartCtrl', function($scope, $q, Products, utils) {
+  if(!$scope.customer.cart)
+    $scope.customer.cart =[];
   var cart = $scope.customer.cart;
   utils.getCartDetails($scope, $q, Products, utils, cart);
   var arraysEqual = function(arr1, arr2) {
@@ -145,21 +147,16 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
     }
     return true;
   };
-  $scope.syncQueue.$watch(function(e){
-    var k = $scope.syncQueue.$keyAt($scope.getCurrentID());
-    if(e.event == "child_changed" && e.key == k){
-      if(cart && $scope.customer.cart && !arraysEqual(cart, $scope.customer.cart)){
-        cart = $scope.customer.cart;
-        utils.getCartDetails($scope, $q, Products, utils, cart);
-      }
+  $scope.$watch('customer.cart', function(){
+    if(cart && $scope.customer.cart && !arraysEqual(cart, $scope.customer.cart)){
+      cart = $scope.customer.cart;
+      $scope.products = [];
+      utils.getCartDetails($scope, $q, Products, utils, cart);
     }
-  });
+  }, true);
 
   $scope.removeProductFromCart = function(productId){
-    console.log($scope.syncQueue[$scope.getCurrentID()].cart);
-    console.log(productId);
     var index = cart.indexOf(productId);
-    console.log(index);
     $scope.syncQueue[$scope.getCurrentID()].cart.splice(index, 1);
     $scope.syncQueue.$save($scope.getCurrentID());
   }
