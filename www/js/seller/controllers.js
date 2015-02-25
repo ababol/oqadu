@@ -136,11 +136,22 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
 .controller('CartCtrl', function($scope, $q, Products, utils) {
   var cart = $scope.customer.cart;
   utils.getCartDetails($scope, $q, Products, utils, cart);
+  var arraysEqual = function(arr1, arr2) {
+    if(arr1.length !== arr2.length)
+      return false;
+    for(var i = arr1.length; i--;) {
+      if(arr1[i] !== arr2[i])
+        return false;
+    }
+    return true;
+  };
   $scope.syncQueue.$watch(function(e){
     var k = $scope.syncQueue.$keyAt($scope.getCurrentID());
     if(e.event == "child_changed" && e.key == k){
-      cart = $scope.customer.cart;
-      utils.getCartDetails($scope, $q, Products, utils, cart);
+      if(cart && $scope.customer.cart && !arraysEqual(cart, $scope.customer.cart)){
+        cart = $scope.customer.cart;
+        utils.getCartDetails($scope, $q, Products, utils, cart);
+      }
     }
   });
 
