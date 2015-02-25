@@ -231,29 +231,30 @@
 				<!-- TDD PART -->
 				<section>
 						<h3>TDD - Test Driven Development</h3>
-						<h4>Tests de l'API REST</h4>
+						<h4 class="fragment">Tests de l'API REST</h4>
 						<ul>
-							<li class="checked">Choix de la technologie : Frisby.js</li>
+							<li class="fragment" class="checked">Choix de la technologie : Frisby.js</li>
 							<ul>
-								<li class="justification">Facilité d'utilisation, surcouche de jasmine-node</li>
-								<li	class="justification">Ses fonctions «expectJSON()» sont intéressantes.</li><br/>
+								<li class="fragment" class="justification">Facilité d'utilisation, surcouche de jasmine-node</li>
+								<li	class="fragment" class="justification">Ses fonctions «expectJSON()» sont intéressantes.</li><br/>
 							</ul>
-							<li class="checked">Test de  validité des types de données JSON fournis par l’API</li><br/>
-							<li class="checked">Test de l’existence des données «product» et «question»</li>
+							<li class="fragment" class="checked">Test de  validité des types de données JSON fournis par l’API</li><br/>
+							<li class="fragment" class="checked">Test de l’existence des données «product» et «question»</li>
 						</ul>
 				</section>
 				<section>
-						<h4>Tests fonctionnels</h4>
+						<h3>TDD - Test Driven Development</h3>
+						<h4 class="fragment">Tests fonctionnels</h4>
 						<ul>
-							<li class="checked">Choix de la technologie : Casper.js</li>
+							<li class="fragment" class="checked">Choix de la technologie : Casper.js</li>
 							<ul>
-								<li class="justification">Tester le contenu de la page Web</li>
-								<li class="justification">Remplir et soumettre des formulaires</li>
-								<li	class="justification">Cliquer et suivre les liens...</li><br/>
+								<li class="fragment" class="justification">Tester le contenu de la page Web</li>
+								<li class="fragment" class="justification">Remplir et soumettre des formulaires</li>
+								<li class="fragment" class="justification">Cliquer et suivre les liens...</li><br/>
 							</ul>
-							<li class="checked">Test d’un scénario complet d’utilisation (réponse aux questions, inscription à a liste d’attente, ajout de produit au panier, vérification de la liste d’attente côté seller)</li><br/>
-							<li class="checked">Test pour que chaque suite de questions mène à une recommandation produit</li><br/>
-							<li class="checked">Test du nombre de réponses pour chaque donnée «question»</li>
+							<li class="fragment" class="checked">Test d’un scénario complet d’utilisation (réponse aux questions, inscription à a liste d’attente, ajout de produit au panier, vérification de la liste d’attente côté seller)</li><br/>
+							<li class="fragment" class="checked">Test pour que chaque suite de questions mène à une recommandation produit</li><br/>
+							<li class="fragment" class="checked">Test du nombre de réponses pour chaque donnée «question»</li>
 						</ul>
 				</section>
 
@@ -261,14 +262,14 @@
 				<section>
 						<h3>Intégration continue</h3>
 						<ul>
-							<li class="checked">Un service d'intégration continue : Travis CI</li><br/>
+							<li class="fragment" class="checked">Un service d'intégration continue : Travis CI</li><br/>
 							<ul>
-								<li>Travis permet :</li><br/>
+								<li class="fragment">Travis permet :</li><br/>
 								<ul>
-									<li class="justification">Quoi : d’automatiser des tâches de tests ou de déploiement d’un projet.</li><br/>
-									<li class="justification">Où : dans des environnements à chaque fois vierges.</li><br/>
-									<li	class="justification">Quand : après un envoi de code sur le serveur.</li><br/>
-									<li	class="justification">Comment : en préparant l’environnement (dépendances, données de tests…), en clonant le projet, en extrayant les fichiers et en lançant des commandes spécifiques.</li>
+									<li class="fragment" class="justification">Quoi : d’automatiser des tâches de tests ou de déploiement d’un projet.</li><br/>
+									<li class="fragment" class="justification">Où : dans des environnements à chaque fois vierges.</li><br/>
+									<li	class="fragment" class="justification">Quand : après un envoi de code sur le serveur.</li><br/>
+									<li	class="fragment" class="justification">Comment : en préparant l’environnement (dépendances, données de tests…), en clonant le projet, en extrayant les fichiers et en lançant des commandes spécifiques.</li>
 								</ul>
 							</ul>
 						</ul>
@@ -276,12 +277,12 @@
 				<section>
 						<h3>Intégration continue</h3>
 						<ul>
-							<li class="checked">Un service de cloud computing : Heroku</li><br/>
+							<li class="fragment" class="checked">Un service de cloud computing : Heroku</li><br/>
 							<ul>
-								<li>Heroku permet :</li><br/>
+								<li class="fragment">Heroku permet :</li><br/>
 								<ul>
-									<li class="justification">Le déploiement très rapide d'applications web dans le cloud.</li><br/>
-									<li class="justification">Lorsque Travis exécute les tests, le déploiement sur heroku n'est effectué que si les tests passent.</li>
+									<li class="fragment" class="justification">Le déploiement très rapide d'applications web dans le cloud.</li><br/>
+									<li class="fragment" class="justification">Lorsque Travis exécute les tests, le déploiement sur heroku n'est effectué que si les tests passent.</li>
 								</ul>
 							</ul>
 						</ul>
