@@ -22,6 +22,8 @@
                   ng-class="(getInTheCart(product._id) > -1) ? 'ion-ios7-cart' : 'ion-ios7-cart-outline'">
               {{product.price}}€
             </span>
+            <br/>
+            <button class="button-icon icon ion-ios7-arrow-back button back-button" onclick="window.history.back()"> Back</button>
           </div>
           <div class="col-50 right no-padding-side">
             <span class="fakebutton grey">
