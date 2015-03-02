@@ -17,19 +17,7 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
   };
   $scope.setLeftMenu = function(val){
     $scope.showLeftMenu = val;
-  }
-  $scope.setSeller = function(seller){
-    $scope.currentID = null;
-    $scope.seller = seller;
-    var ref = new Firebase("https://oqadu.firebaseio.com/"+$scope.seller.shelf+"/queue");
-    var sync = $firebase(ref);
-    $scope.syncQueue = sync.$asArray();
-    $scope.syncQueue.$watch(function(ev){
-      if($scope.currentID != null)
-        $scope.customer = $scope.syncQueue[$scope.currentID];
-    });
-
-  }
+  };
   $scope.hideLoader = function() {
     $ionicLoading.hide();
   };
@@ -205,7 +193,7 @@ angular.module('starter.controllers', ['Helper', 'firebase', 'highcharts-ng'])
     User.login(data.username, data.password).then(function(user) {
       console.log(user)
       $location.path("/tab/user");
-      $scope.setSeller(user.data);
+      $scope.initSeller(user.data);
       $scope.setLeftMenu(true);
     }).catch(function(err) {
       $scope.error = err.data;
