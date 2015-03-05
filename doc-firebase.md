@@ -89,3 +89,36 @@ Les évenemements peuvent être :
 
 ### Créer une alternative à Firebase :
 
+Firebase nous a rendu un grand service dans ce projet car on a pu gagner beaucoup de temps en l'utilisant. 
+Par contre au delà d'un prototype, si le projet est utilisé en production, il faudra payer ce service car dans sa version gratuite nous sommes limités en nombre de requêtes quotidiennes. 
+
+#### Comment créer son propre firebase :
+
+##### Serveur:
+
+La solution que nous proposons serait de faire un serveur node.js Afin de pouvoir communiquer avec toutes les applications.
+Il faut ensuite traiter les données et donc les stocker localement.
+Pour cela nous pourrions utiliser le framework JavaScript backbone.js qui a l'avantage de très bien gérer les collections.
+Les collections sont comme des tableaux Javascript seulement ils possèdent beaucoup de méthodes très utiles pour les manipuler et ils nous impose que chaque éléments héritent du même backbone model.
+On pourra dans notre cas décrire le backbone model comme un objet utilisateur.
+Nous devrions donc créer une collection par file d'attente.
+
+##### Base de donnée :
+
+Le but est maintenant de sauvegarder  ces collections d'utilisateurs dans une base de donnée et de maintenir cette base de donnee à jour. 
+Pour cela le plus simple serait d'utiliser mongoDB qui est une base de donnee noSQL s'intégrant plutôt bien avec un serveur node.js.
+Chaque collections backbone va correspondre à une collection mondoDB.
+Backbone.js va pouvoir nous faciliter la vie car en surchargeant une méthode `Backbone.sync` nous pouvons faire en sorte que les données soient en permanence synchronisé avec la bas de donnee.
+En effet il nous faut simplement réécrire les fonction d'ajout, lecture, modification et suppression de données afin que cela mette à jour la base de donnee.
+Ainsi lorsque la file d'attente est modifié alors la collection en base de données de donnee l'est aussitôt.
+
+##### Synchronisation avec les apps : 
+
+Le dernier morceau de puzzle est la fonctionnalité qui permettrait de mettre à jour les applications des clients et vendeurs en temps réel.
+Pour cela il faudrait utiliser une librairie javascript appelée socket.io. Elle utilise des websockets afin de faire transiter des données sur internet dans le sens client-serveur mais aussi serveur-client et permet donc de notifier le client.
+Socket.io propose aussi de se connecter à des “room” correspondent à des listes de diffusion. Dans notre cas on pourrait creer une room par rayon et donc chaque "room" modifirait la collection backbone.js qui lui est associée en fonctions des messages qui lui sont envoyé.
+Les collections Backbone.js permettent aussi d'ecouter des evenements. Ainsi Pour que toute les applications soient a jour en temps réel, a chaque fois qu'une collection est modifiée on peut broadcaster la modification a toute les applications qui sont connéctée a la "room" correspondante.
+
+##### Cout de cette alternative :
+
+Nous estimons que cette implementation d'une alternative à firebase prendrait 3 jours-homme. Pour simplifier le travail voici un projet qui est assez proche et dont s'inspire cette solution : `https://github.com/ababol/ScaleWS`.
