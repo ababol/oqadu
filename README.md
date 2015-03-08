@@ -3,17 +3,16 @@ OQADU by Bricodata
 [![Build Status](https://travis-ci.org/ababol/oqadu.svg)](https://travis-ci.org/ababol/oqadu)
 
 ###[Slides](http://ababol.github.io/oqadu)
-> Mobile application (queue manager) made for [Leroy Merlin](http://www.leroymerlin.fr/) for a Hackathon followed by 2 weekend of coding.
+> Mobile application (queue manager) made for [Leroy Merlin](http://www.leroymerlin.fr/) (School Project)
 
-# Getting started
+# How to run OQADU?
 
-## API
+```bash
+npm install
+npm start
+```
 
-1. Make sure you have [node installed](http://nodejs.org/).
-2. Make sure you have access to a [mongoDB](https://www.mongodb.org/) database.
-3. Import [our dumped mongo db](https://raw.githubusercontent.com/ababol/oqadu/master/doc/dump_oqadu.zip) (just extract the zip and run `mongorestore`).
-4. Install the dependencies by running `npm install`.
-5. Launch the node server by running `node app`.
+The database is hosted on MongoLab (Rackspace) and Firebase.
 
 ## [Customer Application](https://oqadu.herokuapp.com/customer.html)
 
